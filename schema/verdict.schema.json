@@ -1,41 +1,31 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "verdict.schema.json",
-  "title": "Verdict",
-  "description": "Вердикт судьи по одной контр-строке оракула. hash — инвалидация при изменении предиката или модели шага.",
-  "type": "object",
-  "additionalProperties": false,
-  "required": [
-    "id",
-    "oracle",
-    "line",
-    "hash",
-    "verdict"
-  ],
-  "properties": {
-    "id": {
-      "$ref": "common.schema.json#/definitions/uuid"
-    },
-    "oracle": {
-      "$ref": "common.schema.json#/definitions/uuid"
-    },
-    "line": {
-      "$ref": "common.schema.json#/definitions/text"
-    },
-    "hash": {
-      "type": "string",
-      "pattern": "^[0-9a-f]{40}$"
-    },
-    "verdict": {
-      "type": "string",
-      "enum": [
-        "independent",
-        "negation",
-        "unobservable"
-      ]
-    },
-    "reason": {
-      "$ref": "common.schema.json#/definitions/text"
-    }
-  }
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "verdict.schema.json",
+	"title": "Verdict",
+	"description": "Вердикт судьи по одной контр-строке оракула. hash — инвалидация при изменении предиката или модели шага.",
+	"type": "object",
+	"additionalProperties": false,
+	"required": ["id", "oracle", "line", "hash", "verdict"],
+	"properties": {
+		"id": {
+			"$ref": "common.schema.json#/definitions/uuid"
+		},
+		"oracle": {
+			"$ref": "common.schema.json#/definitions/uuid"
+		},
+		"line": {
+			"$ref": "common.schema.json#/definitions/text"
+		},
+		"hash": {
+			"type": "string",
+			"pattern": "^[0-9a-f]{40}$"
+		},
+		"verdict": {
+			"type": "string",
+			"enum": ["independent", "negation", "unobservable"]
+		},
+		"reason": {
+			"$ref": "common.schema.json#/definitions/text"
+		}
+	}
 }

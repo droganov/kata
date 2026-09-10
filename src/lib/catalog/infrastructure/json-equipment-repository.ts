@@ -1,0 +1,27 @@
+import type { EquipmentRepository } from '../application/equipment-repository.ts';
+import type { Equipment } from '../domain/equipment.ts';
+import type { SchemaValidator } from './json-schema-validator.ts';
+
+import { readJsonArray } from './json-file.ts';
+
+const EQUIPMENT_SCHEMA_ID = 'equipment.schema.json';
+const ITEM_MARK = '#';
+
+export interface JsonEquipmentSource {
+	readonly file: string;
+	readonly validator: SchemaValidator;
+}
+
+export function createJsonEquipmentRepository(source: JsonEquipmentSource): EquipmentRepository {
+	return {
+		readAll: (): readonly Equipment[] =>
+			readJsonArray(source.file).map((item, at) => {
+				source.validator.assertValid(
+					EQUIPMENT_SCHEMA_ID,
+					item,
+					`${source.file}${ITEM_MARK}${String(at)}`
+				);
+				return item as Equipment;
+			})
+	};
+}

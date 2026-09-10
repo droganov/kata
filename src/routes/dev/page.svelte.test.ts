@@ -1,216 +1,156 @@
-import type { Bank, Day, Exercise } from '$lib/domain/model';
-
-import { beforeEach, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import { page } from 'vitest/browser';
 
+import type { DevPageData } from './dev-page.ts';
+
 import Page from './+page.svelte';
 
-const procedure = {
-	steps: [
+const DATA: DevPageData = {
+	banks: [
 		{
-			active: [],
-			oracles: [
+			slug: 'warmup',
+			title: 'Разминка (банк)',
+			zones: [
 				{
-					counterModel: ['живот выпирает'],
-					model: ['стопы на полу'],
-					predicate: 'Обе седалищные кости лежат на скамье'
-				}
-			],
-			title: 'Сесть на скамью'
-		},
-		{
-			active: ['tr_up'],
-			oracles: [
-				{
-					counterModel: ['онемение'],
-					model: ['корпус вертикален'],
-					predicate: 'Ухо у плеча'
-				}
-			],
-			title: 'Удержать 30 секунд'
-		}
-	]
-};
-const ex = (id: string, origin: 'base' | 'pool', axis: string, slot?: string): Exercise => ({
-	axis,
-	id,
-	name: `Упр ${id}`,
-	origin,
-	...(slot !== undefined && { slot }),
-	dose: '2×8',
-	equipment: [{ id: 'body', role: 'главное' }],
-	mode: 'dynamic',
-	procedure,
-	targets: [{ id: 'tr_up', role: 'основная' }]
-});
-const days: Day[] = [
-	{
-		axes: [
-			{
-				id: 'warmup',
-				slots: [
-					{
-						id: 'W_cervical',
-						items: [
-							{
-								dose: '8',
-								id: 'neck_rot',
-								images: [],
-								instructions: '',
-								name: 'Повороты'
-							}
-						],
-						kind: 'pool',
-						label: 'Шея · шейный отдел',
-						unit: 'контур',
-						zone: 'Шея'
-					},
-					{
-						id: 'K',
-						items: [
-							{ dose: '3×10', id: 'k1', images: [], instructions: '', name: 'K1' }
-						],
-						kind: 'pool',
-						label: 'Колено'
-					}
-				],
-				title: 'Разминка'
-			},
-			{
-				id: 'strength',
-				slots: [{ id: 'BASE', items: [], kind: 'base', label: 'БАЗА' }],
-				title: 'Силовой'
-			},
-			{
-				id: 'stretch',
-				slots: [{ id: 'BASE', items: [], kind: 'base', label: 'БАЗА' }],
-				title: 'Растяжка'
-			}
-		],
-		id: 'w1d1',
-		index: 1,
-		minutes: 60,
-		title: 'День 1'
-	}
-];
-const stretch: Bank = {
-	excluded: [],
-	zones: [
-		{
-			contours: [
-				{
-					bank: [
+					contours: [
 						{
-							dose: '2×30с/сторона',
-							equipment: [{ id: 'body', role: 'главное' }],
-							id: 'st_tr_upper',
-							name: 'Наклон головы',
-							procedure,
-							targets: [{ id: 'tr_up', role: 'основная' }]
+							exercises: [{ dose: '2×10', id: 'e1', name: 'Наклоны' }],
+							id: 'c1',
+							pick: 1,
+							title: 'шейный отдел'
 						},
-						{ dose: '1', id: 'st_no_proc', name: 'Без процедуры' }
+						{ exercises: [], id: 'c2', title: 'без выбора' }
 					],
-					id: 'tr_upper',
-					title: 'верхняя трапеция'
+					id: 'z1',
+					title: 'Шея'
+				}
+			]
+		}
+	],
+	exercises: {
+		e1: {
+			equipment: 'Тело — main',
+			id: 'e1',
+			name: 'Наклоны',
+			note: 'медленно',
+			prompt: 'PROMPT TEXT',
+			steps: [
+				{
+					active: 'Шея',
+					id: 's1',
+					oracles: [
+						{ counterModel: ['рывок'], id: 'o1', model: ['плавно'], predicate: 'темп' }
+					],
+					title: 'Наклон'
 				}
 			],
-			id: 'trap',
-			title: 'Трапеция'
+			targets: 'Шея — primary'
+		},
+		e2: { equipment: '', id: 'e2', name: 'Планка', steps: [], targets: '' }
+	},
+	program: { id: 'prog', title: 'Программа' },
+	sections: [
+		{
+			base: [{ dose: '30с', id: 'e2', name: 'Планка' }],
+			groups: [
+				{
+					id: 'slot-1',
+					slots: [
+						{
+							allowRepeat: true,
+							contourTitle: 'шейный отдел',
+							exercises: [
+								{ dose: '2×10', id: 'e1', name: 'Наклоны' },
+								{ dose: '', id: 'ghost', name: 'ghost' }
+							],
+							id: 'slot-1',
+							label: 'Шея',
+							pick: 1,
+							rule: 'без рывков'
+						}
+					],
+					zone: { id: 'z1', title: 'Шея' }
+				},
+				{
+					id: 'slot-2',
+					slots: [
+						{
+							allowRepeat: false,
+							exercises: [{ dose: '30с', id: 'e2', name: 'Планка' }],
+							id: 'slot-2',
+							label: 'Кор',
+							pick: 1
+						}
+					]
+				}
+			],
+			id: 'sec',
+			mode: 'dynamic',
+			slug: 'warmup',
+			title: 'Разминка'
 		}
 	]
 };
-const data = {
-	banks: { static: null, strength: null, stretch },
-	days,
-	equipment: [{ id: 'body', name: 'Тело' }],
-	exercises: [
-		ex('neck_rot', 'pool', 'warmup', 'W_cervical'),
-		ex('k1', 'pool', 'warmup', 'K'),
-		ex('glute_bridge_m', 'base', 'strength')
-	],
-	prompts: {
-		'plan:neck_rot': 'STORYBOARD — Повороты',
-		'stretch:st_tr_upper': 'STORYBOARD — Наклон головы'
-	},
-	targets: [{ id: 'tr_up', name: 'Трапеция верхняя' }]
-};
 
-beforeEach(() => {
-	sessionStorage.clear();
-	vi.restoreAllMocks();
-});
-
-it('разминка: зона → контур → упражнение → вкладки Процедура | Промпт', async () => {
-	const writeText = vi.spyOn(navigator.clipboard, 'writeText').mockResolvedValueOnce(undefined);
-	const screen = await render(Page, { data } as never);
-	await screen.getByText('Зона · Шея', { exact: false }).click();
-	await screen.getByText('Упр neck_rot').click();
-	await expect.element(screen.getByText('Активны: —')).toBeVisible();
-	await expect.element(screen.getByText('Активны: Трапеция верхняя')).toBeVisible();
-	await screen.getByRole('tab', { name: 'Промпт' }).click();
-	await expect.element(screen.getByText('STORYBOARD — Повороты')).toBeVisible();
-	await screen.getByRole('button', { name: 'Копировать' }).click();
-	await expect.element(screen.getByRole('button', { name: 'Скопировано' })).toBeVisible();
-	expect(writeText).toHaveBeenCalledWith('STORYBOARD — Повороты');
-	await expect
-		.element(screen.getByRole('button', { name: 'Копировать' }), { timeout: 3000 })
-		.toBeVisible();
-	await screen.getByRole('tab', { name: 'Процедура' }).click();
-	await expect.element(screen.getByText('Средства: Тело — главное')).toBeVisible();
-	await screen.getByText('Упр neck_rot').click();
-	expect(JSON.parse(sessionStorage.getItem('dev:open-slots') ?? '[]')).toEqual([
-		'warmup:W_cervical'
-	]);
-	await screen.getByText('Зона · Шея', { exact: false }).click();
-	expect(JSON.parse(sessionStorage.getItem('dev:open-slots') ?? '[]')).toEqual([]);
-});
-
-it('базовое упражнение раздела и хранилище, которое не пишет', async () => {
-	vi.spyOn(Storage.prototype, 'setItem').mockImplementationOnce(() => {
-		throw new Error('quota');
+describe('/dev', () => {
+	it('показывает программу, секции, группы и банки', async () => {
+		const screen = await render(Page, { data: DATA });
+		await expect
+			.element(screen.getByRole('heading', { level: 1 }))
+			.toHaveTextContent('Программа');
+		await expect.element(page.getByText('1. Разминка')).toBeVisible();
+		await expect.element(page.getByText('Зона · Шея').first()).toBeVisible();
+		await expect.element(page.getByText('ПУЛ · Кор — взять 1 из 1')).toBeVisible();
+		await expect.element(page.getByText('Разминка (банк)')).toBeVisible();
+		await expect.element(page.getByText('без выбора')).toBeInTheDocument();
 	});
-	const screen = await render(Page, { data } as never);
-	await screen.getByText('Упр glute_bridge_m').click();
-	await expect.element(screen.getByText('Средства: Тело — главное')).toBeVisible();
-	await screen.getByText('Зона · Шея', { exact: false }).click();
-	expect(sessionStorage.getItem('dev:open-slots')).toBeNull();
-	await expect.element(screen.getByText('Упр neck_rot')).not.toBeInTheDocument();
-});
 
-it('открытые зоны восстанавливаются из хранилища', async () => {
-	sessionStorage.setItem('dev:open-slots', '["warmup:W_cervical"]');
-	const screen = await render(Page, { data } as never);
-	await expect.element(screen.getByText('Упр neck_rot')).toBeVisible();
-});
+	it('раскрывает зону: контур, правило, повтор, упражнения', async () => {
+		await render(Page, { data: DATA });
+		await page.getByText('Зона · Шея').first().click();
+		await expect.element(page.getByText('шейный отдел — взять 1 из 2')).toBeVisible();
+		await expect.element(page.getByText('Правило: без рывков')).toBeVisible();
+		await expect.element(page.getByText('повтор в ротации разрешён')).toBeVisible();
+		await page.getByText('ghost').click();
+		await expect.element(page.getByText('упражнения нет в банках')).toBeVisible();
+	});
 
-it('слот без зоны и упражнение без промпта', async () => {
-	const screen = await render(Page, { data } as never);
-	await screen.getByText('Колено — взять 1 из 1', { exact: false }).click();
-	await screen.getByText('Упр k1').click();
-	await screen.getByRole('tab', { name: 'Промпт' }).click();
-	await expect.element(screen.getByText('промпта нет')).toBeVisible();
-});
+	it('показывает процедуру: средства, цели, заметку, шаги и оракулы', async () => {
+		await render(Page, { data: DATA });
+		await page.getByText('Зона · Шея').first().click();
+		await page.getByText('Наклоны').first().click();
+		await expect.element(page.getByText('Средства: Тело — main').first()).toBeVisible();
+		await expect.element(page.getByText('Цели: Шея — primary').first()).toBeVisible();
+		await expect.element(page.getByText('Заметка: медленно').first()).toBeVisible();
+		await expect.element(page.getByText('Активны: Шея').first()).toBeVisible();
+		await expect.element(page.getByText('плавно').first()).toBeVisible();
+		await expect.element(page.getByText('рывок').first()).toBeVisible();
+	});
 
-it('банк растяжки: контур, процедура, промпт, «процедуры нет»', async () => {
-	const screen = await render(Page, { data } as never);
-	await screen.getByText('Зона · Трапеция', { exact: false }).click();
-	await screen.getByText('Наклон головы').click();
-	await expect.element(screen.getByText('Обе седалищные кости лежат на скамье')).toBeVisible();
-	await screen.getByRole('tab', { name: 'Промпт' }).click();
-	await expect.element(screen.getByText('STORYBOARD — Наклон головы')).toBeVisible();
-	await screen.getByText('Без процедуры').click();
-	await expect.element(screen.getByText('процедуры нет')).toBeVisible();
-});
+	it('база без процедуры и промпта говорит об этом', async () => {
+		await render(Page, { data: DATA });
+		await page.getByText('Планка').first().click();
+		await expect.element(page.getByText('процедуры нет').first()).toBeVisible();
+		await page.getByLabelText('Промпт').first().click();
+		await expect.element(page.getByText('промпта нет').first()).toBeVisible();
+	});
 
-it('копирование при недоступном буфере не падает; повреждённое хранилище игнорируется', async () => {
-	sessionStorage.setItem('dev:open-slots', '{bad');
-	vi.spyOn(navigator.clipboard, 'writeText').mockRejectedValueOnce(new Error('denied'));
-	const screen = await render(Page, { data } as never);
-	await screen.getByText('Зона · Шея', { exact: false }).click();
-	await screen.getByText('Упр neck_rot').click();
-	await screen.getByRole('tab', { name: 'Промпт' }).click();
-	await screen.getByRole('button', { name: 'Копировать' }).click();
-	await expect.element(screen.getByRole('button', { name: 'Копировать' })).toBeVisible();
-	expect(page).toBeDefined();
+	it('копирует промпт и сообщает об отказе буфера', async () => {
+		const writeText = vi.spyOn(navigator.clipboard, 'writeText');
+		writeText.mockResolvedValueOnce();
+		await render(Page, { data: DATA });
+		await page.getByText('Зона · Шея').first().click();
+		await page.getByText('Наклоны').first().click();
+		await page.getByLabelText('Промпт').first().click();
+		await expect.element(page.getByText('PROMPT TEXT').first()).toBeVisible();
+		const button = page.getByRole('button', { name: 'Копировать' }).first();
+		await button.click();
+		expect(writeText).toHaveBeenCalledWith('PROMPT TEXT');
+		await expect.element(page.getByRole('button', { name: 'Скопировано' })).toBeVisible();
+		writeText.mockRejectedValueOnce(new Error('denied'));
+		await page.getByRole('button', { name: 'Скопировано' }).click();
+		await expect.element(page.getByRole('button', { name: 'Не скопировано' })).toBeVisible();
+		writeText.mockRestore();
+	});
 });

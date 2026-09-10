@@ -12,67 +12,115 @@ import svelte from 'eslint-plugin-svelte';
 import unicorn from 'eslint-plugin-unicorn';
 import { defineConfig, includeIgnoreFile } from 'eslint/config';
 import globals from 'globals';
+import fs from 'node:fs';
 import path from 'node:path';
 import ts from 'typescript-eslint';
 
 const gitignorePath = path.resolve(import.meta.dirname, '.gitignore');
 
 const SVELTE_FILES = ['**/*.svelte', '**/*.svelte.ts', '**/*.svelte.js'];
-const ROUTE_LOAD_FILES = ['src/routes/**/+page.ts', 'src/routes/**/+layout.ts'];
+const ROUTE_LOAD_FILES = [
+	'src/routes/**/+page.ts',
+	'src/routes/**/+page.server.ts',
+	'src/routes/**/+layout.ts',
+	'src/routes/**/+layout.server.ts',
+	'src/routes/**/+server.ts'
+];
 const TEST_FILES = ['src/**/*.test.ts'];
 const CONFIG_FILES = ['*.config.{js,ts}', 'eslint.config.js'];
 const SVELTEKIT_EXPORT_NAMES = '^(ssr|csr|prerender|trailingSlash|load|actions|entries|config)$';
 
-const LAYERS = [
-	{ type: 'domain', pattern: 'src/lib/domain' },
-	{ type: 'application', pattern: 'src/lib/application' },
-	{ type: 'infrastructure', pattern: 'src/lib/infrastructure' },
-	{ type: 'ui', pattern: 'src/lib/ui' },
-	{ type: 'assets', pattern: 'src/lib/assets' },
+const CAPSULES = ['program', 'exercise', 'catalog', 'storyboard'];
+const LAYERS = ['domain', 'application', 'infrastructure', 'interface'];
+const SHARED_KERNEL_MAX_FILES = 8;
+const group = (names) => `(${names.join('|')})`;
+
+const ELEMENTS = [
+	{
+		type: 'layer',
+		pattern: `src/lib/${group(CAPSULES)}/${group(LAYERS)}`,
+		capture: ['capsule', 'layer']
+	},
+	{ type: 'shared', pattern: 'src/lib/shared' },
 	{ type: 'routes', pattern: 'src/routes' },
 	{ type: 'test-support', pattern: 'src/test' }
 ];
 
 const FILE_CATEGORIES = [
 	{ category: 'test', pattern: TEST_FILES },
-	{ category: 'route-load', pattern: ROUTE_LOAD_FILES },
-	{ category: 'route-view', pattern: 'src/routes/**/*.svelte' },
-	{ category: 'route-style', pattern: 'src/routes/**/*.css' },
 	{ category: 'app', pattern: ['src/app.d.ts', 'src/app.html'] }
 ];
 
-const toLayers = (...types) => [{ to: { element: { types: { anyOf: types } } } }];
-const toFiles = (category) => ({ to: { file: { categories: category } } });
+const sameCapsuleLayers = (...layers) => ({
+	to: {
+		element: {
+			type: 'layer',
+			captured: { capsule: '{{ from.element.captured.capsule }}', layer: layers }
+		}
+	}
+});
+const otherCapsuleApplication = {
+	to: {
+		element: {
+			type: 'layer',
+			captured: {
+				capsule: '!{{ from.element.captured.capsule }}',
+				layer: 'application'
+			}
+		}
+	}
+};
+const anyCapsuleLayers = (...layers) => ({
+	to: { element: { type: 'layer', captured: { layer: layers } } }
+});
+const toShared = { to: { element: { type: 'shared' } } };
+const fromLayer = (layer) => ({ element: { type: 'layer', captured: { layer } } });
 
 const DEPENDENCY_POLICIES = [
-	{ from: { element: { type: 'domain' } }, allow: toLayers('domain') },
-	{ from: { element: { type: 'application' } }, allow: toLayers('domain', 'application') },
+	{ from: fromLayer('domain'), allow: [sameCapsuleLayers('domain'), toShared] },
 	{
-		from: { element: { type: 'infrastructure' } },
-		allow: toLayers('domain', 'application', 'infrastructure')
-	},
-	{ from: { element: { type: 'ui' } }, allow: toLayers('domain', 'application', 'ui', 'assets') },
-	{
-		from: { file: { categories: 'route-load' } },
-		allow: toLayers('domain', 'application', 'infrastructure')
+		from: fromLayer('application'),
+		allow: [sameCapsuleLayers('domain', 'application'), otherCapsuleApplication, toShared]
 	},
 	{
-		from: { file: { categories: 'route-view' } },
+		from: fromLayer('infrastructure'),
 		allow: [
-			...toLayers('domain', 'application', 'ui', 'assets'),
-			toFiles('route-style'),
-			toFiles('route-load')
+			sameCapsuleLayers('domain', 'application', 'infrastructure'),
+			otherCapsuleApplication,
+			toShared
 		]
 	},
 	{
-		from: { file: { categories: 'test' } },
-		allow: toLayers('domain', 'application', 'infrastructure', 'ui', 'routes', 'test-support')
+		from: fromLayer('interface'),
+		allow: [
+			sameCapsuleLayers('domain', 'application', 'infrastructure', 'interface'),
+			otherCapsuleApplication,
+			toShared
+		]
+	},
+	{ from: { element: { type: 'shared' } }, allow: [toShared] },
+	{
+		from: { element: { type: 'routes' } },
+		allow: [
+			anyCapsuleLayers('application', 'interface'),
+			toShared,
+			{ to: { element: { type: 'routes' } } }
+		]
 	},
 	{
 		from: { element: { type: 'test-support' } },
-		allow: toLayers('routes', 'domain', 'application', 'ui')
+		allow: [anyCapsuleLayers('interface'), toShared, { to: { element: { type: 'routes' } } }]
 	},
-	{ disallow: toFiles('test') }
+	{
+		from: { file: { categories: 'test' } },
+		allow: [
+			{ to: { element: { type: 'layer' } } },
+			toShared,
+			{ to: { element: { type: 'routes' } } },
+			{ to: { element: { type: 'test-support' } } }
+		]
+	},
+	{ disallow: { to: { file: { categories: 'test' } } } }
 ];
 
 const NAMING = [
@@ -158,8 +206,153 @@ const noMagicStrings = {
 	}
 };
 
+const DOMAIN_PUBLIC_API = {
+	catalog: [
+		'Bank',
+		'BankSlug',
+		'Catalog',
+		'Equipment',
+		'EquipmentKind',
+		'Finding',
+		'Target',
+		'TargetGroup',
+		'TargetKind',
+		'bankRecords',
+		'rulesForBank'
+	],
+	exercise: [
+		'CorePlane',
+		'EquipmentRef',
+		'Exercise',
+		'ExerciseConstraints',
+		'ExerciseGoal',
+		'ExerciseMode',
+		'ExerciseRecord',
+		'Finding',
+		'HipPlane',
+		'Oracle',
+		'Procedure',
+		'Source',
+		'Step',
+		'TargetRef',
+		'Verdict',
+		'counterLineKey',
+		'exerciseInvariants',
+		'exerciseIssues',
+		'exerciseSubject',
+		'findingsOf',
+		'independentHashesOf',
+		'mainEquipmentIdsOf',
+		'mergeVerdicts',
+		'sourceIdsOf',
+		'stepPredicatesOf',
+		'verdictHashText'
+	],
+	program: [
+		'Finding',
+		'PlanExercise',
+		'PlanExercises',
+		'PlanTarget',
+		'Program',
+		'Session',
+		'User',
+		'ContourLocator',
+		'SectionOutline',
+		'SlotOutline',
+		'programPlanOf',
+		'rulesForProgram',
+		'sectionOutlinesOf',
+		'sessionsOf'
+	],
+	storyboard: ['Prompt', 'PromptCatalog', 'promptOf']
+};
+
+const LIB_ALIAS = '$lib/';
+const DOMAIN_PATH = /src\/lib\/(?<capsule>[a-z]+)\/domain(?:\/|$)/;
+
+const domainCapsuleOf = (absolutePath) => DOMAIN_PATH.exec(absolutePath)?.groups?.capsule;
+
+const resolveImport = (importerPath, source) => {
+	if (source.startsWith(LIB_ALIAS))
+		return path.join(import.meta.dirname, 'src/lib', source.slice(LIB_ALIAS.length));
+	return source.startsWith('.') ? path.resolve(path.dirname(importerPath), source) : null;
+};
+
+const aggregateRootOnly = {
+	meta: {
+		type: 'problem',
+		messages: {
+			namespace:
+				'Из domain капсулы «{{capsule}}» снаружи нельзя брать всё: только корни агрегатов из манифеста',
+			hidden: '«{{name}}» не входит в публичный API domain капсулы «{{capsule}}» (DOMAIN_PUBLIC_API)'
+		}
+	},
+	create(context) {
+		const importer = context.filename;
+		const importerCapsule = domainCapsuleOf(importer);
+		return {
+			ImportDeclaration(node) {
+				const target = resolveImport(importer, node.source.value);
+				if (target === null) return;
+				const capsule = domainCapsuleOf(target);
+				if (capsule === undefined || capsule === importerCapsule) return;
+				const allowed = new Set(DOMAIN_PUBLIC_API[capsule]);
+				for (const specifier of node.specifiers) {
+					if (specifier.type !== 'ImportSpecifier') {
+						context.report({
+							data: { capsule },
+							messageId: 'namespace',
+							node: specifier
+						});
+						continue;
+					}
+					const name = specifier.imported.name ?? specifier.imported.value;
+					if (!allowed.has(name))
+						context.report({
+							data: { capsule, name },
+							messageId: 'hidden',
+							node: specifier
+						});
+				}
+			}
+		};
+	}
+};
+
+const SHARED_DIR = path.join(import.meta.dirname, 'src/lib/shared');
+const countSourceFiles = (dir) =>
+	fs
+		.readdirSync(dir, { recursive: true, withFileTypes: true })
+		.filter((entry) => entry.isFile() && !entry.name.endsWith('.test.ts')).length;
+
+const sharedKernelSmall = {
+	meta: {
+		type: 'problem',
+		messages: {
+			tooBig: 'Shared kernel: {{count}} файлов, лимит {{max}} — «Keep this kernel small»'
+		}
+	},
+	create(context) {
+		if (!context.filename.startsWith(SHARED_DIR)) return {};
+		return {
+			Program(node) {
+				const count = countSourceFiles(SHARED_DIR);
+				if (count > SHARED_KERNEL_MAX_FILES) {
+					context.report({
+						data: { count, max: SHARED_KERNEL_MAX_FILES },
+						messageId: 'tooBig',
+						node
+					});
+				}
+			}
+		};
+	}
+};
+
 const selfDescribingCode = {
 	rules: {
+		'aggregate-root-only': aggregateRootOnly,
+		'shared-kernel-small': sharedKernelSmall,
 		'no-magic-strings': noMagicStrings,
 		'no-comments': {
 			meta: {
@@ -188,7 +381,9 @@ const selfDescribingCode = {
 
 export default defineConfig(
 	includeIgnoreFile(gitignorePath),
-	{ ignores: ['static/**', 'data/**', 'tools/**', 'tests/**', 'schema/**', 'coverage/**'] },
+	{
+		ignores: ['static/**', 'data/**', 'schema/**', 'coverage/**']
+	},
 
 	js.configs.recommended,
 	ts.configs.strictTypeChecked,
@@ -215,13 +410,15 @@ export default defineConfig(
 		},
 		plugins: { boundaries, 'check-file': checkFile, local: selfDescribingCode },
 		settings: {
-			'boundaries/elements': LAYERS,
+			'boundaries/elements': ELEMENTS,
 			'boundaries/files': FILE_CATEGORIES,
 			'boundaries/ignore': CONFIG_FILES,
 			'import-x/resolver': { typescript: { project: './tsconfig.json' } },
 			'import/resolver': { typescript: { project: './tsconfig.json' } }
 		},
 		rules: {
+			'local/aggregate-root-only': 'error',
+			'local/shared-kernel-small': 'error',
 			'local/no-comments': 'error',
 			'local/no-magic-strings': 'error',
 			'@typescript-eslint/no-magic-numbers': [
@@ -270,6 +467,7 @@ export default defineConfig(
 			'import-x/no-unresolved': 'off',
 			'import-x/order': 'off',
 
+			'regexp/no-obscure-range': ['error', { allowed: ['alphanumeric', 'а-я', 'А-Я'] }],
 			'sonarjs/cognitive-complexity': ['error', 12],
 			'sonarjs/no-duplicate-string': 'off',
 
@@ -320,6 +518,10 @@ export default defineConfig(
 	{
 		files: ROUTE_LOAD_FILES,
 		rules: { 'unicorn/consistent-boolean-name': 'off' }
+	},
+	{
+		files: ['src/lib/*/interface/cli/**'],
+		rules: { 'no-console': 'off', 'unicorn/no-process-exit': 'off' }
 	},
 
 	{

@@ -1,0 +1,1251 @@
+[
+	{
+		"id": "01a0889d-3852-7051-a039-c9778729a468",
+		"slug": "body",
+		"name": "Тело",
+		"canon_en": "Bodyweight",
+		"kind": "body",
+		"exercises": [
+			"01a0889d-3851-7468-b94f-0e0365b0548b",
+			"01a0889d-388b-77b4-ae3d-5e4644a203e9",
+			"01a0889d-38b8-7e11-bfa1-6cf8cc29fbfa",
+			"01a0889d-38e3-70f2-9c37-84262503f144",
+			"01a0889d-391e-75dd-97d5-d44c84dabdb6",
+			"01a0889d-395c-79ac-b96c-32eaee32db30",
+			"01a0889d-398d-7691-8a6d-1e3eb19f4aed",
+			"01a0889d-39bd-7a4f-b780-4e3b89cb7b32",
+			"01a0889d-39ef-76d8-a50f-4f7d6748285d",
+			"01a0889d-3a1d-7012-acf6-cb7e0ada0917",
+			"01a0889d-3a4a-7dc3-a71c-ce027250e73f",
+			"01a0889d-3a79-7c51-8e10-183934b4a283",
+			"01a0889d-3aaa-7b09-8435-b7a9d61e2a5d",
+			"01a0889d-3adc-74a3-89cd-0159f4eba342",
+			"01a0889d-3b0c-77b6-91b9-6a830b98c88e",
+			"01a0889d-3b3f-73c9-908c-9750a1ef480d",
+			"01a0889d-3b71-77ec-b668-66d4816a8cb3",
+			"01a0889d-3ba3-77d7-8e85-0a1881e54f35",
+			"01a0889d-3bd5-7c65-b91b-2cb1b4631b08",
+			"01a0889d-3c08-7bc8-9a33-6b68bef7b4c2",
+			"01a0889d-3c3e-78da-b3f1-1c81d8bcf9a4",
+			"01a0889d-3c72-735f-9c50-a693bdf513a5",
+			"01a0889d-3ca5-750e-a8ed-9c678b9612de",
+			"01a0889d-3cd6-7b2f-9c44-9dc55f3ca5d5",
+			"01a0889d-3d02-73a1-857e-98042e701fec",
+			"01a0889d-3d31-7ae9-8b4c-a837208dd69c",
+			"01a0889d-3d57-7d2f-9d48-9e98815640da",
+			"01a0889d-3d86-7082-acbd-3139a7db005a",
+			"01a0889d-3db8-7c1e-ac6f-870acf94838c",
+			"01a0889d-3de7-7c2a-83c4-c4013124a6b5",
+			"01a0889d-3e11-7444-a128-c6ebdb38c260",
+			"01a0889d-3e42-7641-a915-b1077b617096",
+			"01a0889d-3e70-7ca6-9493-ec14d4969b7f",
+			"01a0889d-3e98-7090-8f79-4b2c77960c39",
+			"01a0889d-3ec6-716a-8353-99b66051b722",
+			"01a0889d-3ef0-753e-9061-481ae9a13492",
+			"01a0889d-3f1b-70e8-813f-6f2fa4c88a22",
+			"01a0889d-3f51-7977-8c75-aa7dc14b23aa",
+			"01a0889d-3f7b-7862-a70b-4a98a4583aa8",
+			"01a0889d-3fab-7eb9-b80e-57ecfea86d84",
+			"01a0889d-3fd9-730d-b479-4c5479c7e017",
+			"01a0889d-4017-794e-95cd-a5be2c3ca68c",
+			"01a0889d-4045-7b8f-b335-9caba7dc641c",
+			"01a0889d-406f-72ba-aa08-832bedfd1969",
+			"01a0889d-40a2-7b1f-9f76-e710696cce36",
+			"01a0889d-40d8-78d7-8459-1a5b9fed6e2d",
+			"01a0889d-40fc-766b-b2cd-df089ead2989",
+			"01a0889d-4129-78af-966c-c9165d4982e2",
+			"01a0889d-4168-7358-9cf8-238ed32e3d3f",
+			"01a0889d-41a4-7be9-b8fa-1a06ea69a4f3",
+			"01a0889d-41d3-7170-b153-ca7c147d77a1",
+			"01a0889d-4207-7e5f-ba31-ccbb6d5108ab",
+			"01a0889d-4239-70cb-9cd7-b1cabd2d4628",
+			"01a0889d-4262-7723-9864-4cd66d453e1b",
+			"01a0889d-428e-7bce-ab0b-12f417c981bf",
+			"01a0889d-42be-7dce-901c-8ef6e01ecd2a",
+			"01a0889d-42f2-79aa-a864-8d1bc89db223",
+			"01a0889d-4324-7068-8563-92732a0cd2e6",
+			"01a0889d-434f-7308-8b38-628c4547b05a",
+			"01a0889d-437b-755e-96b4-ac8d34254410",
+			"01a0889d-43a6-712f-8a97-de928717f59e",
+			"01a0889d-43d3-7a68-9264-db943a5ad42a",
+			"01a0889d-43f3-79c8-a44d-0fa828570ed3",
+			"01a0889d-451d-791b-8e72-a41b3accf890",
+			"01a0889d-4ab9-7f9f-863d-49fd5124ca0b",
+			"01a0889d-4bc8-7f72-ac4a-22535c2c282b",
+			"01a0889d-513a-7a07-a8fc-8b87e0cd0ea0",
+			"01a0889d-51a6-7569-9ec7-41ccafdb21ff",
+			"01a0889d-521f-7650-a59c-aec81739697b",
+			"01a0889d-55d4-7f80-965d-bd9f32c98eeb",
+			"01a0889d-57b7-710f-a33d-eb33f5453842",
+			"01a0889d-5b65-78b7-87a4-1cbb02ce8a13",
+			"01a0889d-5b98-7bcc-8d97-e040cb7b8c81",
+			"01a0889d-5cba-78af-a6e7-a0bc381f34a4",
+			"01a0889d-5cf4-7732-963d-8183391b5136",
+			"01a0889d-5ddb-78c2-b448-5342b2807d24",
+			"01a0889d-5f8a-7d34-b8b2-0154d4fbe2fb",
+			"01a0889d-6000-7466-95f5-8ecc456410c5",
+			"01a0889d-6023-7f54-8830-c01240182e1f",
+			"01a0889d-604f-78b8-94b5-58b8551e8efe",
+			"01a0889d-607b-7268-94fa-ad103f96eebe",
+			"01a0889d-609b-7454-adb4-5cd65cbf0a00",
+			"01a0889d-60be-7602-87a1-a9b507d0a31c",
+			"01a0889d-60e1-72a8-9685-d3a050153da4",
+			"01a0889d-6107-7b1f-a7ef-20378d9e8f05",
+			"01a0889d-61ff-7439-a6e3-702df64c56b8",
+			"01a0889d-6225-7022-bc19-6d5b82fa1660",
+			"01a0889d-6256-7787-bcd4-5d1804b63ae4",
+			"01a0889d-6282-788a-b6e6-6c1eeb980247",
+			"01a0889d-62a9-77d2-aa39-85a2abb60829",
+			"01a0889d-62d2-77f4-81ff-1f16b2c38262",
+			"01a0889d-62f6-7d08-87ae-1b951b80fda7",
+			"01a0889d-631c-781a-92cd-a2d5db701d4a",
+			"01a0889d-6349-7934-a190-5392a980b2f2",
+			"01a0889d-636a-75ad-a2cf-d93ca7bf2de0",
+			"01a0889d-6391-775e-a9f5-5290f80dd764",
+			"01a0889d-63b6-78e1-986e-1f60e4453caf",
+			"01a0889d-63d9-7471-9537-b165b6d64672",
+			"01a0889d-6402-703f-807d-3943e000618f",
+			"01a0889d-6480-77f6-b210-ed0f260fa1e0",
+			"01a0889d-6499-781f-ab78-7b9b2409e8a0",
+			"01a0889d-64c2-7a91-a979-859983680a0d",
+			"01a0889d-64e9-76c8-aae2-6a52a2a3402c",
+			"01a0889d-6510-7c1b-8dbc-387d6cffa07c",
+			"01a0889d-6539-7bab-83e1-ca4446cf38be",
+			"01a0889d-679d-73f5-b6ee-40eb5d289e4e",
+			"01a0889d-67f2-7c3e-8055-867fa8f4ad38",
+			"01a0889d-6823-7ce8-a51d-060f6d986262",
+			"01a0889d-6849-7df5-a535-550aaa9f0437",
+			"01a0889d-6897-7209-bac6-ac1b444cd092",
+			"01a0889d-68c3-794e-bc00-1df4f7def667",
+			"01a0889d-697d-75fd-9a35-49b702b7e18a",
+			"01a0889d-69a3-7b34-aa8c-f29784ae269a",
+			"01a0889d-6a1c-7068-8fb7-f76dd4160266",
+			"01a0889d-6a6d-71c4-a264-0725fc244c12",
+			"01a0889d-6a93-7f98-9d37-67a631eb7137",
+			"01a0889d-6aba-745f-950f-521679dee42a",
+			"01a0889d-6add-7e55-98c3-458e49e5fbf6",
+			"01a0889d-6b23-7095-bc39-c502b2da8e46",
+			"01a0889d-6b4d-7b5c-b0a9-d0e8ff6517e7",
+			"01a0889d-6b74-7f18-8538-149cb697e0a6",
+			"01a0889d-6b97-74fd-85b4-fff47c2f5b26",
+			"01a0889d-6bbb-7d0b-ab01-b9040d8f2989",
+			"01a0889d-6be4-7708-8d7f-9823deeb51fb",
+			"01a0889d-6c09-7542-901e-704766e08142",
+			"01a0889d-6c22-76c2-8275-ffd2594223b1",
+			"01a0889d-6c55-7e0e-9886-c3b83e900b3e",
+			"01a0889d-6c7c-7473-bad6-eff91a6ec325",
+			"01a0889d-6ca3-761e-a74b-a71c8f2b9b09",
+			"01a0889d-6d04-77b6-b7b8-5330b9827791",
+			"01a0889d-6d30-798d-b1a1-73366c3b68ba",
+			"01a0889d-6d50-7f02-96c6-e4754fa99e51",
+			"01a0889d-6d6c-73d9-a281-846be2453b1c",
+			"01a0889d-6dcb-7782-ba79-d5b4d1b043c9",
+			"01a0889d-6df8-7aae-98bb-2efdcf2597fc",
+			"01a0889d-6e5d-7728-a766-737404715826",
+			"01a0889d-6e8a-758a-8ace-ae382e5e9d7c",
+			"01a0889d-6ea8-7428-88cb-7e8f0f42743b",
+			"01a0889d-6ed6-7c06-bcef-cfc731f4ae85",
+			"01a0889d-6efe-76af-9352-9f6e87a1f50b",
+			"01a0889d-6f63-7f40-a4cb-e64227337844",
+			"01a0889d-6f90-7d7c-a065-9270cd35ff3d",
+			"01a0889d-6fbe-73aa-aff6-89c7a93de015",
+			"01a0889d-6feb-7169-a461-8c6a8668df87",
+			"01a0889d-7017-7630-921a-240cf7520d51",
+			"01a0889d-7049-7eae-b620-9f726dab3bf5",
+			"01a0889d-7070-7342-b9b5-5a5c085560f0",
+			"01a0889d-70a2-7c05-a3b1-f3aa74ca2082",
+			"01a0889d-70fa-718f-99f4-52af0028833c",
+			"01a0889d-718b-7172-b8fc-d59d73cfe4f8",
+			"01a0889d-71be-75e0-9d1c-59300fff59c5",
+			"01a0889d-71ed-7823-8508-30ec7ad2931a",
+			"01a0889d-72b4-7c15-bde3-051b411a5cdf",
+			"01a0889d-72e7-7628-af19-1869e6f435ff",
+			"01a0889d-730c-7b05-8db4-a9b572a35997",
+			"01a0889d-733d-73e5-be80-27b507fbeed7",
+			"01a0889d-7369-7a2a-8273-f73b654ca892",
+			"01a0889d-738d-7e18-97ff-5f30d18809b4",
+			"01a0889d-73b8-734b-b346-bd716c79b72e",
+			"01a0889d-73d9-771f-b23e-df38b998542d",
+			"01a0889d-746f-7ffc-a6a9-85d541c0c79f",
+			"01a0889d-749c-7c9d-8927-b4d7c5528830",
+			"01a0889d-74ba-7531-9b31-33e76b00c73b",
+			"01a0889d-74de-766f-8787-bfa1b7c0c4a8",
+			"01a0889d-7508-71c5-9e2b-67287cd00f59",
+			"01a0889d-7562-7bd3-800c-fd812a66773f",
+			"01a0889d-7579-709c-af60-b682cfd44885",
+			"01a0889d-7592-7545-bc9f-1167cc62fb92",
+			"01a0889d-75bc-7683-8cec-0c4be5f7f235",
+			"01a0889d-75e5-7361-85e5-a195b5a6b420",
+			"01a0889d-7602-7ad4-a1bb-00602610d5ad",
+			"01a0889d-7616-7238-ae35-1d978f558439",
+			"01a0889d-7641-7cb4-b47a-d74bd2df3d72",
+			"01a0889d-766e-796d-865b-b4540d2a4c2a",
+			"01a0889d-76a3-7f30-abeb-b9b5a82049ba",
+			"01a0889d-76d6-7a67-b872-eb3c35d3fd55",
+			"01a0889d-770c-77ce-a0b9-3d7ee5bbff58",
+			"01a0889d-773a-70b3-931e-8424840f0fd6",
+			"01a0889d-776c-7c5d-9daa-6887e47a2eef",
+			"01a0889d-77a2-761a-ae24-df38bd675b74",
+			"01a0889d-77dd-7d47-a292-74c0d94a0ee3",
+			"01a0889d-7814-7b2a-9717-7cc83b200b0f",
+			"01a0889d-7843-7706-ad9c-dd68f6e28315",
+			"01a0889d-7876-7186-a330-8d7835a21a40",
+			"01a0889d-78a9-71b1-9641-3a8d3b47740d",
+			"01a0889d-78e4-7db5-8209-0157ba6d681b",
+			"01a0889d-791d-75bb-b0ee-d901b6685038",
+			"01a0889d-7962-7c7e-a9cc-bf9b3f8344b1",
+			"01a0889d-79a1-7f9b-b3e1-1a07b3d76e3c",
+			"01a0889d-79d4-7976-95ce-fa7d2196a10e",
+			"01a0889d-7a07-70f4-8695-22ac3573b14f",
+			"01a0889d-7a47-7aa5-aa35-0780c90112d1",
+			"01a0889d-7a83-7996-8944-5dd4cebe1642",
+			"01a0889d-7ab7-7472-90ab-c16aea850892",
+			"01a0889d-7ae6-7b30-85e1-00d8a2c7d59a",
+			"01a0889d-7b2c-71d6-a87f-7ae450d2fbd5",
+			"01a0889d-7b5f-7e81-aad8-61d8fb833f06",
+			"01a0889d-7b9b-72e0-9d45-1d77f49af5bb",
+			"01a0889d-7bcd-7646-b0f3-51eff1d1caad",
+			"01a0889d-7bf7-762c-857f-39d3c3052d92",
+			"01a0889d-7c28-7f20-9cd3-4e12a0e1a856",
+			"01a0889d-7c54-7a1f-93c6-d89fbcca992b",
+			"01a0889d-7c8a-7f72-9ef1-fcf4f136740e",
+			"01a0889d-7ccf-72ba-a98e-89cfc80e8bc4",
+			"01a0889d-7d16-7bb0-9c2a-7bca328fa631",
+			"01a0889d-7d45-7ac8-bdc8-b4841f398489",
+			"01a0889d-7d88-74d7-8954-75b6a66265f8",
+			"01a0889d-7db6-7065-9fde-bc78525fce98",
+			"01a0889d-7de8-7a95-ab73-f75df8069227",
+			"01a0889d-7e1e-7096-b280-f0059dacd9f8",
+			"01a0889d-7e51-7c24-8d7e-a9a096190739",
+			"01a0889d-7e84-7f3b-856d-894305f5185d",
+			"01a0889d-7ec6-7f89-9666-9f29522f5e92",
+			"01a0889d-7efe-79ff-8452-2029afa8350a",
+			"01a0889d-7f35-7d52-a290-ba65ddbd0855",
+			"01a0889d-7f6c-7137-8f60-befefe9c0ea6",
+			"01a0889d-7fa5-7a80-a07c-142f83f945a3",
+			"01a0889d-7fdd-75b8-a1b5-a8f1e83119c4",
+			"01a0889d-8013-72f3-ad2a-ccedf25272f9",
+			"01a0889d-804d-70fe-bd3e-d1466a7b7bb2",
+			"01a0889d-808e-7c3d-96b0-8e1ddb838b96",
+			"01a0889d-80c5-7f39-9836-de8ce030fc81",
+			"01a0889d-8107-7928-bbca-9ed6cb566b02",
+			"01a0889d-8144-79f2-897d-1c7a7222e063",
+			"01a0889d-817b-7714-bc62-58077c0028d0",
+			"01a0889d-81a9-71d0-9a61-145a52331fa2",
+			"01a0889d-81e4-7dce-bf54-e3620a248d21",
+			"01a0889d-820d-7c7b-9256-718d2c341397",
+			"01a0889d-8242-7670-afa8-f4ad66eecd66",
+			"01a0889d-8279-7fdd-865a-66c5f26d74ae",
+			"01a0889d-82b2-79ee-b608-a502da98b53f",
+			"01a0889d-82dc-7a87-805d-17a47113797f",
+			"01a0889d-8318-757e-b0e1-3519e15c2e0d",
+			"01a0889d-834d-70d9-badf-367f6810fa09",
+			"01a0889d-8380-71b3-95fe-4e46ffc77f2d",
+			"01a0889d-83ae-79b9-ae2c-d2550a1905f0",
+			"01a0889d-83e2-7bb7-9c12-f5d5c876e1a6",
+			"01a0889d-840e-7d75-98d5-e247bd776984",
+			"01a0889d-8444-7997-a963-32e5ae66d152",
+			"01a0889d-860b-7365-a9f3-abda23abb010",
+			"01a0889d-8647-7849-84bd-7b216747f902",
+			"01a0889d-8687-7f3e-8b99-f32e7765f019",
+			"01a0889d-8744-7591-aa69-3c17fe2d7a9f",
+			"01a0889d-87b3-7580-8dc6-bcb691769f2e",
+			"01a0889d-87d8-7f86-b06f-8b04c45673e7",
+			"01a0889d-8821-7638-b4e6-ccc3b108c617",
+			"01a0889d-8857-749b-aa36-ddfbcd3a0ff1",
+			"01a0889d-8882-7851-8092-c2837c319537",
+			"01a0889d-88be-7b8b-803c-b4877fda29ec",
+			"01a0889d-8904-7645-abfa-0f35caf96cf0",
+			"01a0889d-892d-7ed1-8622-077585db9d50",
+			"01a0889d-8958-7f49-b19d-47dfbba63ced",
+			"01a0889d-8986-7406-bf68-b000ae0f6e8e",
+			"01a0889d-89ba-7ec0-9902-7d2fb0655225",
+			"01a0889d-89f2-7ff8-9474-9741f94bf8fb",
+			"01a0889d-8a1b-7fac-949b-a7bcb6734828",
+			"01a0889d-8a54-71d4-b662-65fdfbdbab06",
+			"01a0889d-8a85-7cce-bea5-74aa067dd054",
+			"01a0889d-8ab1-75e0-90b3-a29527a6da8b"
+		]
+	},
+	{
+		"id": "01a0889d-3db9-78f2-8244-5fb412b94deb",
+		"slug": "floor",
+		"name": "Пол",
+		"canon_en": "Floor",
+		"kind": "environment",
+		"exercises": [
+			"01a0889d-3db8-7c1e-ac6f-870acf94838c",
+			"01a0889d-3e98-7090-8f79-4b2c77960c39",
+			"01a0889d-4423-7162-a9b4-f38de9ce3ea4",
+			"01a0889d-44a2-7699-87b4-2f8ea9377e64",
+			"01a0889d-451d-791b-8e72-a41b3accf890",
+			"01a0889d-495c-71b9-a6ef-75813c9f5e51",
+			"01a0889d-4ab9-7f9f-863d-49fd5124ca0b",
+			"01a0889d-4bc8-7f72-ac4a-22535c2c282b",
+			"01a0889d-513a-7a07-a8fc-8b87e0cd0ea0",
+			"01a0889d-516e-7d9c-ad0d-457201356910",
+			"01a0889d-51a6-7569-9ec7-41ccafdb21ff",
+			"01a0889d-521f-7650-a59c-aec81739697b",
+			"01a0889d-558d-74bf-998d-f1a16c3c525f",
+			"01a0889d-55d4-7f80-965d-bd9f32c98eeb",
+			"01a0889d-560e-7f09-a5d9-a33a91816293",
+			"01a0889d-563f-71f6-bec2-aafa1683e1be",
+			"01a0889d-5774-78ea-a600-22a6dd1f0805",
+			"01a0889d-57b7-710f-a33d-eb33f5453842",
+			"01a0889d-58bc-76fa-8fc5-f5ab13a79a4e",
+			"01a0889d-592d-7f5e-88ea-a6dad711e028",
+			"01a0889d-5b65-78b7-87a4-1cbb02ce8a13",
+			"01a0889d-5b98-7bcc-8d97-e040cb7b8c81",
+			"01a0889d-5cba-78af-a6e7-a0bc381f34a4",
+			"01a0889d-5cf4-7732-963d-8183391b5136",
+			"01a0889d-5d26-7262-bf03-540b8454fa41",
+			"01a0889d-5ddb-78c2-b448-5342b2807d24",
+			"01a0889d-5f47-7405-9190-dd2650886ef4",
+			"01a0889d-5f8a-7d34-b8b2-0154d4fbe2fb",
+			"01a0889d-6023-7f54-8830-c01240182e1f",
+			"01a0889d-604f-78b8-94b5-58b8551e8efe",
+			"01a0889d-609b-7454-adb4-5cd65cbf0a00",
+			"01a0889d-60be-7602-87a1-a9b507d0a31c",
+			"01a0889d-6107-7b1f-a7ef-20378d9e8f05",
+			"01a0889d-61ff-7439-a6e3-702df64c56b8",
+			"01a0889d-6225-7022-bc19-6d5b82fa1660",
+			"01a0889d-6256-7787-bcd4-5d1804b63ae4",
+			"01a0889d-6282-788a-b6e6-6c1eeb980247",
+			"01a0889d-62a9-77d2-aa39-85a2abb60829",
+			"01a0889d-631c-781a-92cd-a2d5db701d4a",
+			"01a0889d-6349-7934-a190-5392a980b2f2",
+			"01a0889d-636a-75ad-a2cf-d93ca7bf2de0",
+			"01a0889d-6391-775e-a9f5-5290f80dd764",
+			"01a0889d-63b6-78e1-986e-1f60e4453caf",
+			"01a0889d-642d-7bd7-8a0a-4d96b96dd09e",
+			"01a0889d-6456-726e-a22b-d8d62b2252ef",
+			"01a0889d-6480-77f6-b210-ed0f260fa1e0",
+			"01a0889d-6499-781f-ab78-7b9b2409e8a0",
+			"01a0889d-64c2-7a91-a979-859983680a0d",
+			"01a0889d-64e9-76c8-aae2-6a52a2a3402c",
+			"01a0889d-6510-7c1b-8dbc-387d6cffa07c",
+			"01a0889d-655d-7b5d-ad05-2ac43f262518",
+			"01a0889d-668d-71ea-9ee5-f29c76ea62bf",
+			"01a0889d-66e0-7309-9e08-7fd5a135c46c",
+			"01a0889d-6712-7a09-8509-dd96c74c5e88",
+			"01a0889d-676f-7385-88c2-7bfa03617b1c",
+			"01a0889d-679d-73f5-b6ee-40eb5d289e4e",
+			"01a0889d-67f2-7c3e-8055-867fa8f4ad38",
+			"01a0889d-6823-7ce8-a51d-060f6d986262",
+			"01a0889d-6849-7df5-a535-550aaa9f0437",
+			"01a0889d-6936-7cd3-b688-a2892b0f826d",
+			"01a0889d-697d-75fd-9a35-49b702b7e18a",
+			"01a0889d-69a3-7b34-aa8c-f29784ae269a",
+			"01a0889d-69c6-7138-bf20-3a37ab41e38a",
+			"01a0889d-6a1c-7068-8fb7-f76dd4160266",
+			"01a0889d-6a6d-71c4-a264-0725fc244c12",
+			"01a0889d-6aba-745f-950f-521679dee42a",
+			"01a0889d-6add-7e55-98c3-458e49e5fbf6",
+			"01a0889d-6b00-7332-b8da-4175825020e6",
+			"01a0889d-6b23-7095-bc39-c502b2da8e46",
+			"01a0889d-6b4d-7b5c-b0a9-d0e8ff6517e7",
+			"01a0889d-6b74-7f18-8538-149cb697e0a6",
+			"01a0889d-6b97-74fd-85b4-fff47c2f5b26",
+			"01a0889d-6bbb-7d0b-ab01-b9040d8f2989",
+			"01a0889d-6be4-7708-8d7f-9823deeb51fb",
+			"01a0889d-6c09-7542-901e-704766e08142",
+			"01a0889d-6c22-76c2-8275-ffd2594223b1",
+			"01a0889d-6c55-7e0e-9886-c3b83e900b3e",
+			"01a0889d-6c7c-7473-bad6-eff91a6ec325",
+			"01a0889d-6ca3-761e-a74b-a71c8f2b9b09",
+			"01a0889d-6cd2-7d43-85cb-2f83628954dc",
+			"01a0889d-6d04-77b6-b7b8-5330b9827791",
+			"01a0889d-6d30-798d-b1a1-73366c3b68ba",
+			"01a0889d-6d50-7f02-96c6-e4754fa99e51",
+			"01a0889d-6d6c-73d9-a281-846be2453b1c",
+			"01a0889d-6d9d-71c4-b7d6-2928f0538daa",
+			"01a0889d-6dcb-7782-ba79-d5b4d1b043c9",
+			"01a0889d-6e5d-7728-a766-737404715826",
+			"01a0889d-6e8a-758a-8ace-ae382e5e9d7c",
+			"01a0889d-6ea8-7428-88cb-7e8f0f42743b",
+			"01a0889d-6ed6-7c06-bcef-cfc731f4ae85",
+			"01a0889d-6fbe-73aa-aff6-89c7a93de015",
+			"01a0889d-6feb-7169-a461-8c6a8668df87",
+			"01a0889d-7017-7630-921a-240cf7520d51",
+			"01a0889d-718b-7172-b8fc-d59d73cfe4f8",
+			"01a0889d-71ed-7823-8508-30ec7ad2931a",
+			"01a0889d-7207-715a-b012-d145421d2769",
+			"01a0889d-7230-7cd2-8456-18271b9ecf3e",
+			"01a0889d-724b-750c-a937-90aa68eb5e9c",
+			"01a0889d-730c-7b05-8db4-a9b572a35997",
+			"01a0889d-73d9-771f-b23e-df38b998542d",
+			"01a0889d-740e-7377-afc0-60d61f433033",
+			"01a0889d-743e-797a-b051-d05f72655aca",
+			"01a0889d-74ba-7531-9b31-33e76b00c73b",
+			"01a0889d-75bc-7683-8cec-0c4be5f7f235",
+			"01a0889d-75e5-7361-85e5-a195b5a6b420",
+			"01a0889d-7876-7186-a330-8d7835a21a40",
+			"01a0889d-79a1-7f9b-b3e1-1a07b3d76e3c",
+			"01a0889d-7a83-7996-8944-5dd4cebe1642",
+			"01a0889d-7b5f-7e81-aad8-61d8fb833f06",
+			"01a0889d-7b9b-72e0-9d45-1d77f49af5bb",
+			"01a0889d-7bcd-7646-b0f3-51eff1d1caad",
+			"01a0889d-7bf7-762c-857f-39d3c3052d92",
+			"01a0889d-7c28-7f20-9cd3-4e12a0e1a856",
+			"01a0889d-7c54-7a1f-93c6-d89fbcca992b",
+			"01a0889d-7ccf-72ba-a98e-89cfc80e8bc4",
+			"01a0889d-7de8-7a95-ab73-f75df8069227",
+			"01a0889d-7e1e-7096-b280-f0059dacd9f8",
+			"01a0889d-7e51-7c24-8d7e-a9a096190739",
+			"01a0889d-7ec6-7f89-9666-9f29522f5e92",
+			"01a0889d-7efe-79ff-8452-2029afa8350a",
+			"01a0889d-7f35-7d52-a290-ba65ddbd0855",
+			"01a0889d-7f6c-7137-8f60-befefe9c0ea6",
+			"01a0889d-7fa5-7a80-a07c-142f83f945a3",
+			"01a0889d-8013-72f3-ad2a-ccedf25272f9",
+			"01a0889d-804d-70fe-bd3e-d1466a7b7bb2",
+			"01a0889d-808e-7c3d-96b0-8e1ddb838b96",
+			"01a0889d-80c5-7f39-9836-de8ce030fc81",
+			"01a0889d-8144-79f2-897d-1c7a7222e063",
+			"01a0889d-817b-7714-bc62-58077c0028d0",
+			"01a0889d-81e4-7dce-bf54-e3620a248d21",
+			"01a0889d-820d-7c7b-9256-718d2c341397",
+			"01a0889d-8242-7670-afa8-f4ad66eecd66",
+			"01a0889d-8279-7fdd-865a-66c5f26d74ae",
+			"01a0889d-82b2-79ee-b608-a502da98b53f",
+			"01a0889d-82dc-7a87-805d-17a47113797f",
+			"01a0889d-83e2-7bb7-9c12-f5d5c876e1a6",
+			"01a0889d-840e-7d75-98d5-e247bd776984",
+			"01a0889d-8444-7997-a963-32e5ae66d152",
+			"01a0889d-8744-7591-aa69-3c17fe2d7a9f",
+			"01a0889d-87b3-7580-8dc6-bcb691769f2e",
+			"01a0889d-87d8-7f86-b06f-8b04c45673e7",
+			"01a0889d-8821-7638-b4e6-ccc3b108c617",
+			"01a0889d-8857-749b-aa36-ddfbcd3a0ff1",
+			"01a0889d-8882-7851-8092-c2837c319537",
+			"01a0889d-8904-7645-abfa-0f35caf96cf0",
+			"01a0889d-892d-7ed1-8622-077585db9d50",
+			"01a0889d-8986-7406-bf68-b000ae0f6e8e",
+			"01a0889d-89f2-7ff8-9474-9741f94bf8fb",
+			"01a0889d-8ab1-75e0-90b3-a29527a6da8b"
+		]
+	},
+	{
+		"id": "01a0889d-5f8b-72ce-8523-12b736a2c0c1",
+		"slug": "wall",
+		"name": "Стена",
+		"canon_en": "Wall",
+		"kind": "environment",
+		"exercises": [
+			"01a0889d-5f8a-7d34-b8b2-0154d4fbe2fb",
+			"01a0889d-6225-7022-bc19-6d5b82fa1660",
+			"01a0889d-63d9-7471-9537-b165b6d64672",
+			"01a0889d-6402-703f-807d-3943e000618f",
+			"01a0889d-6feb-7169-a461-8c6a8668df87",
+			"01a0889d-7017-7630-921a-240cf7520d51",
+			"01a0889d-75bc-7683-8cec-0c4be5f7f235",
+			"01a0889d-75e5-7361-85e5-a195b5a6b420",
+			"01a0889d-79d4-7976-95ce-fa7d2196a10e",
+			"01a0889d-7d16-7bb0-9c2a-7bca328fa631",
+			"01a0889d-804d-70fe-bd3e-d1466a7b7bb2",
+			"01a0889d-81e4-7dce-bf54-e3620a248d21",
+			"01a0889d-820d-7c7b-9256-718d2c341397",
+			"01a0889d-8279-7fdd-865a-66c5f26d74ae",
+			"01a0889d-82b2-79ee-b608-a502da98b53f",
+			"01a0889d-8318-757e-b0e1-3519e15c2e0d",
+			"01a0889d-834d-70d9-badf-367f6810fa09",
+			"01a0889d-8380-71b3-95fe-4e46ffc77f2d",
+			"01a0889d-8444-7997-a963-32e5ae66d152",
+			"01a0889d-87d8-7f86-b06f-8b04c45673e7",
+			"01a0889d-8986-7406-bf68-b000ae0f6e8e",
+			"01a0889d-8a85-7cce-bea5-74aa067dd054"
+		]
+	},
+	{
+		"id": "01a0889d-78e5-7fe4-be8b-e47ddcb1bd42",
+		"slug": "doorframe",
+		"name": "Дверной проём",
+		"canon_en": "Door frame",
+		"kind": "environment",
+		"exercises": [
+			"01a0889d-78e4-7db5-8209-0157ba6d681b",
+			"01a0889d-791d-75bb-b0ee-d901b6685038",
+			"01a0889d-7962-7c7e-a9cc-bf9b3f8344b1",
+			"01a0889d-7a07-70f4-8695-22ac3573b14f",
+			"01a0889d-817b-7714-bc62-58077c0028d0",
+			"01a0889d-8a1b-7fac-949b-a7bcb6734828"
+		]
+	},
+	{
+		"id": "01a0889d-5b99-7e24-bf9a-0d5c256588fd",
+		"slug": "post",
+		"name": "Стойка-опора",
+		"canon_en": "Support post",
+		"kind": "environment",
+		"exercises": [
+			"01a0889d-5b98-7bcc-8d97-e040cb7b8c81",
+			"01a0889d-6fbe-73aa-aff6-89c7a93de015",
+			"01a0889d-718b-7172-b8fc-d59d73cfe4f8",
+			"01a0889d-71be-75e0-9d1c-59300fff59c5",
+			"01a0889d-746f-7ffc-a6a9-85d541c0c79f",
+			"01a0889d-749c-7c9d-8927-b4d7c5528830",
+			"01a0889d-7508-71c5-9e2b-67287cd00f59",
+			"01a0889d-7579-709c-af60-b682cfd44885",
+			"01a0889d-7a47-7aa5-aa35-0780c90112d1",
+			"01a0889d-7ae6-7b30-85e1-00d8a2c7d59a",
+			"01a0889d-7fdd-75b8-a1b5-a8f1e83119c4",
+			"01a0889d-83ae-79b9-ae2c-d2550a1905f0",
+			"01a0889d-8958-7f49-b19d-47dfbba63ced",
+			"01a0889d-8a54-71d4-b662-65fdfbdbab06"
+		]
+	},
+	{
+		"id": "01a0889d-596a-7223-bfcf-64c54e063b8d",
+		"slug": "leg_press_seated",
+		"name": "Жим ногами сидя горизонтальный",
+		"canon_en": "Seated Leg Press",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-5969-727e-a0d0-fedf0bc4efed",
+			"01a0889d-59af-76e3-9bf4-5a9f5cfdd294",
+			"01a0889d-59f2-75a4-8c78-8b2dfa3dccf3",
+			"01a0889d-5f07-7cb7-bdc5-7070503db923"
+		]
+	},
+	{
+		"id": "01a0889d-5a31-7535-b9f3-c2d455e9f133",
+		"slug": "leg_extension",
+		"name": "Разгибание голени сидя",
+		"canon_en": "Leg Extension",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-5a30-7ea0-b60d-59ed761589c6",
+			"01a0889d-5a6a-75d9-9e3a-6b3e38509ed2"
+		]
+	},
+	{
+		"id": "01a0889d-5bcc-789b-b267-5e14c4a6ea42",
+		"slug": "leg_curl_seated",
+		"name": "Сгибание голени сидя",
+		"canon_en": "Seated Leg Curl",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-5bcb-7bf9-a739-735b9df0c471",
+			"01a0889d-5c04-75ac-90b2-0dcad40a686e"
+		]
+	},
+	{
+		"id": "01a0889d-5c42-7808-a984-843b3d467f11",
+		"slug": "leg_curl_standing",
+		"name": "Сгибание голени стоя",
+		"canon_en": "Standing Leg Curl",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-5c41-7ace-b715-8f268ed3321f"
+		]
+	},
+	{
+		"id": "01a0889d-5da3-72be-94a2-f9eab715cca6",
+		"slug": "hip_abd_add",
+		"name": "Отведение-приведение бедра сидя",
+		"canon_en": "Hip Abduction/Adduction",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-5da2-7251-915d-5dc6a667b4bb",
+			"01a0889d-5e90-7c1f-a4d4-2a63c9b3dd01"
+		]
+	},
+	{
+		"id": "01a0889d-57fa-78be-a63d-59af153e478c",
+		"slug": "glute_kickback",
+		"name": "Разгибание бедра стоя с рычагом",
+		"canon_en": "Glute Kickback",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-57f9-7010-88e9-2644511cc736"
+		]
+	},
+	{
+		"id": "01a0889d-56f8-7614-bc45-87d0ca40f345",
+		"slug": "glute_bridge_machine",
+		"name": "Ягодичный мост в тренажёре",
+		"canon_en": "Glute Bridge",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-56f7-70a9-aad0-2cda2dcee27c"
+		]
+	},
+	{
+		"id": "01a0889d-5ecc-7960-9a32-07f86e0755ec",
+		"slug": "calf_seated",
+		"name": "Подъём на носки сидя",
+		"canon_en": "Seated Calf",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-5ecb-75c6-8f39-efe2956ab7aa"
+		]
+	},
+	{
+		"id": "01a0889d-5fc5-71dd-9066-2a6d5332de76",
+		"slug": "tibia_machine",
+		"name": "Разгибание стопы в тренажёре",
+		"canon_en": "Tibia Dorsi Calf",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-5fc4-755b-b725-45a7c3e27058"
+		]
+	},
+	{
+		"id": "01a0889d-4d0c-7b10-873d-22358165aab1",
+		"slug": "pulldown",
+		"name": "Тяга верхнего блока сидя",
+		"canon_en": "Lat Pulldown",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-4d0b-7ca3-8b9d-2d5a3366f0fe",
+			"01a0889d-4d4a-7c43-b380-ed35cd66d82b",
+			"01a0889d-4d80-7a63-b498-b98662df9035",
+			"01a0889d-4dbc-7c7b-9370-2c786e9356c6"
+		]
+	},
+	{
+		"id": "01a0889d-4ee0-7858-8536-a389107ac3a0",
+		"slug": "low_row",
+		"name": "Тяга нижнего блока сидя",
+		"canon_en": "Low Row",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-4edf-7157-890a-90f187b7295f"
+		]
+	},
+	{
+		"id": "01a0889d-4ea3-7041-bdbc-ea8787d6fb77",
+		"slug": "row_chest_supported",
+		"name": "Тяга рычажная с упором грудью",
+		"canon_en": "Chest-supported Row",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-4ea2-75fd-a91c-0da92af31c06"
+		]
+	},
+	{
+		"id": "01a0889d-4af1-75da-af03-d416b60cdb38",
+		"slug": "chest_press",
+		"name": "Жим от груди сидя",
+		"canon_en": "Chest Press",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-4af0-76f5-9928-f4237c1e1f3f"
+		]
+	},
+	{
+		"id": "01a0889d-4a19-76b9-9957-49effc5b915c",
+		"slug": "chest_press_incline",
+		"name": "Жим от груди сидя под углом вверх",
+		"canon_en": "Incline Chest Press",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-4a18-7ed6-9603-012b4faaaa30"
+		]
+	},
+	{
+		"id": "01a0889d-4c2e-7d34-a13c-fdd0dadb5d18",
+		"slug": "chest_press_decline",
+		"name": "Жим от груди сидя под углом вниз",
+		"canon_en": "Decline Chest Press",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-4c2d-789f-b075-e35ae0425483"
+		]
+	},
+	{
+		"id": "01a0889d-46c7-7a34-ae11-a5aef677a216",
+		"slug": "shoulder_press",
+		"name": "Жим над головой сидя",
+		"canon_en": "Shoulder Press",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-46c6-7f81-bdf9-1523d86ee79f"
+		]
+	},
+	{
+		"id": "01a0889d-4862-7f74-9974-e7220f27e46d",
+		"slug": "pec_fly_rear_delt",
+		"name": "Сведение-разведение рук сидя",
+		"canon_en": "Pectoral Fly / Rear Deltoid",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-4861-7da8-adce-6519df326ba3",
+			"01a0889d-4b52-7131-aabb-af0bffa9875e"
+		]
+	},
+	{
+		"id": "01a0889d-47df-7dec-a663-2e14ca680bad",
+		"slug": "lateral_raise_machine",
+		"name": "Отведение рук в стороны сидя",
+		"canon_en": "Lateral Raise",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-47de-75e4-8a13-e148a7fd2cd7"
+		]
+	},
+	{
+		"id": "01a0889d-4596-7d7d-818e-26790ace711b",
+		"slug": "cable_station",
+		"name": "Блочная стойка с регулируемой высотой",
+		"canon_en": "Dual Adjustable Pulley",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-4595-729b-b3e3-f83b990da4c3",
+			"01a0889d-460b-71ca-9ef2-7dab5bf87320",
+			"01a0889d-4689-7916-b22e-16cfa0177cf2",
+			"01a0889d-476c-7ab0-9498-3f594e8630d6",
+			"01a0889d-481b-7a5c-a405-33d211bad9df",
+			"01a0889d-491a-79cd-bb26-19402f51a31b",
+			"01a0889d-499e-703d-a791-75324d7aa43c",
+			"01a0889d-4e34-7419-8783-52d669079ada",
+			"01a0889d-4f1c-7c34-a9ed-cc00f81e93d5",
+			"01a0889d-4f58-7577-a795-b7ec62ad6658",
+			"01a0889d-5259-7840-ae47-44a7770eebc3",
+			"01a0889d-5384-7867-8326-4a9192638181",
+			"01a0889d-567b-70ba-bd4e-ad5d3bf75e1a",
+			"01a0889d-5733-72ed-85ca-617b1d272d15",
+			"01a0889d-5c81-7b98-8b28-f2152ac230ea",
+			"01a0889d-5d63-73fd-bb63-4021b16ec04b",
+			"01a0889d-5e53-7a86-b267-0b874b625cac",
+			"01a0889d-8773-7da4-8ba0-2180a3c16984",
+			"01a0889d-87fc-7478-b60f-21730faf9cb8"
+		]
+	},
+	{
+		"id": "01a0889d-48dd-776b-b54a-60f1f48f0406",
+		"slug": "cable_crossover",
+		"name": "Кроссовер",
+		"canon_en": "Cable Crossover",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-48dc-7f5e-93ca-888cdd48e2bb",
+			"01a0889d-4a7c-7e8c-8596-7adb3e9ab3c9",
+			"01a0889d-4b8e-7fb4-9cf1-83ae9a15bbe9",
+			"01a0889d-4c5e-7260-81ab-25f479b2f122"
+		]
+	},
+	{
+		"id": "01a0889d-52d5-73e7-ac1b-a25cf8e4ed91",
+		"slug": "biceps_curl_machine",
+		"name": "Сгибание рук сидя в тренажёре",
+		"canon_en": "Biceps Curl",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-52d4-7d3d-b9c3-8ed2a50008df"
+		]
+	},
+	{
+		"id": "01a0889d-53bd-785e-bf59-263f5b588c70",
+		"slug": "triceps_ext_machine",
+		"name": "Разгибание рук сидя в тренажёре",
+		"canon_en": "Triceps Extension",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-53bc-7a93-a6a1-504cb2c05c07"
+		]
+	},
+	{
+		"id": "01a0889d-4468-7fd0-93a9-1108a1519270",
+		"slug": "neck_machine",
+		"name": "Сгибание-разгибание шеи в тренажёре",
+		"canon_en": "4-way Neck",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-4467-7d0b-9380-1d1ee3a7d1d3",
+			"01a0889d-44e4-769b-a90f-d1bdd31291a4"
+		]
+	},
+	{
+		"id": "01a0889d-5015-7dac-8a02-bf975b7549ae",
+		"slug": "back_extension_machine",
+		"name": "Разгибание туловища сидя",
+		"canon_en": "Back Extension",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-5014-7d17-8a83-f4a16d7ce3a7"
+		]
+	},
+	{
+		"id": "01a0889d-4c9b-7e77-939e-473eedc23986",
+		"slug": "assisted_dip_chin",
+		"name": "Гравитрон",
+		"canon_en": "Assist Dip Chin",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-4c9a-7763-91d1-514103ae3537",
+			"01a0889d-4dfe-7469-beea-91f41c681dba",
+			"01a0889d-5474-7b77-9116-3eb8cf650c8f"
+		]
+	},
+	{
+		"id": "01a0889d-4bee-7a6e-b8fd-654cd3b26097",
+		"slug": "smith",
+		"name": "Машина Смита",
+		"canon_en": "Smith Machine",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-4bed-734f-b64f-7cdfe853bcb5"
+		]
+	},
+	{
+		"id": "01a0889d-8481-7431-824d-e653e493dd0c",
+		"slug": "elliptical",
+		"name": "Эллиптический тренажёр",
+		"canon_en": "Elliptical",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-8480-7d66-9472-7697e421694e"
+		]
+	},
+	{
+		"id": "01a0889d-84ba-7daf-a871-16184cfbbf17",
+		"slug": "bike_upright",
+		"name": "Велотренажёр вертикальный",
+		"canon_en": "Upright Bike",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-84b9-7181-b1e2-b2f7c39d2325"
+		]
+	},
+	{
+		"id": "01a0889d-84f1-7fd2-ae34-5d96308af06e",
+		"slug": "treadmill",
+		"name": "Беговая дорожка",
+		"canon_en": "Treadmill",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-84f0-7ce2-b18a-07781b7e5ad8",
+			"01a0889d-8529-73de-a809-069fe4a71570"
+		]
+	},
+	{
+		"id": "01a0889d-8565-73f7-a57e-1bb2256008e3",
+		"slug": "stair_climber",
+		"name": "Степпер-лестница",
+		"canon_en": "Stair Climber",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-8564-7117-bad1-a50274ffdb14"
+		]
+	},
+	{
+		"id": "01a0889d-859f-7ea8-8b03-8684a675d0f8",
+		"slug": "ski_erg",
+		"name": "Лыжный тренажёр",
+		"canon_en": "Ski Erg",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-859e-7209-af77-9fe5ed9dbb2b"
+		]
+	},
+	{
+		"id": "01a0889d-85d5-75ce-a9cb-0d41cb2cdaee",
+		"slug": "air_bike",
+		"name": "Аэробайк",
+		"canon_en": "Air Bike",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-85d4-7c90-8bce-a7823991ae4c"
+		]
+	},
+	{
+		"id": "01a0889d-455a-713b-8e0c-7b1a05f9e77c",
+		"slug": "dumbbells",
+		"name": "Гантели",
+		"canon_en": "Dumbbells",
+		"kind": "free_weight",
+		"exercises": [
+			"01a0889d-4559-7d02-86fa-2d02b53949c7",
+			"01a0889d-45d2-78ad-bd92-cfe22dd0ed12",
+			"01a0889d-4649-7ac1-a435-edd074563393",
+			"01a0889d-46fe-754c-baf0-2d40e38a1cff",
+			"01a0889d-4732-79fe-a52b-df4676d1acbc",
+			"01a0889d-47a9-7680-83d1-e65a54b563e6",
+			"01a0889d-489e-70b0-8caa-021befc548c6",
+			"01a0889d-495c-71b9-a6ef-75813c9f5e51",
+			"01a0889d-49d5-74b6-ba30-a8cb3ce89f86",
+			"01a0889d-4a48-7027-995c-3a9f48a608bb",
+			"01a0889d-4b1d-78c5-81e3-e5b164bf895b",
+			"01a0889d-4cd2-779e-aadf-6e6df931e006",
+			"01a0889d-4e6e-7004-aaf9-15490df2f989",
+			"01a0889d-4f99-7dc2-b389-9fbc23e5fff7",
+			"01a0889d-4fcf-7848-90ca-048433c675e1",
+			"01a0889d-51de-710b-a531-cc17d093c324",
+			"01a0889d-5292-7b3b-ba08-e4c96beddd71",
+			"01a0889d-530d-71b5-b6a3-c35ceff78b33",
+			"01a0889d-5344-7128-9cb9-7893f9f11bab",
+			"01a0889d-53f3-7725-8e4b-d30dfbd94b44",
+			"01a0889d-5433-7bbc-9c4d-09c12d96d741",
+			"01a0889d-54a9-7d04-801f-53a8489b39ff",
+			"01a0889d-54e2-7e52-a0f5-1269ffbd45c9",
+			"01a0889d-551a-7f88-b50d-c849fe0aac4c",
+			"01a0889d-558d-74bf-998d-f1a16c3c525f",
+			"01a0889d-56bd-72d0-b186-612a8c0c8add",
+			"01a0889d-5774-78ea-a600-22a6dd1f0805",
+			"01a0889d-5836-7afc-bce3-d4316658d2f4",
+			"01a0889d-5876-7bff-9476-f89235b1277e",
+			"01a0889d-5aa8-7165-b348-ef435c2dbdaa",
+			"01a0889d-5ae2-7047-aae1-5f6ef0dcc22a",
+			"01a0889d-5b25-751e-b4cf-b0807d6e8e7e",
+			"01a0889d-5e12-7a0f-a469-3825abe3b2ff",
+			"01a0889d-5f47-7405-9190-dd2650886ef4"
+		]
+	},
+	{
+		"id": "01a0889d-4424-7b41-a8af-825fbfa808bb",
+		"slug": "plate",
+		"name": "Блин",
+		"canon_en": "Weight plate",
+		"kind": "free_weight",
+		"exercises": [
+			"01a0889d-4423-7162-a9b4-f38de9ce3ea4",
+			"01a0889d-44a2-7699-87b4-2f8ea9377e64",
+			"01a0889d-5090-7b0a-9a69-f9712661eb73",
+			"01a0889d-516e-7d9c-ad0d-457201356910"
+		]
+	},
+	{
+		"id": "01a0889d-510c-75bc-98b8-8c73774d40d6",
+		"slug": "ankle_weights",
+		"name": "Утяжелители на ноги",
+		"canon_en": "Ankle weights",
+		"kind": "free_weight",
+		"exercises": [
+			"01a0889d-510b-780d-89bf-6c482d514a4f",
+			"01a0889d-58bc-76fa-8fc5-f5ab13a79a4e"
+		]
+	},
+	{
+		"id": "01a0889d-6132-72a0-a63f-6163a6e7f46d",
+		"slug": "pullup_bar",
+		"name": "Турник",
+		"canon_en": "Pull-up bar",
+		"kind": "apparatus",
+		"exercises": [
+			"01a0889d-6131-7dda-abd4-7b40a49a1654",
+			"01a0889d-6164-73bd-9c36-c589014e0d88",
+			"01a0889d-61b2-7fa4-aaf3-7d338cb0b8eb",
+			"01a0889d-61da-7c49-8fc0-3f60ab36227e",
+			"01a0889d-65e7-7061-87c4-667af2544f6d",
+			"01a0889d-6609-7d92-b10c-7c6fb0854216",
+			"01a0889d-6637-762f-94f3-339b98165388",
+			"01a0889d-6662-7db4-abd6-2942bc7bcdef",
+			"01a0889d-66c0-7eb0-979a-6fd815ebefd6",
+			"01a0889d-68eb-7be1-aa36-f636fc49878b",
+			"01a0889d-6914-73db-94db-db66f3d4e581",
+			"01a0889d-695c-70c7-9af1-d3a23cf0118b",
+			"01a0889d-6a47-7830-9190-9e8d9e859a90",
+			"01a0889d-7ab7-7472-90ab-c16aea850892"
+		]
+	},
+	{
+		"id": "01a0889d-668e-7cc5-a620-738ee3f34353",
+		"slug": "low_bar",
+		"name": "Низкая перекладина",
+		"canon_en": "Low bar",
+		"kind": "apparatus",
+		"exercises": [
+			"01a0889d-668d-71ea-9ee5-f29c76ea62bf",
+			"01a0889d-66e0-7309-9e08-7fd5a135c46c",
+			"01a0889d-6712-7a09-8509-dd96c74c5e88",
+			"01a0889d-6741-76a7-8901-af9c0c46d54d",
+			"01a0889d-676f-7385-88c2-7bfa03617b1c",
+			"01a0889d-6936-7cd3-b688-a2892b0f826d"
+		]
+	},
+	{
+		"id": "01a0889d-6187-782a-9984-4c886480bf73",
+		"slug": "dip_bars",
+		"name": "Брусья",
+		"canon_en": "Dip bars",
+		"kind": "apparatus",
+		"exercises": [
+			"01a0889d-6186-7ba4-8005-b8a28e7d1e6a",
+			"01a0889d-6587-7c02-9d83-6977be12c5d5",
+			"01a0889d-65bc-7dfb-a220-8292777d7a73",
+			"01a0889d-69f1-734f-948d-e5509f1a667b"
+		]
+	},
+	{
+		"id": "01a0889d-4733-7480-9daf-c79adcc20ad2",
+		"slug": "bench_flat",
+		"name": "Скамья горизонтальная",
+		"canon_en": "Flat bench",
+		"kind": "apparatus",
+		"exercises": [
+			"01a0889d-4732-79fe-a52b-df4676d1acbc",
+			"01a0889d-47a9-7680-83d1-e65a54b563e6",
+			"01a0889d-49d5-74b6-ba30-a8cb3ce89f86",
+			"01a0889d-4b1d-78c5-81e3-e5b164bf895b",
+			"01a0889d-4bed-734f-b64f-7cdfe853bcb5",
+			"01a0889d-4e6e-7004-aaf9-15490df2f989",
+			"01a0889d-4f1c-7c34-a9ed-cc00f81e93d5",
+			"01a0889d-4fcf-7848-90ca-048433c675e1",
+			"01a0889d-530d-71b5-b6a3-c35ceff78b33",
+			"01a0889d-53f3-7725-8e4b-d30dfbd94b44",
+			"01a0889d-54a9-7d04-801f-53a8489b39ff",
+			"01a0889d-54e2-7e52-a0f5-1269ffbd45c9",
+			"01a0889d-551a-7f88-b50d-c849fe0aac4c",
+			"01a0889d-5ae2-7047-aae1-5f6ef0dcc22a",
+			"01a0889d-5b65-78b7-87a4-1cbb02ce8a13",
+			"01a0889d-5cf4-7732-963d-8183391b5136",
+			"01a0889d-5ddb-78c2-b448-5342b2807d24",
+			"01a0889d-642d-7bd7-8a0a-4d96b96dd09e",
+			"01a0889d-6456-726e-a22b-d8d62b2252ef",
+			"01a0889d-655d-7b5d-ad05-2ac43f262518",
+			"01a0889d-6741-76a7-8901-af9c0c46d54d",
+			"01a0889d-69c6-7138-bf20-3a37ab41e38a",
+			"01a0889d-6b00-7332-b8da-4175825020e6",
+			"01a0889d-6cd2-7d43-85cb-2f83628954dc",
+			"01a0889d-6d9d-71c4-b7d6-2928f0538daa",
+			"01a0889d-6e29-7490-ae7b-c5c2973f91f1",
+			"01a0889d-70c9-7a7f-ba2f-e6356d17f777",
+			"01a0889d-7129-7c4f-a1e1-44353dcc7641",
+			"01a0889d-715b-7562-b288-cb39c0641c53",
+			"01a0889d-7207-715a-b012-d145421d2769",
+			"01a0889d-7230-7cd2-8456-18271b9ecf3e",
+			"01a0889d-724b-750c-a937-90aa68eb5e9c",
+			"01a0889d-740e-7377-afc0-60d61f433033",
+			"01a0889d-743e-797a-b051-d05f72655aca",
+			"01a0889d-773a-70b3-931e-8424840f0fd6",
+			"01a0889d-7e84-7f3b-856d-894305f5185d",
+			"01a0889d-8107-7928-bbca-9ed6cb566b02",
+			"01a0889d-81a9-71d0-9a61-145a52331fa2",
+			"01a0889d-88be-7b8b-803c-b4877fda29ec",
+			"01a0889d-89ba-7ec0-9902-7d2fb0655225"
+		]
+	},
+	{
+		"id": "01a0889d-455b-7199-ab15-2eeb8a8e964c",
+		"slug": "bench_incline",
+		"name": "Скамья наклонная регулируемая",
+		"canon_en": "Adjustable incline bench",
+		"kind": "apparatus",
+		"exercises": [
+			"01a0889d-4559-7d02-86fa-2d02b53949c7",
+			"01a0889d-4649-7ac1-a435-edd074563393",
+			"01a0889d-46fe-754c-baf0-2d40e38a1cff",
+			"01a0889d-489e-70b0-8caa-021befc548c6",
+			"01a0889d-4a48-7027-995c-3a9f48a608bb",
+			"01a0889d-4f99-7dc2-b389-9fbc23e5fff7",
+			"01a0889d-5292-7b3b-ba08-e4c96beddd71",
+			"01a0889d-5433-7bbc-9c4d-09c12d96d741"
+		]
+	},
+	{
+		"id": "01a0889d-4cd3-77d6-b7b5-1d4436390edc",
+		"slug": "bench_decline",
+		"name": "Скамья с отрицательным наклоном",
+		"canon_en": "Decline bench",
+		"kind": "apparatus",
+		"exercises": [
+			"01a0889d-4cd2-779e-aadf-6e6df931e006"
+		]
+	},
+	{
+		"id": "01a0889d-5345-7d48-9c63-5b878c4e756a",
+		"slug": "preacher_bench",
+		"name": "Скамья Скотта",
+		"canon_en": "Preacher curl bench",
+		"kind": "apparatus",
+		"exercises": [
+			"01a0889d-5344-7128-9cb9-7893f9f11bab"
+		]
+	},
+	{
+		"id": "01a0889d-5052-75e7-baf1-7631a9f89bb0",
+		"slug": "roman_chair_45",
+		"name": "Наклонная скамья для гиперэкстензии 45°",
+		"canon_en": "45° Back Extension bench",
+		"kind": "apparatus",
+		"exercises": [
+			"01a0889d-5051-7b0d-81a6-a7a253bdf462",
+			"01a0889d-5090-7b0a-9a69-f9712661eb73",
+			"01a0889d-686f-7a9b-a95e-fd3a15663898"
+		]
+	},
+	{
+		"id": "01a0889d-5837-7285-bb65-9ee0e2a6d056",
+		"slug": "step_platform",
+		"name": "Степ-платформа",
+		"canon_en": "Step platform",
+		"kind": "apparatus",
+		"exercises": [
+			"01a0889d-5836-7afc-bce3-d4316658d2f4",
+			"01a0889d-86fc-7b62-a9ff-c30e349f4fb9"
+		]
+	},
+	{
+		"id": "01a0889d-6f30-718d-a46e-9fae7d318e66",
+		"slug": "stairs_step",
+		"name": "Ступенька",
+		"canon_en": "Step",
+		"kind": "apparatus",
+		"exercises": [
+			"01a0889d-6f2f-77af-9873-d7d6f6a95d59",
+			"01a0889d-7535-7be8-bf86-d473c6e8616c",
+			"01a0889d-83ae-79b9-ae2c-d2550a1905f0"
+		]
+	},
+	{
+		"id": "01a0889d-4aba-74e9-9f58-aa7e3993c0e4",
+		"slug": "box",
+		"name": "Тумба",
+		"canon_en": "Plyo box",
+		"kind": "apparatus",
+		"exercises": [
+			"01a0889d-4ab9-7f9f-863d-49fd5124ca0b"
+		]
+	},
+	{
+		"id": "01a0889d-5640-7b8b-ba49-a68a6ade95a1",
+		"slug": "band",
+		"name": "Резиновая лента",
+		"canon_en": "Resistance band",
+		"kind": "tool",
+		"exercises": [
+			"01a0889d-563f-71f6-bec2-aafa1683e1be"
+		]
+	},
+	{
+		"id": "01a0889d-58f5-7590-8f8e-c99ca1fd0657",
+		"slug": "mini_band",
+		"name": "Мини-лента",
+		"canon_en": "Mini band",
+		"kind": "tool",
+		"exercises": [
+			"01a0889d-58f4-7c23-bd2e-b604d037af3d",
+			"01a0889d-592d-7f5e-88ea-a6dad711e028"
+		]
+	},
+	{
+		"id": "01a0889d-8145-7c56-83af-844476f0f0f7",
+		"slug": "strap",
+		"name": "Ремень для растяжки",
+		"canon_en": "Stretching strap",
+		"kind": "tool",
+		"exercises": [
+			"01a0889d-8144-79f2-897d-1c7a7222e063",
+			"01a0889d-892d-7ed1-8622-077585db9d50"
+		]
+	},
+	{
+		"id": "01a0889d-79a2-7767-9041-b8752577144d",
+		"slug": "foam_roller",
+		"name": "Валик",
+		"canon_en": "Foam roller",
+		"kind": "tool",
+		"exercises": [
+			"01a0889d-79a1-7f9b-b3e1-1a07b3d76e3c",
+			"01a0889d-7b5f-7e81-aad8-61d8fb833f06",
+			"01a0889d-7e51-7c24-8d7e-a9a096190739"
+		]
+	},
+	{
+		"id": "01a0889d-6a48-7db1-9e4f-958d0f7a8016",
+		"slug": "towel",
+		"name": "Полотенце",
+		"canon_en": "Towel",
+		"kind": "tool",
+		"exercises": [
+			"01a0889d-6a47-7830-9190-9e8d9e859a90",
+			"01a0889d-71ed-7823-8508-30ec7ad2931a",
+			"01a0889d-78a9-71b1-9641-3a8d3b47740d"
+		]
+	},
+	{
+		"id": "01a0889d-5d27-7f47-b2a5-1c8e56b375db",
+		"slug": "sliders",
+		"name": "Слайдеры",
+		"canon_en": "Sliders",
+		"kind": "tool",
+		"exercises": [
+			"01a0889d-5d26-7262-bf03-540b8454fa41"
+		]
+	},
+	{
+		"id": "01a0889d-5554-7616-90da-9bd974ec1ee1",
+		"slug": "grip_trainer",
+		"name": "Кистевой эспандер",
+		"canon_en": "Hand gripper",
+		"kind": "tool",
+		"exercises": [
+			"01a0889d-5553-7849-9933-7fc24421d14f"
+		]
+	},
+	{
+		"id": "01a0889d-560f-7a6b-b13c-cde51bbe7c03",
+		"slug": "stability_ball",
+		"name": "Фитбол",
+		"canon_en": "Stability ball",
+		"kind": "tool",
+		"exercises": [
+			"01a0889d-560e-7f09-a5d9-a33a91816293"
+		]
+	},
+	{
+		"id": "01a0889d-6898-7e06-bcb1-8ac0306314d7",
+		"slug": "stick",
+		"name": "Гимнастическая палка",
+		"canon_en": "Stick",
+		"kind": "tool",
+		"exercises": [
+			"01a0889d-6897-7209-bac6-ac1b444cd092"
+		]
+	},
+	{
+		"id": "01a0889d-86c5-7e83-9bf4-4d219787f228",
+		"slug": "jump_rope",
+		"name": "Скакалка",
+		"canon_en": "Jump rope",
+		"kind": "tool",
+		"exercises": [
+			"01a0889d-86c4-78d8-98e6-ae1b56f28f03"
+		]
+	},
+	{
+		"id": "01a0889d-5734-7e1c-adfe-1388ae60f806",
+		"slug": "ankle_cuff",
+		"name": "Манжета на голень для блока",
+		"canon_en": "Ankle strap",
+		"kind": "tool",
+		"exercises": [
+			"01a0889d-5733-72ed-85ca-617b1d272d15",
+			"01a0889d-5c81-7b98-8b28-f2152ac230ea",
+			"01a0889d-5d63-73fd-bb63-4021b16ec04b",
+			"01a0889d-5e53-7a86-b267-0b874b625cac"
+		]
+	},
+	{
+		"id": "01a0889d-67c6-75dd-9d66-9e38a42e14b4",
+		"slug": "roman_chair_horizontal",
+		"name": "Скамья для гиперэкстензии горизонтальная",
+		"canon_en": "Horizontal Back Extension bench",
+		"kind": "apparatus",
+		"exercises": [
+			"01a0889d-67c5-7b05-895c-fdedb9e6cd5e"
+		]
+	},
+	{
+		"id": "01a0889d-7282-7b9e-a42c-426231aeaf44",
+		"slug": "nordic_bench",
+		"name": "Скамья для нордических сгибаний",
+		"canon_en": "Nordic Hamstring bench",
+		"kind": "apparatus",
+		"exercises": [
+			"01a0889d-7281-7a9f-9c20-f94e89a4844d"
+		]
+	},
+	{
+		"id": "01a0889d-50cf-711a-b739-190e92cb6ff6",
+		"slug": "reverse_hyper",
+		"name": "Тренажёр обратной гиперэкстензии",
+		"canon_en": "Reverse Hyper",
+		"kind": "machine",
+		"exercises": [
+			"01a0889d-50ce-73f7-ade8-35882cff1a2d",
+			"01a0889d-510b-780d-89bf-6c482d514a4f"
+		]
+	}
+]

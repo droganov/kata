@@ -40,16 +40,10 @@ cov:
 	npm run coverage
 
 data:
-	python3 tests/test_oracle_critic.py
-	python3 tools/warmup_critic.py
-	python3 tools/strength_critic.py
-	python3 tools/calisthenics_critic.py
-	python3 tools/stretch_critic.py
-	python3 tools/plan_critic.py
-	python3 tools/links_critic.py
-	python3 tools/build_data.py
-	python3 tools/storyboard_prompt.py
+	node src/lib/catalog/interface/cli/catalog-critic.ts
+	node src/lib/exercise/interface/cli/exercise-critic.ts
+	node src/lib/program/interface/cli/program-critic.ts
 
-c: types lint
+c: types lint test coverage
 
 check: data c cov

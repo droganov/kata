@@ -1,6 +1,9 @@
 @import 'tailwindcss';
 
 @plugin '@tailwindcss/typography';
-@plugin 'daisyui';
+
+@plugin 'daisyui' {
+	logs: false;
+}
 
 @source '../';

@@ -1,31 +1,27 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "source.schema.json",
-  "title": "Source",
-  "description": "Источник процедуры упражнения.",
-  "type": "object",
-  "additionalProperties": false,
-  "required": [
-    "id",
-    "exercise",
-    "title"
-  ],
-  "properties": {
-    "id": {
-      "$ref": "common.schema.json#/definitions/uuid"
-    },
-    "exercise": {
-      "$ref": "common.schema.json#/definitions/uuid"
-    },
-    "title": {
-      "$ref": "common.schema.json#/definitions/text"
-    },
-    "url": {
-      "type": "string",
-      "format": "uri"
-    },
-    "note": {
-      "$ref": "common.schema.json#/definitions/text"
-    }
-  }
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "source.schema.json",
+	"title": "Source",
+	"description": "Источник процедуры упражнения.",
+	"type": "object",
+	"additionalProperties": false,
+	"required": ["id", "exercise", "title"],
+	"properties": {
+		"id": {
+			"$ref": "common.schema.json#/definitions/uuid"
+		},
+		"exercise": {
+			"$ref": "common.schema.json#/definitions/uuid"
+		},
+		"title": {
+			"$ref": "common.schema.json#/definitions/text"
+		},
+		"url": {
+			"type": "string",
+			"format": "uri"
+		},
+		"note": {
+			"$ref": "common.schema.json#/definitions/text"
+		}
+	}
 }

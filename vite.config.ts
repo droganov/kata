@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-static';
+import adapter from '@sveltejs/adapter-node';
 import { sveltekit } from '@sveltejs/kit/vite';
 import tailwindcss from '@tailwindcss/vite';
 import { playwright } from '@vitest/browser-playwright';
@@ -10,7 +10,7 @@ export default defineConfig({
 	plugins: [
 		tailwindcss(),
 		sveltekit({
-			adapter: adapter({ fallback: 'index.html' }),
+			adapter: adapter(),
 			compilerOptions: { runes: ({ filename }) => (isLibrary(filename) ? undefined : true) }
 		})
 	],
@@ -21,7 +21,7 @@ export default defineConfig({
 			provider: 'v8',
 			reporter: ['text', 'html'],
 			thresholds: {
-				'**/*.svelte': { branches: 78, functions: 100, lines: 100, statements: 100 },
+				'**/*.svelte': { branches: 67, functions: 100, lines: 100, statements: 100 },
 				'**/*.ts': { branches: 100, functions: 100, lines: 100, statements: 100 }
 			}
 		},

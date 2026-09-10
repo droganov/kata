@@ -1,133 +1,156 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "exercise.schema.json",
-  "title": "Exercise",
-  "description": "Упражнение: доза, ограничения, средства и цели с ролями, процедура, источник.",
-  "type": "object",
-  "additionalProperties": false,
-  "required": [
-    "id",
-    "slug",
-    "name",
-    "dose",
-    "mode",
-    "constraints",
-    "equipment",
-    "targets",
-    "procedure",
-    "source"
-  ],
-  "properties": {
-    "id": {
-      "$ref": "common.schema.json#/definitions/uuid"
-    },
-    "slug": {
-      "$ref": "common.schema.json#/definitions/slug"
-    },
-    "name": {
-      "$ref": "common.schema.json#/definitions/text"
-    },
-    "dose": {
-      "$ref": "common.schema.json#/definitions/text",
-      "description": "3×12–15 · 2×30с/сторона · 5 мин"
-    },
-    "mode": {
-      "type": "string",
-      "enum": [
-        "cardio",
-        "dynamic",
-        "loaded",
-        "isometric",
-        "static_stretch"
-      ]
-    },
-    "constraints": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "axial",
-        "lumbar_flex",
-        "lumbar_ext",
-        "free_weight"
-      ],
-      "properties": {
-        "axial": {
-          "type": "boolean"
-        },
-        "lumbar_flex": {
-          "type": "boolean"
-        },
-        "lumbar_ext": {
-          "type": "boolean"
-        },
-        "free_weight": {
-          "type": "boolean"
-        },
-        "kg_max": {
-          "type": "number",
-          "minimum": 0
-        }
-      }
-    },
-    "note": {
-      "$ref": "common.schema.json#/definitions/text"
-    },
-    "equipment": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "id",
-          "role"
-        ],
-        "properties": {
-          "id": {
-            "$ref": "common.schema.json#/definitions/uuid"
-          },
-          "role": {
-            "type": "string",
-            "enum": [
-              "main",
-              "auxiliary"
-            ]
-          }
-        }
-      },
-      "description": "Ровно одно средство с ролью main (проверяет критик)"
-    },
-    "targets": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "id",
-          "role"
-        ],
-        "properties": {
-          "id": {
-            "$ref": "common.schema.json#/definitions/uuid"
-          },
-          "role": {
-            "type": "string",
-            "enum": [
-              "primary",
-              "secondary",
-              "stabilizer"
-            ]
-          }
-        }
-      }
-    },
-    "procedure": {
-      "$ref": "procedure.schema.json"
-    },
-    "source": {
-      "$ref": "common.schema.json#/definitions/uuid",
-      "description": "Источник процедуры (Source.id)"
-    }
-  }
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "exercise.schema.json",
+	"title": "Exercise",
+	"description": "Упражнение: доза, ограничения, средства и цели с ролями, процедура, источник.",
+	"type": "object",
+	"additionalProperties": false,
+	"required": [
+		"id",
+		"slug",
+		"name",
+		"dose",
+		"mode",
+		"constraints",
+		"equipment",
+		"targets",
+		"procedure",
+		"source"
+	],
+	"properties": {
+		"id": {
+			"$ref": "common.schema.json#/definitions/uuid"
+		},
+		"slug": {
+			"$ref": "common.schema.json#/definitions/slug"
+		},
+		"name": {
+			"$ref": "common.schema.json#/definitions/text"
+		},
+		"dose": {
+			"$ref": "common.schema.json#/definitions/text",
+			"description": "3×12–15 · 2×30с/сторона · 5 мин"
+		},
+		"mode": {
+			"type": "string",
+			"enum": ["cardio", "dynamic", "loaded", "isometric", "calisthenic", "static_stretch"]
+		},
+		"constraints": {
+			"type": "object",
+			"additionalProperties": false,
+			"required": ["axial", "lumbar_flex", "lumbar_ext", "free_weight"],
+			"properties": {
+				"axial": {
+					"type": "boolean"
+				},
+				"lumbar_flex": {
+					"type": "boolean"
+				},
+				"lumbar_ext": {
+					"type": "boolean"
+				},
+				"free_weight": {
+					"type": "boolean"
+				},
+				"kg_max": {
+					"type": "number",
+					"minimum": 0
+				}
+			}
+		},
+		"note": {
+			"$ref": "common.schema.json#/definitions/text"
+		},
+		"equipment": {
+			"type": "array",
+			"minItems": 1,
+			"items": {
+				"type": "object",
+				"additionalProperties": false,
+				"required": ["id", "role"],
+				"properties": {
+					"id": {
+						"$ref": "common.schema.json#/definitions/uuid"
+					},
+					"role": {
+						"type": "string",
+						"enum": ["main", "auxiliary"]
+					}
+				}
+			},
+			"description": "Ровно одно средство с ролью main (проверяет критик)"
+		},
+		"targets": {
+			"type": "array",
+			"minItems": 1,
+			"items": {
+				"type": "object",
+				"additionalProperties": false,
+				"required": ["id", "role"],
+				"properties": {
+					"id": {
+						"$ref": "common.schema.json#/definitions/uuid"
+					},
+					"role": {
+						"type": "string",
+						"enum": ["primary", "secondary", "stabilizer"]
+					}
+				}
+			}
+		},
+		"procedure": {
+			"$ref": "procedure.schema.json"
+		},
+		"source": {
+			"$ref": "common.schema.json#/definitions/uuid",
+			"description": "Источник процедуры (Source.id)"
+		},
+		"hip_plane": {
+			"type": "string",
+			"enum": [
+				"flexion",
+				"extension",
+				"abduction",
+				"adduction",
+				"internal_rot",
+				"external_rot"
+			],
+			"description": "Плоскость движения тазобедренного сустава, если упражнение её задаёт"
+		},
+		"seconds": {
+			"type": "integer",
+			"minimum": 1,
+			"description": "Длительность выполнения в занятии, секунды (разминка, кардио)"
+		},
+		"met": {
+			"type": "number",
+			"minimum": 0,
+			"description": "Метаболический эквивалент (кардио)"
+		},
+		"plane": {
+			"type": "string",
+			"enum": [
+				"anterior",
+				"posterior",
+				"lateral",
+				"anti_extension",
+				"anti_rotation",
+				"balance"
+			],
+			"description": "Плоскость нагрузки кора (изометрия)"
+		},
+		"goal": {
+			"type": "string",
+			"enum": [
+				"glutes",
+				"lumbar_stiffness",
+				"hip_mobility",
+				"body_composition",
+				"strength",
+				"endurance",
+				"flexibility"
+			],
+			"description": "Цель программы, которой служит упражнение"
+		}
+	}
 }
