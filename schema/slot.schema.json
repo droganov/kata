@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "slot.schema.json",
+  "title": "Slot",
+  "description": "Слот раздела: база — фиксированные упражнения в каждом занятии; пул — N упражнений из контура банка с ротацией.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "label"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/definitions/uuid"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "base",
+        "pool"
+      ]
+    },
+    "label": {
+      "$ref": "common.schema.json#/definitions/text"
+    },
+    "exercises": {
+      "$ref": "common.schema.json#/definitions/ref_list",
+      "description": "base: упражнения слота (Exercise.id)"
+    },
+    "contour": {
+      "$ref": "common.schema.json#/definitions/uuid",
+      "description": "pool: контур банка (Contour.id)"
+    },
+    "pick": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "allow_repeat": {
+      "type": "boolean"
+    },
+    "sec_each": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "rule": {
+      "$ref": "common.schema.json#/definitions/text"
+    }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "kind": {
+          "const": "base"
+        },
+        "exercises": {
+          "minItems": 1
+        }
+      },
+      "required": [
+        "exercises"
+      ],
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "contour"
+            ]
+          },
+          {
+            "required": [
+              "pick"
+            ]
+          },
+          {
+            "required": [
+              "allow_repeat"
+            ]
+          },
+          {
+            "required": [
+              "sec_each"
+            ]
+          },
+          {
+            "required": [
+              "rule"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "properties": {
+        "kind": {
+          "const": "pool"
+        }
+      },
+      "required": [
+        "contour",
+        "pick",
+        "allow_repeat"
+      ],
+      "not": {
+        "required": [
+          "exercises"
+        ]
+      }
+    }
+  ]
+}

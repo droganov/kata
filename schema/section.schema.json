@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "section.schema.json",
+  "title": "Section",
+  "description": "Раздел программы (Разогрев, Разминка, Силовой, Калистеника, Растяжка). Слоты вложены по порядку.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "mode",
+    "bank",
+    "slots"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/definitions/uuid"
+    },
+    "title": {
+      "$ref": "common.schema.json#/definitions/text"
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "cardio",
+        "dynamic",
+        "loaded",
+        "isometric",
+        "static_stretch"
+      ]
+    },
+    "bank": {
+      "$ref": "common.schema.json#/definitions/uuid",
+      "description": "Банк, из которого берутся упражнения пула (Bank.id)"
+    },
+    "slots": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "slot.schema.json"
+      }
+    }
+  }
+}

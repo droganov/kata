@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "target.schema.json",
+  "title": "Target",
+  "description": "Цель упражнения: мышца, сустав или система.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "slug",
+    "name",
+    "latin",
+    "kind",
+    "zone"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/definitions/uuid"
+    },
+    "slug": {
+      "$ref": "common.schema.json#/definitions/slug"
+    },
+    "name": {
+      "$ref": "common.schema.json#/definitions/text"
+    },
+    "latin": {
+      "$ref": "common.schema.json#/definitions/text"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "muscle",
+        "joint",
+        "system"
+      ]
+    },
+    "zone": {
+      "$ref": "common.schema.json#/definitions/uuid",
+      "description": "Зона тела (Zone.id)"
+    }
+  }
+}

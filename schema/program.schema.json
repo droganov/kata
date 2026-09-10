@@ -1,0 +1,186 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "program.schema.json",
+  "title": "Program",
+  "description": "Программа: правила, по которым строятся занятия. Разделы вложены по порядку.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "user",
+    "title",
+    "goals",
+    "contraindications",
+    "schedule",
+    "timing",
+    "progression",
+    "sections"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/definitions/uuid"
+    },
+    "user": {
+      "$ref": "common.schema.json#/definitions/uuid"
+    },
+    "title": {
+      "$ref": "common.schema.json#/definitions/text"
+    },
+    "goals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "primary",
+        "secondary"
+      ],
+      "properties": {
+        "primary": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/definitions/slug"
+          },
+          "minItems": 1
+        },
+        "secondary": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/definitions/slug"
+          }
+        }
+      }
+    },
+    "contraindications": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "axial_load",
+        "loaded_lumbar_flexion",
+        "loaded_lumbar_extension",
+        "free_weight_kg_max"
+      ],
+      "properties": {
+        "axial_load": {
+          "type": "boolean",
+          "description": "true = запрещена осевая компрессия позвоночника"
+        },
+        "loaded_lumbar_flexion": {
+          "type": "boolean"
+        },
+        "loaded_lumbar_extension": {
+          "type": "boolean"
+        },
+        "free_weight_kg_max": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "schedule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sessions_per_week",
+        "rotation_weeks",
+        "session_budget_min"
+      ],
+      "properties": {
+        "sessions_per_week": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "rotation_weeks": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "session_budget_min": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "timing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "work_sec_per_set",
+        "rest_sec_strength",
+        "rest_sec_accessory",
+        "transition_sec",
+        "hold_rest_sec"
+      ],
+      "properties": {
+        "work_sec_per_set": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "rest_sec_strength": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "rest_sec_accessory": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "transition_sec": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "hold_rest_sec": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "progression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "base",
+        "pool",
+        "isometric",
+        "stop_rule"
+      ],
+      "properties": {
+        "base": {
+          "$ref": "common.schema.json#/definitions/text"
+        },
+        "pool": {
+          "$ref": "common.schema.json#/definitions/text"
+        },
+        "isometric": {
+          "$ref": "common.schema.json#/definitions/text"
+        },
+        "stop_rule": {
+          "$ref": "common.schema.json#/definitions/text"
+        }
+      }
+    },
+    "pairing": {
+      "type": "array",
+      "description": "Подслот растяжки под нагруженный сегодня слот: slot → упражнения растяжки",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "slot",
+          "exercises"
+        ],
+        "properties": {
+          "slot": {
+            "$ref": "common.schema.json#/definitions/uuid"
+          },
+          "exercises": {
+            "$ref": "common.schema.json#/definitions/ref_list"
+          }
+        }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "section.schema.json"
+      }
+    }
+  }
+}

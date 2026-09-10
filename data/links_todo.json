@@ -1,0 +1,4205 @@
+[
+ {
+  "key": "strength:neck_flex_plate",
+  "name": "Сгибание шеи лёжа на спине с лёгким блином на лбу",
+  "axis": "strength",
+  "zone": "Шея",
+  "contour": "сгибатели шеи",
+  "equipment": "блин",
+  "note": "блин 2–5 кг, амплитуда малая"
+ },
+ {
+  "key": "strength:neck_flex_machine",
+  "name": "Сгибание шеи в тренажёре",
+  "axis": "strength",
+  "zone": "Шея",
+  "contour": "сгибатели шеи",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:neck_ext_plate",
+  "name": "Разгибание шеи лёжа на животе с лёгким блином на затылке",
+  "axis": "strength",
+  "zone": "Шея",
+  "contour": "разгибатели шеи",
+  "equipment": "блин",
+  "note": "блин 2–5 кг"
+ },
+ {
+  "key": "strength:neck_ext_machine",
+  "name": "Разгибание шеи в тренажёре",
+  "axis": "strength",
+  "zone": "Шея",
+  "contour": "разгибатели шеи",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:neck_lat_side",
+  "name": "Боковое сгибание шеи лёжа на боку",
+  "axis": "strength",
+  "zone": "Шея",
+  "contour": "боковые сгибатели шеи",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "strength:shrug_db_seated",
+  "name": "Шраги с гантелями сидя со спинкой",
+  "axis": "strength",
+  "zone": "Трапеция",
+  "contour": "верхняя трапеция",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:shrug_cable",
+  "name": "Шраги в нижнем блоке",
+  "axis": "strength",
+  "zone": "Трапеция",
+  "contour": "верхняя трапеция",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:shrug_db_standing",
+  "name": "Шраги с гантелями стоя",
+  "axis": "strength",
+  "zone": "Трапеция",
+  "contour": "верхняя трапеция",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:scap_retract_cable",
+  "name": "Сведение лопаток в нижнем блоке сидя",
+  "axis": "strength",
+  "zone": "Трапеция",
+  "contour": "средняя и нижняя трапеция",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:y_raise_incline",
+  "name": "Подъёмы рук буквой «У» лёжа грудью на наклонной скамье с гантелями",
+  "axis": "strength",
+  "zone": "Трапеция",
+  "contour": "средняя и нижняя трапеция",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:face_pull",
+  "name": "Тяга к лицу в блоке",
+  "axis": "strength",
+  "zone": "Трапеция",
+  "contour": "средняя и нижняя трапеция",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:ohp_m",
+  "name": "Жим над головой в тренажёре",
+  "axis": "strength",
+  "zone": "Плечи",
+  "contour": "передняя дельта",
+  "equipment": "тренажёр",
+  "note": "сидя, спина прижата к спинке"
+ },
+ {
+  "key": "strength:db_seated_press",
+  "name": "Жим гантелей сидя со спинкой",
+  "axis": "strength",
+  "zone": "Плечи",
+  "contour": "передняя дельта",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:front_raise_db",
+  "name": "Подъём гантелей перед собой сидя",
+  "axis": "strength",
+  "zone": "Плечи",
+  "contour": "передняя дельта",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:front_raise_cable",
+  "name": "Подъём перед собой в нижнем блоке",
+  "axis": "strength",
+  "zone": "Плечи",
+  "contour": "передняя дельта",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:db_lateral",
+  "name": "Разведение гантелей сидя",
+  "axis": "strength",
+  "zone": "Плечи",
+  "contour": "средняя дельта",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:lateral_machine",
+  "name": "Разведение в тренажёре",
+  "axis": "strength",
+  "zone": "Плечи",
+  "contour": "средняя дельта",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:lateral_cable",
+  "name": "Отведение руки в сторону в нижнем блоке",
+  "axis": "strength",
+  "zone": "Плечи",
+  "contour": "средняя дельта",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:rear_delt_m",
+  "name": "Задние дельты в тренажёре",
+  "axis": "strength",
+  "zone": "Плечи",
+  "contour": "задняя дельта",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:rear_fly_incline",
+  "name": "Разведение гантелей лёжа грудью на наклонной скамье",
+  "axis": "strength",
+  "zone": "Плечи",
+  "contour": "задняя дельта",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:rear_fly_cable",
+  "name": "Обратное разведение в кроссовере стоя",
+  "axis": "strength",
+  "zone": "Плечи",
+  "contour": "задняя дельта",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:ext_rot_cable",
+  "name": "Наружная ротация плеча в блоке",
+  "axis": "strength",
+  "zone": "Плечи",
+  "contour": "ротаторная манжета",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:ext_rot_side",
+  "name": "Наружная ротация лёжа на боку с гантелью",
+  "axis": "strength",
+  "zone": "Плечи",
+  "contour": "ротаторная манжета",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:int_rot_cable",
+  "name": "Внутренняя ротация плеча в блоке",
+  "axis": "strength",
+  "zone": "Плечи",
+  "contour": "ротаторная манжета",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:ext_rot_seated",
+  "name": "Наружная ротация с гантелью сидя, локоть на колене",
+  "axis": "strength",
+  "zone": "Плечи",
+  "contour": "ротаторная манжета",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:incline_press_m",
+  "name": "Жим в тренажёре под углом",
+  "axis": "strength",
+  "zone": "Грудь",
+  "contour": "верх грудных",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:db_incline",
+  "name": "Жим гантелей на наклонной скамье",
+  "axis": "strength",
+  "zone": "Грудь",
+  "contour": "верх грудных",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:cable_fly_low_high",
+  "name": "Сведение в кроссовере снизу вверх",
+  "axis": "strength",
+  "zone": "Грудь",
+  "contour": "верх грудных",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:pushup_feet_up",
+  "name": "Отжимания с ногами на возвышении",
+  "axis": "strength",
+  "zone": "Грудь",
+  "contour": "верх грудных",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "strength:chest_press_m",
+  "name": "Жим в тренажёре на грудь",
+  "axis": "strength",
+  "zone": "Грудь",
+  "contour": "середина грудных",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:db_bench",
+  "name": "Жим гантелей лёжа",
+  "axis": "strength",
+  "zone": "Грудь",
+  "contour": "середина грудных",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:pec_deck",
+  "name": "Сведение в тренажёре",
+  "axis": "strength",
+  "zone": "Грудь",
+  "contour": "середина грудных",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:cable_fly_mid",
+  "name": "Сведение в кроссовере на уровне груди",
+  "axis": "strength",
+  "zone": "Грудь",
+  "contour": "середина грудных",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:pushup",
+  "name": "Отжимания от пола",
+  "axis": "strength",
+  "zone": "Грудь",
+  "contour": "середина грудных",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "strength:smith_bench",
+  "name": "Жим лёжа в тренажёре Смита",
+  "axis": "strength",
+  "zone": "Грудь",
+  "contour": "середина грудных",
+  "equipment": "тренажёр",
+  "note": "лёжа, поясница прижата к скамье"
+ },
+ {
+  "key": "strength:decline_press_m",
+  "name": "Жим в тренажёре с наклоном вниз",
+  "axis": "strength",
+  "zone": "Грудь",
+  "contour": "низ грудных",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:cable_fly_high_low",
+  "name": "Сведение в кроссовере сверху вниз",
+  "axis": "strength",
+  "zone": "Грудь",
+  "contour": "низ грудных",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:dips_assisted",
+  "name": "Отжимания на брусьях в гравитроне",
+  "axis": "strength",
+  "zone": "Грудь",
+  "contour": "низ грудных",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:db_decline",
+  "name": "Жим гантелей на скамье с отрицательным наклоном",
+  "axis": "strength",
+  "zone": "Грудь",
+  "contour": "низ грудных",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:lat_pd_wide",
+  "name": "Тяга верхнего блока широким хватом",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "широчайшие",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:lat_pd_under",
+  "name": "Тяга верхнего блока обратным хватом",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "широчайшие",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:lat_pd_neutral",
+  "name": "Тяга верхнего блока параллельным хватом",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "широчайшие",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:lat_pd_one_arm",
+  "name": "Тяга верхнего блока одной рукой",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "широчайшие",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:pullup_assisted",
+  "name": "Подтягивания в гравитроне",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "широчайшие",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:pullover_cable",
+  "name": "Пуловер в блоке стоя",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "широчайшие",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:pullover_db",
+  "name": "Пуловер с гантелью лёжа",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "широчайшие",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:row_chest_sup",
+  "name": "Тяга с грудным упором",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "ромбовидные (горизонтальная тяга)",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:row_machine",
+  "name": "Тяга в тренажёре сидя",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "ромбовидные (горизонтальная тяга)",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:row_cable_seated",
+  "name": "Тяга нижнего блока сидя",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "ромбовидные (горизонтальная тяга)",
+  "equipment": "блок",
+  "note": "корпус вертикально и неподвижно, без наклона вперёд за рукоятью"
+ },
+ {
+  "key": "strength:row_cable_1",
+  "name": "Тяга нижнего блока одной рукой",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "ромбовидные (горизонтальная тяга)",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:db_row_bench",
+  "name": "Тяга гантели с упором грудью в наклонную скамью",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "ромбовидные (горизонтальная тяга)",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:db_row_knee",
+  "name": "Тяга гантели одной рукой с упором в скамью",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "ромбовидные (горизонтальная тяга)",
+  "equipment": "гантели",
+  "note": "спина на опоре, поясница нейтральна"
+ },
+ {
+  "key": "strength:back_ext_machine",
+  "name": "Разгибание туловища в тренажёре до нейтрали",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "разгибатели поясницы — с опорой (тренажёр)",
+  "equipment": "тренажёр",
+  "note": "прогрессия по стеку, стоп в нейтрали, без переразгибания"
+ },
+ {
+  "key": "strength:roman_chair_neutral",
+  "name": "Гиперэкстензия на римском стуле до нейтрали",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "разгибатели поясницы — с опорой (тренажёр)",
+  "equipment": "вес тела",
+  "note": "корпус до линии ног, не выше"
+ },
+ {
+  "key": "strength:roman_chair_plate",
+  "name": "Гиперэкстензия на римском стуле до нейтрали с блином",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "разгибатели поясницы — с опорой (тренажёр)",
+  "equipment": "блин",
+  "note": "блин у груди, стоп в нейтрали"
+ },
+ {
+  "key": "strength:reverse_hyper_bw",
+  "name": "Обратная гиперэкстензия до нейтрали",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "разгибатели поясницы — с опорой (тренажёр)",
+  "equipment": "вес тела",
+  "note": "ноги до линии корпуса, не выше"
+ },
+ {
+  "key": "strength:reverse_hyper_weights",
+  "name": "Обратная гиперэкстензия до нейтрали с утяжелителями на ногах",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "разгибатели поясницы — с опорой (тренажёр)",
+  "equipment": "утяжелитель",
+  "note": "ноги до линии корпуса"
+ },
+ {
+  "key": "strength:prone_trunk_lift",
+  "name": "Подъём корпуса лёжа на животе до нейтрали",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "разгибатели поясницы — лёжа на животе",
+  "equipment": "вес тела",
+  "note": "руки вдоль тела, подбородок к груди"
+ },
+ {
+  "key": "strength:prone_trunk_lift_plate",
+  "name": "Подъём корпуса лёжа на животе до нейтрали с блином у груди",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "разгибатели поясницы — лёжа на животе",
+  "equipment": "блин",
+  "note": "стоп в нейтрали"
+ },
+ {
+  "key": "strength:prone_opposite_lift",
+  "name": "Подъём противоположной руки-ноги лёжа на животе",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "разгибатели поясницы — лёжа на животе",
+  "equipment": "вес тела",
+  "note": "до линии корпуса, поясница не прогибается"
+ },
+ {
+  "key": "strength:single_leg_rdl_db",
+  "name": "Румынская тяга на одной ноге с гантелью",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "разгибатели поясницы — шарнир с нейтральной спиной",
+  "equipment": "гантели",
+  "note": "спина нейтральна, амплитуда до горизонтали корпуса"
+ },
+ {
+  "key": "strength:single_leg_rdl_bw",
+  "name": "Румынская тяга на одной ноге без веса",
+  "axis": "strength",
+  "zone": "Спина",
+  "contour": "разгибатели поясницы — шарнир с нейтральной спиной",
+  "equipment": "вес тела",
+  "note": "спина нейтральна, до горизонтали корпуса"
+ },
+ {
+  "key": "strength:curl_cable",
+  "name": "Сгибание рук в нижнем блоке стоя",
+  "axis": "strength",
+  "zone": "Руки",
+  "contour": "бицепс",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:curl_db_seated",
+  "name": "Сгибание рук с гантелями сидя со спинкой",
+  "axis": "strength",
+  "zone": "Руки",
+  "contour": "бицепс",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:curl_machine",
+  "name": "Сгибание рук в тренажёре",
+  "axis": "strength",
+  "zone": "Руки",
+  "contour": "бицепс",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:hammer_curl_seated",
+  "name": "Молотковые сгибания с гантелями сидя",
+  "axis": "strength",
+  "zone": "Руки",
+  "contour": "бицепс",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:curl_preacher_db",
+  "name": "Сгибание руки с гантелью на скамье Скотта",
+  "axis": "strength",
+  "zone": "Руки",
+  "contour": "бицепс",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:triceps_pushdown",
+  "name": "Разгибание рук в верхнем блоке",
+  "axis": "strength",
+  "zone": "Руки",
+  "contour": "трицепс",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:triceps_machine",
+  "name": "Разгибание рук в тренажёре сидя",
+  "axis": "strength",
+  "zone": "Руки",
+  "contour": "трицепс",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:french_press_db",
+  "name": "Французский жим с гантелью лёжа",
+  "axis": "strength",
+  "zone": "Руки",
+  "contour": "трицепс",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:overhead_ext_db",
+  "name": "Разгибание руки с гантелью из-за головы сидя",
+  "axis": "strength",
+  "zone": "Руки",
+  "contour": "трицепс",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:dips_narrow_assisted",
+  "name": "Отжимания на брусьях узко в гравитроне",
+  "axis": "strength",
+  "zone": "Руки",
+  "contour": "трицепс",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:wrist_curl_db",
+  "name": "Сгибание кистей с гантелями сидя",
+  "axis": "strength",
+  "zone": "Руки",
+  "contour": "предплечья",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:wrist_ext_db",
+  "name": "Разгибание кистей с гантелями сидя",
+  "axis": "strength",
+  "zone": "Руки",
+  "contour": "предплечья",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:wrist_rotation_db",
+  "name": "Пронация-супинация с гантелью сидя",
+  "axis": "strength",
+  "zone": "Руки",
+  "contour": "предплечья",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:grip_trainer",
+  "name": "Сжимание кистевого эспандера",
+  "axis": "strength",
+  "zone": "Руки",
+  "contour": "предплечья",
+  "equipment": "эспандер",
+  "note": ""
+ },
+ {
+  "key": "strength:dead_bug_db",
+  "name": "Мёртвый жук с гантелью в руках",
+  "axis": "strength",
+  "zone": "Пресс и кор",
+  "contour": "прямая и поперечная мышцы (анти-разгибание)",
+  "equipment": "гантели",
+  "note": "поясница прижата к полу"
+ },
+ {
+  "key": "strength:plank_shoulder_taps",
+  "name": "Планка с касанием плеч",
+  "axis": "strength",
+  "zone": "Пресс и кор",
+  "contour": "прямая и поперечная мышцы (анти-разгибание)",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "strength:stir_pot",
+  "name": "«Помешивание котла» на фитболе",
+  "axis": "strength",
+  "zone": "Пресс и кор",
+  "contour": "прямая и поперечная мышцы (анти-разгибание)",
+  "equipment": "фитбол",
+  "note": ""
+ },
+ {
+  "key": "strength:bird_dog_band",
+  "name": "Птица-собака с резинкой",
+  "axis": "strength",
+  "zone": "Пресс и кор",
+  "contour": "прямая и поперечная мышцы (анти-разгибание)",
+  "equipment": "резинка",
+  "note": ""
+ },
+ {
+  "key": "strength:pallof_press_dyn",
+  "name": "Жим Паллоффа с выпрямлением рук",
+  "axis": "strength",
+  "zone": "Пресс и кор",
+  "contour": "косые (анти-ротация)",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:suitcase_carry",
+  "name": "Прогулка с гантелью в одной руке",
+  "axis": "strength",
+  "zone": "Пресс и кор",
+  "contour": "косые и квадратная поясницы (анти-наклон)",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:glute_bridge_m",
+  "name": "Ягодичный мост в тренажёре",
+  "axis": "strength",
+  "zone": "Ягодичные",
+  "contour": "большая ягодичная",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:hip_ext_cable",
+  "name": "Разгибание бедра в блоке стоя",
+  "axis": "strength",
+  "zone": "Ягодичные",
+  "contour": "большая ягодичная",
+  "equipment": "блок",
+  "note": "корпус неподвижен, амплитуда до нейтрали бедра, не дальше"
+ },
+ {
+  "key": "strength:glute_bridge_db",
+  "name": "Ягодичный мост лёжа с гантелью на тазу",
+  "axis": "strength",
+  "zone": "Ягодичные",
+  "contour": "большая ягодичная",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:glute_bridge_1",
+  "name": "Ягодичный мост на одной ноге",
+  "axis": "strength",
+  "zone": "Ягодичные",
+  "contour": "большая ягодичная",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "strength:kickback_machine",
+  "name": "Отведение ноги назад в тренажёре",
+  "axis": "strength",
+  "zone": "Ягодичные",
+  "contour": "большая ягодичная",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:step_up_db",
+  "name": "Зашагивание на платформу с гантелями",
+  "axis": "strength",
+  "zone": "Ягодичные",
+  "contour": "большая ягодичная",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:reverse_lunge_db",
+  "name": "Выпады назад с гантелями",
+  "axis": "strength",
+  "zone": "Ягодичные",
+  "contour": "большая ягодичная",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:hip_abd_side_lying",
+  "name": "Отведение бедра лёжа на боку с утяжелителем",
+  "axis": "strength",
+  "zone": "Ягодичные",
+  "contour": "средняя ягодичная",
+  "equipment": "утяжелитель",
+  "note": ""
+ },
+ {
+  "key": "strength:band_walk",
+  "name": "Боковая ходьба с резинкой",
+  "axis": "strength",
+  "zone": "Ягодичные",
+  "contour": "средняя ягодичная",
+  "equipment": "резинка",
+  "note": ""
+ },
+ {
+  "key": "strength:clamshell_band",
+  "name": "«Ракушка» с резинкой",
+  "axis": "strength",
+  "zone": "Ягодичные",
+  "contour": "средняя ягодичная",
+  "equipment": "резинка",
+  "note": ""
+ },
+ {
+  "key": "strength:leg_press",
+  "name": "Жим ногами",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "тренажёр",
+  "note": "стопы выше середины платформы, не опускать до отрыва таза"
+ },
+ {
+  "key": "strength:leg_press_1",
+  "name": "Жим ногами одной ногой",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:leg_press_narrow",
+  "name": "Жим ногами узкой постановкой",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:leg_ext",
+  "name": "Разгибание голени",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:leg_ext_1",
+  "name": "Разгибание голени одной ногой",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:split_squat_db",
+  "name": "Сплит-присед с гантелями в руках",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:bulgarian_split_db",
+  "name": "Болгарский сплит-присед с гантелями",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:forward_lunge_db",
+  "name": "Выпады вперёд с гантелями",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:pistol_to_box",
+  "name": "Присед на одной ноге на скамью",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "strength:sissy_squat",
+  "name": "Сисси-присед у опоры",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "strength:leg_curl_seated",
+  "name": "Сгибание голени сидя",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "задняя поверхность бедра",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:leg_curl_1",
+  "name": "Сгибание голени одной ногой сидя",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "задняя поверхность бедра",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:leg_curl_standing",
+  "name": "Сгибание голени стоя в тренажёре",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "задняя поверхность бедра",
+  "equipment": "тренажёр",
+  "note": "корпус на упоре, без прогиба поясницы"
+ },
+ {
+  "key": "strength:leg_curl_cable",
+  "name": "Сгибание голени в блоке стоя",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "задняя поверхность бедра",
+  "equipment": "блок",
+  "note": "рука на опоре, корпус вертикально"
+ },
+ {
+  "key": "strength:nordic_curl_assisted",
+  "name": "Нордические сгибания с помощью рук",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "задняя поверхность бедра",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "strength:hamstring_bridge_bench",
+  "name": "Ягодичный мост с пятками на скамье",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "задняя поверхность бедра",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "strength:slider_curl",
+  "name": "Скольжение пятками лёжа на спине",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "задняя поверхность бедра",
+  "equipment": "слайдеры",
+  "note": ""
+ },
+ {
+  "key": "strength:hip_add_cable",
+  "name": "Приведение бедра в блоке",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "приводящие",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:adductor_machine",
+  "name": "Сведение ног в тренажёре",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "приводящие",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:copenhagen",
+  "name": "Копенгагенские подъёмы на скамье",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "приводящие",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "strength:side_lunge_db",
+  "name": "Боковой выпад с гантелью",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "приводящие",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:hip_abd_cable",
+  "name": "Отведение бедра в блоке стоя",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "отводящие",
+  "equipment": "блок",
+  "note": ""
+ },
+ {
+  "key": "strength:abductor_machine",
+  "name": "Разведение ног в тренажёре сидя",
+  "axis": "strength",
+  "zone": "Бёдра",
+  "contour": "отводящие",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:calf_seated",
+  "name": "Подъём на носки сидя",
+  "axis": "strength",
+  "zone": "Икры",
+  "contour": "икроножная и камбаловидная",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:calf_legpress",
+  "name": "Подъём на носки в жиме ногами",
+  "axis": "strength",
+  "zone": "Икры",
+  "contour": "икроножная и камбаловидная",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "strength:calf_single_db",
+  "name": "Подъём на носок одной ноги с гантелью",
+  "axis": "strength",
+  "zone": "Икры",
+  "contour": "икроножная и камбаловидная",
+  "equipment": "гантели",
+  "note": ""
+ },
+ {
+  "key": "strength:tibialis_raise_wall",
+  "name": "Подъём носков стоя у стены",
+  "axis": "strength",
+  "zone": "Икры",
+  "contour": "передняя большеберцовая",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "strength:tibialis_machine",
+  "name": "Подъём носков в тренажёре",
+  "axis": "strength",
+  "zone": "Икры",
+  "contour": "передняя большеберцовая",
+  "equipment": "тренажёр",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:nk_front_iso",
+  "name": "Давление лбом в ладонь",
+  "axis": "calisthenics",
+  "zone": "Шея",
+  "contour": "сгибатели шеи",
+  "equipment": "вес тела",
+  "note": "голова не двигается, ладонь сопротивляется"
+ },
+ {
+  "key": "calisthenics:nk_supine_hold",
+  "name": "Удержание головы над полом лёжа на спине",
+  "axis": "calisthenics",
+  "zone": "Шея",
+  "contour": "сгибатели шеи",
+  "equipment": "вес тела",
+  "note": "подбородок слегка к груди, затылок в 2 см от пола"
+ },
+ {
+  "key": "calisthenics:nk_chin_tuck",
+  "name": "Втягивание подбородка лёжа на спине",
+  "axis": "calisthenics",
+  "zone": "Шея",
+  "contour": "сгибатели шеи",
+  "equipment": "вес тела",
+  "note": "затылок скользит по полу назад, макушка тянется вверх"
+ },
+ {
+  "key": "calisthenics:nk_back_iso",
+  "name": "Давление затылком в ладони",
+  "axis": "calisthenics",
+  "zone": "Шея",
+  "contour": "разгибатели шеи",
+  "equipment": "вес тела",
+  "note": "руки в замке за головой"
+ },
+ {
+  "key": "calisthenics:nk_prone_hold",
+  "name": "Удержание головы над полом лёжа на животе",
+  "axis": "calisthenics",
+  "zone": "Шея",
+  "contour": "разгибатели шеи",
+  "equipment": "вес тела",
+  "note": "лоб в 2 см от пола, взгляд в пол, шея в нейтрали — не запрокидывать"
+ },
+ {
+  "key": "calisthenics:nk_prone_lift",
+  "name": "Подъём головы лёжа на животе до нейтрали",
+  "axis": "calisthenics",
+  "zone": "Шея",
+  "contour": "разгибатели шеи",
+  "equipment": "вес тела",
+  "note": "взгляд в пол, только до линии тела"
+ },
+ {
+  "key": "calisthenics:nk_side_iso",
+  "name": "Давление виском в ладонь",
+  "axis": "calisthenics",
+  "zone": "Шея",
+  "contour": "боковые сгибатели шеи",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:nk_side_hold",
+  "name": "Удержание головы над полом лёжа на боку",
+  "axis": "calisthenics",
+  "zone": "Шея",
+  "contour": "боковые сгибатели шеи",
+  "equipment": "вес тела",
+  "note": "ухо в 2 см от пола, тело на боку"
+ },
+ {
+  "key": "calisthenics:tr_hang_shrug",
+  "name": "Шраги в висе на турнике",
+  "axis": "calisthenics",
+  "zone": "Трапеция",
+  "contour": "верхняя трапеция",
+  "equipment": "турник",
+  "note": "руки прямые, поднимаются только плечи"
+ },
+ {
+  "key": "calisthenics:tr_hang_shrug_hold",
+  "name": "Удержание плеч поднятыми в висе на турнике",
+  "axis": "calisthenics",
+  "zone": "Трапеция",
+  "contour": "верхняя трапеция",
+  "equipment": "турник",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:tr_dip_shrug",
+  "name": "Шраги в упоре на брусьях",
+  "axis": "calisthenics",
+  "zone": "Трапеция",
+  "contour": "верхняя трапеция",
+  "equipment": "брусья",
+  "note": "руки прямые, тело опускается и поднимается только плечами"
+ },
+ {
+  "key": "calisthenics:tr_scap_pull",
+  "name": "Сведение лопаток в висе на турнике",
+  "axis": "calisthenics",
+  "zone": "Трапеция",
+  "contour": "средняя и нижняя трапеция",
+  "equipment": "турник",
+  "note": "локти прямые, лопатки вниз и к центру"
+ },
+ {
+  "key": "calisthenics:tr_scap_hold",
+  "name": "Удержание сведённых лопаток в висе на турнике",
+  "axis": "calisthenics",
+  "zone": "Трапеция",
+  "contour": "средняя и нижняя трапеция",
+  "equipment": "турник",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:tr_prone_y",
+  "name": "Подъём рук лёжа на животе, руки буквой У",
+  "axis": "calisthenics",
+  "zone": "Трапеция",
+  "contour": "средняя и нижняя трапеция",
+  "equipment": "вес тела",
+  "note": "грудь на полу, большие пальцы вверх, поясница не работает"
+ },
+ {
+  "key": "calisthenics:tr_wall_slide",
+  "name": "Скольжение рук по стене вверх",
+  "axis": "calisthenics",
+  "zone": "Трапеция",
+  "contour": "средняя и нижняя трапеция",
+  "equipment": "стена",
+  "note": "спина, локти и запястья прижаты к стене"
+ },
+ {
+  "key": "calisthenics:sh_pike_pu",
+  "name": "Отжимания в упоре согнувшись",
+  "axis": "calisthenics",
+  "zone": "Плечи",
+  "contour": "передняя дельта",
+  "equipment": "вес тела",
+  "note": "таз вверх, тело углом, голова к полу между ладонями"
+ },
+ {
+  "key": "calisthenics:sh_pike_hold",
+  "name": "Удержание нижней точки упора согнувшись",
+  "axis": "calisthenics",
+  "zone": "Плечи",
+  "contour": "передняя дельта",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:sh_plank_lean",
+  "name": "Планка на прямых руках с наклоном вперёд",
+  "axis": "calisthenics",
+  "zone": "Плечи",
+  "contour": "передняя дельта",
+  "equipment": "вес тела",
+  "note": "плечи выходят вперёд за ладони, корпус прямой"
+ },
+ {
+  "key": "calisthenics:sh_t_hold",
+  "name": "Удержание рук в стороны на уровне плеч",
+  "axis": "calisthenics",
+  "zone": "Плечи",
+  "contour": "средняя дельта",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:sh_arm_circles",
+  "name": "Круги прямыми руками в стороны",
+  "axis": "calisthenics",
+  "zone": "Плечи",
+  "contour": "средняя дельта",
+  "equipment": "вес тела",
+  "note": "руки на уровне плеч, круги малые"
+ },
+ {
+  "key": "calisthenics:sh_side_plank_arm",
+  "name": "Боковая планка на прямой руке",
+  "axis": "calisthenics",
+  "zone": "Плечи",
+  "contour": "средняя дельта",
+  "equipment": "вес тела",
+  "note": "опорная рука под плечом"
+ },
+ {
+  "key": "calisthenics:sh_prone_t",
+  "name": "Подъём рук лёжа на животе, руки буквой Т",
+  "axis": "calisthenics",
+  "zone": "Плечи",
+  "contour": "задняя дельта",
+  "equipment": "вес тела",
+  "note": "грудь на полу, большие пальцы вверх"
+ },
+ {
+  "key": "calisthenics:sh_prone_t_hold",
+  "name": "Удержание рук буквой Т лёжа на животе",
+  "axis": "calisthenics",
+  "zone": "Плечи",
+  "contour": "задняя дельта",
+  "equipment": "вес тела",
+  "note": "грудь на полу"
+ },
+ {
+  "key": "calisthenics:sh_ext_rot",
+  "name": "Наружная ротация плеча лёжа на боку без веса",
+  "axis": "calisthenics",
+  "zone": "Плечи",
+  "contour": "ротаторная манжета",
+  "equipment": "вес тела",
+  "note": "локоть у бока под 90°"
+ },
+ {
+  "key": "calisthenics:sh_ext_rot_hold",
+  "name": "Удержание наружной ротации лёжа на боку",
+  "axis": "calisthenics",
+  "zone": "Плечи",
+  "contour": "ротаторная манжета",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:sh_ext_rot_wall",
+  "name": "Давление тыльной стороной кисти в стену, локоть у бока",
+  "axis": "calisthenics",
+  "zone": "Плечи",
+  "contour": "ротаторная манжета",
+  "equipment": "стена",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:sh_int_rot_wall",
+  "name": "Давление ладонью в стену, локоть у бока",
+  "axis": "calisthenics",
+  "zone": "Плечи",
+  "contour": "ротаторная манжета",
+  "equipment": "стена",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ch_decline_pu",
+  "name": "Отжимания с ногами на скамье",
+  "axis": "calisthenics",
+  "zone": "Грудь",
+  "contour": "верх грудных",
+  "equipment": "скамья",
+  "note": "корпус прямой, таз не провисает"
+ },
+ {
+  "key": "calisthenics:ch_decline_hold",
+  "name": "Удержание нижней точки отжимания с ногами на скамье",
+  "axis": "calisthenics",
+  "zone": "Грудь",
+  "contour": "верх грудных",
+  "equipment": "скамья",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ch_pu",
+  "name": "Отжимания от пола",
+  "axis": "calisthenics",
+  "zone": "Грудь",
+  "contour": "середина грудных",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ch_pu_knees",
+  "name": "Отжимания с колен",
+  "axis": "calisthenics",
+  "zone": "Грудь",
+  "contour": "середина грудных",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ch_pu_wide",
+  "name": "Отжимания широкой постановкой рук",
+  "axis": "calisthenics",
+  "zone": "Грудь",
+  "contour": "середина грудных",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ch_pu_neg",
+  "name": "Отжимания с медленным опусканием",
+  "axis": "calisthenics",
+  "zone": "Грудь",
+  "contour": "середина грудных",
+  "equipment": "вес тела",
+  "note": "опускание 4 секунды"
+ },
+ {
+  "key": "calisthenics:ch_pu_hold",
+  "name": "Удержание нижней точки отжимания",
+  "axis": "calisthenics",
+  "zone": "Грудь",
+  "contour": "середина грудных",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ch_palm_press",
+  "name": "Давление ладонями друг в друга перед грудью",
+  "axis": "calisthenics",
+  "zone": "Грудь",
+  "contour": "середина грудных",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ch_incline_pu",
+  "name": "Отжимания с руками на скамье",
+  "axis": "calisthenics",
+  "zone": "Грудь",
+  "contour": "низ грудных",
+  "equipment": "скамья",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ch_dip_lean",
+  "name": "Отжимания на брусьях с наклоном вперёд",
+  "axis": "calisthenics",
+  "zone": "Грудь",
+  "contour": "низ грудных",
+  "equipment": "брусья",
+  "note": "локти в стороны, корпус наклонён"
+ },
+ {
+  "key": "calisthenics:ch_dip_hold",
+  "name": "Удержание нижней точки на брусьях",
+  "axis": "calisthenics",
+  "zone": "Грудь",
+  "contour": "низ грудных",
+  "equipment": "брусья",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:bk_hang",
+  "name": "Вис на турнике",
+  "axis": "calisthenics",
+  "zone": "Спина",
+  "contour": "широчайшие",
+  "equipment": "турник",
+  "note": "расслабленно, позвоночник вытягивается"
+ },
+ {
+  "key": "calisthenics:bk_pullup",
+  "name": "Подтягивания",
+  "axis": "calisthenics",
+  "zone": "Спина",
+  "contour": "широчайшие",
+  "equipment": "турник",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:bk_pullup_neutral",
+  "name": "Подтягивания параллельным хватом",
+  "axis": "calisthenics",
+  "zone": "Спина",
+  "contour": "широчайшие",
+  "equipment": "турник",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:bk_pullup_neg",
+  "name": "Подтягивания с медленным опусканием",
+  "axis": "calisthenics",
+  "zone": "Спина",
+  "contour": "широчайшие",
+  "equipment": "турник",
+  "note": "опускание 4–5 секунд"
+ },
+ {
+  "key": "calisthenics:bk_pullup_assist",
+  "name": "Подтягивания с опорой ног на пол",
+  "axis": "calisthenics",
+  "zone": "Спина",
+  "contour": "широчайшие",
+  "equipment": "турник",
+  "note": "низкая перекладина, ноги помогают"
+ },
+ {
+  "key": "calisthenics:bk_pullup_hold",
+  "name": "Удержание верхней точки подтягивания",
+  "axis": "calisthenics",
+  "zone": "Спина",
+  "contour": "широчайшие",
+  "equipment": "турник",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:bk_row",
+  "name": "Горизонтальные подтягивания на низкой перекладине",
+  "axis": "calisthenics",
+  "zone": "Спина",
+  "contour": "ромбовидные (горизонтальная тяга)",
+  "equipment": "турник",
+  "note": "тело прямое, лопатки сводятся"
+ },
+ {
+  "key": "calisthenics:bk_row_bent",
+  "name": "Горизонтальные подтягивания с согнутыми ногами",
+  "axis": "calisthenics",
+  "zone": "Спина",
+  "contour": "ромбовидные (горизонтальная тяга)",
+  "equipment": "турник",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:bk_row_feet_up",
+  "name": "Горизонтальные подтягивания с ногами на скамье",
+  "axis": "calisthenics",
+  "zone": "Спина",
+  "contour": "ромбовидные (горизонтальная тяга)",
+  "equipment": "турник",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:bk_row_hold",
+  "name": "Удержание верхней точки горизонтального подтягивания",
+  "axis": "calisthenics",
+  "zone": "Спина",
+  "contour": "ромбовидные (горизонтальная тяга)",
+  "equipment": "турник",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:bk_prone_squeeze",
+  "name": "Сведение лопаток лёжа на животе, руки вдоль тела",
+  "axis": "calisthenics",
+  "zone": "Спина",
+  "contour": "ромбовидные (горизонтальная тяга)",
+  "equipment": "вес тела",
+  "note": "грудь на полу, кисти отрываются от пола"
+ },
+ {
+  "key": "calisthenics:er_sorensen",
+  "name": "Удержание корпуса горизонтально на римском стуле",
+  "axis": "calisthenics",
+  "zone": "Спина",
+  "contour": "разгибатели поясницы — удержание в нейтрали",
+  "equipment": "римский стул",
+  "note": "тело прямая линия, не выше нейтрали"
+ },
+ {
+  "key": "calisthenics:er_bird_dog",
+  "name": "Птица-собака",
+  "axis": "calisthenics",
+  "zone": "Спина",
+  "contour": "разгибатели поясницы — удержание в нейтрали",
+  "equipment": "вес тела",
+  "note": "поясница в нейтрали, рука и нога до линии тела"
+ },
+ {
+  "key": "calisthenics:er_bird_dog_hold",
+  "name": "Удержание позы птица-собака",
+  "axis": "calisthenics",
+  "zone": "Спина",
+  "contour": "разгибатели поясницы — удержание в нейтрали",
+  "equipment": "вес тела",
+  "note": "поясница в нейтрали, таз не крутится"
+ },
+ {
+  "key": "calisthenics:er_quad_leg",
+  "name": "Удержание прямой ноги стоя на четвереньках",
+  "axis": "calisthenics",
+  "zone": "Спина",
+  "contour": "разгибатели поясницы — удержание в нейтрали",
+  "equipment": "вес тела",
+  "note": "нога до линии тела, поясница в нейтрали"
+ },
+ {
+  "key": "calisthenics:er_roman_bw",
+  "name": "Разгибание на римском стуле до нейтрали без веса",
+  "axis": "calisthenics",
+  "zone": "Спина",
+  "contour": "разгибатели поясницы — шарнир с нейтральной спиной",
+  "equipment": "римский стул",
+  "note": "стоп в нейтрали, без переразгибания"
+ },
+ {
+  "key": "calisthenics:er_hinge_bw",
+  "name": "Тазобедренный шарнир стоя без веса, спина нейтральна",
+  "axis": "calisthenics",
+  "zone": "Спина",
+  "contour": "разгибатели поясницы — шарнир с нейтральной спиной",
+  "equipment": "вес тела",
+  "note": "таз назад, спина прямая, палка вдоль спины для контроля"
+ },
+ {
+  "key": "calisthenics:er_hinge_hold",
+  "name": "Удержание тазобедренного шарнира, спина нейтральна",
+  "axis": "calisthenics",
+  "zone": "Спина",
+  "contour": "разгибатели поясницы — шарнир с нейтральной спиной",
+  "equipment": "вес тела",
+  "note": "корпус под 45°, спина прямая"
+ },
+ {
+  "key": "calisthenics:ar_chinup",
+  "name": "Подтягивания обратным хватом",
+  "axis": "calisthenics",
+  "zone": "Руки",
+  "contour": "бицепс",
+  "equipment": "турник",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ar_chinup_hold",
+  "name": "Удержание верхней точки подтягивания обратным хватом",
+  "axis": "calisthenics",
+  "zone": "Руки",
+  "contour": "бицепс",
+  "equipment": "турник",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ar_row_supine",
+  "name": "Горизонтальные подтягивания обратным хватом",
+  "axis": "calisthenics",
+  "zone": "Руки",
+  "contour": "бицепс",
+  "equipment": "турник",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ar_flex_hang",
+  "name": "Вис на согнутых под 90° руках",
+  "axis": "calisthenics",
+  "zone": "Руки",
+  "contour": "бицепс",
+  "equipment": "турник",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ar_pu_close",
+  "name": "Отжимания с узкой постановкой рук",
+  "axis": "calisthenics",
+  "zone": "Руки",
+  "contour": "трицепс",
+  "equipment": "вес тела",
+  "note": "локти вдоль тела"
+ },
+ {
+  "key": "calisthenics:ar_pu_close_hold",
+  "name": "Удержание нижней точки узких отжиманий",
+  "axis": "calisthenics",
+  "zone": "Руки",
+  "contour": "трицепс",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ar_bench_dip",
+  "name": "Отжимания от скамьи сзади",
+  "axis": "calisthenics",
+  "zone": "Руки",
+  "contour": "трицепс",
+  "equipment": "скамья",
+  "note": "плечи не проваливаются ниже локтей"
+ },
+ {
+  "key": "calisthenics:ar_dip_upright",
+  "name": "Отжимания на брусьях вертикально",
+  "axis": "calisthenics",
+  "zone": "Руки",
+  "contour": "трицепс",
+  "equipment": "брусья",
+  "note": "корпус вертикально, локти назад"
+ },
+ {
+  "key": "calisthenics:ar_plank_to_pu",
+  "name": "Переход с предплечий на прямые руки в планке",
+  "axis": "calisthenics",
+  "zone": "Руки",
+  "contour": "трицепс",
+  "equipment": "вес тела",
+  "note": "корпус не крутится"
+ },
+ {
+  "key": "calisthenics:ar_towel_hang",
+  "name": "Вис на полотенце",
+  "axis": "calisthenics",
+  "zone": "Руки",
+  "contour": "предплечья",
+  "equipment": "полотенце",
+  "note": "полотенце перекинуто через турник"
+ },
+ {
+  "key": "calisthenics:ar_finger_plank",
+  "name": "Планка на кончиках пальцев с колен",
+  "axis": "calisthenics",
+  "zone": "Руки",
+  "contour": "предплечья",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ar_fist_squeeze",
+  "name": "Сжимание кулаков с максимальным усилием",
+  "axis": "calisthenics",
+  "zone": "Руки",
+  "contour": "предплечья",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:co_plank",
+  "name": "Планка на предплечьях",
+  "axis": "calisthenics",
+  "zone": "Пресс и кор",
+  "contour": "прямая и поперечная мышцы (анти-разгибание)",
+  "equipment": "вес тела",
+  "note": "таз подкручен, поясница не провисает"
+ },
+ {
+  "key": "calisthenics:co_plank_hands",
+  "name": "Планка на прямых руках",
+  "axis": "calisthenics",
+  "zone": "Пресс и кор",
+  "contour": "прямая и поперечная мышцы (анти-разгибание)",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:co_plank_feet_up",
+  "name": "Планка на предплечьях с ногами на скамье",
+  "axis": "calisthenics",
+  "zone": "Пресс и кор",
+  "contour": "прямая и поперечная мышцы (анти-разгибание)",
+  "equipment": "скамья",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:co_dead_bug",
+  "name": "Мёртвый жук",
+  "axis": "calisthenics",
+  "zone": "Пресс и кор",
+  "contour": "прямая и поперечная мышцы (анти-разгибание)",
+  "equipment": "вес тела",
+  "note": "поясница прижата к полу, рука и нога противоположные"
+ },
+ {
+  "key": "calisthenics:co_dead_bug_hold",
+  "name": "Удержание позы мёртвого жука",
+  "axis": "calisthenics",
+  "zone": "Пресс и кор",
+  "contour": "прямая и поперечная мышцы (анти-разгибание)",
+  "equipment": "вес тела",
+  "note": "поясница прижата к полу"
+ },
+ {
+  "key": "calisthenics:co_mcgill",
+  "name": "Скручивание Макгилла",
+  "axis": "calisthenics",
+  "zone": "Пресс и кор",
+  "contour": "прямая и поперечная мышцы (анти-разгибание)",
+  "equipment": "вес тела",
+  "note": "ладони под поясницей, отрываются только лопатки"
+ },
+ {
+  "key": "calisthenics:co_bear",
+  "name": "Медвежья стойка",
+  "axis": "calisthenics",
+  "zone": "Пресс и кор",
+  "contour": "прямая и поперечная мышцы (анти-разгибание)",
+  "equipment": "вес тела",
+  "note": "колени в 2 см от пола, спина плоская"
+ },
+ {
+  "key": "calisthenics:co_plank_arm",
+  "name": "Планка на прямых руках с подъёмом одной руки",
+  "axis": "calisthenics",
+  "zone": "Пресс и кор",
+  "contour": "косые (анти-ротация)",
+  "equipment": "вес тела",
+  "note": "таз не крутится"
+ },
+ {
+  "key": "calisthenics:co_plank_one_arm",
+  "name": "Удержание планки на одной руке",
+  "axis": "calisthenics",
+  "zone": "Пресс и кор",
+  "contour": "косые (анти-ротация)",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:co_shoulder_tap",
+  "name": "Планка с касанием плеч",
+  "axis": "calisthenics",
+  "zone": "Пресс и кор",
+  "contour": "косые (анти-ротация)",
+  "equipment": "вес тела",
+  "note": "ноги шире, таз неподвижен"
+ },
+ {
+  "key": "calisthenics:co_bear_arm",
+  "name": "Медвежья стойка с подъёмом руки",
+  "axis": "calisthenics",
+  "zone": "Пресс и кор",
+  "contour": "косые (анти-ротация)",
+  "equipment": "вес тела",
+  "note": "колени над полом, таз неподвижен"
+ },
+ {
+  "key": "calisthenics:co_side_plank",
+  "name": "Боковая планка на предплечье",
+  "axis": "calisthenics",
+  "zone": "Пресс и кор",
+  "contour": "косые и квадратная поясницы (анти-наклон)",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:co_side_plank_knees",
+  "name": "Боковая планка с колен",
+  "axis": "calisthenics",
+  "zone": "Пресс и кор",
+  "contour": "косые и квадратная поясницы (анти-наклон)",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:co_side_plank_leg",
+  "name": "Боковая планка с подъёмом верхней ноги",
+  "axis": "calisthenics",
+  "zone": "Пресс и кор",
+  "contour": "косые и квадратная поясницы (анти-наклон)",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:co_side_plank_feet_up",
+  "name": "Боковая планка с ногами на скамье",
+  "axis": "calisthenics",
+  "zone": "Пресс и кор",
+  "contour": "косые и квадратная поясницы (анти-наклон)",
+  "equipment": "скамья",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:gl_bridge",
+  "name": "Ягодичный мост лёжа",
+  "axis": "calisthenics",
+  "zone": "Ягодичные",
+  "contour": "большая ягодичная",
+  "equipment": "вес тела",
+  "note": "до линии колено–таз–плечо, без прогиба"
+ },
+ {
+  "key": "calisthenics:gl_bridge_hold",
+  "name": "Удержание ягодичного моста",
+  "axis": "calisthenics",
+  "zone": "Ягодичные",
+  "contour": "большая ягодичная",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:gl_bridge_1l",
+  "name": "Ягодичный мост на одной ноге",
+  "axis": "calisthenics",
+  "zone": "Ягодичные",
+  "contour": "большая ягодичная",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:gl_bridge_1l_hold",
+  "name": "Удержание ягодичного моста на одной ноге",
+  "axis": "calisthenics",
+  "zone": "Ягодичные",
+  "contour": "большая ягодичная",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:gl_thrust_bw",
+  "name": "Ягодичный мост с плечами на скамье без веса",
+  "axis": "calisthenics",
+  "zone": "Ягодичные",
+  "contour": "большая ягодичная",
+  "equipment": "скамья",
+  "note": "подбородок к груди, рёбра вниз"
+ },
+ {
+  "key": "calisthenics:gl_donkey",
+  "name": "Разгибание бедра стоя на четвереньках",
+  "axis": "calisthenics",
+  "zone": "Ягодичные",
+  "contour": "большая ягодичная",
+  "equipment": "вес тела",
+  "note": "пятка вверх до линии тела, поясница не прогибается"
+ },
+ {
+  "key": "calisthenics:gl_rev_lunge",
+  "name": "Выпад назад",
+  "axis": "calisthenics",
+  "zone": "Ягодичные",
+  "contour": "большая ягодичная",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:gl_step_up",
+  "name": "Зашагивание на скамью без веса",
+  "axis": "calisthenics",
+  "zone": "Ягодичные",
+  "contour": "большая ягодичная",
+  "equipment": "скамья",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:gl_side_abd",
+  "name": "Отведение бедра лёжа на боку",
+  "axis": "calisthenics",
+  "zone": "Ягодичные",
+  "contour": "средняя ягодичная",
+  "equipment": "вес тела",
+  "note": "носок вниз, нога чуть назад"
+ },
+ {
+  "key": "calisthenics:gl_side_abd_hold",
+  "name": "Удержание отведённой ноги лёжа на боку",
+  "axis": "calisthenics",
+  "zone": "Ягодичные",
+  "contour": "средняя ягодичная",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:gl_clam",
+  "name": "Ракушка лёжа на боку",
+  "axis": "calisthenics",
+  "zone": "Ягодичные",
+  "contour": "средняя ягодичная",
+  "equipment": "вес тела",
+  "note": "стопы вместе, колено вверх, таз не заваливается"
+ },
+ {
+  "key": "calisthenics:gl_one_leg",
+  "name": "Стойка на одной ноге",
+  "axis": "calisthenics",
+  "zone": "Ягодичные",
+  "contour": "средняя ягодичная",
+  "equipment": "вес тела",
+  "note": "таз ровно"
+ },
+ {
+  "key": "calisthenics:gl_lateral_walk",
+  "name": "Боковые шаги в полуприседе",
+  "axis": "calisthenics",
+  "zone": "Ягодичные",
+  "contour": "средняя ягодичная",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:gl_hip_hike",
+  "name": "Подъём таза стоя одной ногой на ступеньке",
+  "axis": "calisthenics",
+  "zone": "Ягодичные",
+  "contour": "средняя ягодичная",
+  "equipment": "ступенька",
+  "note": "свободная нога висит, таз поднимается и опускается"
+ },
+ {
+  "key": "calisthenics:qd_squat",
+  "name": "Присед с собственным весом",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:qd_squat_pause",
+  "name": "Присед с паузой внизу",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "вес тела",
+  "note": "пауза 3 секунды"
+ },
+ {
+  "key": "calisthenics:qd_deep_hold",
+  "name": "Удержание глубокого приседа у опоры",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "опора",
+  "note": "пятки на полу, спина нейтральна"
+ },
+ {
+  "key": "calisthenics:qd_wall_sit",
+  "name": "Присед у стены",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "стена",
+  "note": "бёдра параллельно полу"
+ },
+ {
+  "key": "calisthenics:qd_wall_sit_1l",
+  "name": "Присед у стены на одной ноге",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "стена",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:qd_half_hold",
+  "name": "Удержание полуприседа",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:qd_split",
+  "name": "Сплит-присед без веса",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:qd_split_hold",
+  "name": "Удержание нижней точки сплит-приседа",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:qd_bulgarian",
+  "name": "Болгарский сплит-присед без веса",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "скамья",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:qd_fwd_lunge",
+  "name": "Выпад вперёд",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:qd_box_1l",
+  "name": "Присед на скамью на одной ноге",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "скамья",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:qd_step_down",
+  "name": "Спуск со скамьи на одной ноге",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "скамья",
+  "note": "медленно, колено над стопой"
+ },
+ {
+  "key": "calisthenics:qd_pistol_assist",
+  "name": "Пистолет с опорой на руки",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "опора",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:qd_sissy",
+  "name": "Сисси-присед с опорой",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "опора",
+  "note": "колени вперёд, корпус и бёдра одной линией"
+ },
+ {
+  "key": "calisthenics:hm_slide_curl",
+  "name": "Скольжение пятками лёжа на спине",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "задняя поверхность бедра",
+  "equipment": "полотенце",
+  "note": "таз поднят, пятки на полотенце уезжают и возвращаются"
+ },
+ {
+  "key": "calisthenics:hm_bridge_bench",
+  "name": "Мост с пятками на скамье, ноги прямые",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "задняя поверхность бедра",
+  "equipment": "скамья",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:hm_bridge_bench_hold",
+  "name": "Удержание моста с пятками на скамье",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "задняя поверхность бедра",
+  "equipment": "скамья",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:hm_bridge_bench_1l",
+  "name": "Мост с пяткой на скамье на одной ноге",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "задняя поверхность бедра",
+  "equipment": "скамья",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:hm_nordic",
+  "name": "Нордические сгибания с опорой на руки",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "задняя поверхность бедра",
+  "equipment": "вес тела",
+  "note": "стопы закреплены, опускание медленное, руки страхуют"
+ },
+ {
+  "key": "calisthenics:hm_sl_hinge",
+  "name": "Тазобедренный шарнир на одной ноге без веса",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "задняя поверхность бедра",
+  "equipment": "вес тела",
+  "note": "спина нейтральна, наклон только в тазобедренном"
+ },
+ {
+  "key": "calisthenics:hm_sl_hinge_hold",
+  "name": "Удержание шарнира на одной ноге",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "задняя поверхность бедра",
+  "equipment": "вес тела",
+  "note": "спина нейтральна"
+ },
+ {
+  "key": "calisthenics:hm_iso_prone",
+  "name": "Сгибание голени лёжа на животе против второй ноги",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "задняя поверхность бедра",
+  "equipment": "вес тела",
+  "note": "вторая нога давит сверху, таз на полу"
+ },
+ {
+  "key": "calisthenics:ad_sumo",
+  "name": "Присед сумо без веса",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "приводящие",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ad_sumo_hold",
+  "name": "Удержание приседа сумо",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "приводящие",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ad_side_lunge",
+  "name": "Боковой выпад",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "приводящие",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ad_side_lunge_hold",
+  "name": "Удержание бокового выпада",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "приводящие",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ad_side_add",
+  "name": "Приведение бедра лёжа на боку, верхняя нога впереди",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "приводящие",
+  "equipment": "вес тела",
+  "note": "нижняя нога поднимается"
+ },
+ {
+  "key": "calisthenics:ad_copenhagen_short",
+  "name": "Копенгагенская планка с колена на скамье",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "приводящие",
+  "equipment": "скамья",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ad_copenhagen_long",
+  "name": "Копенгагенская планка с прямой ногой на скамье",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "приводящие",
+  "equipment": "скамья",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ab_stand",
+  "name": "Отведение ноги в сторону стоя у опоры",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "отводящие",
+  "equipment": "опора",
+  "note": "корпус неподвижен"
+ },
+ {
+  "key": "calisthenics:ab_stand_hold",
+  "name": "Удержание отведённой ноги стоя у опоры",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "отводящие",
+  "equipment": "опора",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ab_quad",
+  "name": "Отведение согнутой ноги в сторону стоя на четвереньках",
+  "axis": "calisthenics",
+  "zone": "Бёдра",
+  "contour": "отводящие",
+  "equipment": "вес тела",
+  "note": "поясница не крутится"
+ },
+ {
+  "key": "calisthenics:ca_raise",
+  "name": "Подъём на носки стоя",
+  "axis": "calisthenics",
+  "zone": "Икры",
+  "contour": "икроножная и камбаловидная",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ca_raise_1l",
+  "name": "Подъём на носки на одной ноге",
+  "axis": "calisthenics",
+  "zone": "Икры",
+  "contour": "икроножная и камбаловидная",
+  "equipment": "опора",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ca_raise_step",
+  "name": "Подъём на носки на ступеньке с полной амплитудой",
+  "axis": "calisthenics",
+  "zone": "Икры",
+  "contour": "икроножная и камбаловидная",
+  "equipment": "ступенька",
+  "note": "пятка ниже ступеньки внизу"
+ },
+ {
+  "key": "calisthenics:ca_hold",
+  "name": "Удержание на носках",
+  "axis": "calisthenics",
+  "zone": "Икры",
+  "contour": "икроножная и камбаловидная",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ca_hold_1l",
+  "name": "Удержание на носке одной ноги",
+  "axis": "calisthenics",
+  "zone": "Икры",
+  "contour": "икроножная и камбаловидная",
+  "equipment": "опора",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ca_bent_raise",
+  "name": "Подъём на носки с согнутыми коленями",
+  "axis": "calisthenics",
+  "zone": "Икры",
+  "contour": "икроножная и камбаловидная",
+  "equipment": "вес тела",
+  "note": "колени согнуты, работает камбаловидная"
+ },
+ {
+  "key": "calisthenics:ca_tib_raise",
+  "name": "Подъём носков стоя спиной к стене",
+  "axis": "calisthenics",
+  "zone": "Икры",
+  "contour": "передняя большеберцовая",
+  "equipment": "стена",
+  "note": "пятки на полу, носки вверх"
+ },
+ {
+  "key": "calisthenics:ca_tib_hold",
+  "name": "Удержание носков поднятыми спиной к стене",
+  "axis": "calisthenics",
+  "zone": "Икры",
+  "contour": "передняя большеберцовая",
+  "equipment": "стена",
+  "note": ""
+ },
+ {
+  "key": "calisthenics:ca_heel_walk",
+  "name": "Ходьба на пятках",
+  "axis": "calisthenics",
+  "zone": "Икры",
+  "contour": "передняя большеберцовая",
+  "equipment": "вес тела",
+  "note": ""
+ },
+ {
+  "key": "stretch:st_nk_ext",
+  "name": "Запрокидывание головы назад сидя",
+  "axis": "stretch",
+  "zone": "Шея",
+  "contour": "сгибатели шеи",
+  "equipment": "вес тела",
+  "note": "Сидя ровно, плечи вниз. Медленно поднять подбородок к потолку до лёгкого натяжения спереди шеи. Рот закрыт."
+ },
+ {
+  "key": "stretch:st_nk_flex",
+  "name": "Подбородок к груди сидя, ладони на затылке",
+  "axis": "stretch",
+  "zone": "Шея",
+  "contour": "разгибатели шеи",
+  "equipment": "вес тела",
+  "note": "Сидя ровно. Опустить подбородок к груди, ладони на затылке лишь весом рук, без давления. Тянется задняя поверхность шеи."
+ },
+ {
+  "key": "stretch:st_nk_diag",
+  "name": "Подбородок к подмышке сидя",
+  "axis": "stretch",
+  "zone": "Шея",
+  "contour": "разгибатели шеи",
+  "equipment": "вес тела",
+  "note": "Повернуть голову на 45° и опустить подбородок к подмышке, рука с той же стороны слегка придерживает затылок. Тянется задне-боковая поверхность шеи."
+ },
+ {
+  "key": "stretch:st_nk_side",
+  "name": "Наклон головы к плечу сидя",
+  "axis": "stretch",
+  "zone": "Шея",
+  "contour": "боковые сгибатели шеи",
+  "equipment": "вес тела",
+  "note": "Ухо к плечу, противоположное плечо опущено. Рука со стороны наклона может лежать на голове весом, без тяги."
+ },
+ {
+  "key": "stretch:st_nk_scalene",
+  "name": "Наклон головы к плечу с поворотом лица вверх",
+  "axis": "stretch",
+  "zone": "Шея",
+  "contour": "боковые сгибатели шеи",
+  "equipment": "вес тела",
+  "note": "Ухо к плечу, затем слегка повернуть лицо к потолку. Тянется передне-боковая поверхность шеи (лестничные)."
+ },
+ {
+  "key": "stretch:st_nk_rot",
+  "name": "Поворот головы в сторону сидя",
+  "axis": "stretch",
+  "zone": "Шея",
+  "contour": "ротаторы шеи",
+  "equipment": "вес тела",
+  "note": "Плечи неподвижны, повернуть голову к плечу до упора, подбородок горизонтально."
+ },
+ {
+  "key": "stretch:st_tr_upper",
+  "name": "Наклон головы к плечу, другая рука держится за скамью",
+  "axis": "stretch",
+  "zone": "Трапеция",
+  "contour": "верхняя трапеция",
+  "equipment": "скамья",
+  "note": "Сидя на скамье, одной рукой взяться за край скамьи, чтобы плечо не поднималось. Наклонить голову в противоположную сторону."
+ },
+ {
+  "key": "stretch:st_tr_upper_back",
+  "name": "Наклон головы к плечу с рукой за спиной",
+  "axis": "stretch",
+  "zone": "Трапеция",
+  "contour": "верхняя трапеция",
+  "equipment": "вес тела",
+  "note": "Стоя, одна рука заведена за спину, другая ладонь на голове. Голову к плечу, плечо с рукой за спиной тянется вниз."
+ },
+ {
+  "key": "stretch:st_tr_mid",
+  "name": "Руки в замок вперёд, верх спины округлить",
+  "axis": "stretch",
+  "zone": "Трапеция",
+  "contour": "средняя и нижняя трапеция",
+  "equipment": "вес тела",
+  "note": "Стоя или сидя, руки в замок перед собой, вытянуть вперёд, подбородок к груди, лопатки разъезжаются. Поясница не участвует."
+ },
+ {
+  "key": "stretch:st_sh_front",
+  "name": "Руки в замок за спиной, локти прямые",
+  "axis": "stretch",
+  "zone": "Плечи",
+  "contour": "передняя дельта",
+  "equipment": "вес тела",
+  "note": "Стоя, руки в замок за спиной, плечи назад и вниз, руки слегка поднять от тела. Спина в нейтрали, без прогиба поясницы."
+ },
+ {
+  "key": "stretch:st_sh_side",
+  "name": "Рука поперёк груди снизу, локоть тянется вниз",
+  "axis": "stretch",
+  "zone": "Плечи",
+  "contour": "средняя дельта",
+  "equipment": "вес тела",
+  "note": "Прямую руку провести поперёк груди ниже уровня плеч, другой рукой прижать над локтем и потянуть вниз к противоположному бедру."
+ },
+ {
+  "key": "stretch:st_sh_rear",
+  "name": "Рука поперёк груди, другая прижимает",
+  "axis": "stretch",
+  "zone": "Плечи",
+  "contour": "задняя дельта",
+  "equipment": "вес тела",
+  "note": "Прямую руку провести поперёк груди на уровне плеч, другой рукой прижать к груди. Плечо не поднимается."
+ },
+ {
+  "key": "stretch:st_sh_sleeper",
+  "name": "Лёжа на боку, предплечье к полу",
+  "axis": "stretch",
+  "zone": "Плечи",
+  "contour": "ротаторная манжета",
+  "equipment": "вес тела",
+  "note": "Лёжа на боку на нижнем плече, плечо вперёд под 90°, локоть 90°. Другой рукой мягко давить предплечье к полу. Тянется внутренняя ротация."
+ },
+ {
+  "key": "stretch:st_sh_towel",
+  "name": "Рука за спину снизу с полотенцем",
+  "axis": "stretch",
+  "zone": "Плечи",
+  "contour": "ротаторная манжета",
+  "equipment": "полотенце",
+  "note": "Полотенце через плечо: верхняя рука тянет вверх, нижняя рука за спиной поднимается вдоль позвоночника."
+ },
+ {
+  "key": "stretch:st_sh_doorframe_rot",
+  "name": "Наружная ротация плеча в дверном проёме",
+  "axis": "stretch",
+  "zone": "Плечи",
+  "contour": "ротаторная манжета",
+  "equipment": "вес тела",
+  "note": "Локоть у бока под 90°, тыльная сторона кисти на косяке. Мягко повернуть корпус от косяка."
+ },
+ {
+  "key": "stretch:st_ch_upper",
+  "name": "Растяжка в дверном проёме, руки ниже плеч",
+  "axis": "stretch",
+  "zone": "Грудь",
+  "contour": "верх грудных",
+  "equipment": "вес тела",
+  "note": "Предплечья на косяках ниже уровня плеч, шаг вперёд одной ногой, грудь идёт вперёд. Поясница не прогибается."
+ },
+ {
+  "key": "stretch:st_ch_mid",
+  "name": "Растяжка в дверном проёме, руки на уровне плеч",
+  "axis": "stretch",
+  "zone": "Грудь",
+  "contour": "середина грудных",
+  "equipment": "вес тела",
+  "note": "Предплечья на косяках на уровне плеч, локти 90°, шаг вперёд, грудь вперёд."
+ },
+ {
+  "key": "stretch:st_ch_roller",
+  "name": "Лёжа на валике вдоль позвоночника, руки в стороны",
+  "axis": "stretch",
+  "zone": "Грудь",
+  "contour": "середина грудных",
+  "equipment": "валик",
+  "note": "Валик вдоль позвоночника от таза до затылка, колени согнуты, руки в стороны ладонями вверх. Поясница на валике, без прогиба."
+ },
+ {
+  "key": "stretch:st_ch_wall",
+  "name": "Одной рукой в стену, поворот корпуса от стены",
+  "axis": "stretch",
+  "zone": "Грудь",
+  "contour": "середина грудных",
+  "equipment": "вес тела",
+  "note": "Ладонь на стене на уровне плеча, локоть прямой, медленно повернуть корпус и ноги от стены."
+ },
+ {
+  "key": "stretch:st_ch_lower",
+  "name": "Растяжка в дверном проёме, руки выше головы",
+  "axis": "stretch",
+  "zone": "Грудь",
+  "contour": "низ грудных",
+  "equipment": "вес тела",
+  "note": "Ладони на косяках выше головы, шаг вперёд, грудь вперёд. Рёбра вниз, поясница не прогибается."
+ },
+ {
+  "key": "stretch:st_bk_lats_post",
+  "name": "Широчайшие у стойки, таз назад",
+  "axis": "stretch",
+  "zone": "Спина",
+  "contour": "широчайшие",
+  "equipment": "опора",
+  "note": "Взяться двумя руками за стойку на уровне груди, отсесть тазом назад с прямой спиной, голова между рук. Спина в нейтрали."
+ },
+ {
+  "key": "stretch:st_bk_child_side",
+  "name": "Поза ребёнка с руками в сторону",
+  "axis": "stretch",
+  "zone": "Спина",
+  "contour": "широчайшие",
+  "equipment": "вес тела",
+  "note": "Сидя на пятках, руки вытянуть по полу и увести в одну сторону, таз остаётся на пятках. Тянется бок со стороны, противоположной рукам."
+ },
+ {
+  "key": "stretch:st_bk_hang",
+  "name": "Расслабленный вис на турнике",
+  "axis": "stretch",
+  "zone": "Спина",
+  "contour": "широчайшие",
+  "equipment": "турник",
+  "note": "Повиснуть, полностью расслабить плечи и спину, ноги свободно. Позвоночник вытягивается."
+ },
+ {
+  "key": "stretch:st_bk_side_bend",
+  "name": "Наклон в сторону с рукой над головой, держась за опору",
+  "axis": "stretch",
+  "zone": "Спина",
+  "contour": "широчайшие",
+  "equipment": "опора",
+  "note": "Стоя боком к опоре, ближней рукой держаться, дальнюю руку над головой, таз в сторону опоры. Наклон только вбок, без скручивания."
+ },
+ {
+  "key": "stretch:st_bk_hug",
+  "name": "Обхват себя руками с округлением верха спины",
+  "axis": "stretch",
+  "zone": "Спина",
+  "contour": "ромбовидные",
+  "equipment": "вес тела",
+  "note": "Обнять себя за плечи, локти вперёд, лопатки разъезжаются, подбородок к груди. Поясница в нейтрали."
+ },
+ {
+  "key": "stretch:st_bk_thoracic_roller",
+  "name": "Грудной отдел на валике",
+  "axis": "stretch",
+  "zone": "Спина",
+  "contour": "ромбовидные",
+  "equipment": "валик",
+  "note": "Валик поперёк спины под лопатками, руки за головой, колени согнуты. Лечь на валик, раскрывая грудной отдел. Поясница не прогибается — валик только в грудном отделе."
+ },
+ {
+  "key": "stretch:st_er_knees",
+  "name": "Колени к груди лёжа на спине",
+  "axis": "stretch",
+  "zone": "Спина",
+  "contour": "разгибатели поясницы — сгибание без нагрузки",
+  "equipment": "вес тела",
+  "note": "Лёжа на спине, обхватить оба колена руками и подтянуть к груди. Голова на полу. Без боли, без покачиваний."
+ },
+ {
+  "key": "stretch:st_er_child",
+  "name": "Поза ребёнка",
+  "axis": "stretch",
+  "zone": "Спина",
+  "contour": "разгибатели поясницы — сгибание без нагрузки",
+  "equipment": "вес тела",
+  "note": "Сидя на пятках, лечь грудью на бёдра, руки вперёд по полу, лоб на полу. Дышать в спину."
+ },
+ {
+  "key": "stretch:st_er_cat",
+  "name": "Округление спины стоя на четвереньках",
+  "axis": "stretch",
+  "zone": "Спина",
+  "contour": "разгибатели поясницы — сгибание без нагрузки",
+  "equipment": "вес тела",
+  "note": "На четвереньках, макушку вниз, таз подкрутить, спину выгнуть вверх дугой и удержать."
+ },
+ {
+  "key": "stretch:st_er_twist",
+  "name": "Колени в сторону лёжа на спине, плечи на полу",
+  "axis": "stretch",
+  "zone": "Спина",
+  "contour": "поясница — ротация без нагрузки",
+  "equipment": "вес тела",
+  "note": "Лёжа на спине, колени согнуты и вместе, опустить их в сторону на пол, руки в стороны, оба плеча на полу."
+ },
+ {
+  "key": "stretch:st_er_twist_leg",
+  "name": "Нога через тело лёжа на спине",
+  "axis": "stretch",
+  "zone": "Спина",
+  "contour": "поясница — ротация без нагрузки",
+  "equipment": "вес тела",
+  "note": "Лёжа на спине, одно колено согнуть и рукой перевести через тело к полу, плечи на полу, голова в другую сторону."
+ },
+ {
+  "key": "stretch:st_ql_stand",
+  "name": "Наклон в сторону стоя, ноги скрестно, рука вверх",
+  "axis": "stretch",
+  "zone": "Спина",
+  "contour": "квадратная мышца поясницы",
+  "equipment": "вес тела",
+  "note": "Стоя, одну ногу завести скрестно за другую, руку с той же стороны вверх, наклон в противоположную сторону. Таз в сторону наклонной ноги."
+ },
+ {
+  "key": "stretch:st_ql_child_sit",
+  "name": "Наклон в сторону сидя на коленях, рука над головой",
+  "axis": "stretch",
+  "zone": "Спина",
+  "contour": "квадратная мышца поясницы",
+  "equipment": "вес тела",
+  "note": "Сидя на пятках, одна ладонь на полу сбоку, другая рука над головой в ту же сторону, наклон вбок."
+ },
+ {
+  "key": "stretch:st_ar_bic",
+  "name": "Рука назад ладонью в стену, поворот корпуса",
+  "axis": "stretch",
+  "zone": "Руки",
+  "contour": "бицепс",
+  "equipment": "стена",
+  "note": "Стоя боком к стене, прямая рука назад ладонью на стену на уровне плеча, большой палец вниз, медленно повернуть корпус от стены."
+ },
+ {
+  "key": "stretch:st_ar_tri",
+  "name": "Рука за голову, локоть тянет другая рука",
+  "axis": "stretch",
+  "zone": "Руки",
+  "contour": "трицепс",
+  "equipment": "вес тела",
+  "note": "Поднять руку, согнуть в локте, ладонь между лопаток, другой рукой мягко потянуть локоть к затылку. Рёбра вниз, без прогиба."
+ },
+ {
+  "key": "stretch:st_ar_flex",
+  "name": "Ладонь вверх, пальцы к себе другой рукой",
+  "axis": "stretch",
+  "zone": "Руки",
+  "contour": "предплечья",
+  "equipment": "вес тела",
+  "note": "Прямая рука перед собой ладонью вверх, другой рукой потянуть пальцы вниз к полу. Тянется внутренняя сторона предплечья."
+ },
+ {
+  "key": "stretch:st_ar_ext",
+  "name": "Ладонь вниз, пальцы к себе другой рукой",
+  "axis": "stretch",
+  "zone": "Руки",
+  "contour": "предплечья",
+  "equipment": "вес тела",
+  "note": "Прямая рука перед собой ладонью вниз, другой рукой потянуть кисть вниз и к себе. Тянется наружная сторона предплечья."
+ },
+ {
+  "key": "stretch:st_ar_quad",
+  "name": "Ладони на пол пальцами к себе стоя на четвереньках",
+  "axis": "stretch",
+  "zone": "Руки",
+  "contour": "предплечья",
+  "equipment": "вес тела",
+  "note": "На четвереньках, развернуть ладони пальцами к коленям, локти прямые, мягко отсесть тазом назад."
+ },
+ {
+  "key": "stretch:st_co_sphinx",
+  "name": "Лёжа на животе с опорой на предплечья",
+  "axis": "stretch",
+  "zone": "Пресс и кор",
+  "contour": "прямая мышца живота",
+  "equipment": "вес тела",
+  "note": "Лёжа на животе, локти под плечами, предплечья на полу, таз и лобок на полу, ягодицы расслаблены. Только до лёгкого натяжения живота, без боли в пояснице."
+ },
+ {
+  "key": "stretch:st_co_side_lying",
+  "name": "Лёжа на боку через валик, рука за голову",
+  "axis": "stretch",
+  "zone": "Пресс и кор",
+  "contour": "косые",
+  "equipment": "валик",
+  "note": "Валик под нижним боком на уровне талии, нижняя рука вытянута по полу, верхняя за голову, тело прогибается вбок через валик."
+ },
+ {
+  "key": "stretch:st_gl_fig4_sit",
+  "name": "Фигура 4 сидя на скамье",
+  "axis": "stretch",
+  "zone": "Ягодичные",
+  "contour": "большая ягодичная",
+  "equipment": "скамья",
+  "note": "Сидя на скамье, лодыжку положить на колено другой ноги, спина прямая, корпус слегка вперёд от тазобедренных, не округляя поясницу."
+ },
+ {
+  "key": "stretch:st_gl_fig4_lying",
+  "name": "Фигура 4 лёжа на спине",
+  "axis": "stretch",
+  "zone": "Ягодичные",
+  "contour": "большая ягодичная",
+  "equipment": "вес тела",
+  "note": "Лёжа на спине, лодыжку на колено другой ноги, обхватить бедро опорной ноги и подтянуть к груди. Голова на полу."
+ },
+ {
+  "key": "stretch:st_gl_knee_cross",
+  "name": "Колено к противоположному плечу лёжа на спине",
+  "axis": "stretch",
+  "zone": "Ягодичные",
+  "contour": "большая ягодичная",
+  "equipment": "вес тела",
+  "note": "Лёжа на спине, одно колено обхватить руками и потянуть по диагонали к противоположному плечу. Таз на полу."
+ },
+ {
+  "key": "stretch:st_gl_pigeon",
+  "name": "Поза голубя, корпус вертикально",
+  "axis": "stretch",
+  "zone": "Ягодичные",
+  "contour": "средняя ягодичная и грушевидная",
+  "equipment": "вес тела",
+  "note": "Одна нога согнута впереди голенью поперёк, другая вытянута назад, таз ровно, корпус вертикально. Вперёд не ложиться."
+ },
+ {
+  "key": "stretch:st_gl_9090",
+  "name": "Сидя с ногами под прямым углом, корпус вертикально",
+  "axis": "stretch",
+  "zone": "Ягодичные",
+  "contour": "средняя ягодичная и грушевидная",
+  "equipment": "вес тела",
+  "note": "Сидя, обе ноги согнуты под 90°: одна впереди, другая сбоку. Спина прямая, грудь к переднему колену только от тазобедренных."
+ },
+ {
+  "key": "stretch:st_gl_lat_cross",
+  "name": "Нога скрестно, колено к груди лёжа на спине",
+  "axis": "stretch",
+  "zone": "Ягодичные",
+  "contour": "средняя ягодичная и грушевидная",
+  "equipment": "вес тела",
+  "note": "Лёжа на спине, ногу согнуть и рукой противоположной стороны потянуть колено к противоположному плечу поверх тела."
+ },
+ {
+  "key": "stretch:st_qd_stand",
+  "name": "Квадрицепс стоя у опоры",
+  "axis": "stretch",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "опора",
+  "note": "Стоя, держась за опору, взять стопу за подъём той же рукой и подтянуть пятку к ягодице. Колени вместе, таз подкручен, поясница не прогибается."
+ },
+ {
+  "key": "stretch:st_qd_side",
+  "name": "Квадрицепс лёжа на боку",
+  "axis": "stretch",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "вес тела",
+  "note": "Лёжа на боку, верхнюю стопу взять рукой за подъём, пятку к ягодице, колено назад в линию с телом. Таз подкручен."
+ },
+ {
+  "key": "stretch:st_qd_couch",
+  "name": "Стоя на колене, голень на стене сзади",
+  "axis": "stretch",
+  "zone": "Бёдра",
+  "contour": "квадрицепс",
+  "equipment": "стена",
+  "note": "Колено у стены, голень вертикально по стене, другая нога впереди стопой на полу. Корпус вертикально, таз подкручен, поясница не прогибается."
+ },
+ {
+  "key": "stretch:st_hf_lunge",
+  "name": "Выпад на колене, таз вперёд",
+  "axis": "stretch",
+  "zone": "Бёдра",
+  "contour": "сгибатели бедра",
+  "equipment": "вес тела",
+  "note": "Одно колено на полу, другая нога впереди под 90°. Подкрутить таз (ягодицу задней ноги напрячь) и подать вперёд. Тянется передняя поверхность бедра у паха. Корпус вертикально, без прогиба."
+ },
+ {
+  "key": "stretch:st_hf_lunge_arm",
+  "name": "Выпад на колене, рука вверх",
+  "axis": "stretch",
+  "zone": "Бёдра",
+  "contour": "сгибатели бедра",
+  "equipment": "вес тела",
+  "note": "То же, что выпад на колене, рука со стороны задней ноги поднята вверх и слегка в противоположную сторону."
+ },
+ {
+  "key": "stretch:st_hf_thomas",
+  "name": "Лёжа на краю скамьи, одна нога свисает",
+  "axis": "stretch",
+  "zone": "Бёдра",
+  "contour": "сгибатели бедра",
+  "equipment": "скамья",
+  "note": "Лечь на спину на край скамьи, одно колено подтянуть к груди руками, другая нога свободно свисает вниз. Поясница прижата к скамье."
+ },
+ {
+  "key": "stretch:st_hm_strap",
+  "name": "Лёжа на спине, нога вверх с ремнём",
+  "axis": "stretch",
+  "zone": "Бёдра",
+  "contour": "задняя поверхность бедра",
+  "equipment": "ремень",
+  "note": "Лёжа на спине, ремень на стопе, прямую ногу поднять к потолку, другая нога на полу, таз и поясница на полу. Никаких наклонов стоя."
+ },
+ {
+  "key": "stretch:st_hm_doorframe",
+  "name": "Лёжа на спине в дверном проёме, нога на косяке",
+  "axis": "stretch",
+  "zone": "Бёдра",
+  "contour": "задняя поверхность бедра",
+  "equipment": "вес тела",
+  "note": "Лечь в дверном проёме, одна нога прямая вверх по косяку, другая на полу через проём. Таз на полу, без усилия."
+ },
+ {
+  "key": "stretch:st_hm_bench",
+  "name": "Нога на скамье, спина прямая, таз вперёд",
+  "axis": "stretch",
+  "zone": "Бёдра",
+  "contour": "задняя поверхность бедра",
+  "equipment": "скамья",
+  "note": "Пятка на скамье, нога прямая, стоя ровно. Наклон только в тазобедренном: спина прямая, грудь вперёд на 10–15°, не округляться."
+ },
+ {
+  "key": "stretch:st_hm_wall_sit",
+  "name": "Сидя спиной к стене, ноги прямые",
+  "axis": "stretch",
+  "zone": "Бёдра",
+  "contour": "задняя поверхность бедра",
+  "equipment": "стена",
+  "note": "Сидя на полу спиной и затылком к стене, ноги прямые, носки на себя. Спина прямая по стене, вперёд не наклоняться."
+ },
+ {
+  "key": "stretch:st_ad_butterfly",
+  "name": "Бабочка сидя спиной к стене",
+  "axis": "stretch",
+  "zone": "Бёдра",
+  "contour": "приводящие",
+  "equipment": "стена",
+  "note": "Сидя спиной к стене, стопы вместе, колени в стороны, руками мягко давить на колени. Спина по стене прямая."
+ },
+ {
+  "key": "stretch:st_ad_frog",
+  "name": "Лягушка на четвереньках",
+  "axis": "stretch",
+  "zone": "Бёдра",
+  "contour": "приводящие",
+  "equipment": "вес тела",
+  "note": "На четвереньках, колени широко, голени параллельно, стопы наружу, мягко отсесть тазом назад. Поясница в нейтрали."
+ },
+ {
+  "key": "stretch:st_ad_wall_v",
+  "name": "Ноги врозь лёжа на спине у стены",
+  "axis": "stretch",
+  "zone": "Бёдра",
+  "contour": "приводящие",
+  "equipment": "стена",
+  "note": "Лёжа на спине, таз у стены, прямые ноги вверх по стене и развести в стороны под своим весом."
+ },
+ {
+  "key": "stretch:st_ad_straddle",
+  "name": "Сидя ноги врозь спиной к стене",
+  "axis": "stretch",
+  "zone": "Бёдра",
+  "contour": "приводящие",
+  "equipment": "стена",
+  "note": "Сидя спиной к стене, прямые ноги развести широко, носки вверх. Спина по стене прямая, вперёд не наклоняться."
+ },
+ {
+  "key": "stretch:st_ab_cross_lying",
+  "name": "Нога через тело лёжа на спине, вторая рука тянет",
+  "axis": "stretch",
+  "zone": "Бёдра",
+  "contour": "отводящие и напрягатель широкой фасции",
+  "equipment": "вес тела",
+  "note": "Лёжа на спине, прямую ногу перевести через тело в сторону, противоположной рукой удерживать за стопу или голень, плечи на полу."
+ },
+ {
+  "key": "stretch:st_ab_wall",
+  "name": "Стоя боком к стене, нога скрестно сзади, таз к стене",
+  "axis": "stretch",
+  "zone": "Бёдра",
+  "contour": "отводящие и напрягатель широкой фасции",
+  "equipment": "стена",
+  "note": "Стоя боком к стене на расстоянии шага, ближнюю ногу завести скрестно назад, таз подать к стене. Тянется наружная сторона бедра."
+ },
+ {
+  "key": "stretch:st_ca_gastro",
+  "name": "Икроножная у стены, нога прямая",
+  "axis": "stretch",
+  "zone": "Икры",
+  "contour": "икроножная и камбаловидная",
+  "equipment": "стена",
+  "note": "Руки в стену, задняя нога прямая, пятка на полу, стопа прямо. Таз вперёд."
+ },
+ {
+  "key": "stretch:st_ca_soleus",
+  "name": "Камбаловидная у стены, колено согнуто",
+  "axis": "stretch",
+  "zone": "Икры",
+  "contour": "икроножная и камбаловидная",
+  "equipment": "стена",
+  "note": "То же, но заднее колено согнуть, пятка на полу. Тянется ниже, у ахилла."
+ },
+ {
+  "key": "stretch:st_ca_step",
+  "name": "Пятка вниз со ступеньки",
+  "axis": "stretch",
+  "zone": "Икры",
+  "contour": "икроножная и камбаловидная",
+  "equipment": "ступенька",
+  "note": "Носок на ступеньке, пятка свисает и опускается под своим весом, держась за опору."
+ },
+ {
+  "key": "stretch:st_ca_kneel",
+  "name": "Сидя на пятках, подъёмы стоп на полу",
+  "axis": "stretch",
+  "zone": "Икры",
+  "contour": "передняя большеберцовая и подъём стопы",
+  "equipment": "вес тела",
+  "note": "Сидя на пятках, стопы вытянуты, подъёмы прижаты к полу. Тянется передняя поверхность голени."
+ },
+ {
+  "key": "stretch:st_ca_toe_back",
+  "name": "Стоя, носок в пол за собой",
+  "axis": "stretch",
+  "zone": "Икры",
+  "contour": "передняя большеберцовая и подъём стопы",
+  "equipment": "вес тела",
+  "note": "Стоя, одну ногу отвести назад и поставить на пол подъёмом стопы, слегка присесть на опорной ноге."
+ },
+ {
+  "key": "stretch:st_ca_toes_wall",
+  "name": "Пальцы стопы на стену, пятка на полу",
+  "axis": "stretch",
+  "zone": "Икры",
+  "contour": "подошвенная фасция",
+  "equipment": "стена",
+  "note": "Пальцы стопы упереть в стену, пятка на полу, колено вперёд к стене. Тянется подошва и пальцы."
+ },
+ {
+  "key": "plan:glute_bridge_m",
+  "name": "Ягодичный мост в тренажёре",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": "Заменяет румынскую тягу: даёт ту же заднюю цепь, но без наклона под весом. Лопатки лежат на скамье, стопы под коленями. Подъём заканчивается там, где плечи, таз и колени встают в одну линию — выше не "
+ },
+ {
+  "key": "plan:hip_abd_cable",
+  "name": "Отведение бедра в блоке стоя",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:curlup",
+  "name": "Скручивание Макгилла",
+  "axis": "static",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": "Лёжа на спине, руки под поясницей для поддержки, одна нога согнута, вторая прямая. Приподнимаешь плечи и голову совсем немного — подъём 2–3 см, ровно чтобы включились мышцы. Ладони сохраняют прогиб по"
+ },
+ {
+  "key": "plan:bridge_hold",
+  "name": "Удержание ягодичного моста",
+  "axis": "static",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:st_hipflex",
+  "name": "Сгибатели бедра в выпаде",
+  "axis": "stretch",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": "статика 40с × 2 или PNF (5с напряжения → 20с расслабления × 2) — по выбору, эффект сопоставим"
+ },
+ {
+  "key": "plan:st_fig4",
+  "name": "Ягодичная «фигура 4» сидя",
+  "axis": "stretch",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": "статика 40с × 2 или PNF (5с напряжения → 20с расслабления × 2) — по выбору, эффект сопоставим"
+ },
+ {
+  "key": "plan:c_elliptical",
+  "name": "Эллипс",
+  "axis": "warmup_cardio",
+  "zone": "Сердце, сосуды, лёгкие",
+  "contour": "cardio",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:c_bike",
+  "name": "Велотренажёр",
+  "axis": "warmup_cardio",
+  "zone": "Сердце, сосуды, лёгкие",
+  "contour": "cardio",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:c_treadmill_incline",
+  "name": "Ходьба по дорожке в горку",
+  "axis": "warmup_cardio",
+  "zone": "Сердце, сосуды, лёгкие",
+  "contour": "cardio",
+  "equipment": "",
+  "note": "наклон 5–8 %, темп разговорный"
+ },
+ {
+  "key": "plan:c_treadmill_walk",
+  "name": "Быстрая ходьба по дорожке",
+  "axis": "warmup_cardio",
+  "zone": "Сердце, сосуды, лёгкие",
+  "contour": "cardio",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:c_stairs",
+  "name": "Степпер (лестница)",
+  "axis": "warmup_cardio",
+  "zone": "Сердце, сосуды, лёгкие",
+  "contour": "cardio",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:c_ski_erg",
+  "name": "Лыжный тренажёр",
+  "axis": "warmup_cardio",
+  "zone": "Сердце, сосуды, лёгкие",
+  "contour": "cardio",
+  "equipment": "",
+  "note": "тяга руками стоя, корпус нейтрален, без наклона поясницы"
+ },
+ {
+  "key": "plan:c_air_bike",
+  "name": "Аэробайк (руки+ноги)",
+  "axis": "warmup_cardio",
+  "zone": "Сердце, сосуды, лёгкие",
+  "contour": "cardio",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:c_march",
+  "name": "Марш на месте с высоким коленом",
+  "axis": "warmup_cardio",
+  "zone": "Сердце, сосуды, лёгкие",
+  "contour": "cardio",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:c_shadow_box",
+  "name": "Бой с тенью",
+  "axis": "warmup_cardio",
+  "zone": "Сердце, сосуды, лёгкие",
+  "contour": "cardio",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:c_jumping_jacks",
+  "name": "Прыжки с разведением рук и ног",
+  "axis": "warmup_cardio",
+  "zone": "Сердце, сосуды, лёгкие",
+  "contour": "cardio",
+  "equipment": "",
+  "note": "ударная нагрузка — прыгать мягко, на носках"
+ },
+ {
+  "key": "plan:c_jump_rope",
+  "name": "Скакалка",
+  "axis": "warmup_cardio",
+  "zone": "Сердце, сосуды, лёгкие",
+  "contour": "cardio",
+  "equipment": "",
+  "note": "ударная нагрузка — низкие прыжки"
+ },
+ {
+  "key": "plan:c_step_ups",
+  "name": "Зашагивания на платформу",
+  "axis": "warmup_cardio",
+  "zone": "Сердце, сосуды, лёгкие",
+  "contour": "cardio",
+  "equipment": "",
+  "note": "платформа низкая, без отягощения"
+ },
+ {
+  "key": "plan:neck_flex_ext",
+  "name": "Наклоны головы вперёд-назад",
+  "axis": "warmup",
+  "zone": "Шея",
+  "contour": "cervical",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:neck_lateral",
+  "name": "Наклоны головы в стороны",
+  "axis": "warmup",
+  "zone": "Шея",
+  "contour": "cervical",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:neck_rot",
+  "name": "Повороты головы",
+  "axis": "warmup",
+  "zone": "Шея",
+  "contour": "cervical",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:neck_semicircle",
+  "name": "Полукруги головой, подбородок от плеча к плечу",
+  "axis": "warmup",
+  "zone": "Шея",
+  "contour": "cervical",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:arm_circles",
+  "name": "Круги руками",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "glenohumeral",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:arm_circles_alt",
+  "name": "Круги руками поочерёдно",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "glenohumeral",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:arm_swings_fb",
+  "name": "Махи руками вперёд-назад",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "glenohumeral",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:arm_swings_side",
+  "name": "Махи руками через стороны вверх-вниз",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "glenohumeral",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:arm_open_close",
+  "name": "Разведение-сведение рук перед собой",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "glenohumeral",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:arm_cross_swings",
+  "name": "Скрестные махи руками перед грудью",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "glenohumeral",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:shoulder_rolls",
+  "name": "Круги плечами",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "scapula",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:shrugs",
+  "name": "Подъём-опускание плеч",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "scapula",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:scap_squeeze",
+  "name": "Сведение-разведение лопаток",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "scapula",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:shoulder_fb",
+  "name": "Плечи вперёд-назад",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "scapula",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:elbow_flex_ext",
+  "name": "Сгибание-разгибание рук в локтях",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "elbow",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:forearm_turns",
+  "name": "Повороты предплечий ладонями вверх-вниз",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "elbow",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:forearm_circles",
+  "name": "Круги предплечьями",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "elbow",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:elbow_flex_ext_raised",
+  "name": "Сгибание-разгибание рук в локтях с поднятыми плечами",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "elbow",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:wrist_flex_ext",
+  "name": "Сгибание-разгибание в лучезапястных суставах",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "wrist",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:wrist_circles",
+  "name": "Круги кистями",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "wrist",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:wrist_dev",
+  "name": "Отведение-приведение кисти в стороны",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "wrist",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:wrist_wave",
+  "name": "Волна кистями",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "wrist",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:fist_open_close",
+  "name": "Сжимание-разжимание пальцев в кулак",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "fingers",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:finger_spread",
+  "name": "Разведение-сведение пальцев",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "fingers",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:thumb_touch",
+  "name": "Поочерёдное касание большим пальцем остальных",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "fingers",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:hand_shake",
+  "name": "Встряхивание кистей",
+  "axis": "warmup",
+  "zone": "Плечевой пояс",
+  "contour": "fingers",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:torso_twist",
+  "name": "Повороты корпуса стоя",
+  "axis": "warmup",
+  "zone": "Грудь, спина",
+  "contour": "t_spine",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:torso_twist_arms",
+  "name": "Повороты корпуса с расслабленными махами рук",
+  "axis": "warmup",
+  "zone": "Грудь, спина",
+  "contour": "t_spine",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:open_book",
+  "name": "«Книжка» лёжа на боку",
+  "axis": "warmup",
+  "zone": "Грудь, спина",
+  "contour": "t_spine",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:chest_open_arms",
+  "name": "Разведение рук с раскрытием груди",
+  "axis": "warmup",
+  "zone": "Грудь, спина",
+  "contour": "t_spine",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:arms_up_extend",
+  "name": "Подъём рук вверх с раскрытием грудного отдела",
+  "axis": "warmup",
+  "zone": "Грудь, спина",
+  "contour": "t_spine",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:self_hug",
+  "name": "Обхват-раскрытие руками",
+  "axis": "warmup",
+  "zone": "Грудь, спина",
+  "contour": "t_spine",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:t_spine_circles",
+  "name": "Круги верхней частью корпуса, таз неподвижен",
+  "axis": "warmup",
+  "zone": "Грудь, спина",
+  "contour": "t_spine",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:thread_needle",
+  "name": "Продевание руки под себя, стоя на четвереньках",
+  "axis": "warmup",
+  "zone": "Грудь, спина",
+  "contour": "t_spine",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:hip_circles",
+  "name": "Круги тазом стоя",
+  "axis": "warmup",
+  "zone": "Поясница",
+  "contour": "lumbopelvic",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:pelvic_tilt",
+  "name": "Наклоны таза вперёд-назад стоя",
+  "axis": "warmup",
+  "zone": "Поясница",
+  "contour": "lumbopelvic",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:pelvic_sway",
+  "name": "Покачивания тазом в стороны",
+  "axis": "warmup",
+  "zone": "Поясница",
+  "contour": "lumbopelvic",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:pelvic_figure8",
+  "name": "«Восьмёрка» тазом",
+  "axis": "warmup",
+  "zone": "Поясница",
+  "contour": "lumbopelvic",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:leg_swing_fb",
+  "name": "Махи ногой вперёд-назад",
+  "axis": "warmup",
+  "zone": "Бёдра",
+  "contour": "hip",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:leg_swing_side",
+  "name": "Махи ногой в стороны",
+  "axis": "warmup",
+  "zone": "Бёдра",
+  "contour": "hip",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:hip_cars",
+  "name": "Круги бедром, колено рисует круг",
+  "axis": "warmup",
+  "zone": "Бёдра",
+  "contour": "hip",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:high_knees",
+  "name": "Ходьба с высоким коленом",
+  "axis": "warmup",
+  "zone": "Бёдра",
+  "contour": "hip",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:knee_to_chest",
+  "name": "Подтягивание колена к груди стоя",
+  "axis": "warmup",
+  "zone": "Бёдра",
+  "contour": "hip",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:gate_open",
+  "name": "«Открывание ворот» коленом",
+  "axis": "warmup",
+  "zone": "Бёдра",
+  "contour": "hip",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:static_lunge",
+  "name": "Выпады на месте",
+  "axis": "warmup",
+  "zone": "Бёдра",
+  "contour": "hip",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:reverse_lunge",
+  "name": "Выпады назад",
+  "axis": "warmup",
+  "zone": "Бёдра",
+  "contour": "hip",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:side_lunge",
+  "name": "Боковые выпады",
+  "axis": "warmup",
+  "zone": "Бёдра",
+  "contour": "hip",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:walk_lunge",
+  "name": "Ходьба выпадами",
+  "axis": "warmup",
+  "zone": "Бёдра",
+  "contour": "hip",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:knee_circles",
+  "name": "Круги коленями",
+  "axis": "warmup",
+  "zone": "Колени",
+  "contour": "knee_j",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:bw_squat",
+  "name": "Приседания",
+  "axis": "warmup",
+  "zone": "Колени",
+  "contour": "knee_j",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:sumo_squat",
+  "name": "Приседания сумо",
+  "axis": "warmup",
+  "zone": "Колени",
+  "contour": "knee_j",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:narrow_squat",
+  "name": "Приседания с узкой постановкой",
+  "axis": "warmup",
+  "zone": "Колени",
+  "contour": "knee_j",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:single_leg_squat",
+  "name": "Приседания на одной ноге",
+  "axis": "warmup",
+  "zone": "Колени",
+  "contour": "knee_j",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:heel_to_glute",
+  "name": "Сгибание-разгибание колена стоя, пятка к ягодице",
+  "axis": "warmup",
+  "zone": "Колени",
+  "contour": "knee_j",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:knee_ext_stand",
+  "name": "Разгибание голени стоя",
+  "axis": "warmup",
+  "zone": "Колени",
+  "contour": "knee_j",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:ankle_circles",
+  "name": "Круги стопой",
+  "axis": "warmup",
+  "zone": "Стопы",
+  "contour": "ankle",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:calf_raise_bw",
+  "name": "Подъёмы на носки",
+  "axis": "warmup",
+  "zone": "Стопы",
+  "contour": "ankle",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:toe_raise",
+  "name": "Подъёмы носков",
+  "axis": "warmup",
+  "zone": "Стопы",
+  "contour": "ankle",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:heel_toe_rock",
+  "name": "Перекаты с пятки на носок",
+  "axis": "warmup",
+  "zone": "Стопы",
+  "contour": "ankle",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:walk_toes",
+  "name": "Ходьба на носках",
+  "axis": "warmup",
+  "zone": "Стопы",
+  "contour": "ankle",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:walk_heels",
+  "name": "Ходьба на пятках",
+  "axis": "warmup",
+  "zone": "Стопы",
+  "contour": "ankle",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:walk_outer",
+  "name": "Ходьба на внешней стороне стопы",
+  "axis": "warmup",
+  "zone": "Стопы",
+  "contour": "ankle",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:toe_flex_ext",
+  "name": "Сгибание-разгибание пальцев ног",
+  "axis": "warmup",
+  "zone": "Стопы",
+  "contour": "ankle",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:leg_press",
+  "name": "Жим ногами",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": "стопы выше середины платформы, не опускать до отрыва таза\n\nСтопы поставить выше середины платформы: чем выше стопа, тем меньше требуется сгибания в тазобедренном суставе внизу. Опускать только до моме"
+ },
+ {
+  "key": "plan:leg_press_1",
+  "name": "Жим ногами одной ногой",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:leg_press_narrow",
+  "name": "Жим ногами узкой постановкой",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:leg_ext",
+  "name": "Разгибание голени",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": "Ось вращения тренажёра должна совпадать с коленом — если сиденье не отрегулировано, нагрузка уходит в связку. Спина прижата к спинке, таз не съезжает вперёд. Вверху короткая пауза, вниз опускать под к"
+ },
+ {
+  "key": "plan:leg_ext_1",
+  "name": "Разгибание голени одной ногой",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:split_squat_db",
+  "name": "Сплит-присед с гантелями в руках",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:step_up_db",
+  "name": "Зашагивание на платформу с гантелями",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:leg_curl_seated",
+  "name": "Сгибание голени сидя",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": "Берите сидячий вариант. В версии лёжа на животе при усилии поясница переразгибается, и в вашем случае это лишний риск. Валик лежит над коленом и держит бедро на месте; таз не отрывать от сиденья."
+ },
+ {
+  "key": "plan:leg_curl_1",
+  "name": "Сгибание голени одной ногой сидя",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:hip_ext_cable",
+  "name": "Разгибание бедра в блоке стоя",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": "корпус неподвижен, амплитуда до нейтрали бедра, не дальше"
+ },
+ {
+  "key": "plan:hip_add_cable",
+  "name": "Приведение бедра в блоке",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:leg_curl_standing",
+  "name": "Сгибание голени стоя в тренажёре",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": "корпус на упоре, без прогиба поясницы"
+ },
+ {
+  "key": "plan:leg_curl_cable",
+  "name": "Сгибание голени в блоке стоя",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": "рука на опоре, корпус вертикально"
+ },
+ {
+  "key": "plan:chest_press_m",
+  "name": "Жим в тренажёре на грудь",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": "Отрегулируйте сиденье так, чтобы рукояти были на уровне середины груди. Плечи прижаты к спинке и не выезжают вперёд в конце движения — это частая ошибка, которая нагружает переднюю часть плеча. Локти "
+ },
+ {
+  "key": "plan:incline_press_m",
+  "name": "Жим в тренажёре под углом",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:db_bench",
+  "name": "Жим гантелей лёжа",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": "Лопатки сведены и прижаты к скамье, таз тоже — мост поясницей не делать. Внизу локти примерно под 45 градусов к корпусу, не разводить в стороны. Стопы стоят на полу; если поясница отрывается, поставьт"
+ },
+ {
+  "key": "plan:db_incline",
+  "name": "Жим гантелей на наклонной скамье",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:pec_deck",
+  "name": "Сведение в тренажёре",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:ohp_m",
+  "name": "Жим над головой в тренажёре",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": "сидя, спина прижата к спинке\n\nСиденье отрегулировать так, чтобы рукояти были чуть выше плеч. Поясница прижата к спинке весь подход: если она выгибается, значит вес великоват или сиденье стоит низко."
+ },
+ {
+  "key": "plan:db_seated_press",
+  "name": "Жим гантелей сидя со спинкой",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": "Жим стоя исключён: он грузит позвоночник по оси и требует стабилизации поясницей. Сидя оба фактора уходят. Поясница прижата к спинке весь подход — если она отрывается, вес велик. Внизу гантели на уров"
+ },
+ {
+  "key": "plan:db_lateral",
+  "name": "Разведение гантелей сидя",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:lat_pd_wide",
+  "name": "Тяга верхнего блока широким хватом",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": "Отрегулируйте валик так, чтобы бёдра были плотно прижаты — иначе вас будет тянуть вверх. Корпус отклонён назад градусов на 15 и держится неподвижно: раскачивание корпусом — это как раз работа пояснице"
+ },
+ {
+  "key": "plan:lat_pd_under",
+  "name": "Тяга верхнего блока обратным хватом",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": "Отличается от первого дня только хватом — ладони к себе, руки на ширине плеч. Остальное так же: бёдра под валиком, корпус неподвижен, тянуть до верха груди."
+ },
+ {
+  "key": "plan:lat_pd_neutral",
+  "name": "Тяга верхнего блока параллельным хватом",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:row_chest_sup",
+  "name": "Тяга с грудным упором",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": "Это ключевая замена свободной тяги в наклоне. Грудь всё время прижата к упору и не отрывается — как только вы начинаете помогать корпусом, поясница включается и упражнение теряет смысл. Тянуть локтями"
+ },
+ {
+  "key": "plan:row_machine",
+  "name": "Тяга в тренажёре сидя",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": "То же правило, что и в первом дне: грудь не отрывается от упора. Ведите локти назад вдоль корпуса, лопатки сводятся первыми. В конце не заваливайтесь назад корпусом."
+ },
+ {
+  "key": "plan:row_cable_seated",
+  "name": "Тяга нижнего блока сидя",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": "корпус вертикально и неподвижно, без наклона вперёд за рукоятью"
+ },
+ {
+  "key": "plan:row_cable_1",
+  "name": "Тяга нижнего блока одной рукой",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:db_row_bench",
+  "name": "Тяга гантели с упором грудью в наклонную скамью",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:pullover_cable",
+  "name": "Пуловер в блоке стоя",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:rear_delt_m",
+  "name": "Задние дельты в тренажёре",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:calf_seated",
+  "name": "Подъём на носки сидя",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:ext_rot_cable",
+  "name": "Наружная ротация плеча в блоке",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:face_pull",
+  "name": "Тяга к лицу",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:calf_legpress",
+  "name": "Подъём на носки в жиме ногами",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:ext_rot_side",
+  "name": "Наружная ротация лёжа на боку с гантелью",
+  "axis": "strength",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:side_plank",
+  "name": "Боковая планка",
+  "axis": "static",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": "Локоть строго под плечом. Плечо — таз — колено на одной линии. Удержание 10 секунд. Начинать можно с согнутых коленей."
+ },
+ {
+  "key": "plan:pallof",
+  "name": "Жим Паллоффа",
+  "axis": "static",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:front_plank",
+  "name": "Планка на предплечьях",
+  "axis": "static",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:single_leg_stand",
+  "name": "Стойка на одной ноге",
+  "axis": "static",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:bear_hold",
+  "name": "Медвежья стойка — колени в 2 см от пола",
+  "axis": "static",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:side_plank_knees",
+  "name": "Боковая планка с колен",
+  "axis": "static",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:wall_sit",
+  "name": "Стойка у стены, бёдра параллельно полу",
+  "axis": "static",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:pallof_hold",
+  "name": "Жим Паллоффа — удержание на вытянутых руках",
+  "axis": "static",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:st_pec_door",
+  "name": "Грудные в дверном проёме",
+  "axis": "stretch",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:st_lat_rack",
+  "name": "Широчайшие у стойки",
+  "axis": "stretch",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:st_thoracic_roll",
+  "name": "Грудной отдел на валике",
+  "axis": "stretch",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:st_calf",
+  "name": "Икроножная у стены",
+  "axis": "stretch",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:st_quad",
+  "name": "Квадрицепс стоя у опоры",
+  "axis": "stretch",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:st_sleeper",
+  "name": "Ротаторы плеча лёжа на боку",
+  "axis": "stretch",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:st_9090",
+  "name": "Удержание 90/90 сидя",
+  "axis": "stretch",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:st_ir_supine",
+  "name": "Внутренняя ротация лёжа на спине, колени врозь",
+  "axis": "stretch",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:st_pigeon_bench",
+  "name": "«Голубь» на скамье",
+  "axis": "stretch",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:st_frog",
+  "name": "«Лягушка» на предплечьях",
+  "axis": "stretch",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:st_adductor",
+  "name": "Приводящие «бабочка»",
+  "axis": "stretch",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:st_ham_strap",
+  "name": "Задняя поверхность бедра лёжа с ремнём",
+  "axis": "stretch",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": "таз на полу, поясница нейтральна — никаких наклонов стоя"
+ },
+ {
+  "key": "plan:st_deep_squat",
+  "name": "Глубокий присед у опоры, удержание",
+  "axis": "stretch",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:st_couch",
+  "name": "Растяжка сгибателей бедра у стены",
+  "axis": "stretch",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:st_adductor_side",
+  "name": "Приведение — нога в сторону на возвышении",
+  "axis": "stretch",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ },
+ {
+  "key": "plan:st_crossbody",
+  "name": "Колено к противоположному плечу лёжа",
+  "axis": "stretch",
+  "zone": "",
+  "contour": "",
+  "equipment": "",
+  "note": ""
+ }
+]

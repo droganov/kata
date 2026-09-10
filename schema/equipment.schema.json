@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "equipment.schema.json",
+  "title": "Equipment",
+  "description": "Средство выполнения (device): тело, снаряд, тренажёр, инвентарь, среда, свободный вес.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "slug",
+    "name",
+    "canon_en",
+    "kind",
+    "exercises"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/definitions/uuid"
+    },
+    "slug": {
+      "$ref": "common.schema.json#/definitions/slug"
+    },
+    "name": {
+      "$ref": "common.schema.json#/definitions/text"
+    },
+    "canon_en": {
+      "$ref": "common.schema.json#/definitions/text",
+      "description": "Имя по международному каталогу"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "body",
+        "apparatus",
+        "machine",
+        "tool",
+        "environment",
+        "free_weight"
+      ]
+    },
+    "exercises": {
+      "$ref": "common.schema.json#/definitions/ref_list",
+      "description": "Упражнения на этом средстве (Exercise.id) — обратная связь, симметрична Exercise.equipment"
+    }
+  }
+}

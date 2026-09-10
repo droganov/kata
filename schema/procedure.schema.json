@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "procedure.schema.json",
+  "title": "Procedure",
+  "description": "Процедура упражнения: шаги по порядку.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "steps"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/definitions/uuid"
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "$ref": "step.schema.json"
+      }
+    }
+  }
+}

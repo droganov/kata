@@ -1,0 +1,1657 @@
+{
+  "meta": {
+    "title": "Программа: БАЗА + ПУЛ",
+    "date": "2026-09-07",
+    "sessions_per_week": 3,
+    "session_budget_min": 70,
+    "rotation_weeks": 2,
+    "primary_goals": [
+      "glutes",
+      "lumbar_stiffness",
+      "hip_mobility",
+      "body_composition"
+    ],
+    "secondary_goals": [
+      "strength",
+      "endurance",
+      "flexibility"
+    ],
+    "contraindications": {
+      "axial_load": "запрещено — осевая компрессия позвоночника",
+      "loaded_lumbar_flexion": "запрещено — сгибание поясницы под нагрузкой",
+      "loaded_lumbar_extension": "запрещено — переразгибание под нагрузкой",
+      "free_weight_kg_max": 10
+    }
+  },
+  "timing": {
+    "work_sec_per_set": 45,
+    "rest_sec_strength": 70,
+    "rest_sec_accessory": 60,
+    "transition_sec": 45,
+    "warmup_general_min": 5,
+    "hold_rest_sec": 10
+  },
+  "base": {
+    "warmup": [],
+    "strength": [
+      {
+        "id": "glute_bridge_m",
+        "name": "Ягодичный мост в тренажёре",
+        "sets": 3,
+        "reps": "12–15",
+        "muscles": {
+          "glutes": 1.0,
+          "hamstrings": 0.3
+        },
+        "axial": false,
+        "lumbar_flex": false,
+        "lumbar_ext": false,
+        "free_weight": false,
+        "goal": "glutes",
+        "mode": "loaded"
+      },
+      {
+        "id": "hip_abd_cable",
+        "name": "Отведение бедра в блоке стоя",
+        "sets": 2,
+        "reps": "12–15",
+        "muscles": {
+          "glutes": 1.0
+        },
+        "axial": false,
+        "lumbar_flex": false,
+        "lumbar_ext": false,
+        "free_weight": false,
+        "goal": "glutes",
+        "mode": "loaded"
+      }
+    ],
+    "static": [
+      {
+        "id": "curlup",
+        "name": "Curl-up",
+        "dose": "3×10с",
+        "plane": "anterior",
+        "sec": 100,
+        "goal": "lumbar_stiffness",
+        "mode": "isometric"
+      },
+      {
+        "id": "bridge_hold",
+        "name": "Удержание ягодичного моста",
+        "dose": "3×20с",
+        "plane": "posterior",
+        "sec": 100,
+        "goal": "lumbar_stiffness",
+        "mode": "isometric"
+      }
+    ],
+    "stretch": [
+      {
+        "id": "st_hipflex",
+        "name": "Сгибатели бедра в выпаде",
+        "dose": "40с × 2",
+        "sec": 100,
+        "goal": "hip_mobility",
+        "mode": "static_stretch",
+        "hip_plane": "extension",
+        "method": "статика 40с × 2 или PNF (5с напряжения → 20с расслабления × 2) — по выбору, эффект сопоставим"
+      },
+      {
+        "id": "st_fig4",
+        "name": "Фигура 4 сидя на скамье",
+        "dose": "40с × 2",
+        "sec": 100,
+        "goal": "hip_mobility",
+        "mode": "static_stretch",
+        "hip_plane": "external_rot",
+        "method": "статика 40с × 2 или PNF (5с напряжения → 20с расслабления × 2) — по выбору, эффект сопоставим"
+      }
+    ],
+    "warmup_cardio": []
+  },
+  "pool": {
+    "C": {
+      "label": "Сердце, сосуды, лёгкие · кардиореспираторный контур",
+      "axis": "warmup_cardio",
+      "pick": 1,
+      "mode": "cardio",
+      "allow_repeat": true,
+      "sec_each": 260,
+      "items": [
+        {
+          "id": "c_elliptical",
+          "name": "Эллипс",
+          "dose": "5 мин",
+          "sec": 300,
+          "met": 5.0,
+          "mode": "cardio"
+        },
+        {
+          "id": "c_bike",
+          "name": "Велотренажёр вертикальный",
+          "dose": "5.5 мин",
+          "sec": 330,
+          "met": 4.5,
+          "mode": "cardio"
+        },
+        {
+          "id": "c_treadmill_incline",
+          "name": "Ходьба по дорожке в горку",
+          "dose": "5 мин",
+          "sec": 300,
+          "met": 5.0,
+          "mode": "cardio",
+          "note": "наклон 5–8 %, темп разговорный"
+        },
+        {
+          "id": "c_treadmill_walk",
+          "name": "Быстрая ходьба по дорожке",
+          "dose": "6 мин",
+          "sec": 360,
+          "met": 4.0,
+          "mode": "cardio"
+        },
+        {
+          "id": "c_stairs",
+          "name": "Степпер-лестница",
+          "dose": "3 мин",
+          "sec": 180,
+          "met": 8.0,
+          "mode": "cardio"
+        },
+        {
+          "id": "c_ski_erg",
+          "name": "Лыжный тренажёр",
+          "dose": "3.5 мин",
+          "sec": 210,
+          "met": 7.0,
+          "mode": "cardio",
+          "note": "тяга руками стоя, корпус нейтрален, без наклона поясницы"
+        },
+        {
+          "id": "c_air_bike",
+          "name": "Аэробайк (руки+ноги)",
+          "dose": "3 мин",
+          "sec": 180,
+          "met": 8.0,
+          "mode": "cardio"
+        },
+        {
+          "id": "c_march",
+          "name": "Марш на месте с высоким коленом",
+          "dose": "7 мин",
+          "sec": 420,
+          "met": 3.5,
+          "mode": "cardio"
+        },
+        {
+          "id": "c_shadow_box",
+          "name": "Бой с тенью",
+          "dose": "4.5 мин",
+          "sec": 270,
+          "met": 5.5,
+          "mode": "cardio"
+        },
+        {
+          "id": "c_jumping_jacks",
+          "name": "Прыжки с разведением рук и ног",
+          "dose": "3 мин",
+          "sec": 180,
+          "met": 8.0,
+          "mode": "cardio",
+          "note": "ударная нагрузка — прыгать мягко, на носках"
+        },
+        {
+          "id": "c_jump_rope",
+          "name": "Скакалка",
+          "dose": "2.5 мин",
+          "sec": 150,
+          "met": 11.0,
+          "mode": "cardio",
+          "note": "ударная нагрузка — низкие прыжки"
+        },
+        {
+          "id": "c_step_ups",
+          "name": "Зашагивания на платформу",
+          "dose": "4 мин",
+          "sec": 240,
+          "met": 6.0,
+          "mode": "cardio",
+          "note": "платформа низкая, без отягощения"
+        }
+      ],
+      "excluded": [
+        {
+          "id": "c_rower",
+          "name": "Гребной тренажёр",
+          "reason": "циклическое сгибание поясницы под нагрузкой в тяге — противоречит правилу спины"
+        }
+      ],
+      "zone": "Сердце, сосуды, лёгкие",
+      "joint": "cardio",
+      "unit": "контур"
+    },
+    "W_cervical": {
+      "label": "Шея · шейный отдел",
+      "axis": "warmup",
+      "zone": "Шея",
+      "joint": "cervical",
+      "pick": 4,
+      "sec_each": 20,
+      "mode": "dynamic",
+      "allow_repeat": true,
+      "items": [
+        {
+          "id": "neck_flex_ext",
+          "name": "Наклоны головы вперёд-назад",
+          "dose": "8",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "neck_lateral",
+          "name": "Наклоны головы в стороны",
+          "dose": "по 8 в каждую сторону",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "neck_rot",
+          "name": "Повороты головы",
+          "dose": "по 8 в каждую сторону",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "neck_semicircle",
+          "name": "Полукруги головой, подбородок от плеча к плечу",
+          "dose": "по 6 в каждую сторону",
+          "sec": 20,
+          "mode": "dynamic"
+        }
+      ],
+      "unit": "контур"
+    },
+    "W_glenohumeral": {
+      "label": "Плечевой пояс · плечевой сустав",
+      "axis": "warmup",
+      "zone": "Плечевой пояс",
+      "joint": "glenohumeral",
+      "pick": 1,
+      "sec_each": 22,
+      "mode": "dynamic",
+      "allow_repeat": true,
+      "items": [
+        {
+          "id": "arm_circles",
+          "name": "Круги руками",
+          "dose": "по 10 в каждую сторону",
+          "sec": 25,
+          "mode": "dynamic"
+        },
+        {
+          "id": "arm_circles_alt",
+          "name": "Круги руками поочерёдно",
+          "dose": "по 10 в каждую сторону",
+          "sec": 25,
+          "mode": "dynamic"
+        },
+        {
+          "id": "arm_swings_fb",
+          "name": "Махи руками вперёд-назад",
+          "dose": "10",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "arm_swings_side",
+          "name": "Махи руками через стороны вверх-вниз",
+          "dose": "10",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "arm_open_close",
+          "name": "Разведение-сведение рук перед собой",
+          "dose": "10",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "arm_cross_swings",
+          "name": "Скрестные махи руками перед грудью",
+          "dose": "10",
+          "sec": 20,
+          "mode": "dynamic"
+        }
+      ],
+      "unit": "контур"
+    },
+    "W_scapula": {
+      "label": "Плечевой пояс · лопатки",
+      "axis": "warmup",
+      "zone": "Плечевой пояс",
+      "joint": "scapula",
+      "pick": 1,
+      "sec_each": 18,
+      "mode": "dynamic",
+      "allow_repeat": true,
+      "items": [
+        {
+          "id": "shoulder_rolls",
+          "name": "Круги плечами",
+          "dose": "по 10 в каждую сторону",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "shrugs",
+          "name": "Подъём-опускание плеч",
+          "dose": "10",
+          "sec": 15,
+          "mode": "dynamic"
+        },
+        {
+          "id": "scap_squeeze",
+          "name": "Сведение-разведение лопаток",
+          "dose": "10",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "shoulder_fb",
+          "name": "Плечи вперёд-назад",
+          "dose": "10",
+          "sec": 15,
+          "mode": "dynamic"
+        }
+      ],
+      "unit": "контур"
+    },
+    "W_elbow": {
+      "label": "Плечевой пояс · локоть",
+      "axis": "warmup",
+      "zone": "Плечевой пояс",
+      "joint": "elbow",
+      "pick": 1,
+      "sec_each": 16,
+      "mode": "dynamic",
+      "allow_repeat": true,
+      "items": [
+        {
+          "id": "elbow_flex_ext",
+          "name": "Сгибание-разгибание рук в локтях",
+          "dose": "15",
+          "sec": 15,
+          "mode": "dynamic"
+        },
+        {
+          "id": "forearm_turns",
+          "name": "Повороты предплечий ладонями вверх-вниз",
+          "dose": "10",
+          "sec": 15,
+          "mode": "dynamic"
+        },
+        {
+          "id": "forearm_circles",
+          "name": "Круги предплечьями",
+          "dose": "по 10 в каждую сторону",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "elbow_flex_ext_raised",
+          "name": "Сгибание-разгибание рук в локтях с поднятыми плечами",
+          "dose": "12",
+          "sec": 15,
+          "mode": "dynamic"
+        }
+      ],
+      "unit": "контур"
+    },
+    "W_wrist": {
+      "label": "Плечевой пояс · лучезапястный сустав",
+      "axis": "warmup",
+      "zone": "Плечевой пояс",
+      "joint": "wrist",
+      "pick": 1,
+      "sec_each": 16,
+      "mode": "dynamic",
+      "allow_repeat": true,
+      "items": [
+        {
+          "id": "wrist_flex_ext",
+          "name": "Сгибание-разгибание в лучезапястных суставах",
+          "dose": "15",
+          "sec": 15,
+          "mode": "dynamic"
+        },
+        {
+          "id": "wrist_circles",
+          "name": "Круги кистями",
+          "dose": "по 10 в каждую сторону",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "wrist_dev",
+          "name": "Отведение-приведение кисти в стороны",
+          "dose": "10",
+          "sec": 15,
+          "mode": "dynamic"
+        },
+        {
+          "id": "wrist_wave",
+          "name": "Волна кистями",
+          "dose": "10",
+          "sec": 15,
+          "mode": "dynamic"
+        }
+      ],
+      "unit": "контур"
+    },
+    "W_fingers": {
+      "label": "Плечевой пояс · пальцы",
+      "axis": "warmup",
+      "zone": "Плечевой пояс",
+      "joint": "fingers",
+      "pick": 1,
+      "sec_each": 14,
+      "mode": "dynamic",
+      "allow_repeat": true,
+      "items": [
+        {
+          "id": "fist_open_close",
+          "name": "Сжимание-разжимание пальцев в кулак",
+          "dose": "15",
+          "sec": 15,
+          "mode": "dynamic"
+        },
+        {
+          "id": "finger_spread",
+          "name": "Разведение-сведение пальцев",
+          "dose": "10",
+          "sec": 15,
+          "mode": "dynamic"
+        },
+        {
+          "id": "thumb_touch",
+          "name": "Поочерёдное касание большим пальцем остальных",
+          "dose": "10",
+          "sec": 15,
+          "mode": "dynamic"
+        },
+        {
+          "id": "hand_shake",
+          "name": "Встряхивание кистей",
+          "dose": "10 с",
+          "sec": 10,
+          "mode": "dynamic"
+        }
+      ],
+      "unit": "контур"
+    },
+    "W_t_spine": {
+      "label": "Грудь, спина · грудной отдел",
+      "axis": "warmup",
+      "zone": "Грудь, спина",
+      "joint": "t_spine",
+      "pick": 1,
+      "sec_each": 27,
+      "mode": "dynamic",
+      "allow_repeat": true,
+      "items": [
+        {
+          "id": "torso_twist",
+          "name": "Повороты корпуса стоя",
+          "dose": "по 10 в каждую сторону",
+          "sec": 25,
+          "mode": "dynamic"
+        },
+        {
+          "id": "torso_twist_arms",
+          "name": "Повороты корпуса с расслабленными махами рук",
+          "dose": "по 10 в каждую сторону",
+          "sec": 25,
+          "mode": "dynamic"
+        },
+        {
+          "id": "open_book",
+          "name": "«Книжка» лёжа на боку",
+          "dose": "8/сторона",
+          "sec": 40,
+          "mode": "dynamic"
+        },
+        {
+          "id": "chest_open_arms",
+          "name": "Разведение рук с раскрытием груди",
+          "dose": "10",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "arms_up_extend",
+          "name": "Подъём рук вверх с раскрытием грудного отдела",
+          "dose": "10",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "self_hug",
+          "name": "Обхват-раскрытие руками",
+          "dose": "10",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "t_spine_circles",
+          "name": "Круги верхней частью корпуса, таз неподвижен",
+          "dose": "по 6 в каждую сторону",
+          "sec": 25,
+          "mode": "dynamic"
+        },
+        {
+          "id": "thread_needle",
+          "name": "Продевание руки под себя, стоя на четвереньках",
+          "dose": "8/сторона",
+          "sec": 40,
+          "mode": "dynamic"
+        }
+      ],
+      "unit": "контур"
+    },
+    "W_lumbopelvic": {
+      "label": "Поясница · пояснично-тазовый",
+      "axis": "warmup",
+      "zone": "Поясница",
+      "joint": "lumbopelvic",
+      "pick": 1,
+      "sec_each": 22,
+      "mode": "dynamic",
+      "allow_repeat": true,
+      "items": [
+        {
+          "id": "hip_circles",
+          "name": "Круги тазом стоя",
+          "dose": "по 10 в каждую сторону",
+          "sec": 25,
+          "mode": "dynamic"
+        },
+        {
+          "id": "pelvic_tilt",
+          "name": "Наклоны таза вперёд-назад стоя",
+          "dose": "10",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "pelvic_sway",
+          "name": "Покачивания тазом в стороны",
+          "dose": "по 10 в каждую сторону",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "pelvic_figure8",
+          "name": "«Восьмёрка» тазом",
+          "dose": "по 6 в каждую сторону",
+          "sec": 25,
+          "mode": "dynamic"
+        }
+      ],
+      "unit": "контур"
+    },
+    "W_hip": {
+      "label": "Бёдра · тазобедренный сустав",
+      "axis": "warmup",
+      "zone": "Бёдра",
+      "joint": "hip",
+      "pick": 1,
+      "sec_each": 38,
+      "mode": "dynamic",
+      "allow_repeat": true,
+      "items": [
+        {
+          "id": "leg_swing_fb",
+          "name": "Махи ногой вперёд-назад",
+          "dose": "10/сторона",
+          "sec": 40,
+          "mode": "dynamic"
+        },
+        {
+          "id": "leg_swing_side",
+          "name": "Махи ногой в стороны",
+          "dose": "10/сторона",
+          "sec": 40,
+          "mode": "dynamic"
+        },
+        {
+          "id": "hip_cars",
+          "name": "Круги бедром, колено рисует круг",
+          "dose": "по 6 в каждую сторону, каждая нога",
+          "sec": 45,
+          "mode": "dynamic"
+        },
+        {
+          "id": "high_knees",
+          "name": "Ходьба с высоким коленом",
+          "dose": "10/сторона",
+          "sec": 30,
+          "mode": "dynamic"
+        },
+        {
+          "id": "knee_to_chest",
+          "name": "Подтягивание колена к груди стоя",
+          "dose": "8/сторона",
+          "sec": 30,
+          "mode": "dynamic"
+        },
+        {
+          "id": "gate_open",
+          "name": "«Открывание ворот» коленом",
+          "dose": "8/сторона",
+          "sec": 30,
+          "mode": "dynamic"
+        },
+        {
+          "id": "static_lunge",
+          "name": "Выпады на месте",
+          "dose": "8/сторона",
+          "sec": 40,
+          "mode": "dynamic"
+        },
+        {
+          "id": "reverse_lunge",
+          "name": "Выпады назад",
+          "dose": "8/сторона",
+          "sec": 40,
+          "mode": "dynamic"
+        },
+        {
+          "id": "side_lunge",
+          "name": "Боковые выпады",
+          "dose": "8/сторона",
+          "sec": 40,
+          "mode": "dynamic"
+        },
+        {
+          "id": "walk_lunge",
+          "name": "Ходьба выпадами",
+          "dose": "10/сторона",
+          "sec": 45,
+          "mode": "dynamic"
+        }
+      ],
+      "unit": "контур"
+    },
+    "W_knee_j": {
+      "label": "Колени · коленный сустав",
+      "axis": "warmup",
+      "zone": "Колени",
+      "joint": "knee_j",
+      "pick": 1,
+      "sec_each": 32,
+      "mode": "dynamic",
+      "allow_repeat": true,
+      "items": [
+        {
+          "id": "knee_circles",
+          "name": "Круги коленями",
+          "dose": "по 10 в каждую сторону",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "bw_squat",
+          "name": "Приседания",
+          "dose": "15",
+          "sec": 35,
+          "mode": "dynamic"
+        },
+        {
+          "id": "sumo_squat",
+          "name": "Приседания сумо",
+          "dose": "15",
+          "sec": 35,
+          "mode": "dynamic"
+        },
+        {
+          "id": "narrow_squat",
+          "name": "Приседания с узкой постановкой",
+          "dose": "15",
+          "sec": 35,
+          "mode": "dynamic"
+        },
+        {
+          "id": "single_leg_squat",
+          "name": "Приседания на одной ноге",
+          "dose": "6/сторона",
+          "sec": 40,
+          "mode": "dynamic"
+        },
+        {
+          "id": "heel_to_glute",
+          "name": "Сгибание-разгибание колена стоя, пятка к ягодице",
+          "dose": "10/сторона",
+          "sec": 30,
+          "mode": "dynamic"
+        },
+        {
+          "id": "knee_ext_stand",
+          "name": "Разгибание голени стоя",
+          "dose": "10/сторона",
+          "sec": 30,
+          "mode": "dynamic"
+        }
+      ],
+      "unit": "контур"
+    },
+    "W_ankle": {
+      "label": "Стопы · голеностоп и стопа",
+      "axis": "warmup",
+      "zone": "Стопы",
+      "joint": "ankle",
+      "pick": 1,
+      "sec_each": 21,
+      "mode": "dynamic",
+      "allow_repeat": true,
+      "items": [
+        {
+          "id": "ankle_circles",
+          "name": "Круги стопой",
+          "dose": "по 10 в каждую сторону, каждая нога",
+          "sec": 30,
+          "mode": "dynamic"
+        },
+        {
+          "id": "calf_raise_bw",
+          "name": "Подъёмы на носки",
+          "dose": "15",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "toe_raise",
+          "name": "Подъёмы носков",
+          "dose": "15",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "heel_toe_rock",
+          "name": "Перекаты с пятки на носок",
+          "dose": "15",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "walk_toes",
+          "name": "Ходьба на носках",
+          "dose": "20 шагов",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "walk_heels",
+          "name": "Ходьба на пятках",
+          "dose": "2×20 шагов",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "walk_outer",
+          "name": "Ходьба на внешней стороне стопы",
+          "dose": "20 шагов",
+          "sec": 20,
+          "mode": "dynamic"
+        },
+        {
+          "id": "toe_flex_ext",
+          "name": "Сгибание-разгибание пальцев ног",
+          "dose": "15",
+          "sec": 15,
+          "mode": "dynamic"
+        }
+      ],
+      "unit": "контур"
+    },
+    "K": {
+      "label": "Колено",
+      "pick": 1,
+      "sets": 3,
+      "reps": "12–15",
+      "items": [
+        {
+          "id": "leg_press",
+          "name": "Жим ногами сидя горизонтально",
+          "muscles": {
+            "quads": 1.0,
+            "glutes": 0.4
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "note": "стопы выше середины платформы, не опускать до отрыва таза",
+          "mode": "loaded"
+        },
+        {
+          "id": "leg_press_1",
+          "name": "Жим ногами одной ногой сидя горизонтально",
+          "muscles": {
+            "quads": 1.0,
+            "glutes": 0.5
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        },
+        {
+          "id": "leg_press_narrow",
+          "name": "Жим ногами узкой постановкой сидя горизонтально",
+          "muscles": {
+            "quads": 1.0,
+            "glutes": 0.2
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        },
+        {
+          "id": "leg_ext",
+          "name": "Разгибание голени сидя в тренажёре",
+          "muscles": {
+            "quads": 1.0
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        },
+        {
+          "id": "leg_ext_1",
+          "name": "Разгибание голени одной ногой сидя в тренажёре",
+          "muscles": {
+            "quads": 1.0
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        },
+        {
+          "id": "split_squat_db",
+          "name": "Сплит-присед с гантелями в руках",
+          "muscles": {
+            "quads": 1.0,
+            "glutes": 0.6
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": true,
+          "kg_max": 10,
+          "mode": "loaded"
+        },
+        {
+          "id": "step_up_db",
+          "name": "Зашагивание на платформу с гантелями",
+          "muscles": {
+            "quads": 0.8,
+            "glutes": 0.8
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": true,
+          "kg_max": 10,
+          "mode": "loaded"
+        }
+      ]
+    },
+    "Z": {
+      "label": "Задняя цепь",
+      "pick": 1,
+      "sets": 3,
+      "reps": "12–15",
+      "items": [
+        {
+          "id": "leg_curl_seated",
+          "name": "Сгибание голени сидя",
+          "muscles": {
+            "hamstrings": 1.0
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        },
+        {
+          "id": "leg_curl_1",
+          "name": "Сгибание голени одной ногой сидя",
+          "muscles": {
+            "hamstrings": 1.0
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        },
+        {
+          "id": "hip_ext_cable",
+          "name": "Разгибание бедра в блоке стоя",
+          "muscles": {
+            "glutes": 0.8,
+            "hamstrings": 0.6
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "note": "корпус неподвижен, амплитуда до нейтрали бедра, не дальше",
+          "mode": "loaded"
+        },
+        {
+          "id": "hip_add_cable",
+          "name": "Приведение бедра в блоке",
+          "muscles": {
+            "adductors": 1.0
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        },
+        {
+          "id": "leg_curl_standing",
+          "name": "Сгибание голени стоя в тренажёре",
+          "muscles": {
+            "hamstrings": 1.0,
+            "glutes": 0.2
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "note": "корпус на упоре, без прогиба поясницы",
+          "mode": "loaded"
+        },
+        {
+          "id": "leg_curl_cable",
+          "name": "Сгибание голени в блоке стоя",
+          "muscles": {
+            "hamstrings": 1.0
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "note": "рука на опоре, корпус вертикально",
+          "mode": "loaded"
+        }
+      ]
+    },
+    "J": {
+      "label": "Жим",
+      "pick": 1,
+      "sets": 3,
+      "reps": "12–15",
+      "items": [
+        {
+          "id": "chest_press_m",
+          "name": "Жим в тренажёре на грудь",
+          "muscles": {
+            "chest": 1.0,
+            "delts": 0.3,
+            "triceps": 0.4
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        },
+        {
+          "id": "incline_press_m",
+          "name": "Жим от груди в тренажёре под углом вверх",
+          "muscles": {
+            "chest": 0.8,
+            "delts": 0.5,
+            "triceps": 0.4
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        },
+        {
+          "id": "db_bench",
+          "name": "Жим гантелей лёжа",
+          "muscles": {
+            "chest": 1.0,
+            "delts": 0.3,
+            "triceps": 0.4
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": true,
+          "kg_max": 10,
+          "mode": "loaded"
+        },
+        {
+          "id": "db_incline",
+          "name": "Жим гантелей на наклонной скамье",
+          "muscles": {
+            "chest": 0.8,
+            "delts": 0.5,
+            "triceps": 0.4
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": true,
+          "kg_max": 10,
+          "mode": "loaded"
+        },
+        {
+          "id": "pec_deck",
+          "name": "Сведение рук в тренажёре сидя",
+          "muscles": {
+            "chest": 1.0
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        },
+        {
+          "id": "ohp_m",
+          "name": "Жим над головой в тренажёре",
+          "muscles": {
+            "delts": 1.0,
+            "triceps": 0.5
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "note": "сидя, спина прижата к спинке",
+          "mode": "loaded"
+        },
+        {
+          "id": "db_seated_press",
+          "name": "Жим гантелей сидя со спинкой",
+          "muscles": {
+            "delts": 1.0,
+            "triceps": 0.5
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": true,
+          "kg_max": 10,
+          "mode": "loaded"
+        },
+        {
+          "id": "db_lateral",
+          "name": "Разведение гантелей сидя",
+          "muscles": {
+            "delts": 1.0
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": true,
+          "kg_max": 10,
+          "mode": "loaded"
+        }
+      ]
+    },
+    "T": {
+      "label": "Тяга",
+      "pick": 1,
+      "sets": 3,
+      "reps": "12–15",
+      "items": [
+        {
+          "id": "lat_pd_wide",
+          "name": "Тяга верхнего блока широким хватом",
+          "muscles": {
+            "back": 1.0,
+            "biceps": 0.4
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        },
+        {
+          "id": "lat_pd_under",
+          "name": "Тяга верхнего блока обратным хватом",
+          "muscles": {
+            "back": 1.0,
+            "biceps": 0.6
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        },
+        {
+          "id": "lat_pd_neutral",
+          "name": "Тяга верхнего блока параллельным хватом",
+          "muscles": {
+            "back": 1.0,
+            "biceps": 0.5
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        },
+        {
+          "id": "row_chest_sup",
+          "name": "Тяга рычажная с упором грудью",
+          "muscles": {
+            "back": 1.0,
+            "rear_delt": 0.4,
+            "biceps": 0.4
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        },
+        {
+          "id": "row_machine",
+          "name": "Тяга нижнего блока сидя в тренажёре",
+          "muscles": {
+            "back": 1.0,
+            "biceps": 0.4
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        },
+        {
+          "id": "row_cable_seated",
+          "name": "Тяга нижнего блока сидя",
+          "muscles": {
+            "back": 1.0,
+            "biceps": 0.4
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "note": "корпус вертикально и неподвижно, без наклона вперёд за рукоятью",
+          "mode": "loaded"
+        },
+        {
+          "id": "row_cable_1",
+          "name": "Тяга нижнего блока одной рукой",
+          "muscles": {
+            "back": 1.0,
+            "biceps": 0.4
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        },
+        {
+          "id": "db_row_bench",
+          "name": "Тяга гантели с упором грудью в наклонную скамью",
+          "muscles": {
+            "back": 1.0,
+            "rear_delt": 0.3,
+            "biceps": 0.4
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": true,
+          "kg_max": 10,
+          "mode": "loaded"
+        },
+        {
+          "id": "pullover_cable",
+          "name": "Пуловер в блоке стоя",
+          "muscles": {
+            "back": 1.0,
+            "chest": 0.2
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        }
+      ]
+    },
+    "D": {
+      "label": "Добор: плечо и икры",
+      "pick": 1,
+      "sets": 2,
+      "reps": "15–20",
+      "items": [
+        {
+          "id": "rear_delt_m",
+          "name": "Задние дельты в тренажёре",
+          "muscles": {
+            "rear_delt": 1.0
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        },
+        {
+          "id": "calf_seated",
+          "name": "Подъём на носки сидя",
+          "muscles": {
+            "calves": 1.0
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        },
+        {
+          "id": "ext_rot_cable",
+          "name": "Наружная ротация плеча в блоке",
+          "muscles": {
+            "rotators": 1.0
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        },
+        {
+          "id": "face_pull",
+          "name": "Тяга к лицу в блоке",
+          "muscles": {
+            "rear_delt": 1.0,
+            "back": 0.5,
+            "rotators": 0.5
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        },
+        {
+          "id": "calf_legpress",
+          "name": "Подъём на носки в горизонтальном жиме ногами",
+          "muscles": {
+            "calves": 1.0
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": false,
+          "mode": "loaded"
+        },
+        {
+          "id": "ext_rot_side",
+          "name": "Наружная ротация лёжа на боку с гантелью",
+          "muscles": {
+            "rotators": 1.0
+          },
+          "axial": false,
+          "lumbar_flex": false,
+          "lumbar_ext": false,
+          "free_weight": true,
+          "kg_max": 10,
+          "mode": "loaded"
+        }
+      ]
+    },
+    "S": {
+      "label": "Статика, добор",
+      "pick": 2,
+      "items": [
+        {
+          "id": "side_plank",
+          "name": "Боковая планка",
+          "dose": "10с × 5/сторона",
+          "plane": "lateral",
+          "sec": 200,
+          "goal": "lumbar_stiffness",
+          "mode": "isometric"
+        },
+        {
+          "id": "pallof",
+          "name": "Жим Паллоффа в блочной стойке",
+          "dose": "10с × 8/сторона",
+          "plane": "anti_rotation",
+          "sec": 176,
+          "mode": "isometric"
+        },
+        {
+          "id": "front_plank",
+          "name": "Планка на предплечьях",
+          "dose": "3×30с",
+          "plane": "anti_extension",
+          "sec": 96,
+          "mode": "isometric"
+        },
+        {
+          "id": "single_leg_stand",
+          "name": "Стойка на одной ноге",
+          "dose": "3×30с/сторона",
+          "plane": "balance",
+          "sec": 120,
+          "mode": "isometric"
+        },
+        {
+          "id": "bear_hold",
+          "name": "Медвежья стойка — колени в 2 см от пола",
+          "dose": "15с × 4",
+          "plane": "anti_extension",
+          "sec": 100,
+          "mode": "isometric"
+        },
+        {
+          "id": "side_plank_knees",
+          "name": "Боковая планка с колен",
+          "dose": "3×20с/сторона",
+          "plane": "lateral",
+          "sec": 140,
+          "mode": "isometric"
+        },
+        {
+          "id": "wall_sit",
+          "name": "Стойка у стены, бёдра параллельно полу",
+          "dose": "20с × 3",
+          "plane": "anterior",
+          "sec": 100,
+          "mode": "isometric"
+        },
+        {
+          "id": "pallof_hold",
+          "name": "Удержание жима Паллоффа на вытянутых руках в блочной стойке",
+          "dose": "15с × 4/сторона",
+          "plane": "anti_rotation",
+          "sec": 140,
+          "mode": "isometric"
+        }
+      ],
+      "rule": "из двух позиций минимум одна — боковая плоскость (lateral)"
+    },
+    "G": {
+      "label": "Растяжка под нагрузку дня",
+      "pick": 1,
+      "sec_each": 100,
+      "mode": "static_stretch",
+      "allow_repeat": true,
+      "items": [
+        {
+          "id": "st_pec_door",
+          "name": "Грудные в дверном проёме",
+          "target": "chest",
+          "mode": "static_stretch"
+        },
+        {
+          "id": "st_lat_rack",
+          "name": "Широчайшие у стойки",
+          "target": "back",
+          "mode": "static_stretch"
+        },
+        {
+          "id": "st_thoracic_roll",
+          "name": "Грудной отдел на валике",
+          "target": "thoracic",
+          "mode": "static_stretch"
+        },
+        {
+          "id": "st_calf",
+          "name": "Икроножная у стены",
+          "target": "calves",
+          "mode": "static_stretch"
+        },
+        {
+          "id": "st_quad",
+          "name": "Квадрицепс стоя у опоры",
+          "target": "quads",
+          "mode": "static_stretch"
+        },
+        {
+          "id": "st_sleeper",
+          "name": "Ротаторы плеча лёжа на боку",
+          "target": "rotators",
+          "mode": "static_stretch"
+        }
+      ]
+    },
+    "GH": {
+      "label": "Растяжка бедра — все направления",
+      "pick": 1,
+      "sec_each": 100,
+      "mode": "static_stretch",
+      "rule": "за ротацию покрыть все шесть направлений сустава",
+      "items": [
+        {
+          "id": "st_9090",
+          "name": "Удержание 90/90 сидя",
+          "dose": "40с × 2/сторона",
+          "hip_plane": "internal_rot",
+          "mode": "static_stretch"
+        },
+        {
+          "id": "st_ir_supine",
+          "name": "Внутренняя ротация лёжа на спине, колени врозь",
+          "dose": "40с × 2/сторона",
+          "hip_plane": "internal_rot",
+          "mode": "static_stretch"
+        },
+        {
+          "id": "st_pigeon_bench",
+          "name": "Голубь на скамье",
+          "dose": "40с × 2/сторона",
+          "hip_plane": "external_rot",
+          "mode": "static_stretch"
+        },
+        {
+          "id": "st_frog",
+          "name": "«Лягушка» на предплечьях",
+          "dose": "40с × 2",
+          "hip_plane": "abduction",
+          "mode": "static_stretch"
+        },
+        {
+          "id": "st_adductor",
+          "name": "Бабочка сидя спиной к стене",
+          "dose": "40с × 2",
+          "hip_plane": "abduction",
+          "mode": "static_stretch"
+        },
+        {
+          "id": "st_ham_strap",
+          "name": "Задняя поверхность бедра лёжа с ремнём",
+          "dose": "40с × 2/сторона",
+          "hip_plane": "flexion",
+          "mode": "static_stretch",
+          "note": "таз на полу, поясница нейтральна — никаких наклонов стоя"
+        },
+        {
+          "id": "st_deep_squat",
+          "name": "Глубокий присед у опоры, удержание",
+          "dose": "30с × 3",
+          "hip_plane": "flexion",
+          "mode": "static_stretch"
+        },
+        {
+          "id": "st_couch",
+          "name": "Couch stretch у стены",
+          "dose": "40с × 2/сторона",
+          "hip_plane": "extension",
+          "mode": "static_stretch"
+        },
+        {
+          "id": "st_adductor_side",
+          "name": "Растяжка приводящих, нога в сторону на горизонтальной скамье",
+          "dose": "40с × 2/сторона",
+          "hip_plane": "adduction",
+          "mode": "static_stretch"
+        },
+        {
+          "id": "st_crossbody",
+          "name": "Колено к противоположному плечу лёжа",
+          "dose": "40с × 2/сторона",
+          "hip_plane": "adduction",
+          "mode": "static_stretch"
+        }
+      ]
+    }
+  },
+  "pairing": {
+    "_comment": "подслот G под нагруженное сегодня",
+    "J": [
+      "st_pec_door",
+      "st_sleeper"
+    ],
+    "T": [
+      "st_lat_rack",
+      "st_thoracic_roll"
+    ],
+    "K": [
+      "st_quad",
+      "st_calf"
+    ],
+    "Z": [
+      "st_calf",
+      "st_quad"
+    ]
+  },
+  "volume_targets": {
+    "_comment": "подходов на группу в неделю; min — порог, ниже которого группа недогружена; max — верх для восстановления",
+    "glutes": {
+      "min": 12,
+      "max": 22
+    },
+    "quads": {
+      "min": 6,
+      "max": 14
+    },
+    "hamstrings": {
+      "min": 6,
+      "max": 14
+    },
+    "back": {
+      "min": 6,
+      "max": 14
+    },
+    "chest": {
+      "min": 4,
+      "max": 12
+    },
+    "delts": {
+      "min": 4,
+      "max": 12
+    },
+    "calves": {
+      "min": 2,
+      "max": 8
+    },
+    "biceps": {
+      "min": 3,
+      "max": 10
+    },
+    "triceps": {
+      "min": 3,
+      "max": 10
+    },
+    "rear_delt": {
+      "min": 2,
+      "max": 8
+    },
+    "rotators": {
+      "min": 1,
+      "max": 6
+    },
+    "adductors": {
+      "min": 1,
+      "max": 6
+    }
+  },
+  "progression": {
+    "base": "двойная прогрессия: все подходы по 15 при RPE 8 → следующая ступень стека, снова с 12",
+    "pool": "у каждого упражнения свой вес в дневнике; при возврате через 2 недели — тот же вес, попытка +1 повтор",
+    "static": "удержание 10с × 5 → 10с × 8 → 15с × 5, только когда предыдущая ступень проходит без дрожи",
+    "stop_rule": "покалывание, онемение, прострел в ногу — прекратить и к врачу"
+  },
+  "outside_gym": {
+    "walking": {
+      "name": "Ходьба в разговорном темпе",
+      "min_per_session": 45,
+      "sessions_per_week": 4,
+      "intensity": "moderate"
+    },
+    "mobility_home": {
+      "name": "Подвижность дома",
+      "min_per_day": 10,
+      "days_per_week": 7
+    }
+  },
+  "axes": {
+    "warmup": {
+      "mode": "dynamic",
+      "base": 0,
+      "pool": 14
+    },
+    "strength": {
+      "mode": "loaded",
+      "base": 2,
+      "pool": 5
+    },
+    "static": {
+      "mode": "isometric",
+      "base": 2,
+      "pool": 2
+    },
+    "stretch": {
+      "mode": "static_stretch",
+      "base": 2,
+      "pool": 2
+    },
+    "warmup_cardio": {
+      "mode": "cardio",
+      "base": 0,
+      "pool": 1
+    }
+  },
+  "hip_planes": [
+    "flexion",
+    "extension",
+    "abduction",
+    "adduction",
+    "internal_rot",
+    "external_rot"
+  ]
+}

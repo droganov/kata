@@ -1,0 +1,81 @@
+{"id": "sternocleidomastoid", "name": "Грудино-ключично-сосцевидная", "latin": "Sternocleidomastoid", "kind": "мышца", "zone": "Шея"}
+{"id": "scalenes", "name": "Лестничные", "latin": "Scaleni", "kind": "мышца", "zone": "Шея"}
+{"id": "deep_neck_flexors", "name": "Глубокие сгибатели шеи", "latin": "Longus colli et capitis", "kind": "мышца", "zone": "Шея"}
+{"id": "splenius", "name": "Ременные мышцы шеи", "latin": "Splenius capitis et cervicis", "kind": "мышца", "zone": "Шея"}
+{"id": "neck_extensors", "name": "Разгибатели шеи", "latin": "Semispinalis capitis", "kind": "мышца", "zone": "Шея"}
+{"id": "levator_scapulae", "name": "Мышца, поднимающая лопатку", "latin": "Levator scapulae", "kind": "мышца", "zone": "Трапеция"}
+{"id": "trapezius_upper", "name": "Трапеция верхняя", "latin": "Trapezius pars descendens", "kind": "мышца", "zone": "Трапеция"}
+{"id": "trapezius_middle", "name": "Трапеция средняя", "latin": "Trapezius pars transversa", "kind": "мышца", "zone": "Трапеция"}
+{"id": "trapezius_lower", "name": "Трапеция нижняя", "latin": "Trapezius pars ascendens", "kind": "мышца", "zone": "Трапеция"}
+{"id": "deltoid_anterior", "name": "Дельта передняя", "latin": "Deltoideus pars clavicularis", "kind": "мышца", "zone": "Плечи"}
+{"id": "deltoid_lateral", "name": "Дельта средняя", "latin": "Deltoideus pars acromialis", "kind": "мышца", "zone": "Плечи"}
+{"id": "deltoid_posterior", "name": "Дельта задняя", "latin": "Deltoideus pars spinalis", "kind": "мышца", "zone": "Плечи"}
+{"id": "supraspinatus", "name": "Надостная", "latin": "Supraspinatus", "kind": "мышца", "zone": "Плечи"}
+{"id": "infraspinatus", "name": "Подостная", "latin": "Infraspinatus", "kind": "мышца", "zone": "Плечи"}
+{"id": "teres_minor", "name": "Малая круглая", "latin": "Teres minor", "kind": "мышца", "zone": "Плечи"}
+{"id": "subscapularis", "name": "Подлопаточная", "latin": "Subscapularis", "kind": "мышца", "zone": "Плечи"}
+{"id": "pectoralis_major_clavicular", "name": "Большая грудная, ключичная часть", "latin": "Pectoralis major pars clavicularis", "kind": "мышца", "zone": "Грудь"}
+{"id": "pectoralis_major_sternal", "name": "Большая грудная, грудинная часть", "latin": "Pectoralis major pars sternocostalis", "kind": "мышца", "zone": "Грудь"}
+{"id": "pectoralis_major_abdominal", "name": "Большая грудная, брюшная часть", "latin": "Pectoralis major pars abdominalis", "kind": "мышца", "zone": "Грудь"}
+{"id": "pectoralis_minor", "name": "Малая грудная", "latin": "Pectoralis minor", "kind": "мышца", "zone": "Грудь"}
+{"id": "serratus_anterior", "name": "Передняя зубчатая", "latin": "Serratus anterior", "kind": "мышца", "zone": "Грудь"}
+{"id": "latissimus_dorsi", "name": "Широчайшая", "latin": "Latissimus dorsi", "kind": "мышца", "zone": "Спина"}
+{"id": "teres_major", "name": "Большая круглая", "latin": "Teres major", "kind": "мышца", "zone": "Спина"}
+{"id": "rhomboids", "name": "Ромбовидные", "latin": "Rhomboideus major et minor", "kind": "мышца", "zone": "Спина"}
+{"id": "erector_spinae", "name": "Разгибатели спины", "latin": "Erector spinae", "kind": "мышца", "zone": "Спина"}
+{"id": "multifidus", "name": "Многораздельные", "latin": "Multifidus", "kind": "мышца", "zone": "Спина"}
+{"id": "quadratus_lumborum", "name": "Квадратная мышца поясницы", "latin": "Quadratus lumborum", "kind": "мышца", "zone": "Спина"}
+{"id": "biceps_brachii", "name": "Бицепс плеча", "latin": "Biceps brachii", "kind": "мышца", "zone": "Руки"}
+{"id": "brachialis", "name": "Плечевая", "latin": "Brachialis", "kind": "мышца", "zone": "Руки"}
+{"id": "brachioradialis", "name": "Плечелучевая", "latin": "Brachioradialis", "kind": "мышца", "zone": "Руки"}
+{"id": "triceps_brachii", "name": "Трицепс плеча", "latin": "Triceps brachii", "kind": "мышца", "zone": "Руки"}
+{"id": "forearm_flexors", "name": "Сгибатели предплечья", "latin": "Flexores antebrachii", "kind": "мышца", "zone": "Руки"}
+{"id": "forearm_extensors", "name": "Разгибатели предплечья", "latin": "Extensores antebrachii", "kind": "мышца", "zone": "Руки"}
+{"id": "pronator_teres", "name": "Круглый пронатор", "latin": "Pronator teres", "kind": "мышца", "zone": "Руки"}
+{"id": "supinator", "name": "Супинатор", "latin": "Supinator", "kind": "мышца", "zone": "Руки"}
+{"id": "hand_flexors", "name": "Сгибатели пальцев кисти", "latin": "Flexores digitorum", "kind": "мышца", "zone": "Руки"}
+{"id": "rectus_abdominis", "name": "Прямая мышца живота", "latin": "Rectus abdominis", "kind": "мышца", "zone": "Пресс и кор"}
+{"id": "obliquus_externus", "name": "Наружная косая", "latin": "Obliquus externus abdominis", "kind": "мышца", "zone": "Пресс и кор"}
+{"id": "obliquus_internus", "name": "Внутренняя косая", "latin": "Obliquus internus abdominis", "kind": "мышца", "zone": "Пресс и кор"}
+{"id": "transversus_abdominis", "name": "Поперечная мышца живота", "latin": "Transversus abdominis", "kind": "мышца", "zone": "Пресс и кор"}
+{"id": "diaphragm", "name": "Диафрагма", "latin": "Diaphragma", "kind": "мышца", "zone": "Пресс и кор"}
+{"id": "iliopsoas", "name": "Подвздошно-поясничная", "latin": "Iliopsoas", "kind": "мышца", "zone": "Бёдра"}
+{"id": "gluteus_maximus", "name": "Большая ягодичная", "latin": "Gluteus maximus", "kind": "мышца", "zone": "Ягодичные"}
+{"id": "gluteus_medius", "name": "Средняя ягодичная", "latin": "Gluteus medius", "kind": "мышца", "zone": "Ягодичные"}
+{"id": "gluteus_minimus", "name": "Малая ягодичная", "latin": "Gluteus minimus", "kind": "мышца", "zone": "Ягодичные"}
+{"id": "tensor_fasciae_latae", "name": "Напрягатель широкой фасции", "latin": "Tensor fasciae latae", "kind": "мышца", "zone": "Ягодичные"}
+{"id": "piriformis", "name": "Грушевидная", "latin": "Piriformis", "kind": "мышца", "zone": "Ягодичные"}
+{"id": "deep_hip_rotators", "name": "Глубокие ротаторы бедра", "latin": "Rotatores coxae profundi", "kind": "мышца", "zone": "Ягодичные"}
+{"id": "rectus_femoris", "name": "Прямая мышца бедра", "latin": "Rectus femoris", "kind": "мышца", "zone": "Бёдра"}
+{"id": "vastus_lateralis", "name": "Латеральная широкая", "latin": "Vastus lateralis", "kind": "мышца", "zone": "Бёдра"}
+{"id": "vastus_medialis", "name": "Медиальная широкая", "latin": "Vastus medialis", "kind": "мышца", "zone": "Бёдра"}
+{"id": "vastus_intermedius", "name": "Промежуточная широкая", "latin": "Vastus intermedius", "kind": "мышца", "zone": "Бёдра"}
+{"id": "biceps_femoris", "name": "Двуглавая мышца бедра", "latin": "Biceps femoris", "kind": "мышца", "zone": "Бёдра"}
+{"id": "semitendinosus", "name": "Полусухожильная", "latin": "Semitendinosus", "kind": "мышца", "zone": "Бёдра"}
+{"id": "semimembranosus", "name": "Полуперепончатая", "latin": "Semimembranosus", "kind": "мышца", "zone": "Бёдра"}
+{"id": "adductor_longus", "name": "Длинная приводящая", "latin": "Adductor longus", "kind": "мышца", "zone": "Бёдра"}
+{"id": "adductor_magnus", "name": "Большая приводящая", "latin": "Adductor magnus", "kind": "мышца", "zone": "Бёдра"}
+{"id": "adductor_brevis", "name": "Короткая приводящая", "latin": "Adductor brevis", "kind": "мышца", "zone": "Бёдра"}
+{"id": "gracilis", "name": "Тонкая", "latin": "Gracilis", "kind": "мышца", "zone": "Бёдра"}
+{"id": "pectineus", "name": "Гребенчатая", "latin": "Pectineus", "kind": "мышца", "zone": "Бёдра"}
+{"id": "sartorius", "name": "Портняжная", "latin": "Sartorius", "kind": "мышца", "zone": "Бёдра"}
+{"id": "gastrocnemius", "name": "Икроножная", "latin": "Gastrocnemius", "kind": "мышца", "zone": "Икры"}
+{"id": "soleus", "name": "Камбаловидная", "latin": "Soleus", "kind": "мышца", "zone": "Икры"}
+{"id": "tibialis_anterior", "name": "Передняя большеберцовая", "latin": "Tibialis anterior", "kind": "мышца", "zone": "Икры"}
+{"id": "peroneals", "name": "Малоберцовые", "latin": "Fibulares", "kind": "мышца", "zone": "Икры"}
+{"id": "tibialis_posterior", "name": "Задняя большеберцовая", "latin": "Tibialis posterior", "kind": "мышца", "zone": "Икры"}
+{"id": "foot_intrinsics", "name": "Собственные мышцы стопы", "latin": "Musculi pedis", "kind": "мышца", "zone": "Икры"}
+{"id": "plantar_fascia", "name": "Подошвенный апоневроз", "latin": "Aponeurosis plantaris", "kind": "мышца", "zone": "Икры"}
+{"id": "cardiorespiratory", "name": "Сердечно-сосудистая и дыхательная система", "latin": "Systema cardiorespiratorium", "kind": "система", "zone": "Сердце, сосуды, лёгкие"}
+{"id": "cervical_spine", "name": "Шейный отдел позвоночника", "latin": "Columna cervicalis", "kind": "сустав", "zone": "Шея"}
+{"id": "glenohumeral", "name": "Плечевой сустав", "latin": "Articulatio glenohumeralis", "kind": "сустав", "zone": "Плечевой пояс"}
+{"id": "scapulothoracic", "name": "Лопаточно-грудное сочленение", "latin": "Articulatio scapulothoracica", "kind": "сустав", "zone": "Плечевой пояс"}
+{"id": "elbow", "name": "Локтевой сустав", "latin": "Articulatio cubiti", "kind": "сустав", "zone": "Плечевой пояс"}
+{"id": "wrist", "name": "Лучезапястный сустав", "latin": "Articulatio radiocarpalis", "kind": "сустав", "zone": "Плечевой пояс"}
+{"id": "fingers", "name": "Суставы пальцев кисти", "latin": "Articulationes digitorum manus", "kind": "сустав", "zone": "Плечевой пояс"}
+{"id": "thoracic_spine", "name": "Грудной отдел позвоночника", "latin": "Columna thoracica", "kind": "сустав", "zone": "Грудь, спина"}
+{"id": "lumbopelvic", "name": "Пояснично-тазовое сочленение", "latin": "Regio lumbosacralis", "kind": "сустав", "zone": "Поясница"}
+{"id": "hip", "name": "Тазобедренный сустав", "latin": "Articulatio coxae", "kind": "сустав", "zone": "Бёдра"}
+{"id": "knee", "name": "Коленный сустав", "latin": "Articulatio genus", "kind": "сустав", "zone": "Колени"}
+{"id": "ankle", "name": "Голеностопный сустав", "latin": "Articulatio talocruralis", "kind": "сустав", "zone": "Стопы"}
+{"id": "foot_joints", "name": "Суставы стопы", "latin": "Articulationes pedis", "kind": "сустав", "zone": "Стопы"}
