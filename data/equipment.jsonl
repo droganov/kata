@@ -1,0 +1,65 @@
+{"id":"01a0889d-3852-7051-a039-c9778729a468","slug":"body","name":"Тело","canon_en":"Bodyweight","kind":"body"}
+{"id":"01a0889d-3db9-78f2-8244-5fb412b94deb","slug":"floor","name":"Пол","canon_en":"Floor","kind":"environment"}
+{"id":"01a0889d-5f8b-72ce-8523-12b736a2c0c1","slug":"wall","name":"Стена","canon_en":"Wall","kind":"environment"}
+{"id":"01a0889d-78e5-7fe4-be8b-e47ddcb1bd42","slug":"doorframe","name":"Дверной проём","canon_en":"Door frame","kind":"environment"}
+{"id":"01a0889d-5b99-7e24-bf9a-0d5c256588fd","slug":"post","name":"Стойка-опора","canon_en":"Support post","kind":"environment"}
+{"id":"01a0889d-596a-7223-bfcf-64c54e063b8d","slug":"leg_press_seated","name":"Жим ногами сидя горизонтальный","canon_en":"Seated Leg Press","kind":"machine"}
+{"id":"01a0889d-5a31-7535-b9f3-c2d455e9f133","slug":"leg_extension","name":"Разгибание голени сидя","canon_en":"Leg Extension","kind":"machine"}
+{"id":"01a0889d-5bcc-789b-b267-5e14c4a6ea42","slug":"leg_curl_seated","name":"Сгибание голени сидя","canon_en":"Seated Leg Curl","kind":"machine"}
+{"id":"01a0889d-5c42-7808-a984-843b3d467f11","slug":"leg_curl_standing","name":"Сгибание голени стоя","canon_en":"Standing Leg Curl","kind":"machine"}
+{"id":"01a0889d-5da3-72be-94a2-f9eab715cca6","slug":"hip_abd_add","name":"Отведение-приведение бедра сидя","canon_en":"Hip Abduction/Adduction","kind":"machine"}
+{"id":"01a0889d-57fa-78be-a63d-59af153e478c","slug":"glute_kickback","name":"Разгибание бедра стоя с рычагом","canon_en":"Glute Kickback","kind":"machine"}
+{"id":"01a0889d-56f8-7614-bc45-87d0ca40f345","slug":"glute_bridge_machine","name":"Ягодичный мост в тренажёре","canon_en":"Glute Bridge","kind":"machine"}
+{"id":"01a0889d-5ecc-7960-9a32-07f86e0755ec","slug":"calf_seated","name":"Подъём на носки сидя","canon_en":"Seated Calf","kind":"machine"}
+{"id":"01a0889d-5fc5-71dd-9066-2a6d5332de76","slug":"tibia_machine","name":"Разгибание стопы в тренажёре","canon_en":"Tibia Dorsi Calf","kind":"machine"}
+{"id":"01a0889d-4d0c-7b10-873d-22358165aab1","slug":"pulldown","name":"Тяга верхнего блока сидя","canon_en":"Lat Pulldown","kind":"machine"}
+{"id":"01a0889d-4ee0-7858-8536-a389107ac3a0","slug":"low_row","name":"Тяга нижнего блока сидя","canon_en":"Low Row","kind":"machine"}
+{"id":"01a0889d-4ea3-7041-bdbc-ea8787d6fb77","slug":"row_chest_supported","name":"Тяга рычажная с упором грудью","canon_en":"Chest-supported Row","kind":"machine"}
+{"id":"01a0889d-4af1-75da-af03-d416b60cdb38","slug":"chest_press","name":"Жим от груди сидя","canon_en":"Chest Press","kind":"machine"}
+{"id":"01a0889d-4a19-76b9-9957-49effc5b915c","slug":"chest_press_incline","name":"Жим от груди сидя под углом вверх","canon_en":"Incline Chest Press","kind":"machine"}
+{"id":"01a0889d-4c2e-7d34-a13c-fdd0dadb5d18","slug":"chest_press_decline","name":"Жим от груди сидя под углом вниз","canon_en":"Decline Chest Press","kind":"machine"}
+{"id":"01a0889d-46c7-7a34-ae11-a5aef677a216","slug":"shoulder_press","name":"Жим над головой сидя","canon_en":"Shoulder Press","kind":"machine"}
+{"id":"01a0889d-4862-7f74-9974-e7220f27e46d","slug":"pec_fly_rear_delt","name":"Сведение-разведение рук сидя","canon_en":"Pectoral Fly / Rear Deltoid","kind":"machine"}
+{"id":"01a0889d-47df-7dec-a663-2e14ca680bad","slug":"lateral_raise_machine","name":"Отведение рук в стороны сидя","canon_en":"Lateral Raise","kind":"machine"}
+{"id":"01a0889d-4596-7d7d-818e-26790ace711b","slug":"cable_station","name":"Блочная стойка с регулируемой высотой","canon_en":"Dual Adjustable Pulley","kind":"machine"}
+{"id":"01a0889d-48dd-776b-b54a-60f1f48f0406","slug":"cable_crossover","name":"Кроссовер","canon_en":"Cable Crossover","kind":"machine"}
+{"id":"01a0889d-52d5-73e7-ac1b-a25cf8e4ed91","slug":"biceps_curl_machine","name":"Сгибание рук сидя в тренажёре","canon_en":"Biceps Curl","kind":"machine"}
+{"id":"01a0889d-53bd-785e-bf59-263f5b588c70","slug":"triceps_ext_machine","name":"Разгибание рук сидя в тренажёре","canon_en":"Triceps Extension","kind":"machine"}
+{"id":"01a0889d-4468-7fd0-93a9-1108a1519270","slug":"neck_machine","name":"Сгибание-разгибание шеи в тренажёре","canon_en":"4-way Neck","kind":"machine"}
+{"id":"01a0889d-5015-7dac-8a02-bf975b7549ae","slug":"back_extension_machine","name":"Разгибание туловища сидя","canon_en":"Back Extension","kind":"machine"}
+{"id":"01a0889d-4c9b-7e77-939e-473eedc23986","slug":"assisted_dip_chin","name":"Гравитрон","canon_en":"Assist Dip Chin","kind":"machine"}
+{"id":"01a0889d-4bee-7a6e-b8fd-654cd3b26097","slug":"smith","name":"Машина Смита","canon_en":"Smith Machine","kind":"machine"}
+{"id":"01a0889d-8481-7431-824d-e653e493dd0c","slug":"elliptical","name":"Эллиптический тренажёр","canon_en":"Elliptical","kind":"machine"}
+{"id":"01a0889d-84ba-7daf-a871-16184cfbbf17","slug":"bike_upright","name":"Велотренажёр вертикальный","canon_en":"Upright Bike","kind":"machine"}
+{"id":"01a0889d-84f1-7fd2-ae34-5d96308af06e","slug":"treadmill","name":"Беговая дорожка","canon_en":"Treadmill","kind":"machine"}
+{"id":"01a0889d-8565-73f7-a57e-1bb2256008e3","slug":"stair_climber","name":"Степпер-лестница","canon_en":"Stair Climber","kind":"machine"}
+{"id":"01a0889d-859f-7ea8-8b03-8684a675d0f8","slug":"ski_erg","name":"Лыжный тренажёр","canon_en":"Ski Erg","kind":"machine"}
+{"id":"01a0889d-85d5-75ce-a9cb-0d41cb2cdaee","slug":"air_bike","name":"Аэробайк","canon_en":"Air Bike","kind":"machine"}
+{"id":"01a0889d-455a-713b-8e0c-7b1a05f9e77c","slug":"dumbbells","name":"Гантели","canon_en":"Dumbbells","kind":"free_weight"}
+{"id":"01a0889d-4424-7b41-a8af-825fbfa808bb","slug":"plate","name":"Блин","canon_en":"Weight plate","kind":"free_weight"}
+{"id":"01a0889d-510c-75bc-98b8-8c73774d40d6","slug":"ankle_weights","name":"Утяжелители на ноги","canon_en":"Ankle weights","kind":"free_weight"}
+{"id":"01a0889d-6132-72a0-a63f-6163a6e7f46d","slug":"pullup_bar","name":"Турник","canon_en":"Pull-up bar","kind":"apparatus"}
+{"id":"01a0889d-668e-7cc5-a620-738ee3f34353","slug":"low_bar","name":"Низкая перекладина","canon_en":"Low bar","kind":"apparatus"}
+{"id":"01a0889d-6187-782a-9984-4c886480bf73","slug":"dip_bars","name":"Брусья","canon_en":"Dip bars","kind":"apparatus"}
+{"id":"01a0889d-4733-7480-9daf-c79adcc20ad2","slug":"bench_flat","name":"Скамья горизонтальная","canon_en":"Flat bench","kind":"apparatus"}
+{"id":"01a0889d-455b-7199-ab15-2eeb8a8e964c","slug":"bench_incline","name":"Скамья наклонная регулируемая","canon_en":"Adjustable incline bench","kind":"apparatus"}
+{"id":"01a0889d-4cd3-77d6-b7b5-1d4436390edc","slug":"bench_decline","name":"Скамья с отрицательным наклоном","canon_en":"Decline bench","kind":"apparatus"}
+{"id":"01a0889d-5345-7d48-9c63-5b878c4e756a","slug":"preacher_bench","name":"Скамья Скотта","canon_en":"Preacher curl bench","kind":"apparatus"}
+{"id":"01a0889d-5052-75e7-baf1-7631a9f89bb0","slug":"roman_chair_45","name":"Наклонная скамья для гиперэкстензии 45°","canon_en":"45° Back Extension bench","kind":"apparatus"}
+{"id":"01a0889d-5837-7285-bb65-9ee0e2a6d056","slug":"step_platform","name":"Степ-платформа","canon_en":"Step platform","kind":"apparatus"}
+{"id":"01a0889d-6f30-718d-a46e-9fae7d318e66","slug":"stairs_step","name":"Ступенька","canon_en":"Step","kind":"apparatus"}
+{"id":"01a0889d-4aba-74e9-9f58-aa7e3993c0e4","slug":"box","name":"Тумба","canon_en":"Plyo box","kind":"apparatus"}
+{"id":"01a0889d-5640-7b8b-ba49-a68a6ade95a1","slug":"band","name":"Резиновая лента","canon_en":"Resistance band","kind":"tool"}
+{"id":"01a0889d-58f5-7590-8f8e-c99ca1fd0657","slug":"mini_band","name":"Мини-лента","canon_en":"Mini band","kind":"tool"}
+{"id":"01a0889d-8145-7c56-83af-844476f0f0f7","slug":"strap","name":"Ремень для растяжки","canon_en":"Stretching strap","kind":"tool"}
+{"id":"01a0889d-79a2-7767-9041-b8752577144d","slug":"foam_roller","name":"Валик","canon_en":"Foam roller","kind":"tool"}
+{"id":"01a0889d-6a48-7db1-9e4f-958d0f7a8016","slug":"towel","name":"Полотенце","canon_en":"Towel","kind":"tool"}
+{"id":"01a0889d-5d27-7f47-b2a5-1c8e56b375db","slug":"sliders","name":"Слайдеры","canon_en":"Sliders","kind":"tool"}
+{"id":"01a0889d-5554-7616-90da-9bd974ec1ee1","slug":"grip_trainer","name":"Кистевой эспандер","canon_en":"Hand gripper","kind":"tool"}
+{"id":"01a0889d-560f-7a6b-b13c-cde51bbe7c03","slug":"stability_ball","name":"Фитбол","canon_en":"Stability ball","kind":"tool"}
+{"id":"01a0889d-6898-7e06-bcb1-8ac0306314d7","slug":"stick","name":"Гимнастическая палка","canon_en":"Stick","kind":"tool"}
+{"id":"01a0889d-86c5-7e83-9bf4-4d219787f228","slug":"jump_rope","name":"Скакалка","canon_en":"Jump rope","kind":"tool"}
+{"id":"01a0889d-5734-7e1c-adfe-1388ae60f806","slug":"ankle_cuff","name":"Манжета на голень для блока","canon_en":"Ankle strap","kind":"tool"}
+{"id":"01a0889d-67c6-75dd-9d66-9e38a42e14b4","slug":"roman_chair_horizontal","name":"Скамья для гиперэкстензии горизонтальная","canon_en":"Horizontal Back Extension bench","kind":"apparatus"}
+{"id":"01a0889d-7282-7b9e-a42c-426231aeaf44","slug":"nordic_bench","name":"Скамья для нордических сгибаний","canon_en":"Nordic Hamstring bench","kind":"apparatus"}
+{"id":"01a0889d-50cf-711a-b739-190e92cb6ff6","slug":"reverse_hyper","name":"Тренажёр обратной гиперэкстензии","canon_en":"Reverse Hyper","kind":"machine"}

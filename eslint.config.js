@@ -33,7 +33,7 @@ const TEST_NAME_PATTERN = /\.test\.[cm]?[jt]sx?$/;
 const CONFIG_FILES = ['*.config.{js,ts}', 'eslint.config.js'];
 const SVELTEKIT_EXPORT_NAMES = '^(ssr|csr|prerender|trailingSlash|load|actions|entries|config)$';
 
-const CAPSULES = ['program', 'exercise', 'catalog', 'storyboard'];
+const CAPSULES = ['program', 'exercise', 'catalog', 'storyboard', 'table'];
 const LAYERS = ['domain', 'application', 'infrastructure', 'interface'];
 const SHARED_KERNEL_MAX_FILES = 8;
 const group = (names) => `(${names.join('|')})`;
@@ -271,7 +271,27 @@ const DOMAIN_PUBLIC_API = {
 		'sectionOutlinesOf',
 		'sessionsOf'
 	],
-	storyboard: ['Prompt', 'PromptCatalog', 'promptOf']
+	storyboard: ['Prompt', 'PromptCatalog', 'promptOf'],
+	table: [
+		'Finding',
+		'SourceCatalog',
+		'SourceEquipment',
+		'SourceExercise',
+		'SourceFile',
+		'SourceLink',
+		'SourceReference',
+		'SourceTarget',
+		'TableFile',
+		'TableLine',
+		'TableName',
+		'TableSet',
+		'Tables',
+		'rowsOf',
+		'tableNames',
+		'tableRules',
+		'tablesOf',
+		'tupleOf'
+	]
 };
 
 const LIB_ALIAS = '$lib/';

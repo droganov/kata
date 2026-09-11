@@ -1,0 +1,103 @@
+{"id":"01a0889d-3800-7ef5-adfd-a56bcb2334c5","muscle_group_id":"01a0889d-4558-7396-9e5d-878fdf19cfda","slug":"sternocleidomastoid","name":"Грудино-ключично-сосцевидная","latin":"Sternocleidomastoid","kind":"muscle"}
+{"id":"01a0889d-3801-7b23-aa1c-1b5a6a9cbe52","muscle_group_id":"01a0889d-4558-7396-9e5d-878fdf19cfda","slug":"scalenes","name":"Лестничные","latin":"Scaleni","kind":"muscle"}
+{"id":"01a0889d-3802-753e-bdf1-bd3e6c3086b0","muscle_group_id":"01a0889d-4558-7396-9e5d-878fdf19cfda","slug":"deep_neck_flexors","name":"Глубокие сгибатели шеи","latin":"Longus colli et capitis","kind":"muscle"}
+{"id":"01a0889d-3803-7da8-af34-69c5abea47e8","muscle_group_id":"01a0889d-4558-7396-9e5d-878fdf19cfda","slug":"splenius","name":"Ременные мышцы шеи","latin":"Splenius capitis et cervicis","kind":"muscle"}
+{"id":"01a0889d-3804-741b-b4f4-69f4ce953e7a","muscle_group_id":"01a0889d-4558-7396-9e5d-878fdf19cfda","slug":"neck_extensors","name":"Разгибатели шеи","latin":"Semispinalis capitis","kind":"muscle"}
+{"id":"01a0889d-3805-79c4-af36-6d29dc315147","muscle_group_id":"01a0889d-46c5-711d-9edd-837dbf80621d","slug":"levator_scapulae","name":"Мышца, поднимающая лопатку","latin":"Levator scapulae","kind":"muscle"}
+{"id":"01a0889d-3806-71f7-9f53-678f23e0e5a3","muscle_group_id":"01a0889d-46c5-711d-9edd-837dbf80621d","slug":"trapezius_upper","name":"Трапеция верхняя","latin":"Trapezius pars descendens","kind":"muscle_head"}
+{"id":"01a0889d-3807-7efe-8f67-b8522e80025e","muscle_group_id":"01a0889d-46c5-711d-9edd-837dbf80621d","slug":"trapezius_middle","name":"Трапеция средняя","latin":"Trapezius pars transversa","kind":"muscle"}
+{"id":"01a0889d-3808-7fb1-aaca-4498842f8212","muscle_group_id":"01a0889d-46c5-711d-9edd-837dbf80621d","slug":"trapezius_lower","name":"Трапеция нижняя","latin":"Trapezius pars ascendens","kind":"muscle"}
+{"id":"01a0889d-3809-7e9d-a75b-27a4dbe10d84","muscle_group_id":"01a0889d-4a17-753f-b22d-13e2f26cabff","slug":"deltoid_anterior","name":"Дельта передняя","latin":"Deltoideus pars clavicularis","kind":"muscle_head"}
+{"id":"01a0889d-380a-7207-981a-2ef8957a575d","muscle_group_id":"01a0889d-4a17-753f-b22d-13e2f26cabff","slug":"deltoid_lateral","name":"Дельта средняя","latin":"Deltoideus pars acromialis","kind":"muscle_head"}
+{"id":"01a0889d-380b-7f67-bc40-c2e1dea2f785","muscle_group_id":"01a0889d-4a17-753f-b22d-13e2f26cabff","slug":"deltoid_posterior","name":"Дельта задняя","latin":"Deltoideus pars spinalis","kind":"muscle_head"}
+{"id":"01a0889d-380c-7b31-ae9d-0994382ae11f","muscle_group_id":"01a0889d-4a17-753f-b22d-13e2f26cabff","slug":"supraspinatus","name":"Надостная","latin":"Supraspinatus","kind":"muscle"}
+{"id":"01a0889d-380d-7371-94f8-1a5dd59b40fd","muscle_group_id":"01a0889d-4a17-753f-b22d-13e2f26cabff","slug":"infraspinatus","name":"Подостная","latin":"Infraspinatus","kind":"muscle"}
+{"id":"01a0889d-380e-71d3-9a0e-205c7edc350e","muscle_group_id":"01a0889d-4a17-753f-b22d-13e2f26cabff","slug":"teres_minor","name":"Малая круглая","latin":"Teres minor","kind":"muscle"}
+{"id":"01a0889d-380f-7600-913a-fc4e274c76a2","muscle_group_id":"01a0889d-4a17-753f-b22d-13e2f26cabff","slug":"subscapularis","name":"Подлопаточная","latin":"Subscapularis","kind":"muscle"}
+{"id":"01a0889d-3810-788a-80f9-94c45b9c2bce","muscle_group_id":"01a0889d-4d0a-77d1-bee6-5fe32f5eddfc","slug":"pectoralis_major_clavicular","name":"Большая грудная, ключичная часть","latin":"Pectoralis major pars clavicularis","kind":"muscle_head"}
+{"id":"01a0889d-3811-7925-8c49-b972a25736d1","muscle_group_id":"01a0889d-4d0a-77d1-bee6-5fe32f5eddfc","slug":"pectoralis_major_sternal","name":"Большая грудная, грудинная часть","latin":"Pectoralis major pars sternocostalis","kind":"muscle_head"}
+{"id":"01a0889d-3812-7cfc-82c7-239b097b8ff6","muscle_group_id":"01a0889d-4d0a-77d1-bee6-5fe32f5eddfc","slug":"pectoralis_major_abdominal","name":"Большая грудная, брюшная часть","latin":"Pectoralis major pars abdominalis","kind":"muscle_head"}
+{"id":"01a0889d-3813-7b76-82d2-211953a45181","muscle_group_id":"01a0889d-4d0a-77d1-bee6-5fe32f5eddfc","slug":"pectoralis_minor","name":"Малая грудная","latin":"Pectoralis minor","kind":"muscle"}
+{"id":"01a0889d-3814-71f0-8c5e-7f809c15827c","muscle_group_id":"01a0889d-4d0a-77d1-bee6-5fe32f5eddfc","slug":"serratus_anterior","name":"Передняя зубчатая","latin":"Serratus anterior","kind":"muscle"}
+{"id":"01a0889d-3815-786d-a66d-4a4e48ec87e8","muscle_group_id":"01a0889d-5258-7fa8-a0c9-1824acbc43b5","slug":"latissimus_dorsi","name":"Широчайшая","latin":"Latissimus dorsi","kind":"muscle"}
+{"id":"01a0889d-3816-78b1-a88a-580e8530a9a4","muscle_group_id":"01a0889d-5258-7fa8-a0c9-1824acbc43b5","slug":"teres_major","name":"Большая круглая","latin":"Teres major","kind":"muscle"}
+{"id":"01a0889d-3817-7e65-b496-d55b66be9896","muscle_group_id":"01a0889d-5258-7fa8-a0c9-1824acbc43b5","slug":"rhomboids","name":"Ромбовидные","latin":"Rhomboideus major et minor","kind":"muscle"}
+{"id":"01a0889d-3818-7a07-b990-d5f95228f04e","muscle_group_id":"01a0889d-5258-7fa8-a0c9-1824acbc43b5","slug":"erector_spinae","name":"Разгибатели спины","latin":"Erector spinae","kind":"muscle"}
+{"id":"01a0889d-3819-7a5e-a024-7ef41f6a2fd1","muscle_group_id":"01a0889d-5258-7fa8-a0c9-1824acbc43b5","slug":"multifidus","name":"Многораздельные","latin":"Multifidus","kind":"muscle"}
+{"id":"01a0889d-381a-7bef-996d-e7dabc97f9c9","muscle_group_id":"01a0889d-5258-7fa8-a0c9-1824acbc43b5","slug":"quadratus_lumborum","name":"Квадратная мышца поясницы","latin":"Quadratus lumborum","kind":"muscle"}
+{"id":"01a0889d-381b-7265-83e0-e39143fa308b","muscle_group_id":"01a0889d-558c-72b3-849e-faf90a2e79ec","slug":"biceps_brachii","name":"Бицепс плеча","latin":"Biceps brachii","kind":"muscle"}
+{"id":"01a0889d-381c-79ca-9f88-d4dcc4c0886d","muscle_group_id":"01a0889d-558c-72b3-849e-faf90a2e79ec","slug":"brachialis","name":"Плечевая","latin":"Brachialis","kind":"muscle"}
+{"id":"01a0889d-381d-7d3d-81c4-4932a2354498","muscle_group_id":"01a0889d-558c-72b3-849e-faf90a2e79ec","slug":"brachioradialis","name":"Плечелучевая","latin":"Brachioradialis","kind":"muscle"}
+{"id":"01a0889d-381e-78a6-9e87-c22bd7cd6361","muscle_group_id":"01a0889d-558c-72b3-849e-faf90a2e79ec","slug":"triceps_brachii","name":"Трицепс плеча","latin":"Triceps brachii","kind":"muscle"}
+{"id":"01a0889d-381f-7a92-b90a-575828e20a3a","muscle_group_id":"01a0889d-558c-72b3-849e-faf90a2e79ec","slug":"forearm_flexors","name":"Сгибатели предплечья","latin":"Flexores antebrachii","kind":"muscle"}
+{"id":"01a0889d-3820-7235-ae89-2d5a560a5a45","muscle_group_id":"01a0889d-558c-72b3-849e-faf90a2e79ec","slug":"forearm_extensors","name":"Разгибатели предплечья","latin":"Extensores antebrachii","kind":"muscle"}
+{"id":"01a0889d-3821-79d5-94f9-fe9058160254","muscle_group_id":"01a0889d-558c-72b3-849e-faf90a2e79ec","slug":"pronator_teres","name":"Круглый пронатор","latin":"Pronator teres","kind":"muscle"}
+{"id":"01a0889d-3822-7f5c-a442-d09a137e4342","muscle_group_id":"01a0889d-558c-72b3-849e-faf90a2e79ec","slug":"supinator","name":"Супинатор","latin":"Supinator","kind":"muscle"}
+{"id":"01a0889d-3823-786f-acf0-c38620d0ca2a","muscle_group_id":"01a0889d-558c-72b3-849e-faf90a2e79ec","slug":"hand_flexors","name":"Сгибатели пальцев кисти","latin":"Flexores digitorum","kind":"muscle"}
+{"id":"01a0889d-3824-7740-b265-ca3284999f80","muscle_group_id":"01a0889d-56f6-78f3-8de6-965c93d19ce3","slug":"rectus_abdominis","name":"Прямая мышца живота","latin":"Rectus abdominis","kind":"muscle"}
+{"id":"01a0889d-3825-75ce-a7d5-88fb32b4a328","muscle_group_id":"01a0889d-56f6-78f3-8de6-965c93d19ce3","slug":"obliquus_externus","name":"Наружная косая","latin":"Obliquus externus abdominis","kind":"muscle"}
+{"id":"01a0889d-3826-72cd-b99e-cd28e8079189","muscle_group_id":"01a0889d-56f6-78f3-8de6-965c93d19ce3","slug":"obliquus_internus","name":"Внутренняя косая","latin":"Obliquus internus abdominis","kind":"muscle"}
+{"id":"01a0889d-3827-729e-b641-a51dea37b71d","muscle_group_id":"01a0889d-56f6-78f3-8de6-965c93d19ce3","slug":"transversus_abdominis","name":"Поперечная мышца живота","latin":"Transversus abdominis","kind":"muscle"}
+{"id":"01a0889d-3828-72c8-ab2c-c11b41738898","muscle_group_id":"01a0889d-56f6-78f3-8de6-965c93d19ce3","slug":"diaphragm","name":"Диафрагма","latin":"Diaphragma","kind":"muscle"}
+{"id":"01a0889d-3829-7d5b-9ab6-e4130c7c46b0","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a","slug":"iliopsoas","name":"Подвздошно-поясничная","latin":"Iliopsoas","kind":"muscle"}
+{"id":"01a0889d-382a-70ff-92cd-42872878ae4c","muscle_group_id":"01a0889d-5968-71d3-bba6-c4c747ce4b69","slug":"gluteus_maximus","name":"Большая ягодичная","latin":"Gluteus maximus","kind":"muscle"}
+{"id":"01a0889d-382b-7615-bc61-c6f284792c23","muscle_group_id":"01a0889d-5968-71d3-bba6-c4c747ce4b69","slug":"gluteus_medius","name":"Средняя ягодичная","latin":"Gluteus medius","kind":"muscle"}
+{"id":"01a0889d-382c-7489-830a-4032ccbd0d41","muscle_group_id":"01a0889d-5968-71d3-bba6-c4c747ce4b69","slug":"gluteus_minimus","name":"Малая ягодичная","latin":"Gluteus minimus","kind":"muscle"}
+{"id":"01a0889d-382d-7885-a3e0-771abe51b363","muscle_group_id":"01a0889d-5968-71d3-bba6-c4c747ce4b69","slug":"tensor_fasciae_latae","name":"Напрягатель широкой фасции","latin":"Tensor fasciae latae","kind":"muscle"}
+{"id":"01a0889d-382e-7f30-9324-d2569c227cd6","muscle_group_id":"01a0889d-5968-71d3-bba6-c4c747ce4b69","slug":"piriformis","name":"Грушевидная","latin":"Piriformis","kind":"muscle"}
+{"id":"01a0889d-382f-792b-aa27-8be98a8cf18e","muscle_group_id":"01a0889d-5968-71d3-bba6-c4c747ce4b69","slug":"deep_hip_rotators","name":"Глубокие ротаторы бедра","latin":"Rotatores coxae profundi","kind":"muscle"}
+{"id":"01a0889d-3830-7037-9b05-188677ce4569","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a","slug":"rectus_femoris","name":"Прямая мышца бедра","latin":"Rectus femoris","kind":"muscle"}
+{"id":"01a0889d-3831-7e24-849c-74d5a6c07379","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a","slug":"vastus_lateralis","name":"Латеральная широкая","latin":"Vastus lateralis","kind":"muscle"}
+{"id":"01a0889d-3832-7a38-a68f-e170ed264474","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a","slug":"vastus_medialis","name":"Медиальная широкая","latin":"Vastus medialis","kind":"muscle"}
+{"id":"01a0889d-3833-72eb-ba3b-53e60400fa68","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a","slug":"vastus_intermedius","name":"Промежуточная широкая","latin":"Vastus intermedius","kind":"muscle"}
+{"id":"01a0889d-3834-7eb7-a7cf-60e0732aaa2f","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a","slug":"biceps_femoris","name":"Двуглавая мышца бедра","latin":"Biceps femoris","kind":"muscle"}
+{"id":"01a0889d-3835-754e-8bce-36fdf5f405e6","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a","slug":"semitendinosus","name":"Полусухожильная","latin":"Semitendinosus","kind":"muscle"}
+{"id":"01a0889d-3836-7321-80e1-30e450423fba","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a","slug":"semimembranosus","name":"Полуперепончатая","latin":"Semimembranosus","kind":"muscle"}
+{"id":"01a0889d-3837-7e12-8251-aed645e44b35","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a","slug":"adductor_longus","name":"Длинная приводящая","latin":"Adductor longus","kind":"muscle"}
+{"id":"01a0889d-3838-7df8-ace0-0a7b8bc805f5","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a","slug":"adductor_magnus","name":"Большая приводящая","latin":"Adductor magnus","kind":"muscle"}
+{"id":"01a0889d-3839-7b5b-8110-817f3bf9b61d","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a","slug":"adductor_brevis","name":"Короткая приводящая","latin":"Adductor brevis","kind":"muscle"}
+{"id":"01a0889d-383a-75af-a775-67e289909889","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a","slug":"gracilis","name":"Тонкая","latin":"Gracilis","kind":"muscle"}
+{"id":"01a0889d-383b-7474-bd66-8ad955c6ead2","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a","slug":"pectineus","name":"Гребенчатая","latin":"Pectineus","kind":"muscle"}
+{"id":"01a0889d-383c-7754-ad81-d2e6bbe4a9e3","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a","slug":"sartorius","name":"Портняжная","latin":"Sartorius","kind":"muscle"}
+{"id":"01a0889d-383d-7960-a1f5-71e0325cad19","muscle_group_id":"01a0889d-5ffe-7a59-86d7-cdba15dbfed6","slug":"gastrocnemius","name":"Икроножная","latin":"Gastrocnemius","kind":"muscle"}
+{"id":"01a0889d-383e-7bc0-b4f0-cf29ae0b5c03","muscle_group_id":"01a0889d-5ffe-7a59-86d7-cdba15dbfed6","slug":"soleus","name":"Камбаловидная","latin":"Soleus","kind":"muscle"}
+{"id":"01a0889d-383f-79a7-b370-571f32ad5335","muscle_group_id":"01a0889d-5ffe-7a59-86d7-cdba15dbfed6","slug":"tibialis_anterior","name":"Передняя большеберцовая","latin":"Tibialis anterior","kind":"muscle"}
+{"id":"01a0889d-3840-7f48-a040-3e81d1b41433","muscle_group_id":"01a0889d-5ffe-7a59-86d7-cdba15dbfed6","slug":"peroneals","name":"Малоберцовые","latin":"Fibulares","kind":"muscle"}
+{"id":"01a0889d-3841-75e6-a720-b237d2b86b51","muscle_group_id":"01a0889d-5ffe-7a59-86d7-cdba15dbfed6","slug":"tibialis_posterior","name":"Задняя большеберцовая","latin":"Tibialis posterior","kind":"muscle"}
+{"id":"01a0889d-3842-7ef1-9741-cdc7f6c491fb","muscle_group_id":"01a0889d-5ffe-7a59-86d7-cdba15dbfed6","slug":"foot_intrinsics","name":"Собственные мышцы стопы","latin":"Musculi pedis","kind":"muscle"}
+{"id":"01a0889d-3843-7f62-b062-bdaade2bd00e","muscle_group_id":"01a0889d-5ffe-7a59-86d7-cdba15dbfed6","slug":"plantar_fascia","name":"Подошвенный апоневроз","latin":"Aponeurosis plantaris","kind":"muscle"}
+{"id":"01a0889d-3845-7b73-adc5-6b00a88f5523","muscle_group_id":"01a0889d-4558-7396-9e5d-878fdf19cfda","slug":"cervical_spine","name":"Шейный отдел позвоночника","latin":"Columna cervicalis","kind":"joint"}
+{"id":"01a0889d-3846-7d40-b4c2-24b0443821de","muscle_group_id":"01a0889d-4a17-753f-b22d-13e2f26cabff","slug":"glenohumeral","name":"Плечевой сустав","latin":"Articulatio glenohumeralis","kind":"joint"}
+{"id":"01a0889d-3847-7112-b966-61857e9918b5","muscle_group_id":"01a0889d-46c5-711d-9edd-837dbf80621d","slug":"scapulothoracic","name":"Лопаточно-грудное сочленение","latin":"Articulatio scapulothoracica","kind":"joint"}
+{"id":"01a0889d-3848-7724-87be-5b8e81b987de","muscle_group_id":"01a0889d-558c-72b3-849e-faf90a2e79ec","slug":"elbow","name":"Локтевой сустав","latin":"Articulatio cubiti","kind":"joint"}
+{"id":"01a0889d-3849-7a56-b7ee-696974eac3d5","muscle_group_id":"01a0889d-558c-72b3-849e-faf90a2e79ec","slug":"wrist","name":"Лучезапястный сустав","latin":"Articulatio radiocarpalis","kind":"joint"}
+{"id":"01a0889d-384a-77e5-8bb0-fbb76be5c182","muscle_group_id":"01a0889d-558c-72b3-849e-faf90a2e79ec","slug":"fingers","name":"Суставы пальцев кисти","latin":"Articulationes digitorum manus","kind":"joint"}
+{"id":"01a0889d-384b-7a35-aa66-51e9b616e3ff","muscle_group_id":"01a0889d-5258-7fa8-a0c9-1824acbc43b5","slug":"thoracic_spine","name":"Грудной отдел позвоночника","latin":"Columna thoracica","kind":"joint"}
+{"id":"01a0889d-384c-7f71-8b92-71981258ae26","muscle_group_id":"01a0889d-56f6-78f3-8de6-965c93d19ce3","slug":"lumbopelvic","name":"Пояснично-тазовое сочленение","latin":"Regio lumbosacralis","kind":"joint"}
+{"id":"01a0889d-384d-7dea-bf56-49fb745fcf08","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a","slug":"hip","name":"Тазобедренный сустав","latin":"Articulatio coxae","kind":"joint"}
+{"id":"01a0889d-384e-7672-b782-b800e730f31e","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a","slug":"knee","name":"Коленный сустав","latin":"Articulatio genus","kind":"joint"}
+{"id":"01a0889d-384f-7138-ace4-4c7d10ff89d7","muscle_group_id":"01a0889d-5ffe-7a59-86d7-cdba15dbfed6","slug":"ankle","name":"Голеностопный сустав","latin":"Articulatio talocruralis","kind":"joint"}
+{"id":"01a0889d-3850-7a51-8d3c-6aad8a822829","muscle_group_id":"01a0889d-5ffe-7a59-86d7-cdba15dbfed6","slug":"foot_joints","name":"Суставы стопы","latin":"Articulationes pedis","kind":"joint"}
+{"id":"01a0889d-44a1-78db-a06b-67101c249f36","muscle_group_id":"01a0889d-4558-7396-9e5d-878fdf19cfda","slug":"neck_flexors","name":"Сгибатели шеи","latin":null,"kind":"muscle"}
+{"id":"01a0889d-4557-7a98-a5d2-f8346580e3aa","muscle_group_id":"01a0889d-4558-7396-9e5d-878fdf19cfda","slug":"neck_lateral","name":"Боковые сгибатели шеи","latin":null,"kind":"muscle"}
+{"id":"01a0889d-46c4-7c25-be6b-60d496eec2f3","muscle_group_id":"01a0889d-46c5-711d-9edd-837dbf80621d","slug":"traps_mid_low","name":"Средняя и нижняя трапеция","latin":null,"kind":"muscle_head"}
+{"id":"01a0889d-4a16-74ac-bce1-1c4948158442","muscle_group_id":"01a0889d-4a17-753f-b22d-13e2f26cabff","slug":"rotator_cuff","name":"Ротаторная манжета","latin":null,"kind":"muscle"}
+{"id":"01a0889d-5139-75e7-b8ce-d56de12c4c50","muscle_group_id":"01a0889d-5258-7fa8-a0c9-1824acbc43b5","slug":"erectors_machine","name":"Разгибатели поясницы — с опорой (тренажёр)","latin":null,"kind":"pattern"}
+{"id":"01a0889d-51dd-7b0d-b8e3-15659107c998","muscle_group_id":"01a0889d-5258-7fa8-a0c9-1824acbc43b5","slug":"erectors_prone","name":"Разгибатели поясницы — лёжа на животе","latin":null,"kind":"pattern"}
+{"id":"01a0889d-5257-7b49-b557-7407cde7b4ec","muscle_group_id":"01a0889d-5258-7fa8-a0c9-1824acbc43b5","slug":"erectors_hinge","name":"Разгибатели поясницы — шарнир с нейтральной спиной","latin":null,"kind":"pattern"}
+{"id":"01a0889d-558b-77e3-8685-6b6bc75dc98b","muscle_group_id":"01a0889d-558c-72b3-849e-faf90a2e79ec","slug":"forearms","name":"Предплечья","latin":null,"kind":"muscle"}
+{"id":"01a0889d-567a-779c-8818-1435bc7effd1","muscle_group_id":"01a0889d-56f6-78f3-8de6-965c93d19ce3","slug":"anti_extension","name":"Прямая и поперечная мышцы (анти-разгибание)","latin":null,"kind":"pattern"}
+{"id":"01a0889d-56bc-7253-8b51-0e903856a562","muscle_group_id":"01a0889d-56f6-78f3-8de6-965c93d19ce3","slug":"anti_rotation","name":"Косые (анти-ротация)","latin":null,"kind":"pattern"}
+{"id":"01a0889d-56f5-7d24-a2a6-b838a3b424f6","muscle_group_id":"01a0889d-56f6-78f3-8de6-965c93d19ce3","slug":"anti_lateral","name":"Косые и квадратная поясницы (анти-наклон)","latin":null,"kind":"pattern"}
+{"id":"01a0889d-5bca-7d24-8c96-fa2401337f92","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a","slug":"quads_c","name":"Квадрицепс","latin":null,"kind":"muscle"}
+{"id":"01a0889d-5d62-788f-8a61-e1ea073f7510","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a","slug":"hams_c","name":"Задняя поверхность бедра","latin":null,"kind":"muscle"}
+{"id":"01a0889d-5e52-78e2-a22e-574c497aec89","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a","slug":"adductors","name":"Приводящие","latin":null,"kind":"muscle"}
+{"id":"01a0889d-5ec9-7d26-a7da-665a2ee5eb35","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a","slug":"abductors","name":"Отводящие","latin":null,"kind":"muscle"}
+{"id":"01a0889d-5f89-7574-be76-aefba9b1c934","muscle_group_id":"01a0889d-5ffe-7a59-86d7-cdba15dbfed6","slug":"gastro_soleus","name":"Икроножная и камбаловидная","latin":null,"kind":"muscle"}
+{"id":"01a0889d-686e-72ae-8a6f-411ae5c889eb","muscle_group_id":"01a0889d-5258-7fa8-a0c9-1824acbc43b5","slug":"erectors_hold","name":"Разгибатели поясницы — удержание в нейтрали","latin":null,"kind":"pattern"}
+{"id":"01a0889d-7738-7223-a54d-ca45c7fd5663","muscle_group_id":"01a0889d-4558-7396-9e5d-878fdf19cfda","slug":"neck_rotators","name":"Ротаторы шеи","latin":null,"kind":"muscle"}
+{"id":"01a0889d-7c27-7bd8-9e0b-fd4c72009aed","muscle_group_id":"01a0889d-5258-7fa8-a0c9-1824acbc43b5","slug":"erectors_flex","name":"Разгибатели поясницы — сгибание без нагрузки","latin":null,"kind":"pattern"}
+{"id":"01a0889d-7c89-7676-bf50-ddfa89c40805","muscle_group_id":"01a0889d-5258-7fa8-a0c9-1824acbc43b5","slug":"lumbar_rot","name":"Поясница — ротация без нагрузки","latin":null,"kind":"pattern"}
+{"id":"01a0889d-7e82-76d7-8603-60e98172f896","muscle_group_id":"01a0889d-56f6-78f3-8de6-965c93d19ce3","slug":"obliques","name":"Косые","latin":null,"kind":"muscle"}
+{"id":"01a0889d-8143-7660-be79-aad1ac2d0edd","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a","slug":"hip_flexors","name":"Сгибатели бедра","latin":null,"kind":"muscle"}
+{"id":"01a0889d-8479-77e1-bb7a-20a357d858c6","muscle_group_id":"01a0889d-5ffe-7a59-86d7-cdba15dbfed6","slug":"plantar","name":"Подошвенная фасция","latin":null,"kind":"muscle"}

@@ -1,6 +1,6 @@
 ICON_BG := \#0d4c73
 
-.PHONY: i d build serve icons preview types lint lint-css lint-html lint-fmt lint-dead fmt test cov data c check
+.PHONY: i d build serve icons preview types lint lint-css lint-html lint-fmt lint-dead fmt test cov tables data c check
 
 i:
 	rm -rf node_modules package-lock.json && npm i
@@ -50,7 +50,11 @@ test:
 cov:
 	npm run coverage
 
+tables:
+	node src/lib/table/interface/cli/convert-tables.ts
+
 data:
+	node src/lib/table/interface/cli/table-critic.ts
 	node src/lib/catalog/interface/cli/catalog-critic.ts
 	node src/lib/exercise/interface/cli/exercise-critic.ts
 	node src/lib/program/interface/cli/program-critic.ts
