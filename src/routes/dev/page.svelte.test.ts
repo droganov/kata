@@ -1,6 +1,5 @@
+import { fireEvent, render, screen } from '@testing-library/svelte';
 import { describe, expect, it, vi } from 'vitest';
-import { render } from 'vitest-browser-svelte';
-import { page } from 'vitest/browser';
 
 import type { DevPageData } from './dev-page.ts';
 
@@ -93,64 +92,68 @@ const DATA: DevPageData = {
 	]
 };
 
+const one = (elements: HTMLElement[]): HTMLElement => {
+	const [element] = elements;
+	if (!element) throw new Error('элемент не найден');
+	return element;
+};
+
+const first = (text: string): HTMLElement => one(screen.getAllByText(text));
+
 describe('/dev', () => {
-	it('показывает программу, секции, группы и банки', async () => {
-		const screen = await render(Page, { data: DATA });
-		await expect
-			.element(screen.getByRole('heading', { level: 1 }))
-			.toHaveTextContent('Программа');
-		await expect.element(page.getByText('1. Разминка')).toBeVisible();
-		await expect.element(page.getByText('Зона · Шея').first()).toBeVisible();
-		await expect.element(page.getByText('ПУЛ · Кор — взять 1 из 1')).toBeVisible();
-		await expect.element(page.getByText('Разминка (банк)')).toBeVisible();
-		await expect.element(page.getByText('без выбора')).toBeInTheDocument();
+	it('показывает программу, секции, группы и банки', () => {
+		render(Page, { data: DATA });
+		expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Программа');
+		expect(screen.getByText('1. Разминка')).toBeVisible();
+		expect(first('Зона · Шея')).toBeVisible();
+		expect(screen.getByText('ПУЛ · Кор — взять 1 из 1')).toBeVisible();
+		expect(screen.getByText('Разминка (банк)')).toBeVisible();
+		expect(screen.getByText('без выбора')).toBeInTheDocument();
 	});
 
 	it('раскрывает зону: контур, правило, повтор, упражнения', async () => {
-		await render(Page, { data: DATA });
-		await page.getByText('Зона · Шея').first().click();
-		await expect.element(page.getByText('шейный отдел — взять 1 из 2')).toBeVisible();
-		await expect.element(page.getByText('Правило: без рывков')).toBeVisible();
-		await expect.element(page.getByText('повтор в ротации разрешён')).toBeVisible();
-		await page.getByText('ghost').click();
-		await expect.element(page.getByText('упражнения нет в банках')).toBeVisible();
+		render(Page, { data: DATA });
+		await fireEvent.click(first('Зона · Шея'));
+		expect(screen.getByText('шейный отдел — взять 1 из 2')).toBeVisible();
+		expect(screen.getByText('Правило: без рывков')).toBeVisible();
+		expect(screen.getByText('повтор в ротации разрешён')).toBeVisible();
+		await fireEvent.click(first('ghost'));
+		expect(screen.getByText('упражнения нет в банках')).toBeVisible();
 	});
 
 	it('показывает процедуру: средства, цели, заметку, шаги и оракулы', async () => {
-		await render(Page, { data: DATA });
-		await page.getByText('Зона · Шея').first().click();
-		await page.getByText('Наклоны').first().click();
-		await expect.element(page.getByText('Средства: Тело — main').first()).toBeVisible();
-		await expect.element(page.getByText('Цели: Шея — primary').first()).toBeVisible();
-		await expect.element(page.getByText('Заметка: медленно').first()).toBeVisible();
-		await expect.element(page.getByText('Активны: Шея').first()).toBeVisible();
-		await expect.element(page.getByText('плавно').first()).toBeVisible();
-		await expect.element(page.getByText('рывок').first()).toBeVisible();
+		render(Page, { data: DATA });
+		await fireEvent.click(first('Зона · Шея'));
+		await fireEvent.click(first('Наклоны'));
+		expect(first('Средства: Тело — main')).toBeVisible();
+		expect(first('Цели: Шея — primary')).toBeVisible();
+		expect(first('Заметка: медленно')).toBeVisible();
+		expect(first('Активны: Шея')).toBeVisible();
+		expect(first('плавно')).toBeVisible();
+		expect(first('рывок')).toBeVisible();
 	});
 
 	it('база без процедуры и промпта говорит об этом', async () => {
-		await render(Page, { data: DATA });
-		await page.getByText('Планка').first().click();
-		await expect.element(page.getByText('процедуры нет').first()).toBeVisible();
-		await page.getByLabelText('Промпт').first().click();
-		await expect.element(page.getByText('промпта нет').first()).toBeVisible();
+		render(Page, { data: DATA });
+		await fireEvent.click(first('Планка'));
+		expect(first('процедуры нет')).toBeVisible();
+		await fireEvent.click(one(screen.getAllByLabelText('Промпт')));
+		expect(first('промпта нет')).toBeVisible();
 	});
 
 	it('копирует промпт и сообщает об отказе буфера', async () => {
 		const writeText = vi.spyOn(navigator.clipboard, 'writeText');
 		writeText.mockResolvedValueOnce();
-		await render(Page, { data: DATA });
-		await page.getByText('Зона · Шея').first().click();
-		await page.getByText('Наклоны').first().click();
-		await page.getByLabelText('Промпт').first().click();
-		await expect.element(page.getByText('PROMPT TEXT').first()).toBeVisible();
-		const button = page.getByRole('button', { name: 'Копировать' }).first();
-		await button.click();
+		render(Page, { data: DATA });
+		await fireEvent.click(first('Зона · Шея'));
+		await fireEvent.click(first('Наклоны'));
+		await fireEvent.click(one(screen.getAllByLabelText('Промпт')));
+		expect(first('PROMPT TEXT')).toBeVisible();
+		await fireEvent.click(one(screen.getAllByRole('button', { name: 'Копировать' })));
 		expect(writeText).toHaveBeenCalledWith('PROMPT TEXT');
-		await expect.element(page.getByRole('button', { name: 'Скопировано' })).toBeVisible();
+		expect(await screen.findByRole('button', { name: 'Скопировано' })).toBeVisible();
 		writeText.mockRejectedValueOnce(new Error('denied'));
-		await page.getByRole('button', { name: 'Скопировано' }).click();
-		await expect.element(page.getByRole('button', { name: 'Не скопировано' })).toBeVisible();
-		writeText.mockRestore();
+		await fireEvent.click(screen.getByRole('button', { name: 'Скопировано' }));
+		expect(await screen.findByRole('button', { name: 'Не скопировано' })).toBeVisible();
 	});
 });

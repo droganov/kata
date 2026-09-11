@@ -26,9 +26,9 @@
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",
 		"@tailwindcss/typography": "^0.5.19",
 		"@tailwindcss/vite": "^4.3.0",
+		"@testing-library/jest-dom": "^7.0.1",
+		"@testing-library/svelte": "^5.4.2",
 		"@types/node": "^22",
-		"@vitest/browser": "^5.0.0",
-		"@vitest/browser-playwright": "^5.0.0",
 		"@vitest/coverage-v8": "^5.0.0",
 		"@vitest/eslint-plugin": "^1.6.27",
 		"ajv": "^8.20.0",
@@ -47,9 +47,9 @@
 		"eslint-plugin-svelte": "^3.19.0",
 		"eslint-plugin-unicorn": "^74.0.0",
 		"globals": "^17.6.0",
+		"happy-dom": "^20.14.3",
 		"html-validate": "^11.15.0",
 		"knip": "^6.35.1",
-		"playwright": "^1.63.0",
 		"postcss-html": "^2.0.0",
 		"prettier": "^3.8.3",
 		"prettier-plugin-svelte": "^4.1.0",
@@ -63,8 +63,7 @@
 		"typescript": "^6.0.3",
 		"typescript-eslint": "^8.60.1",
 		"vite": "^8.0.16",
-		"vitest": "^5.0.0",
-		"vitest-browser-svelte": "^3.1.0"
+		"vitest": "^5.0.0"
 	},
 	"engines": {
 		"node": ">=22.18"

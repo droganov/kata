@@ -1,8 +1,9 @@
 import adapter from '@sveltejs/adapter-node';
 import { sveltekit } from '@sveltejs/kit/vite';
 import tailwindcss from '@tailwindcss/vite';
-import { playwright } from '@vitest/browser-playwright';
 import { defineConfig } from 'vitest/config';
+
+const BROWSER_CONDITION = 'browser';
 
 const isLibrary = (filename: string): boolean => filename.split(/[/\\]/).includes('node_modules');
 
@@ -37,16 +38,12 @@ export default defineConfig({
 			},
 			{
 				extends: true,
+				resolve: { conditions: [BROWSER_CONDITION] },
 				test: {
-					browser: {
-						enabled: true,
-						headless: true,
-						instances: [{ browser: 'chromium' }],
-						provider: playwright()
-					},
+					environment: 'happy-dom',
 					include: ['src/**/*.svelte.test.ts'],
-					name: 'browser',
-					setupFiles: ['./src/test/browser-setup.ts']
+					name: 'component',
+					setupFiles: ['./src/test/component-setup.ts']
 				}
 			}
 		]
