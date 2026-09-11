@@ -1,0 +1,6 @@
+{
+	"tasks": {
+		"build": "npm run build",
+		"start": "deno run -A .deno-deploy/server.ts"
+	}
+}

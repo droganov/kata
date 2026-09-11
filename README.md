@@ -1,42 +1,36 @@
-# sv
+# Training
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Приложение собирает индивидуальное занятие из перечня упражнений по правилам программы. Словарь предметной области — в [CONTEXT.md](./CONTEXT.md), решения — в [docs/specs/training-webapp.md](./docs/specs/training-webapp.md).
 
-## Creating a project
+SvelteKit на Svelte 5, клиентский рендер (`ssr = false`), развёртывание на Deno Deploy.
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```sh
-# create a new project
-npx sv create my-app
-```
-
-To recreate this project with the same configuration:
+## Разработка
 
 ```sh
-# recreate this project
-npx sv@0.17.0 create --template minimal --types ts --add prettier eslint tailwindcss="plugins:typography" sveltekit-adapter="adapter:static" --no-download-check --install npm app
+make i       # переустановить зависимости
+make d       # dev-сервер
+make check   # критики данных, типы, линтеры, тесты, покрытие
 ```
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Сборка и запуск
 
 ```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+make build   # сборка, результат в .deno-deploy
+make serve   # запустить собранный сервер под Deno
 ```
 
-## Building
+## Развёртывание
 
-To create a production version of your app:
+Репозиторий связан с приложением Deno Deploy. Команды сборки лежат в [deno.json](./deno.json): задача `build` собирает приложение, задача `start` поднимает `.deno-deploy/server.ts`. В настройках приложения: установка `npm ci`, сборка `deno task build`, точка входа `.deno-deploy/server.ts`.
 
-```sh
-npm run build
-```
+Домен живёт в переменной окружения `ORIGIN` и нигде не зашит в код. Её читают двое: адаптер Deno, чтобы нормализовать адрес запроса, и роут `/manifest`, чтобы выдать `id`, `start_url` и `scope` манифеста. Пока переменная не задана, манифест берёт домен из адреса запроса, поэтому локальная разработка обходится без неё.
 
-You can preview the production build with `npm run preview`.
+На превью-развёртывании с заданным `ORIGIN` манифест назовёт боевой домен, а не адрес превью, поэтому Chromium сочтёт приложение там неустанавливаемым. Это ожидаемо: устанавливают с боевого адреса.
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+Домен надо зафиксировать до фазы 2: `user handle` WebAuthn привязан к домену необратимо. Образец — [.env.example](./.env.example).
+
+## Установка на устройство
+
+`<link rel="manifest" href="/manifest">` в [src/app.html](./src/app.html) указывает на роут, который собирает манифест на сервере. Восемь полей манифеста и четыре файла иконок в `static/icons` перечислены в [src/routes/manifest/web-manifest.ts](./src/routes/manifest/web-manifest.ts).
+
+Иконки порождаются из [static/favicon.svg](./static/favicon.svg) командой `make icons`, для неё нужен ImageMagick. `maskable` объявлена дополнительной записью: если бы это было единственное значение `purpose`, iOS не увидел бы иконку вовсе.
