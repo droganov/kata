@@ -8,11 +8,14 @@ export const RULE = {
 	mainGear: 'C8 MAIN',
 	modality: 'C3 MODALITY',
 	oneTarget: 'C4 ONE_TARGET',
+	oracleCarried: 'C11 ORACLE',
 	primaryKey: 'F5 KEY',
 	reference: 'I1 REFERENCE',
 	referenceSource: 'C9 SOURCE',
 	scalar: 'F4 SCALAR',
+	stepTarget: 'C10 STEP_TARGET',
 	tuple: 'F2 LINE',
 	tupleKeys: 'F3 KEYS',
-	unique: 'I2 UNIQUE'
+	unique: 'I2 UNIQUE',
+	verdictCarried: 'C12 VERDICT'
 } as const;

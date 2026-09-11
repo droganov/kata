@@ -7,7 +7,12 @@ export const TABLE_NAME = {
 	exercise_source: 'exercise_source',
 	exercise_target: 'exercise_target',
 	muscle_group: 'muscle_group',
-	target: 'target'
+	oracle: 'oracle',
+	oracle_line: 'oracle_line',
+	step: 'step',
+	step_target: 'step_target',
+	target: 'target',
+	verdict: 'verdict'
 } as const;
 
 export type Row = Readonly<Record<string, Scalar>>;
@@ -102,6 +107,44 @@ export const TABLE_SCHEMAS: readonly TableSchema[] = [
 		name: TABLE_NAME.exercise_source,
 		primaryKey: ['id'],
 		unique: [['exercise_id']]
+	},
+	{
+		columns: ['id', 'exercise_id', 'ord', 'title'],
+		foreignKeys: [{ column: 'exercise_id', references: 'id', table: TABLE_NAME.exercise }],
+		name: TABLE_NAME.step,
+		primaryKey: ['id'],
+		unique: [['exercise_id', 'ord']]
+	},
+	{
+		columns: ['step_id', 'target_id'],
+		foreignKeys: [
+			{ column: 'step_id', references: 'id', table: TABLE_NAME.step },
+			{ column: 'target_id', references: 'id', table: TABLE_NAME.target }
+		],
+		name: TABLE_NAME.step_target,
+		primaryKey: ['step_id', 'target_id'],
+		unique: []
+	},
+	{
+		columns: ['id', 'step_id', 'ord', 'predicate'],
+		foreignKeys: [{ column: 'step_id', references: 'id', table: TABLE_NAME.step }],
+		name: TABLE_NAME.oracle,
+		primaryKey: ['id'],
+		unique: [['step_id', 'ord']]
+	},
+	{
+		columns: ['id', 'oracle_id', 'side', 'ord', 'text'],
+		foreignKeys: [{ column: 'oracle_id', references: 'id', table: TABLE_NAME.oracle }],
+		name: TABLE_NAME.oracle_line,
+		primaryKey: ['id'],
+		unique: [['oracle_id', 'side', 'ord']]
+	},
+	{
+		columns: ['id', 'line_id', 'hash', 'verdict', 'reason'],
+		foreignKeys: [{ column: 'line_id', references: 'id', table: TABLE_NAME.oracle_line }],
+		name: TABLE_NAME.verdict,
+		primaryKey: ['id'],
+		unique: [['line_id']]
 	}
 ];
 

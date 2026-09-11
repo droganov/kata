@@ -25,7 +25,12 @@ describe('writeTables', () => {
 			'exercise',
 			'exercise_target',
 			'exercise_equipment',
-			'exercise_source'
+			'exercise_source',
+			'step',
+			'step_target',
+			'oracle',
+			'oracle_line',
+			'verdict'
 		]);
 		expect(report.rowCount).toBe(
 			report.files.reduce((total, file) => total + file.rowCount, 0)

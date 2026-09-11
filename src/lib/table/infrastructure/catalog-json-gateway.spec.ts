@@ -7,12 +7,16 @@ import { createCatalogJsonGateway } from './catalog-json-gateway.ts';
 import { createSchemaValidator } from './json-schema-validator.ts';
 import { TABLE_PATHS } from './table-paths.ts';
 
+const REASON = 'наблюдение не противоречит утверждению';
+const REASONED_VERDICT = '01a0889d-3855-7add-9814-7cd71dc7b3f5';
+
 const catalog = createCatalogJsonGateway({
 	equipmentFile: TABLE_PATHS.equipment,
 	modalityDirectory: TABLE_PATHS.modalities,
 	referencesFile: TABLE_PATHS.references,
 	targetsFile: TABLE_PATHS.targets,
-	validator: createSchemaValidator(TABLE_PATHS.schema)
+	validator: createSchemaValidator(TABLE_PATHS.schema),
+	verdictsFile: TABLE_PATHS.verdicts
 }).readSourceCatalog();
 
 describe('createCatalogJsonGateway на боевых данных', () => {
@@ -81,8 +85,53 @@ describe('адрес источника', () => {
 			modalityDirectory: TABLE_PATHS.modalities,
 			referencesFile: file,
 			targetsFile: TABLE_PATHS.targets,
-			validator: createSchemaValidator(TABLE_PATHS.schema)
+			validator: createSchemaValidator(TABLE_PATHS.schema),
+			verdictsFile: TABLE_PATHS.verdicts
 		}).readSourceCatalog();
 		expect(withUrl.references[0]?.url).toBe('https://example.com/a');
+	});
+});
+
+describe('процедуры и вердикты', () => {
+	it('читает шаги упражнения с целями фазы и оракулами', () => {
+		const exercise = catalog.files[0]?.groups[0]?.targets[0]?.exercises[0];
+		const step = exercise?.steps[1];
+		expect(exercise?.steps.length).toBeGreaterThan(1);
+		expect(step?.title).toBe('Опустить подбородок к груди');
+		expect(step?.active).toEqual(['01a0889d-3845-7b73-adc5-6b00a88f5523']);
+		expect(step?.oracles[0]?.predicate).toBe('Плечи остаются опущенными при опускании');
+		expect(step?.oracles[0]?.model).toContain('плечи остаются опущенными');
+		expect(step?.oracles[0]?.counterModel).toContain('хруст в шее с болью');
+	});
+
+	it('читает вердикты судьи со ссылкой на оракул и строку наблюдения', () => {
+		const verdict = catalog.verdicts.find(
+			(item) => item.oracle === '01a0889d-3854-78be-a741-f14e631d24f1'
+		);
+		expect(verdict?.line).toBe('вес перенесён на пятки');
+		expect(verdict?.verdict).toBe('independent');
+		expect(catalog.verdicts.length).toBeGreaterThan(0);
+	});
+});
+
+describe('причина вердикта', () => {
+	it('переносится, когда судья её оставил', () => {
+		const directory = mkdtempSync(path.join(tmpdir(), 'table-verdicts-'));
+		const file = path.join(directory, 'verdicts.json');
+		const first = catalog.verdicts[0];
+		writeFileSync(
+			file,
+			JSON.stringify([{ ...first, id: REASONED_VERDICT, reason: REASON }]),
+			'utf8'
+		);
+		const withReason = createCatalogJsonGateway({
+			equipmentFile: TABLE_PATHS.equipment,
+			modalityDirectory: TABLE_PATHS.modalities,
+			referencesFile: TABLE_PATHS.references,
+			targetsFile: TABLE_PATHS.targets,
+			validator: createSchemaValidator(TABLE_PATHS.schema),
+			verdictsFile: file
+		}).readSourceCatalog();
+		expect(withReason.verdicts[0]?.reason).toBe(REASON);
 	});
 });

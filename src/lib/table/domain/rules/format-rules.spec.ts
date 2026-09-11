@@ -20,10 +20,10 @@ describe('F1 один файл на таблицу', () => {
 	});
 
 	it('находит недостающие и лишние файлы', () => {
-		const findings = fileNamesMatchTables(tableSetOf({ verdict: [] }));
+		const findings = fileNamesMatchTables(tableSetOf({ session: [] }));
 		expect(findings).toHaveLength(2);
 		expect(findings[0]?.message).toContain('muscle_group');
-		expect(findings[1]?.message).toContain('verdict');
+		expect(findings[1]?.message).toContain('session');
 	});
 });
 

@@ -2,7 +2,9 @@ import type {
 	SourceCatalog,
 	SourceExercise,
 	SourceFile,
-	SourceLink
+	SourceLink,
+	SourceStep,
+	SourceVerdict
 } from '../lib/table/domain/source-catalog.ts';
 import type { TableSet } from '../lib/table/domain/table-file.ts';
 
@@ -13,6 +15,41 @@ const LATS_TARGET = '01a0889d-3846-7b73-adc5-6b00a88f5524';
 const RHOMBOIDS_TARGET = '01a0889d-3847-7b73-adc5-6b00a88f5525';
 const CARDIO_TARGET = '01a0889d-3848-7b73-adc5-6b00a88f5526';
 const EXERCISE_SLUGS = ['neck_roll', 'neck_press', 'pulldown', 'row'];
+
+const stepsOf = (slug: string, targets: readonly SourceLink[]): readonly SourceStep[] => [
+	{
+		active: [],
+		id: `step-${slug}-1`,
+		oracles: [
+			{
+				counterModel: ['вес перенесён на пятки'],
+				id: `oracle-${slug}-1`,
+				model: ['стопы на ширине таза'],
+				predicate: 'Стойка собрана'
+			}
+		],
+		title: 'Принять исходную стойку'
+	},
+	{
+		active: targets.map((target) => target.id),
+		id: `step-${slug}-2`,
+		oracles: [
+			{
+				counterModel: ['жжение в пояснице', 'рывок корпусом'],
+				id: `oracle-${slug}-2`,
+				model: ['поясница нейтральна', 'движение идёт медленно'],
+				predicate: 'Поясница удерживает нейтраль'
+			},
+			{
+				counterModel: ['дыхание задержано'],
+				id: `oracle-${slug}-3`,
+				model: ['дыхание на выдохе'],
+				predicate: 'Дыхание идёт без задержек'
+			}
+		],
+		title: 'Выполнить движение'
+	}
+];
 
 const exerciseOf = (
 	id: string,
@@ -29,6 +66,7 @@ const exerciseOf = (
 	name: slug,
 	reference: `source-${slug}`,
 	slug,
+	steps: stepsOf(slug, targets),
 	targets,
 	...extra
 });
@@ -126,6 +164,34 @@ const STRENGTH: SourceFile = {
 	slug: 'strength'
 };
 
+const VERDICTS: readonly SourceVerdict[] = [
+	{
+		hash: 'a'.repeat(40),
+		line: 'вес перенесён на пятки',
+		oracle: 'oracle-neck_roll-1',
+		verdict: 'independent'
+	},
+	{
+		hash: 'b'.repeat(40),
+		line: 'жжение в пояснице',
+		oracle: 'oracle-neck_roll-2',
+		reason: 'наблюдение не противоречит утверждению',
+		verdict: 'negation'
+	},
+	{
+		hash: 'c'.repeat(40),
+		line: 'строка наблюдения удалена из оракула',
+		oracle: 'oracle-neck_roll-2',
+		verdict: 'unobservable'
+	},
+	{
+		hash: 'd'.repeat(40),
+		line: 'пульс не восстанавливается',
+		oracle: 'oracle-cardio-1',
+		verdict: 'independent'
+	}
+];
+
 export const sourceCatalog = (): SourceCatalog => ({
 	equipment: [
 		{ canonEn: 'Bodyweight', id: BODY_EQUIPMENT, kind: 'body', name: 'Тело', slug: 'body' },
@@ -169,7 +235,8 @@ export const sourceCatalog = (): SourceCatalog => ({
 			name: 'Система',
 			slug: 'cardiorespiratory'
 		}
-	]
+	],
+	verdicts: VERDICTS
 });
 
 export const tableSetOf = (files: Record<string, readonly unknown[]>): TableSet => ({

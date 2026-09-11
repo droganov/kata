@@ -10,7 +10,9 @@ import type {
 	SourceExercise,
 	SourceFile,
 	SourceReference,
-	SourceTarget
+	SourceStep,
+	SourceTarget,
+	SourceVerdict
 } from '../domain/source-catalog.ts';
 import type { SchemaValidator } from './json-schema-validator.ts';
 
@@ -22,6 +24,7 @@ const BANK_SCHEMA_ID = 'bank.schema.json';
 const EQUIPMENT_SCHEMA_ID = 'equipment.schema.json';
 const SOURCE_SCHEMA_ID = 'source.schema.json';
 const TARGET_SCHEMA_ID = 'target.schema.json';
+const VERDICT_SCHEMA_ID = 'verdict.schema.json';
 const JSON_SUFFIX = '.json';
 const ITEM_MARK = '#';
 const CARDIO_FILE = 'cardio.json';
@@ -33,6 +36,7 @@ export interface CatalogJsonSource {
 	readonly referencesFile: string;
 	readonly targetsFile: string;
 	readonly validator: SchemaValidator;
+	readonly verdictsFile: string;
 }
 
 type CatalogEquipment = ReturnType<EquipmentRepository['readAll']>[number];
@@ -63,9 +67,28 @@ interface CatalogFileExercise {
 	readonly mode: string;
 	readonly name: string;
 	readonly note?: string;
+	readonly procedure: CatalogFileProcedure;
 	readonly slug: string;
 	readonly source: string;
 	readonly targets: readonly { id: string; role: string }[];
+}
+
+interface CatalogFileOracle {
+	readonly counterModel: readonly string[];
+	readonly id: string;
+	readonly model: readonly string[];
+	readonly predicate: string;
+}
+
+interface CatalogFileProcedure {
+	readonly steps: readonly CatalogFileStep[];
+}
+
+interface CatalogFileStep {
+	readonly active: readonly string[];
+	readonly id: string;
+	readonly oracles: readonly CatalogFileOracle[];
+	readonly title: string;
 }
 
 interface CatalogFileZone {
@@ -84,13 +107,22 @@ interface ReferenceFile {
 	readonly url?: string;
 }
 
+interface VerdictFile {
+	readonly hash: string;
+	readonly line: string;
+	readonly oracle: string;
+	readonly reason?: string;
+	readonly verdict: string;
+}
+
 export function createCatalogJsonGateway(source: CatalogJsonSource): CatalogGateway {
 	return {
 		readSourceCatalog: (): SourceCatalog => ({
 			equipment: equipmentOf(source),
 			files: filesOf(source),
 			references: referencesOf(source),
-			targets: targetsOf(source)
+			targets: targetsOf(source),
+			verdicts: verdictsOf(source)
 		})
 	};
 }
@@ -132,6 +164,7 @@ function exerciseOf(exercise: CatalogFileExercise): SourceExercise {
 		...(exercise.note !== undefined && { note: exercise.note }),
 		reference: exercise.source,
 		slug: exercise.slug,
+		steps: exercise.procedure.steps.map((step) => stepOf(step)),
 		targets: exercise.targets
 	};
 }
@@ -183,6 +216,20 @@ function referencesOf(source: CatalogJsonSource): readonly SourceReference[] {
 	}));
 }
 
+function stepOf(step: CatalogFileStep): SourceStep {
+	return {
+		active: step.active,
+		id: step.id,
+		oracles: step.oracles.map((oracle) => ({
+			counterModel: oracle.counterModel,
+			id: oracle.id,
+			model: oracle.model,
+			predicate: oracle.predicate
+		})),
+		title: step.title
+	};
+}
+
 function targetsOf(source: CatalogJsonSource): readonly SourceTarget[] {
 	const targets = findTargets({
 		readAll: (): readonly CatalogTarget[] =>
@@ -211,4 +258,20 @@ function validatedItems(
 		validator.assertValid(schemaId, item, `${file}${ITEM_MARK}${String(at)}`);
 		return item;
 	});
+}
+
+function verdictsOf(source: CatalogJsonSource): readonly SourceVerdict[] {
+	return (
+		validatedItems(
+			source.verdictsFile,
+			VERDICT_SCHEMA_ID,
+			source.validator
+		) as readonly VerdictFile[]
+	).map((verdict) => ({
+		hash: verdict.hash,
+		line: verdict.line,
+		oracle: verdict.oracle,
+		...(verdict.reason !== undefined && { reason: verdict.reason }),
+		verdict: verdict.verdict
+	}));
 }

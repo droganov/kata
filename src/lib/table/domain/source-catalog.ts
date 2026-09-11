@@ -3,6 +3,7 @@ export interface SourceCatalog {
 	readonly files: readonly SourceFile[];
 	readonly references: readonly SourceReference[];
 	readonly targets: readonly SourceTarget[];
+	readonly verdicts: readonly SourceVerdict[];
 }
 
 export interface SourceEquipment {
@@ -23,6 +24,7 @@ export interface SourceExercise {
 	readonly note?: string;
 	readonly reference: string;
 	readonly slug: string;
+	readonly steps: readonly SourceStep[];
 	readonly targets: readonly SourceLink[];
 }
 
@@ -34,6 +36,13 @@ export interface SourceFile {
 export interface SourceLink {
 	readonly id: string;
 	readonly role: string;
+}
+
+export interface SourceOracle {
+	readonly counterModel: readonly string[];
+	readonly id: string;
+	readonly model: readonly string[];
+	readonly predicate: string;
 }
 
 export interface SourcePlacement {
@@ -53,6 +62,19 @@ export interface SourceReference {
 	readonly url?: string;
 }
 
+export interface SourceStep {
+	readonly active: readonly string[];
+	readonly id: string;
+	readonly oracles: readonly SourceOracle[];
+	readonly title: string;
+}
+
+export interface SourceStepRecord {
+	readonly at: number;
+	readonly exercise: SourceExercise;
+	readonly step: SourceStep;
+}
+
 export interface SourceTarget {
 	readonly group: string;
 	readonly id: string;
@@ -60,6 +82,14 @@ export interface SourceTarget {
 	readonly latin: string;
 	readonly name: string;
 	readonly slug: string;
+}
+
+export interface SourceVerdict {
+	readonly hash: string;
+	readonly line: string;
+	readonly oracle: string;
+	readonly reason?: string;
+	readonly verdict: string;
 }
 
 interface SourceCatalogTarget {
@@ -84,6 +114,10 @@ interface SourceGroup {
 	readonly targets: readonly SourceCatalogTarget[];
 }
 
+export function sourceOracles(catalog: SourceCatalog): readonly SourceOracle[] {
+	return sourceSteps(catalog).flatMap(({ step }) => step.oracles);
+}
+
 export function sourcePlacements(catalog: SourceCatalog): readonly SourcePlacement[] {
 	const placements: SourcePlacement[] = [];
 	for (const file of catalog.files)
@@ -96,5 +130,11 @@ export function sourcePlacements(catalog: SourceCatalog): readonly SourcePlaceme
 export function sourceRecords(catalog: SourceCatalog): readonly SourceRecord[] {
 	return sourcePlacements(catalog).flatMap((placement) =>
 		placement.catalogTarget.exercises.map((exercise) => ({ ...placement, exercise }))
+	);
+}
+
+export function sourceSteps(catalog: SourceCatalog): readonly SourceStepRecord[] {
+	return sourceRecords(catalog).flatMap(({ exercise }) =>
+		exercise.steps.map((step, at) => ({ at, exercise, step }))
 	);
 }

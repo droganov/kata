@@ -21,7 +21,8 @@ export function createTables(): TableUseCases {
 			modalityDirectory: TABLE_PATHS.modalities,
 			referencesFile: TABLE_PATHS.references,
 			targetsFile: TABLE_PATHS.targets,
-			validator
+			validator,
+			verdictsFile: TABLE_PATHS.verdicts
 		}),
 		tables: createJsonlTableRepository({ directory: TABLE_PATHS.tables })
 	};

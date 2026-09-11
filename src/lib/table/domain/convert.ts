@@ -1,6 +1,7 @@
 import type { SourceCatalog, SourceExercise, SourcePlacement } from './source-catalog.ts';
 import type { Row, Tables } from './table.ts';
 
+import { procedureTablesOf } from './procedure.ts';
 import { sourcePlacements, sourceRecords } from './source-catalog.ts';
 import {
 	CATALOG_TARGETS,
@@ -35,6 +36,7 @@ export function tablesOf(catalog: SourceCatalog): Tables {
 		groupIdBySlug
 	};
 	const catalogued = cataloguedRows(catalog, context);
+	const procedure = procedureTablesOf(catalog);
 	return {
 		equipment: equipmentRows(catalog),
 		exercise: catalogued.exercises,
@@ -42,7 +44,12 @@ export function tablesOf(catalog: SourceCatalog): Tables {
 		exercise_source: exerciseSourceRows(catalog),
 		exercise_target: exerciseTargetRows(catalog),
 		muscle_group: groups,
-		target: [...dictionary, ...catalogued.targets]
+		oracle: procedure.oracle,
+		oracle_line: procedure.oracle_line,
+		step: procedure.step,
+		step_target: procedure.step_target,
+		target: [...dictionary, ...catalogued.targets],
+		verdict: procedure.verdict
 	};
 }
 

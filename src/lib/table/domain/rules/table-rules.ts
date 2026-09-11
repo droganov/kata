@@ -6,10 +6,13 @@ import {
 	equipmentLinkedOnce,
 	everyExerciseCarried,
 	everyExerciseHasSource,
+	everyOracleCarried,
+	everyVerdictCarried,
 	exerciseKnowsNoPlace,
 	modalityReplacesCatalog,
 	oneMainEquipmentPerExercise,
 	oneRowPerCatalogTarget,
+	stepTargetsWithinExercise,
 	targetKindsDeclared,
 	tenMuscleGroups
 } from './catalog-rules.ts';
@@ -43,7 +46,10 @@ export const CATALOG_RULES: readonly TableRule[] = [
 	exerciseKnowsNoPlace,
 	equipmentLinkedOnce,
 	oneMainEquipmentPerExercise,
-	everyExerciseHasSource
+	everyExerciseHasSource,
+	stepTargetsWithinExercise,
+	everyOracleCarried,
+	everyVerdictCarried
 ];
 
 export function tableRules(): readonly TableRule[] {

@@ -7,10 +7,13 @@ import {
 	equipmentLinkedOnce,
 	everyExerciseCarried,
 	everyExerciseHasSource,
+	everyOracleCarried,
+	everyVerdictCarried,
 	exerciseKnowsNoPlace,
 	modalityReplacesCatalog,
 	oneMainEquipmentPerExercise,
 	oneRowPerCatalogTarget,
+	stepTargetsWithinExercise,
 	targetKindsDeclared,
 	tenMuscleGroups
 } from './catalog-rules.ts';
@@ -18,6 +21,8 @@ import {
 const catalog = sourceCatalog();
 const tables = tablesOf(catalog);
 const complete = tableSetOf(Object.fromEntries(tableNames().map((name) => [name, tables[name]])));
+const CARDIO_TARGET = '01a0889d-3848-7b73-adc5-6b00a88f5526';
+const NECK_TARGET = '01a0889d-3845-7b73-adc5-6b00a88f5523';
 
 describe('C1 десять групп мышц', () => {
 	it('находит недобор', () => {
@@ -155,5 +160,82 @@ describe('C9 источник упражнения', () => {
 	it('находит упражнение без источника', () => {
 		const broken = tableSetOf({ exercise: tables.exercise.slice(0, 1) });
 		expect(everyExerciseHasSource(broken)[0]?.subject).toContain('neck_roll');
+	});
+});
+
+describe('C10 цели шага внутри целей упражнения', () => {
+	it('молчит, когда каждая цель шага есть у упражнения', () => {
+		expect(stepTargetsWithinExercise(complete)).toEqual([]);
+	});
+
+	it('находит цель шага, которой у упражнения нет', () => {
+		const broken = tableSetOf({
+			exercise_target: tables.exercise_target,
+			step: tables.step,
+			step_target: [{ step_id: 'step-neck_roll-2', target_id: CARDIO_TARGET }]
+		});
+		const findings = stepTargetsWithinExercise(broken);
+		expect(findings[0]?.message).toContain(CARDIO_TARGET);
+		expect(findings[0]?.subject).toContain('step-neck_roll-2');
+	});
+
+	it('находит цель шага, которого нет среди шагов', () => {
+		const broken = tableSetOf({
+			exercise_target: tables.exercise_target,
+			step: [],
+			step_target: [{ step_id: 'step-neck_roll-2', target_id: NECK_TARGET }]
+		});
+		expect(stepTargetsWithinExercise(broken)[0]?.message).toBe('шага нет среди шагов');
+	});
+});
+
+describe('C11 оракулы и строки наблюдений перенесены', () => {
+	it('молчит, когда перенесены все', () => {
+		expect(everyOracleCarried(complete, catalog)).toEqual([]);
+	});
+
+	it('находит потерянный оракул и потерянную строку наблюдения', () => {
+		const broken = tableSetOf({
+			oracle: tables.oracle.slice(1),
+			oracle_line: tables.oracle_line.slice(1)
+		});
+		const findings = everyOracleCarried(broken, catalog);
+		expect(findings[0]?.message).toContain('oracle-neck_roll-1');
+		expect(findings[1]?.message).toContain('не перенесены строки наблюдений: 1');
+	});
+
+	it('находит подмену строки наблюдения, не меняющую их число', () => {
+		const swapped = tables.oracle_line.map((row, at) =>
+			at === 0 ? { ...row, text: 'стопы стоят как попало' } : row
+		);
+		const findings = everyOracleCarried(
+			tableSetOf({ oracle: tables.oracle, oracle_line: swapped }),
+			catalog
+		);
+		expect(findings[0]?.message).toContain('не перенесены строки наблюдений: 1');
+	});
+});
+
+describe('C12 вердикты перенесены', () => {
+	it('молчит, когда перенесены все вердикты своих оракулов', () => {
+		expect(everyVerdictCarried(complete, catalog)).toEqual([]);
+	});
+
+	it('находит вердикт, потерянный при конвертации', () => {
+		const broken = tableSetOf({
+			oracle_line: tables.oracle_line,
+			verdict: tables.verdict.slice(1)
+		});
+		expect(everyVerdictCarried(broken, catalog)[0]?.message).toContain(
+			'вес перенесён на пятки'
+		);
+	});
+
+	it('не считает перенесённым вердикт, чья строка наблюдения не контр-строка', () => {
+		const broken = tableSetOf({
+			oracle_line: tables.oracle_line.filter((row) => row.side === 'model'),
+			verdict: tables.verdict
+		});
+		expect(everyVerdictCarried(broken, catalog)).toHaveLength(1);
 	});
 });

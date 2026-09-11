@@ -30,7 +30,7 @@ describe('schemaOf', () => {
 	});
 
 	it('бросает на неизвестном имени', () => {
-		expect(() => schemaOf('verdict' as never)).toThrow('verdict');
+		expect(() => schemaOf('session' as never)).toThrow('session');
 	});
 });
 
