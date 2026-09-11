@@ -17,7 +17,7 @@ export default defineConfig({
 	],
 	test: {
 		coverage: {
-			exclude: ['src/**/*.d.ts', 'src/**/*.test.ts', 'src/test/**'],
+			exclude: ['src/**/*.d.ts', 'src/**/*.spec.ts', 'src/test/**'],
 			include: ['src/**/*.ts', 'src/**/*.svelte'],
 			provider: 'v8',
 			reporter: ['text', 'html'],
@@ -31,8 +31,8 @@ export default defineConfig({
 				extends: true,
 				test: {
 					environment: 'node',
-					exclude: ['src/**/*.svelte.test.ts'],
-					include: ['src/**/*.test.ts'],
+					exclude: ['src/**/*.svelte.spec.ts'],
+					include: ['src/**/*.spec.ts'],
 					name: 'unit'
 				}
 			},
@@ -41,7 +41,7 @@ export default defineConfig({
 				resolve: { conditions: [BROWSER_CONDITION] },
 				test: {
 					environment: 'happy-dom',
-					include: ['src/**/*.svelte.test.ts'],
+					include: ['src/**/*.svelte.spec.ts'],
 					name: 'component',
 					setupFiles: ['./src/test/component-setup.ts']
 				}

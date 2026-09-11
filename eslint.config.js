@@ -26,7 +26,10 @@ const ROUTE_LOAD_FILES = [
 	'src/routes/**/+layout.server.ts',
 	'src/routes/**/+server.ts'
 ];
-const TEST_FILES = ['src/**/*.test.ts'];
+const TEST_FILES = ['src/**/*.spec.ts'];
+const TEST_SUPPORT_FILES = ['src/test/**/*.ts'];
+const SPEC_SUFFIX = '.spec.ts';
+const TEST_NAME_PATTERN = /\.test\.[cm]?[jt]sx?$/;
 const CONFIG_FILES = ['*.config.{js,ts}', 'eslint.config.js'];
 const SVELTEKIT_EXPORT_NAMES = '^(ssr|csr|prerender|trailingSlash|load|actions|entries|config)$';
 
@@ -109,7 +112,11 @@ const DEPENDENCY_POLICIES = [
 	},
 	{
 		from: { element: { type: 'test-support' } },
-		allow: [anyCapsuleLayers('interface'), toShared, { to: { element: { type: 'routes' } } }]
+		allow: [
+			{ to: { element: { type: 'layer' } } },
+			toShared,
+			{ to: { element: { type: 'routes' } } }
+		]
 	},
 	{
 		from: { file: { categories: 'test' } },
@@ -323,7 +330,7 @@ const SHARED_DIR = path.join(import.meta.dirname, 'src/lib/shared');
 const countSourceFiles = (dir) =>
 	fs
 		.readdirSync(dir, { recursive: true, withFileTypes: true })
-		.filter((entry) => entry.isFile() && !entry.name.endsWith('.test.ts')).length;
+		.filter((entry) => entry.isFile() && !entry.name.endsWith(SPEC_SUFFIX)).length;
 
 const sharedKernelSmall = {
 	meta: {
@@ -349,10 +356,48 @@ const sharedKernelSmall = {
 	}
 };
 
+const sourceCandidates = (base) => [
+	`${base}.ts`,
+	`${base}.svelte`,
+	base,
+	`+${base}.ts`,
+	`+${base}.svelte`,
+	`+${base}`
+];
+
+const specBesideSource = {
+	meta: {
+		type: 'problem',
+		messages: {
+			orphan: 'Рядом с {{name}} нет проверяемого файла: тест лежит рядом с тем, что проверяет',
+			wrongName: 'Тест назван {{name}}: имя теста это <проверяемый файл>.spec.ts'
+		}
+	},
+	create(context) {
+		const name = path.basename(context.filename);
+		return {
+			Program(node) {
+				if (TEST_NAME_PATTERN.test(name)) {
+					context.report({ data: { name }, messageId: 'wrongName', node });
+					return;
+				}
+				if (!name.endsWith(SPEC_SUFFIX)) return;
+				const directory = path.dirname(context.filename);
+				const base = name.slice(0, -SPEC_SUFFIX.length);
+				const beside = sourceCandidates(base).some((candidate) =>
+					fs.existsSync(path.join(directory, candidate))
+				);
+				if (!beside) context.report({ data: { name }, messageId: 'orphan', node });
+			}
+		};
+	}
+};
+
 const selfDescribingCode = {
 	rules: {
 		'aggregate-root-only': aggregateRootOnly,
 		'shared-kernel-small': sharedKernelSmall,
+		'spec-beside-source': specBesideSource,
 		'no-magic-strings': noMagicStrings,
 		'no-comments': {
 			meta: {
@@ -419,6 +464,7 @@ export default defineConfig(
 		rules: {
 			'local/aggregate-root-only': 'error',
 			'local/shared-kernel-small': 'error',
+			'local/spec-beside-source': 'error',
 			'local/no-comments': 'error',
 			'local/no-magic-strings': 'error',
 			'@typescript-eslint/no-magic-numbers': [
@@ -525,7 +571,7 @@ export default defineConfig(
 	},
 
 	{
-		files: TEST_FILES,
+		files: [...TEST_FILES, ...TEST_SUPPORT_FILES],
 		plugins: { vitest },
 		rules: {
 			...vitest.configs.recommended.rules,
