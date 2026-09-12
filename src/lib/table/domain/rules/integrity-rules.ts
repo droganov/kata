@@ -14,12 +14,14 @@ export const foreignKeysResolve = (set: TableSet): Finding[] => {
 		schema.foreignKeys.flatMap((foreignKey) => {
 			const known = keys.get(`${foreignKey.table}${COLUMN_MARK}${foreignKey.references}`);
 			return rowsOf(set, schema.name).flatMap((row, at) =>
-				ruleCheck(
-					known?.has(textAt(row, foreignKey.column)) === true,
-					RULE.reference,
-					lineSubject(schema.name, at),
-					`${foreignKey.column} не ведёт в ${foreignKey.table}: ${textAt(row, foreignKey.column)}`
-				)
+				foreignKey.isNullable === true && (row[foreignKey.column] ?? null) === null
+					? []
+					: ruleCheck(
+							known?.has(textAt(row, foreignKey.column)) === true,
+							RULE.reference,
+							lineSubject(schema.name, at),
+							`${foreignKey.column} не ведёт в ${foreignKey.table}: ${textAt(row, foreignKey.column)}`
+						)
 			);
 		})
 	);

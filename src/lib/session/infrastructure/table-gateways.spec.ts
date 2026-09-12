@@ -13,20 +13,64 @@ const TABLES: Record<string, readonly TableRow[]> = {
 	block_draw: [{ block_id: 'b-strength', count: 2, level: 'muscle_group', pick_each: 1 }],
 	block_pin_group: [{ block_id: 'b-strength', muscle_group_id: 'g-glutes', ord: 1, pick: 1 }],
 	block_pin_target: [{ block_id: 'b-warmup', ord: 1, pick: 4, target_id: 't-cervical' }],
+	equipment: [{ id: 'q-body', name: 'Тело' }],
 	exercise: [
 		{
-			axial: false,
 			catalog_target_id: 't-cervical',
 			dose: '2×10',
 			id: 'e1',
 			modality: 'dynamic',
 			name: 'Круги головой',
+			note: 'медленно',
 			slug: 'neck_roll'
+		},
+		{
+			catalog_target_id: 't-cardio',
+			dose: '5 мин',
+			id: 'e2',
+			modality: 'cardio',
+			name: 'Велотренажёр',
+			note: null,
+			slug: 'bike'
 		}
 	],
+	exercise_equipment: [{ equipment_id: 'q-body', exercise_id: 'e1', role: 'main' }],
+	exercise_target: [{ exercise_id: 'e1', role: 'primary', target_id: 't-cervical' }],
 	muscle_group: [{ id: 'g-glutes', name: 'Ягодичные', ord: 8, slug: 'glutes' }],
+	oracle: [
+		{ id: 'o2', ord: 1, predicate: 'Возврат плавный', step_id: 's2' },
+		{ id: 'o1', ord: 1, predicate: 'Плечи опущены', step_id: 's1' }
+	],
+	oracle_line: [
+		{ id: 'l2', oracle_id: 'o1', ord: 2, side: 'counter', text: 'рывок' },
+		{ id: 'l1', oracle_id: 'o1', ord: 1, side: 'model', text: 'плавно' }
+	],
 	program: [{ id: 'p1', slug: 'pins_and_draw', title: 'Закрепления и добор' }],
-	target: [{ id: 't-cervical', kind: 'joint', muscle_group_id: 'g-neck', slug: 'cervical_spine' }]
+	step: [
+		{ exercise_id: 'e1', id: 's2', ord: 2, title: 'Возврат' },
+		{ exercise_id: 'e1', id: 's3', ord: 3, title: 'Пауза' },
+		{ exercise_id: 'e1', id: 's1', ord: 1, title: 'Наклон' }
+	],
+	step_target: [
+		{ step_id: 's1', target_id: 't-cervical' },
+		{ step_id: 's1', target_id: 't-ghost' }
+	],
+	target: [
+		{
+			id: 't-cervical',
+			kind: 'joint',
+			muscle_group_id: 'g-neck',
+			name: 'Шейный отдел',
+			slug: 'cervical_spine'
+		},
+		{
+			id: 't-cardio',
+			kind: 'system',
+			muscle_group_id: null,
+			name: 'Система',
+			slug: 'cardiorespiratory'
+		}
+	]
 };
 
 const gatewaysOf = (
@@ -46,11 +90,56 @@ describe('createTableGateways', () => {
 					modality: 'dynamic',
 					name: 'Круги головой',
 					slug: 'neck_roll'
+				},
+				{
+					catalogTarget: 't-cardio',
+					dose: '5 мин',
+					id: 'e2',
+					modality: 'cardio',
+					name: 'Велотренажёр',
+					slug: 'bike'
 				}
 			],
 			muscleGroups: [{ id: 'g-glutes', ord: 8 }],
-			targets: [{ id: 't-cervical', muscleGroup: 'g-neck', slug: 'cervical_spine' }]
+			targets: [
+				{ id: 't-cervical', muscleGroup: 'g-neck', slug: 'cervical_spine' },
+				{ id: 't-cardio', slug: 'cardiorespiratory' }
+			]
 		});
+	});
+
+	it('раскрывает Упражнение: оборудование, Мишени, заметку и шаги с оракулами по порядку', () => {
+		const details = gateways.details.readDetails();
+		expect(details.get('e1')).toEqual({
+			equipment: [{ name: 'Тело', role: 'main' }],
+			note: 'медленно',
+			steps: [
+				{
+					active: ['Шейный отдел', 't-ghost'],
+					id: 's1',
+					oracles: [
+						{
+							counterModel: ['рывок'],
+							id: 'o1',
+							model: ['плавно'],
+							predicate: 'Плечи опущены'
+						}
+					],
+					title: 'Наклон'
+				},
+				{
+					active: [],
+					id: 's2',
+					oracles: [
+						{ counterModel: [], id: 'o2', model: [], predicate: 'Возврат плавный' }
+					],
+					title: 'Возврат'
+				},
+				{ active: [], id: 's3', oracles: [], title: 'Пауза' }
+			],
+			targets: [{ name: 'Шейный отдел', role: 'primary' }]
+		});
+		expect(details.get('e2')).toEqual({ equipment: [], steps: [], targets: [] });
 	});
 
 	it('собирает Программу с её Блоками, Закреплениями и добором', () => {
@@ -83,6 +172,7 @@ describe('createTableGateways', () => {
 
 	it('читает таблицы один раз и держит результат в памяти', () => {
 		expect(gateways.catalog.readCatalog()).toBe(gateways.catalog.readCatalog());
+		expect(gateways.details.readDetails()).toBe(gateways.details.readDetails());
 		expect(gateways.programs.readPrograms()).toBe(gateways.programs.readPrograms());
 	});
 

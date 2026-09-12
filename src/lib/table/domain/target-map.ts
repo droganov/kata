@@ -38,6 +38,7 @@ export const CATALOG_TARGETS: Readonly<Record<string, CatalogTargetEntry>> = {
 	anti_lateral: { kind: TARGET_KIND.pattern },
 	anti_rotation: { kind: TARGET_KIND.pattern },
 	biceps: { alias: 'biceps_brachii', kind: TARGET_KIND.muscle },
+	cardio: { alias: 'cardiorespiratory', kind: TARGET_KIND.system },
 	cervical: { alias: 'cervical_spine', kind: TARGET_KIND.joint },
 	chest_lower: { alias: 'pectoralis_major_abdominal', kind: TARGET_KIND.muscle_head },
 	chest_mid: { alias: 'pectoralis_major_sternal', kind: TARGET_KIND.muscle_head },

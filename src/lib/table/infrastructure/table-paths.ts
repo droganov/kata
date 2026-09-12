@@ -10,6 +10,7 @@ const EQUIPMENT_FILE = 'equipment.json';
 const PROGRAMS_FILE = 'programs.json';
 const REFERENCES_FILE = 'sources.json';
 const TARGETS_FILE = 'targets.json';
+const USERS_FILE = 'users.json';
 const VERDICTS_FILE = 'verdicts.json';
 
 export const TABLE_PATHS = {
@@ -20,5 +21,6 @@ export const TABLE_PATHS = {
 	schema: path.join(PROJECT_ROOT, SCHEMA_DIRECTORY),
 	tables: path.join(PROJECT_ROOT, DATA_DIRECTORY),
 	targets: path.join(PROJECT_ROOT, DATA_DIRECTORY, TARGETS_FILE),
+	users: path.join(PROJECT_ROOT, DATA_DIRECTORY, USERS_FILE),
 	verdicts: path.join(PROJECT_ROOT, DATA_DIRECTORY, VERDICTS_FILE)
 };

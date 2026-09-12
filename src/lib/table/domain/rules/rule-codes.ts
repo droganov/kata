@@ -1,5 +1,6 @@
 export const RULE = {
 	carried: 'C5 CARRIED',
+	converted: 'C15 CONVERTED',
 	fileNames: 'F1 FILE',
 	gear: 'C7 GEAR',
 	groups: 'C1 GROUPS',
@@ -12,8 +13,10 @@ export const RULE = {
 	primaryKey: 'F5 KEY',
 	reference: 'I1 REFERENCE',
 	referenceSource: 'C9 SOURCE',
+	restore: 'C14 RESTORE',
 	scalar: 'F4 SCALAR',
 	stepTarget: 'C10 STEP_TARGET',
+	system: 'C13 SYSTEM',
 	tuple: 'F2 LINE',
 	tupleKeys: 'F3 KEYS',
 	unique: 'I2 UNIQUE',

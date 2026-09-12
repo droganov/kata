@@ -1,3 +1,868 @@
+{"id":"d5fd478f-7aa8-77ab-9293-c36758b9ffa3","oracle_id":"01a0889d-8483-7356-be94-ad1f16af3af5","side":"model","ord":1,"text":"педали неподвижны"}
+{"id":"7185d001-f3b7-793d-ab02-e049ab3c80a5","oracle_id":"01a0889d-8483-7356-be94-ad1f16af3af5","side":"model","ord":2,"text":"счётчик времени обнулён"}
+{"id":"e57f572d-5824-7e49-b4c4-34053a536fa1","oracle_id":"01a0889d-8483-7356-be94-ad1f16af3af5","side":"model","ord":3,"text":"взгляд направлен на консоль"}
+{"id":"4bbcd38d-1df5-7a69-8eed-12e5cdb18261","oracle_id":"01a0889d-8483-7356-be94-ad1f16af3af5","side":"model","ord":4,"text":"корпус вертикален у рамы"}
+{"id":"af230ec7-2b8c-74f3-b325-6a6fc154fd9b","oracle_id":"01a0889d-8483-7356-be94-ad1f16af3af5","side":"model","ord":5,"text":"гребни таза смотрят к тренажёру"}
+{"id":"6a77947a-2ea7-7b3e-a40f-4072df559256","oracle_id":"01a0889d-8483-7356-be94-ad1f16af3af5","side":"model","ord":6,"text":"ладони лежат на неподвижных рукоятях"}
+{"id":"3f217ce3-72e8-727f-b34c-812b76974407","oracle_id":"01a0889d-8483-7356-be94-ad1f16af3af5","side":"model","ord":7,"text":"колени смотрят вперёд"}
+{"id":"3f12300f-e9a5-7c43-b375-019761a0ed0b","oracle_id":"01a0889d-8483-7356-be94-ad1f16af3af5","side":"counter","ord":1,"text":"покрытие пола скользкое"}
+{"id":"e992763b-1b62-78f7-bacb-572351fbd21f","oracle_id":"01a0889d-8485-7dc2-83a5-aef6b6acffc5","side":"model","ord":1,"text":"выбран ручной режим"}
+{"id":"f457e10d-4900-7d11-8228-0255e0deb7f9","oracle_id":"01a0889d-8485-7dc2-83a5-aef6b6acffc5","side":"model","ord":2,"text":"сопротивление на нижнем уровне"}
+{"id":"56689b5b-c5aa-7917-bb89-b2536813592f","oracle_id":"01a0889d-8485-7dc2-83a5-aef6b6acffc5","side":"counter","ord":1,"text":"вес тела переносится на рукояти"}
+{"id":"afa4e471-3dff-7c95-9b32-5ff9309d215d","oracle_id":"01a0889d-8488-756d-a7db-ff5270917189","side":"model","ord":1,"text":"стопы стоят на педалях целиком"}
+{"id":"896f839f-919f-7523-8f21-c157ceb6885b","oracle_id":"01a0889d-8488-756d-a7db-ff5270917189","side":"model","ord":2,"text":"кисти держат подвижные рукояти"}
+{"id":"eed92181-a271-73a5-8da1-2af99e21fe9d","oracle_id":"01a0889d-8488-756d-a7db-ff5270917189","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"5da55122-5d19-75e6-b69c-f93a60f6cade","oracle_id":"01a0889d-8488-756d-a7db-ff5270917189","side":"counter","ord":1,"text":"вес корпуса лежит на рукоятях"}
+{"id":"de837fe3-ee93-7c87-906a-484b3933c4ef","oracle_id":"01a0889d-848a-73cd-b51a-fe507dc9d109","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"c145bd70-bb68-7e14-8fe1-612838565bcc","oracle_id":"01a0889d-848a-73cd-b51a-fe507dc9d109","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"732ca953-23a8-714f-9a31-f95b07031db7","oracle_id":"01a0889d-848a-73cd-b51a-fe507dc9d109","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"ad9f96cd-552f-7dd1-845f-e385082359e9","oracle_id":"01a0889d-848c-72db-9e75-da5338ddcc57","side":"model","ord":1,"text":"взгляд направлен вперёд"}
+{"id":"19c20650-5f8e-7cb4-ad96-b5c88bfd342c","oracle_id":"01a0889d-848c-72db-9e75-da5338ddcc57","side":"counter","ord":1,"text":"подбородок выдвинут вперёд"}
+{"id":"882cad8b-fa6f-7a4f-b473-0963c45b3f67","oracle_id":"01a0889d-848e-7ff5-94a5-d2b1019f6234","side":"model","ord":1,"text":"плечи опущены"}
+{"id":"bc758297-32e2-73d3-93f1-177f5c8b6cfb","oracle_id":"01a0889d-848e-7ff5-94a5-d2b1019f6234","side":"counter","ord":1,"text":"вес тела переносится на рукояти"}
+{"id":"191a69c5-c818-7019-baf4-979dc5bbd031","oracle_id":"01a0889d-8491-78bb-aa88-54994ce3e620","side":"model","ord":1,"text":"руки движутся в такт ногам"}
+{"id":"59d26721-1c2b-7f95-a758-59292d95a79d","oracle_id":"01a0889d-8491-78bb-aa88-54994ce3e620","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"568489c4-1409-7788-81f2-baec53534eb0","oracle_id":"01a0889d-8491-78bb-aa88-54994ce3e620","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"cc43998e-ee8a-7ef2-9563-881606df3c3a","oracle_id":"01a0889d-8491-78bb-aa88-54994ce3e620","side":"counter","ord":1,"text":"боль в своде стопы"}
+{"id":"ef86fdb4-b189-7370-8b01-2cbc01c94f18","oracle_id":"01a0889d-8491-78bb-aa88-54994ce3e620","side":"counter","ord":2,"text":"корпус подпрыгивает вверх"}
+{"id":"0ff5d781-2118-7145-a94d-4989c83e406d","oracle_id":"01a0889d-8494-7513-a18b-becd6e05e366","side":"model","ord":1,"text":"поясница нейтральна"}
+{"id":"e4e2fb96-68b3-74ca-972b-c53ef36b0ef2","oracle_id":"01a0889d-8494-7513-a18b-becd6e05e366","side":"counter","ord":1,"text":"пальцы разгибаются в стороны"}
+{"id":"2ffea191-47f7-7a1d-a85f-ccc975e9d975","oracle_id":"01a0889d-8496-7aa1-b561-fe7cc2afc839","side":"model","ord":1,"text":"шаг педалей плавный"}
+{"id":"6c405cb8-a1bc-7834-9cc8-23406712e3dc","oracle_id":"01a0889d-8496-7aa1-b561-fe7cc2afc839","side":"model","ord":2,"text":"стопы прижаты к педалям"}
+{"id":"9f7f9dbe-0229-7fda-a2a6-e0067bdbb9c2","oracle_id":"01a0889d-8496-7aa1-b561-fe7cc2afc839","side":"counter","ord":1,"text":"стук педали о раму"}
+{"id":"7cf1dfc4-7808-7428-9e14-8e8c2283f670","oracle_id":"01a0889d-8496-7aa1-b561-fe7cc2afc839","side":"counter","ord":2,"text":"покалывание в стопе"}
+{"id":"43fed817-d7bf-74db-91bc-2f7f1d7234c3","oracle_id":"01a0889d-8499-7026-a3f6-a75c7fe24d73","side":"model","ord":1,"text":"темп нарастает постепенно"}
+{"id":"f4a85ddd-cab4-7661-8773-9a45c09232e9","oracle_id":"01a0889d-8499-7026-a3f6-a75c7fe24d73","side":"counter","ord":1,"text":"покалывание в пальцах стопы"}
+{"id":"fd138190-7756-759c-a97b-f1d8ddf44a44","oracle_id":"01a0889d-849c-76bd-a0ab-96b97fd75e38","side":"model","ord":1,"text":"каденс ровный"}
+{"id":"034a31ff-1cc9-7abb-9c45-fa67705e4fc3","oracle_id":"01a0889d-849c-76bd-a0ab-96b97fd75e38","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"71bc9bf2-6989-763e-bc79-8b7ae302b1a6","oracle_id":"01a0889d-849c-76bd-a0ab-96b97fd75e38","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"b2932ed4-a1b5-72c8-b20b-f06cbc140560","oracle_id":"01a0889d-849c-76bd-a0ab-96b97fd75e38","side":"model","ord":4,"text":"кисти лежат на подвижных рукоятях"}
+{"id":"ff2fc008-1d5c-72cc-8c7e-be60a13af284","oracle_id":"01a0889d-849c-76bd-a0ab-96b97fd75e38","side":"counter","ord":1,"text":"вес переносится на рукояти"}
+{"id":"11aea667-ff34-740b-b604-e76fb5e6b813","oracle_id":"01a0889d-849c-76bd-a0ab-96b97fd75e38","side":"counter","ord":2,"text":"жжение в предплечье"}
+{"id":"c8087b27-bd74-799b-b773-a03f4a23e1d3","oracle_id":"01a0889d-849c-76bd-a0ab-96b97fd75e38","side":"counter","ord":3,"text":"амплитуда сокращается к концу подхода"}
+{"id":"fac33792-2c99-74de-8112-20ea2917bdd6","oracle_id":"01a0889d-849c-76bd-a0ab-96b97fd75e38","side":"counter","ord":4,"text":"жжение при вдохе"}
+{"id":"f1948045-1504-7dd9-b94d-9b5dd6902751","oracle_id":"01a0889d-84a1-7c3c-82a4-1ad4902cbf5f","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"b07690e2-797d-7ad6-929c-024a8805ef3e","oracle_id":"01a0889d-84a1-7c3c-82a4-1ad4902cbf5f","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"83dc8171-ce9f-743d-9c5c-6b69573181f5","oracle_id":"01a0889d-84a1-7c3c-82a4-1ad4902cbf5f","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"30c6e546-faab-7552-97f9-02aee6f47fda","oracle_id":"01a0889d-84a3-7668-9ab1-a71cf45bd71a","side":"model","ord":1,"text":"дыхание ровное"}
+{"id":"fbe19141-e835-7a4d-9794-03c9a0bd95d5","oracle_id":"01a0889d-84a3-7668-9ab1-a71cf45bd71a","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"33c33f80-c252-7f14-8711-ddc8e132d87c","oracle_id":"01a0889d-84a5-7fc9-88f0-446698006333","side":"model","ord":1,"text":"колени идут вдоль стоп"}
+{"id":"b40333a4-996e-7730-9f32-f68c5ed0bef8","oracle_id":"01a0889d-84a5-7fc9-88f0-446698006333","side":"counter","ord":1,"text":"покалывание в стопе"}
+{"id":"01dd2c68-c54b-7544-be55-f7103aab9aac","oracle_id":"01a0889d-84a8-76fd-aae1-3d2772a2b99e","side":"model","ord":1,"text":"стопы стоят на педалях"}
+{"id":"41755456-66dd-7a9a-8970-036e2723e492","oracle_id":"01a0889d-84a8-76fd-aae1-3d2772a2b99e","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"57795261-3c9e-7d85-8371-1ed98d1a9add","oracle_id":"01a0889d-84a8-76fd-aae1-3d2772a2b99e","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"376f95fd-6bb7-7079-a1e3-9365131cdf61","oracle_id":"01a0889d-84a8-76fd-aae1-3d2772a2b99e","side":"model","ord":4,"text":"кисти лежат на подвижных рукоятях"}
+{"id":"40c70db4-1ab1-7da0-881f-02ecae0b7e38","oracle_id":"01a0889d-84a8-76fd-aae1-3d2772a2b99e","side":"counter","ord":1,"text":"пульс бьёт в ушах"}
+{"id":"a65a632c-9653-7128-94f0-bd94d6eb5910","oracle_id":"01a0889d-84a8-76fd-aae1-3d2772a2b99e","side":"counter","ord":2,"text":"вес тела переносится на рукояти"}
+{"id":"51ef7cfc-b659-7408-a2a4-e80422912c30","oracle_id":"01a0889d-84ab-700c-bc14-9f31e9b6c631","side":"model","ord":1,"text":"сопротивление на нижнем уровне"}
+{"id":"198dcf96-c1e1-779a-99a3-f89e36298dc2","oracle_id":"01a0889d-84ab-700c-bc14-9f31e9b6c631","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"9d8bf17a-2f6e-78ce-adbd-52928c1c3366","oracle_id":"01a0889d-84ad-7fb1-9285-9f5c02f0a468","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"8f396f95-12c4-7de1-a561-91fdbbfc52e9","oracle_id":"01a0889d-84ad-7fb1-9285-9f5c02f0a468","side":"counter","ord":1,"text":"к концу подхода подбородок выдвигается вперёд"}
+{"id":"fa119cbc-a030-7df8-ae6b-43f42d09b5b0","oracle_id":"01a0889d-84af-732c-9599-853fb108a3a6","side":"model","ord":1,"text":"темп снижается плавно"}
+{"id":"316332fa-9451-7c6e-bbbf-84929e74d006","oracle_id":"01a0889d-84af-732c-9599-853fb108a3a6","side":"model","ord":2,"text":"дыхание восстанавливается"}
+{"id":"27635ab2-97d3-70d6-8459-2a1a3a3162fe","oracle_id":"01a0889d-84af-732c-9599-853fb108a3a6","side":"counter","ord":1,"text":"жжение в шее"}
+{"id":"05259dac-85bf-7848-b8a6-b3a44d1c38c0","oracle_id":"01a0889d-84b2-7baa-9b0d-56a3391b1606","side":"model","ord":1,"text":"руки держатся за неподвижную опору"}
+{"id":"0a2c4175-36b8-7189-84cf-8c9d1c874dd1","oracle_id":"01a0889d-84b2-7baa-9b0d-56a3391b1606","side":"model","ord":2,"text":"стопа опускается на пол целиком"}
+{"id":"421662cc-b455-7fc8-a144-ae946022b130","oracle_id":"01a0889d-84b2-7baa-9b0d-56a3391b1606","side":"model","ord":3,"text":"взгляд направлен вперёд"}
+{"id":"90e4038f-3a8f-77fb-8bbb-227713747003","oracle_id":"01a0889d-84b2-7baa-9b0d-56a3391b1606","side":"model","ord":4,"text":"гребни таза смотрят вперёд"}
+{"id":"2e1a502c-0d6d-7de8-9010-0fc44a226e60","oracle_id":"01a0889d-84b2-7baa-9b0d-56a3391b1606","side":"counter","ord":1,"text":"стук педали о раму"}
+{"id":"0ee651c9-3c0f-7335-8dd4-b261e9c8efcd","oracle_id":"01a0889d-84b4-74b1-9ab1-9832be11821c","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"22e09126-680c-78b2-9e44-dfae8c62e89a","oracle_id":"01a0889d-84b4-74b1-9ab1-9832be11821c","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"d6799028-ab44-7e5c-a9b3-1be0a4115ab4","oracle_id":"01a0889d-84b4-74b1-9ab1-9832be11821c","side":"counter","ord":1,"text":"сход спиной вперёд"}
+{"id":"37fc2315-28ce-7d61-980b-b8dd0d31c909","oracle_id":"01a0889d-84b4-74b1-9ab1-9832be11821c","side":"counter","ord":2,"text":"головокружение при сходе"}
+{"id":"6381c3cb-bfcf-7cd7-9304-8923d08b94af","oracle_id":"01a0889d-84bc-752f-b747-a3fb6b1739a7","side":"model","ord":1,"text":"педальные ремни затянуты"}
+{"id":"99b50d16-4c60-7fc2-9a11-dc3eef6f70aa","oracle_id":"01a0889d-84bc-752f-b747-a3fb6b1739a7","side":"model","ord":2,"text":"взгляд направлен на седло"}
+{"id":"5dd35bff-80ec-7a33-bde4-b5a7e636cbfb","oracle_id":"01a0889d-84bc-752f-b747-a3fb6b1739a7","side":"model","ord":3,"text":"корпус вертикален у рамы"}
+{"id":"551622ad-46f1-7da9-b9ed-69155c3a1311","oracle_id":"01a0889d-84bc-752f-b747-a3fb6b1739a7","side":"model","ord":4,"text":"ладони лежат на руле"}
+{"id":"2e883ee5-5c3b-7889-b17d-89fd4e5137a1","oracle_id":"01a0889d-84bc-752f-b747-a3fb6b1739a7","side":"model","ord":5,"text":"колени смотрят вперёд"}
+{"id":"e9831834-c8f3-7790-872b-b47c778ecbf8","oracle_id":"01a0889d-84bc-752f-b747-a3fb6b1739a7","side":"counter","ord":1,"text":"стук педали о раму"}
+{"id":"9b462769-7b82-753d-bbad-6eb134e637c5","oracle_id":"01a0889d-84be-71cd-b85f-f07d34953373","side":"model","ord":1,"text":"руль выше седла"}
+{"id":"1bc9b816-1139-76aa-ab3d-5cbe9197f832","oracle_id":"01a0889d-84be-71cd-b85f-f07d34953373","side":"model","ord":2,"text":"сопротивление на нижнем уровне"}
+{"id":"3015329a-4b5d-7256-adab-4b7267f69d4e","oracle_id":"01a0889d-84be-71cd-b85f-f07d34953373","side":"counter","ord":1,"text":"седло качается в стакане"}
+{"id":"7fa054ad-0f15-7689-a23e-27d515bb8391","oracle_id":"01a0889d-84c0-725f-85af-62b2e0aa1bdf","side":"model","ord":1,"text":"седло на уровне гребня таза стоя рядом"}
+{"id":"73ab230b-11bf-7977-bf8a-ed63a6492e8f","oracle_id":"01a0889d-84c0-725f-85af-62b2e0aa1bdf","side":"counter","ord":1,"text":"фиксатор седла ослаблен"}
+{"id":"a6bfd5f4-00f7-7040-88cf-04ac199053b8","oracle_id":"01a0889d-84c3-71ff-aaba-82b6120262bd","side":"model","ord":1,"text":"стопа на педали серединой"}
+{"id":"cfd5858a-be5c-70b6-9edd-29f26a087f7e","oracle_id":"01a0889d-84c3-71ff-aaba-82b6120262bd","side":"counter","ord":1,"text":"локти жёстко выпрямлены"}
+{"id":"607a892a-cf45-75be-b925-2f1272905c06","oracle_id":"01a0889d-84c5-73a4-932b-13b9ff6db983","side":"model","ord":1,"text":"поясница нейтральна"}
+{"id":"f1f794c9-4016-7375-a778-36417fce57cd","oracle_id":"01a0889d-84c5-73a4-932b-13b9ff6db983","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"06cd0344-8772-7010-8d85-f2fcd1464f48","oracle_id":"01a0889d-84c7-7be6-9762-342434dd9268","side":"model","ord":1,"text":"взгляд направлен вперёд"}
+{"id":"ca10021b-30c3-7a37-a1d2-01d3320ed5af","oracle_id":"01a0889d-84c7-7be6-9762-342434dd9268","side":"counter","ord":1,"text":"шея выдвигается вперёд"}
+{"id":"6bcb6009-b064-7285-96b4-7681de94e09d","oracle_id":"01a0889d-84c9-7c21-9f3d-7057cedd3b86","side":"model","ord":1,"text":"седалищные кости на седле"}
+{"id":"67ba6017-f20c-73c3-b946-65ef55f3f5fb","oracle_id":"01a0889d-84c9-7c21-9f3d-7057cedd3b86","side":"model","ord":2,"text":"колено в нижней точке слегка согнуто"}
+{"id":"01b8d0cc-f809-7000-880d-ff44d6b04d18","oracle_id":"01a0889d-84c9-7c21-9f3d-7057cedd3b86","side":"model","ord":3,"text":"кисти лежат на руле"}
+{"id":"df17fe0c-bc79-7c18-be53-dfa417a1d310","oracle_id":"01a0889d-84c9-7c21-9f3d-7057cedd3b86","side":"model","ord":4,"text":"плечи опущены"}
+{"id":"60d5c3e7-164d-71cb-a9df-b51f8f71e843","oracle_id":"01a0889d-84c9-7c21-9f3d-7057cedd3b86","side":"counter","ord":1,"text":"онемение в кисти"}
+{"id":"e039200c-bdeb-78f8-b986-ffc40c09fdf0","oracle_id":"01a0889d-84cc-7f43-a2e7-09c88ef8f4e0","side":"model","ord":1,"text":"колени идут вдоль стоп"}
+{"id":"e55ddd66-d81d-7da2-9915-55ce78283dea","oracle_id":"01a0889d-84cc-7f43-a2e7-09c88ef8f4e0","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"6929ca4e-6f22-7ac2-9eae-ce564cfccd6a","oracle_id":"01a0889d-84cc-7f43-a2e7-09c88ef8f4e0","side":"model","ord":3,"text":"седалищные кости лежат на седле"}
+{"id":"2dd4a176-b805-701a-95c3-f39edf8e0882","oracle_id":"01a0889d-84cc-7f43-a2e7-09c88ef8f4e0","side":"model","ord":4,"text":"кисти лежат на руле"}
+{"id":"5d9db8e2-5dfc-7c06-9c7f-eb5a76627e3e","oracle_id":"01a0889d-84cc-7f43-a2e7-09c88ef8f4e0","side":"counter","ord":1,"text":"боль в локте на амплитуде"}
+{"id":"ffb45c82-a2c2-7036-84f3-a5ca4bcc963e","oracle_id":"01a0889d-84cc-7f43-a2e7-09c88ef8f4e0","side":"counter","ord":2,"text":"стопа перекатывается на внешний край"}
+{"id":"641414c3-c9c4-7c3f-bdaa-cc7be8717a57","oracle_id":"01a0889d-84cc-7f43-a2e7-09c88ef8f4e0","side":"counter","ord":3,"text":"онемение в стопе"}
+{"id":"a25bab6f-bfdd-7bdb-b6b4-4cb74c2556e3","oracle_id":"01a0889d-84d0-7d9d-af07-c6a10ea1fb8e","side":"model","ord":1,"text":"поясница нейтральна"}
+{"id":"75289e28-d8bf-72d4-9b95-e630a19b3c9c","oracle_id":"01a0889d-84d0-7d9d-af07-c6a10ea1fb8e","side":"counter","ord":1,"text":"пальцы разгибаются в стороны"}
+{"id":"6b6a6f38-eb15-77d4-a6df-1dc04647049c","oracle_id":"01a0889d-84d2-75c7-ad50-ae202f3ff584","side":"model","ord":1,"text":"педаль ведётся по кругу"}
+{"id":"54ea4b53-933d-7fdf-a289-9e1bc2cfb9c7","oracle_id":"01a0889d-84d2-75c7-ad50-ae202f3ff584","side":"counter","ord":1,"text":"стук педали о раму"}
+{"id":"90254e85-1784-78d9-874f-90fd3bf69b51","oracle_id":"01a0889d-84d4-7a6c-b49b-dde3e49f45a3","side":"model","ord":1,"text":"каденс около семидесяти оборотов"}
+{"id":"b3df669b-cb56-79a7-9796-2b438090580f","oracle_id":"01a0889d-84d4-7a6c-b49b-dde3e49f45a3","side":"model","ord":2,"text":"темп нарастает постепенно"}
+{"id":"f98fece0-544e-7f7c-978f-69c80c247504","oracle_id":"01a0889d-84d4-7a6c-b49b-dde3e49f45a3","side":"counter","ord":1,"text":"жжение нарастает к последним повторам"}
+{"id":"87967cff-b0e6-7673-9c08-3ae72ce36f1b","oracle_id":"01a0889d-84d7-7d56-aa97-1f4492b60660","side":"model","ord":1,"text":"каденс ровный"}
+{"id":"37d8378e-8425-70d2-8d87-53966435df1a","oracle_id":"01a0889d-84d7-7d56-aa97-1f4492b60660","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"13867c04-2a61-7148-956e-795c88fee7c0","oracle_id":"01a0889d-84d7-7d56-aa97-1f4492b60660","side":"model","ord":3,"text":"колени идут вдоль стоп"}
+{"id":"b2ce1df0-e922-796c-8e8c-4428d8b064c4","oracle_id":"01a0889d-84d7-7d56-aa97-1f4492b60660","side":"model","ord":4,"text":"стопы стоят на педалях"}
+{"id":"c94825ba-c096-7abe-8ae7-2b028b9c6806","oracle_id":"01a0889d-84d7-7d56-aa97-1f4492b60660","side":"counter","ord":1,"text":"плечи подтягиваются к ушам к концу отрезка"}
+{"id":"20e080eb-aea4-7dff-b41b-e92379f8cb57","oracle_id":"01a0889d-84d7-7d56-aa97-1f4492b60660","side":"counter","ord":2,"text":"жжение при вдохе"}
+{"id":"f0905af8-3b27-714c-a656-f3e0f81eff54","oracle_id":"01a0889d-84da-75a9-8179-a4b59685257d","side":"model","ord":1,"text":"таз неподвижен на седле"}
+{"id":"7c29e18e-0fdf-7a72-b0f7-ad26972da86a","oracle_id":"01a0889d-84da-75a9-8179-a4b59685257d","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"a331a5e5-5754-7321-9d8d-aced714d3009","oracle_id":"01a0889d-84da-75a9-8179-a4b59685257d","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"d58f005f-5983-7f03-adad-cd7734a3059b","oracle_id":"01a0889d-84dc-7263-ad6e-04449ff515ec","side":"model","ord":1,"text":"дыхание ровное"}
+{"id":"d642f3ce-711e-7062-8ef0-3466ee35bdfa","oracle_id":"01a0889d-84dc-7263-ad6e-04449ff515ec","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"0e29c6b1-f491-75d5-9c5b-5ff92fb138bd","oracle_id":"01a0889d-84de-78e5-9fad-684d5a29aa8e","side":"model","ord":1,"text":"кисти лежат на руле свободно"}
+{"id":"f251cbee-b570-7682-a489-cdc68e3c177a","oracle_id":"01a0889d-84de-78e5-9fad-684d5a29aa8e","side":"counter","ord":1,"text":"онемение в кистях"}
+{"id":"8c3a58c5-113d-7051-b95c-450d657dc339","oracle_id":"01a0889d-84e1-7d8c-9e55-445606c6cf25","side":"model","ord":1,"text":"сопротивление на нижнем уровне"}
+{"id":"e5bec8f1-1712-727d-b3fd-74d9a37dd825","oracle_id":"01a0889d-84e1-7d8c-9e55-445606c6cf25","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"089472dd-e78b-7a11-8750-cec5c8a28a59","oracle_id":"01a0889d-84e1-7d8c-9e55-445606c6cf25","side":"model","ord":3,"text":"седалищные кости лежат на седле"}
+{"id":"16e564bb-bc93-707f-8bad-6663290eb107","oracle_id":"01a0889d-84e1-7d8c-9e55-445606c6cf25","side":"model","ord":4,"text":"кисти лежат на руле"}
+{"id":"186104c5-ba3f-7cc1-8882-b83dd0db21d9","oracle_id":"01a0889d-84e1-7d8c-9e55-445606c6cf25","side":"model","ord":5,"text":"колени идут вдоль стоп"}
+{"id":"7cabf274-8b3a-79a8-8285-d92cb91d6640","oracle_id":"01a0889d-84e1-7d8c-9e55-445606c6cf25","side":"counter","ord":1,"text":"прострел в плече"}
+{"id":"9ce9906d-4773-7169-aafd-fbf53d575bd1","oracle_id":"01a0889d-84e3-7531-a898-6dd464199bb5","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"56eda0e9-f66d-75ed-b352-1161df94d1a5","oracle_id":"01a0889d-84e3-7531-a898-6dd464199bb5","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"283aa0f9-dea8-72ad-bc4d-c49139e5ec65","oracle_id":"01a0889d-84e5-78f6-808d-d586483e5d6d","side":"model","ord":1,"text":"темп снижается плавно"}
+{"id":"a54a00f1-58b1-7bdd-8e88-5009d405d635","oracle_id":"01a0889d-84e5-78f6-808d-d586483e5d6d","side":"model","ord":2,"text":"дыхание восстанавливается"}
+{"id":"52dcb070-37e5-71b4-9736-d8b8b032a9fc","oracle_id":"01a0889d-84e5-78f6-808d-d586483e5d6d","side":"counter","ord":1,"text":"стук педали о раму"}
+{"id":"6c990876-ceda-700a-ac59-9dce1fa8e9e2","oracle_id":"01a0889d-84e8-7e85-b25e-703d5532e943","side":"model","ord":1,"text":"стопа опускается на пол целиком"}
+{"id":"16ce6667-9518-7153-937f-baff2f9c24eb","oracle_id":"01a0889d-84e8-7e85-b25e-703d5532e943","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"dc57cf7a-6038-70b6-8282-f6f2c35a6e6e","oracle_id":"01a0889d-84e8-7e85-b25e-703d5532e943","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"3edde3ba-3936-7306-93c7-b3b26d331e5e","oracle_id":"01a0889d-84e8-7e85-b25e-703d5532e943","side":"model","ord":4,"text":"руки висят вдоль тела"}
+{"id":"07df6f24-fa71-7fe0-ba7e-b8ac88cb0768","oracle_id":"01a0889d-84e8-7e85-b25e-703d5532e943","side":"counter","ord":1,"text":"пульс бьёт в горле"}
+{"id":"89399bbf-61a3-7b4b-9761-98e7cbf429d3","oracle_id":"01a0889d-84ea-73cc-9c14-c2a8a8522e8b","side":"model","ord":1,"text":"ремни ослаблены"}
+{"id":"0798a490-03ba-76dc-b5bb-e218ccf6ff24","oracle_id":"01a0889d-84ea-73cc-9c14-c2a8a8522e8b","side":"counter","ord":1,"text":"фиксатор седла ослаблен"}
+{"id":"650f18ab-d48d-717f-aeec-143336770667","oracle_id":"01a0889d-84ec-75ef-87f8-f4c54e1bbe9b","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"d872f4c8-de16-74fc-95ea-0f2092d4f9b4","oracle_id":"01a0889d-84ec-75ef-87f8-f4c54e1bbe9b","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"36d3f013-027d-76d7-9624-198beb7548cf","oracle_id":"01a0889d-84ec-75ef-87f8-f4c54e1bbe9b","side":"counter","ord":1,"text":"головокружение при сходе"}
+{"id":"a5927f14-c153-7ab0-a58b-2d8cebea2b08","oracle_id":"01a0889d-84f3-7e79-835a-9dfb08f99382","side":"model","ord":1,"text":"наклон полотна выставлен от 5 до 8 процентов"}
+{"id":"d8c780f2-ff8f-7e76-8998-b17a7645283e","oracle_id":"01a0889d-84f3-7e79-835a-9dfb08f99382","side":"model","ord":2,"text":"взгляд направлен на консоль"}
+{"id":"033004a5-6452-7a59-afda-62ed6af41cc1","oracle_id":"01a0889d-84f3-7e79-835a-9dfb08f99382","side":"model","ord":3,"text":"корпус вертикален у консоли"}
+{"id":"2e3087e2-2ace-714e-a633-579af3d96b46","oracle_id":"01a0889d-84f3-7e79-835a-9dfb08f99382","side":"model","ord":4,"text":"гребни таза смотрят вперёд"}
+{"id":"72d0bd24-cd3d-7608-a076-071c4aeb6360","oracle_id":"01a0889d-84f3-7e79-835a-9dfb08f99382","side":"model","ord":5,"text":"ладони лежат на поручнях"}
+{"id":"48173906-fbb9-772a-add7-35fe23288ea2","oracle_id":"01a0889d-84f3-7e79-835a-9dfb08f99382","side":"model","ord":6,"text":"колени смотрят вперёд"}
+{"id":"26906a08-4352-7704-89a4-6e00c8bb345c","oracle_id":"01a0889d-84f3-7e79-835a-9dfb08f99382","side":"model","ord":7,"text":"стопы стоят на боковых площадках тренажёра"}
+{"id":"6a951bf1-25b1-73d5-bdba-5cd99169e1dd","oracle_id":"01a0889d-84f3-7e79-835a-9dfb08f99382","side":"counter","ord":1,"text":"полотно движется до постановки стоп"}
+{"id":"2b4f3385-bcf4-7989-a0f9-6bad3d483a51","oracle_id":"01a0889d-84f3-7e79-835a-9dfb08f99382","side":"counter","ord":2,"text":"поручень люфтит под ладонью"}
+{"id":"46f8b3c7-216c-7deb-82c1-344f15d3f493","oracle_id":"01a0889d-84f6-72b0-877a-ecde491d55e6","side":"model","ord":1,"text":"аварийный шнур закреплён на поясе"}
+{"id":"3fed2404-d390-7c58-8cdc-c40c2f47a040","oracle_id":"01a0889d-84f6-72b0-877a-ecde491d55e6","side":"model","ord":2,"text":"поручни свободны"}
+{"id":"aa120261-0111-7e35-a765-33f926f4af4d","oracle_id":"01a0889d-84f6-72b0-877a-ecde491d55e6","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"cc801d6b-4cf5-7dd7-8e0c-3e43520f672f","oracle_id":"01a0889d-84f8-7fef-b02c-f2032fa1855b","side":"model","ord":1,"text":"скорость на минимальном значении"}
+{"id":"0509ede9-af76-7e35-81c4-9e514e89db7d","oracle_id":"01a0889d-84f8-7fef-b02c-f2032fa1855b","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"8d2caca0-6fe5-73d4-8b10-af980db3a40c","oracle_id":"01a0889d-84fb-7746-9190-95a2cf19dcff","side":"model","ord":1,"text":"стопы опущены на полотно по одной"}
+{"id":"2c9f9012-6b81-7e7e-bc42-195ab4c6d3a6","oracle_id":"01a0889d-84fb-7746-9190-95a2cf19dcff","side":"model","ord":2,"text":"гребни таза смотрят вперёд"}
+{"id":"58c6ebf4-2164-7e58-9930-e1cc6edeeeb0","oracle_id":"01a0889d-84fb-7746-9190-95a2cf19dcff","side":"model","ord":3,"text":"стопы стоят на полотне тренажёра"}
+{"id":"a2e97bc8-94e6-753c-b93b-1ef0b79a2b24","oracle_id":"01a0889d-84fb-7746-9190-95a2cf19dcff","side":"counter","ord":1,"text":"полотно скользит под стопой"}
+{"id":"97b2f73d-b6c8-7761-acfb-e4c5e9d86189","oracle_id":"01a0889d-84fd-7289-a3b1-7ea83715a5c5","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"cdfabeea-7fb4-74ae-b900-1b6298d2a0e6","oracle_id":"01a0889d-84fd-7289-a3b1-7ea83715a5c5","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"5b0cb389-e9bc-7185-a7d6-3cf136dd30ad","oracle_id":"01a0889d-84fd-7289-a3b1-7ea83715a5c5","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"3bd4e0da-66fb-710e-b792-ffb29d6cbc66","oracle_id":"01a0889d-84ff-766c-b633-2541f9016f47","side":"model","ord":1,"text":"взгляд направлен вперёд"}
+{"id":"c4359e51-6e27-7c85-9a24-556949aa033d","oracle_id":"01a0889d-84ff-766c-b633-2541f9016f47","side":"counter","ord":1,"text":"шея выдвигается вперёд"}
+{"id":"e1b3f307-8233-7d13-9482-034f2c03b81b","oracle_id":"01a0889d-8501-7048-9cd9-45473cf2f229","side":"model","ord":1,"text":"кисти касаются поручня слегка"}
+{"id":"ce291a53-5be6-773f-b485-fefbe9bcaea7","oracle_id":"01a0889d-8501-7048-9cd9-45473cf2f229","side":"counter","ord":1,"text":"онемение в кисти"}
+{"id":"3efd9b4a-c56e-7796-87c0-7e62523ad0ce","oracle_id":"01a0889d-8504-7425-98c6-fbdef7a76b7e","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"126725ed-70bf-7549-a79b-f2150b61b791","oracle_id":"01a0889d-8504-7425-98c6-fbdef7a76b7e","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"bfbe729e-90c3-73a2-a58d-acc6711ab42a","oracle_id":"01a0889d-8504-7425-98c6-fbdef7a76b7e","side":"model","ord":3,"text":"руки движутся вдоль корпуса"}
+{"id":"9ba0221f-0068-794b-8339-cd47418f9793","oracle_id":"01a0889d-8504-7425-98c6-fbdef7a76b7e","side":"model","ord":4,"text":"гребни таза смотрят вперёд"}
+{"id":"26182c78-f967-7abc-bd5d-3e505ffb14f4","oracle_id":"01a0889d-8504-7425-98c6-fbdef7a76b7e","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"84eacb99-23ec-71c5-b7cb-1ea15a6ea5ed","oracle_id":"01a0889d-8504-7425-98c6-fbdef7a76b7e","side":"counter","ord":2,"text":"плечи поднимаются к ушам"}
+{"id":"43b38fe9-ebca-7fe5-8f1e-86d1c038b62d","oracle_id":"01a0889d-8504-7425-98c6-fbdef7a76b7e","side":"counter","ord":3,"text":"кисть ударяется о бедро"}
+{"id":"8ccfb749-1662-783d-b306-1cd1818d4d85","oracle_id":"01a0889d-8508-7c14-8dc1-cd649a2c5a18","side":"model","ord":1,"text":"шаг перекатом с пятки на носок"}
+{"id":"87049400-8dc6-73c4-a498-37a84750bb2c","oracle_id":"01a0889d-8508-7c14-8dc1-cd649a2c5a18","side":"model","ord":2,"text":"стопы шагают по полотну тренажёра"}
+{"id":"e85a9d64-436b-7570-8d19-04bc5d2c4a88","oracle_id":"01a0889d-8508-7c14-8dc1-cd649a2c5a18","side":"counter","ord":1,"text":"онемение в предплечье"}
+{"id":"7f1b230c-6329-7dc8-9df8-ec544306b330","oracle_id":"01a0889d-850a-73dc-9acd-522d4fa97deb","side":"model","ord":1,"text":"скорость растёт ступенями"}
+{"id":"d9fd4516-0d2a-705a-9675-091e2c82a962","oracle_id":"01a0889d-850a-73dc-9acd-522d4fa97deb","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"5d244a9a-ad4c-7c1e-aa22-77a28bd33f46","oracle_id":"01a0889d-850d-7fc3-bff8-91e6f01625e9","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"ded0495d-0201-74c1-9602-905511a30199","oracle_id":"01a0889d-850d-7fc3-bff8-91e6f01625e9","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"dada5a6b-dfd0-7b3f-acc2-d8634d0f1917","oracle_id":"01a0889d-850d-7fc3-bff8-91e6f01625e9","side":"model","ord":3,"text":"стопа ставится под таз"}
+{"id":"3c902e0c-fae6-76b0-8466-87a4b8e2c6a8","oracle_id":"01a0889d-850d-7fc3-bff8-91e6f01625e9","side":"model","ord":4,"text":"взгляд направлен вперёд"}
+{"id":"cc0030ce-876a-735a-b7f9-8c06d2930972","oracle_id":"01a0889d-850d-7fc3-bff8-91e6f01625e9","side":"model","ord":5,"text":"руки движутся вдоль корпуса"}
+{"id":"a2224b2f-3dc3-7263-82e7-41577e9e5a4b","oracle_id":"01a0889d-850d-7fc3-bff8-91e6f01625e9","side":"model","ord":6,"text":"руки движутся над поручнями тренажёра"}
+{"id":"b219e6a1-b074-7e05-8186-d9c9ba02cdad","oracle_id":"01a0889d-850d-7fc3-bff8-91e6f01625e9","side":"counter","ord":1,"text":"онемение нарастает на последних повторах"}
+{"id":"7d3a8990-5b82-7a6c-a5a4-7d7890691af4","oracle_id":"01a0889d-850d-7fc3-bff8-91e6f01625e9","side":"counter","ord":2,"text":"стопа шлёпает о полотно"}
+{"id":"72878552-88a7-77f6-8e26-e27a9755739e","oracle_id":"01a0889d-850d-7fc3-bff8-91e6f01625e9","side":"counter","ord":3,"text":"тянущая боль в пояснице"}
+{"id":"79393af9-c013-7cbd-8605-2f81d9830fa5","oracle_id":"01a0889d-850d-7fc3-bff8-91e6f01625e9","side":"counter","ord":4,"text":"онемение в стопе"}
+{"id":"4175a60a-aecf-705e-9134-e292532dd5a6","oracle_id":"01a0889d-8512-73f2-bc28-08dece7edd37","side":"model","ord":1,"text":"дыхание ровное"}
+{"id":"0b3ebcdc-1645-7e78-95e1-45f4f21a9090","oracle_id":"01a0889d-8512-73f2-bc28-08dece7edd37","side":"counter","ord":1,"text":"жжение при вдохе"}
+{"id":"2d58b600-d29d-776c-a1ac-19283bcfd554","oracle_id":"01a0889d-8514-7920-b479-86bf5b1e0e0e","side":"model","ord":1,"text":"длина шага постоянна"}
+{"id":"3e8aac34-eef1-7d08-846e-a62c622b6340","oracle_id":"01a0889d-8514-7920-b479-86bf5b1e0e0e","side":"counter","ord":1,"text":"покалывание в пальцах кисти"}
+{"id":"cb7ca05c-59d3-7070-916e-e96455becd38","oracle_id":"01a0889d-8517-796f-aea7-d03faf6eb62f","side":"model","ord":1,"text":"наклон убирается ступенями"}
+{"id":"f8c2e9ae-eeae-7e7a-bc58-8a0611f4fa92","oracle_id":"01a0889d-8517-796f-aea7-d03faf6eb62f","side":"model","ord":2,"text":"шаг остаётся перекатом"}
+{"id":"1cfcd9bd-7c23-7361-a3da-2db5440c6799","oracle_id":"01a0889d-8517-796f-aea7-d03faf6eb62f","side":"model","ord":3,"text":"взгляд направлен вперёд"}
+{"id":"84eed590-c290-7984-abee-15e838b72d5c","oracle_id":"01a0889d-8517-796f-aea7-d03faf6eb62f","side":"model","ord":4,"text":"гребни таза смотрят вперёд"}
+{"id":"f541e685-a829-74e1-b47f-0e7d7be630f9","oracle_id":"01a0889d-8517-796f-aea7-d03faf6eb62f","side":"model","ord":5,"text":"руки движутся вдоль корпуса"}
+{"id":"246aecc8-613b-7644-af86-bbc0ceece5fc","oracle_id":"01a0889d-8517-796f-aea7-d03faf6eb62f","side":"model","ord":6,"text":"колени смотрят вперёд"}
+{"id":"06615b49-ff57-7585-9a86-ce41be412bbd","oracle_id":"01a0889d-8517-796f-aea7-d03faf6eb62f","side":"model","ord":7,"text":"стопы шагают по полотну целиком"}
+{"id":"a301d742-3aae-7ea6-b488-396a8808fa6e","oracle_id":"01a0889d-8517-796f-aea7-d03faf6eb62f","side":"model","ord":8,"text":"стопы идут по полотну тренажёра"}
+{"id":"af6e14d6-e479-79fa-9899-cb4e847df072","oracle_id":"01a0889d-8517-796f-aea7-d03faf6eb62f","side":"counter","ord":1,"text":"плечи поднимаются к ушам"}
+{"id":"f1410d16-2c3d-77da-adc6-1b7e8e9472e2","oracle_id":"01a0889d-8517-796f-aea7-d03faf6eb62f","side":"counter","ord":2,"text":"с каждой минутой амплитуда падает"}
+{"id":"efa322b2-337a-787e-b62d-53aa62519396","oracle_id":"01a0889d-8517-796f-aea7-d03faf6eb62f","side":"counter","ord":3,"text":"полотно скользит под стопой"}
+{"id":"d3915b64-2cd8-7a78-bde6-b22c22dd27a0","oracle_id":"01a0889d-851b-74e2-a360-f5ef49368400","side":"model","ord":1,"text":"поясница нейтральна"}
+{"id":"195d2ebf-a541-730b-b450-7197e8af0f63","oracle_id":"01a0889d-851b-74e2-a360-f5ef49368400","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"629d469a-3c56-7ebe-95db-c3f29fc7e556","oracle_id":"01a0889d-851d-7696-a6de-552f4d9d4e7d","side":"model","ord":1,"text":"скорость снижается ступенями"}
+{"id":"f1d1a881-6d7c-7ffd-8a0c-4e295938be45","oracle_id":"01a0889d-851d-7696-a6de-552f4d9d4e7d","side":"model","ord":2,"text":"дыхание восстанавливается"}
+{"id":"0cc01d80-bbfe-723c-a080-60c8a7b91984","oracle_id":"01a0889d-851d-7696-a6de-552f4d9d4e7d","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"8309c872-b543-7b7e-9a57-6c5a9be3df86","oracle_id":"01a0889d-8520-7101-b890-9810a9d7d6db","side":"model","ord":1,"text":"стопы переставлены на боковые площадки"}
+{"id":"a06831d3-6b66-766f-960a-d30b13f090c7","oracle_id":"01a0889d-8520-7101-b890-9810a9d7d6db","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"09ee5a36-cd93-7362-8a0c-78ce9af6be1a","oracle_id":"01a0889d-8520-7101-b890-9810a9d7d6db","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"bd5e3886-b95b-7ec2-ac3d-2c7ed662a19a","oracle_id":"01a0889d-8520-7101-b890-9810a9d7d6db","side":"model","ord":4,"text":"руки висят вдоль тела"}
+{"id":"76feea57-876d-7c83-a932-b2ff344ba26b","oracle_id":"01a0889d-8520-7101-b890-9810a9d7d6db","side":"model","ord":5,"text":"стопы стоят на раме тренажёра"}
+{"id":"5432cdff-cb25-78cb-8368-ac37fa416e63","oracle_id":"01a0889d-8520-7101-b890-9810a9d7d6db","side":"counter","ord":1,"text":"головокружение при сходе"}
+{"id":"9e879267-afff-7d33-a9e6-c95f5a0597ab","oracle_id":"01a0889d-8520-7101-b890-9810a9d7d6db","side":"counter","ord":2,"text":"стук пятки о раму нарастает с каждой перестановкой"}
+{"id":"2810c87b-42e8-7a4f-b03c-d9d36e2be407","oracle_id":"01a0889d-8523-7f0c-98de-8da761060b42","side":"model","ord":1,"text":"полотно остановлено"}
+{"id":"865661c9-e517-7a3d-b2dc-65610b87da55","oracle_id":"01a0889d-8523-7f0c-98de-8da761060b42","side":"model","ord":2,"text":"аварийный шнур снят"}
+{"id":"2cba32ee-8810-716a-9e7c-e726aeb89482","oracle_id":"01a0889d-8523-7f0c-98de-8da761060b42","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"61b2484d-9841-7aa1-9c66-2ee5e0a670f9","oracle_id":"01a0889d-8525-7438-ae58-386f9147374c","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"b96e7391-7819-7f5d-ad40-45e9cd408ab5","oracle_id":"01a0889d-8525-7438-ae58-386f9147374c","side":"counter","ord":1,"text":"хруст в суставе на амплитуде"}
+{"id":"9927b7bd-fc70-7349-81db-a9a5686c56b1","oracle_id":"01a0889d-852b-7fcf-9a4a-eb33ac06e289","side":"model","ord":1,"text":"наклон полотна на нуле"}
+{"id":"24bf6c96-3cb3-7e9a-8169-aaae18cdc532","oracle_id":"01a0889d-852b-7fcf-9a4a-eb33ac06e289","side":"model","ord":2,"text":"полотно неподвижно"}
+{"id":"488577dd-c926-75b9-9884-9ce581aefe01","oracle_id":"01a0889d-852b-7fcf-9a4a-eb33ac06e289","side":"model","ord":3,"text":"взгляд направлен на консоль"}
+{"id":"ef04ab46-9f3d-75e2-aaef-556eac69018a","oracle_id":"01a0889d-852b-7fcf-9a4a-eb33ac06e289","side":"model","ord":4,"text":"корпус вертикален у консоли"}
+{"id":"3286e1f1-9fa7-7505-8963-dd69ace6f6dd","oracle_id":"01a0889d-852b-7fcf-9a4a-eb33ac06e289","side":"model","ord":5,"text":"гребни таза смотрят вперёд"}
+{"id":"f7e260e7-883f-7ed3-b7bf-6fdfd70dd90b","oracle_id":"01a0889d-852b-7fcf-9a4a-eb33ac06e289","side":"model","ord":6,"text":"ладони лежат на поручнях"}
+{"id":"b72df8b3-e525-734f-bca9-cf0bb25f0ee7","oracle_id":"01a0889d-852b-7fcf-9a4a-eb33ac06e289","side":"model","ord":7,"text":"колени смотрят вперёд"}
+{"id":"a0745717-fccf-727b-99b1-ac4f789ef753","oracle_id":"01a0889d-852b-7fcf-9a4a-eb33ac06e289","side":"model","ord":8,"text":"стопы стоят на боковых площадках тренажёра"}
+{"id":"a788ef9f-7926-7853-ab7a-067765542e6b","oracle_id":"01a0889d-852b-7fcf-9a4a-eb33ac06e289","side":"counter","ord":1,"text":"покрытие пола скользкое"}
+{"id":"383a8edf-876f-7eb3-8d30-e7871c34ea1b","oracle_id":"01a0889d-852d-71cf-b7c9-5d9e46b344f1","side":"model","ord":1,"text":"аварийный шнур закреплён на поясе"}
+{"id":"79334349-ea6f-706d-b426-e92164f85825","oracle_id":"01a0889d-852d-71cf-b7c9-5d9e46b344f1","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"2f41f3aa-378e-79e6-a5ee-d4d2786f0c6e","oracle_id":"01a0889d-852f-7067-af05-d65fc48d7c2b","side":"model","ord":1,"text":"скорость на минимальном значении"}
+{"id":"249a204a-189e-76e6-ac69-36823a1aa23e","oracle_id":"01a0889d-852f-7067-af05-d65fc48d7c2b","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"49b95222-a22b-79ce-af2c-010a01472256","oracle_id":"01a0889d-8532-7523-bc8c-14105a71f764","side":"model","ord":1,"text":"стопы опущены на полотно по одной"}
+{"id":"b53ca8f8-7331-755c-bd7b-63b06223b634","oracle_id":"01a0889d-8532-7523-bc8c-14105a71f764","side":"model","ord":2,"text":"гребни таза смотрят вперёд"}
+{"id":"7e92e0ee-5621-7aca-9bbf-3f365888aab2","oracle_id":"01a0889d-8532-7523-bc8c-14105a71f764","side":"model","ord":3,"text":"стопы стоят на полотне тренажёра"}
+{"id":"e6e60b9a-f837-7b96-b78a-6e52ec83828e","oracle_id":"01a0889d-8532-7523-bc8c-14105a71f764","side":"counter","ord":1,"text":"полотно скользит под стопой"}
+{"id":"07a6c53a-fe43-7576-9090-8142ce5f925e","oracle_id":"01a0889d-8534-7c20-a8f5-94d5e2e1a7c9","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"a378d0bd-dee1-7fe9-8a2f-8fb511336101","oracle_id":"01a0889d-8534-7c20-a8f5-94d5e2e1a7c9","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"d19cc34b-ef87-7bc7-a450-69032a6fc4df","oracle_id":"01a0889d-8534-7c20-a8f5-94d5e2e1a7c9","side":"counter","ord":1,"text":"вес корпуса лежит на поручнях"}
+{"id":"36385ca9-019a-7fed-b310-efc1e3cf2e65","oracle_id":"01a0889d-8536-78d4-a6ac-fa6e6f2d5878","side":"model","ord":1,"text":"взгляд направлен вперёд"}
+{"id":"bf4af626-0019-78ea-af27-aedebcda3282","oracle_id":"01a0889d-8536-78d4-a6ac-fa6e6f2d5878","side":"counter","ord":1,"text":"шея выдвигается вперёд"}
+{"id":"72ba5e51-b03f-76b5-8f4d-4399da8d0b1d","oracle_id":"01a0889d-8538-7021-adae-dafaa6b669f1","side":"model","ord":1,"text":"плечи опущены"}
+{"id":"0719323e-49cb-795a-946c-0c36eb32e112","oracle_id":"01a0889d-8538-7021-adae-dafaa6b669f1","side":"counter","ord":1,"text":"вес тела переносится на поручни"}
+{"id":"1a47443f-bcb6-7dd3-968b-b8475d761e5b","oracle_id":"01a0889d-853b-7025-bef0-af3eb8a9bc1d","side":"model","ord":1,"text":"шаг удлиняется назад"}
+{"id":"555bec49-0579-703d-8ca9-ee41bcec4795","oracle_id":"01a0889d-853b-7025-bef0-af3eb8a9bc1d","side":"model","ord":2,"text":"руки согнуты в локтях"}
+{"id":"a5e984e8-be48-731c-b6fd-9310a4e302a4","oracle_id":"01a0889d-853b-7025-bef0-af3eb8a9bc1d","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"c5b6c746-1a22-7aea-8160-067e4f71f2c2","oracle_id":"01a0889d-853b-7025-bef0-af3eb8a9bc1d","side":"counter","ord":1,"text":"хват за поручни двумя руками"}
+{"id":"4309bcaf-e060-7cbb-8662-c1a70689b9b3","oracle_id":"01a0889d-853b-7025-bef0-af3eb8a9bc1d","side":"counter","ord":2,"text":"шаги вразнобой"}
+{"id":"1b39f012-600b-7506-9a93-889aa456f12e","oracle_id":"01a0889d-853b-7025-bef0-af3eb8a9bc1d","side":"counter","ord":3,"text":"кисть ударяется о бедро"}
+{"id":"0f8f0049-fa8a-731d-b7e9-82b15ec1c665","oracle_id":"01a0889d-853f-7009-9bb0-be7fa5d43360","side":"model","ord":1,"text":"поясница нейтральна"}
+{"id":"dcf8bc7e-1de3-7a02-bd58-6f6671fa6baa","oracle_id":"01a0889d-853f-7009-9bb0-be7fa5d43360","side":"counter","ord":1,"text":"пальцы разгибаются в стороны"}
+{"id":"8bab1621-5f68-7265-80e8-9059f6e2155d","oracle_id":"01a0889d-8541-79fa-a8e1-653d65790522","side":"model","ord":1,"text":"стопа катится с пятки на носок"}
+{"id":"1692c52d-d969-7a79-b9d9-5e7574c8c8c1","oracle_id":"01a0889d-8541-79fa-a8e1-653d65790522","side":"counter","ord":1,"text":"опорная стопа подворачивается внутрь"}
+{"id":"f53ad5cb-aa28-7e67-86c0-7d3331a8a3af","oracle_id":"01a0889d-8541-79fa-a8e1-653d65790522","side":"counter","ord":2,"text":"покалывание в стопе"}
+{"id":"3849fc8c-b226-7850-af3c-a984be5ad6c8","oracle_id":"01a0889d-8544-7e6b-a8f4-c6fa6135aeb4","side":"model","ord":1,"text":"скорость растёт ступенями"}
+{"id":"16fa6896-e2cc-7242-874d-010e0644e15a","oracle_id":"01a0889d-8544-7e6b-a8f4-c6fa6135aeb4","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"6ce3db91-b26a-78e5-b513-c269c2ecc8bd","oracle_id":"01a0889d-8547-7240-8c1c-ef6e90116672","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"abf8747e-6603-7f42-96a6-0606a3d41e6a","oracle_id":"01a0889d-8547-7240-8c1c-ef6e90116672","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"334a7eb1-8a3e-7b9d-8884-3d19af923925","oracle_id":"01a0889d-8547-7240-8c1c-ef6e90116672","side":"model","ord":3,"text":"руки движутся вдоль корпуса"}
+{"id":"0085e7f1-1048-7d15-b004-26f971f1569d","oracle_id":"01a0889d-8547-7240-8c1c-ef6e90116672","side":"model","ord":4,"text":"взгляд направлен вперёд"}
+{"id":"ea844894-1256-7408-9950-fa7cfbb29bb0","oracle_id":"01a0889d-8547-7240-8c1c-ef6e90116672","side":"model","ord":5,"text":"гребни таза смотрят вперёд"}
+{"id":"e0602074-f544-7760-8793-529cf9f42be8","oracle_id":"01a0889d-8547-7240-8c1c-ef6e90116672","side":"model","ord":6,"text":"колени смотрят вперёд"}
+{"id":"368ae8d5-558d-7be1-ab97-385d8a2e11e9","oracle_id":"01a0889d-8547-7240-8c1c-ef6e90116672","side":"model","ord":7,"text":"стопы шагают по полотну целиком"}
+{"id":"c88585c2-cd32-7a66-acb0-ab3ad3c5c63e","oracle_id":"01a0889d-8547-7240-8c1c-ef6e90116672","side":"model","ord":8,"text":"руки движутся над поручнями тренажёра"}
+{"id":"ed9ec1af-4016-789b-86bf-c5a728299193","oracle_id":"01a0889d-8547-7240-8c1c-ef6e90116672","side":"counter","ord":1,"text":"стопа шлёпает о полотно"}
+{"id":"57508a81-3566-7d35-8490-56d9fea2c62d","oracle_id":"01a0889d-8547-7240-8c1c-ef6e90116672","side":"counter","ord":2,"text":"тянущая боль в пояснице"}
+{"id":"9998f52e-bf07-7a7a-8848-9b96e3603302","oracle_id":"01a0889d-8547-7240-8c1c-ef6e90116672","side":"counter","ord":3,"text":"к концу подхода подбородок выдвигается вперёд"}
+{"id":"3b812dee-f76d-704a-9d49-16b60ffd2652","oracle_id":"01a0889d-8547-7240-8c1c-ef6e90116672","side":"counter","ord":4,"text":"полотно скользит под стопой"}
+{"id":"52030653-da2d-7a8f-aa95-092b94fa6427","oracle_id":"01a0889d-854c-726e-8d4a-5d607e00341e","side":"model","ord":1,"text":"дыхание ровное"}
+{"id":"868bd41b-021b-760f-82f0-cb63795505b7","oracle_id":"01a0889d-854c-726e-8d4a-5d607e00341e","side":"counter","ord":1,"text":"жжение при вдохе"}
+{"id":"88d016d2-97b2-77de-af69-4daa9e699d76","oracle_id":"01a0889d-854c-726e-8d4a-5d607e00341e","side":"counter","ord":2,"text":"подбородок выдвигается вперёд"}
+{"id":"3bdab9f4-b4f0-77d0-b13c-b8cc56cc4be8","oracle_id":"01a0889d-854f-76eb-a73b-7971708dde5f","side":"model","ord":1,"text":"длина шага постоянна"}
+{"id":"dd300905-9692-7e79-a071-85ed14800421","oracle_id":"01a0889d-854f-76eb-a73b-7971708dde5f","side":"counter","ord":1,"text":"прострел в пояснице"}
+{"id":"b482108c-a77d-7f80-8c72-f414f601ab28","oracle_id":"01a0889d-8552-751b-a09a-1a44de23dc0b","side":"model","ord":1,"text":"стопы стоят на полотне"}
+{"id":"bc9b726c-8370-7328-8a9a-a864ec480340","oracle_id":"01a0889d-8552-751b-a09a-1a44de23dc0b","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"09b4a7ee-dc6c-78f2-b9f6-14c6da4e31aa","oracle_id":"01a0889d-8552-751b-a09a-1a44de23dc0b","side":"model","ord":3,"text":"руки движутся вдоль корпуса"}
+{"id":"f863c30f-49bb-72cb-9c55-fa17ea4876f3","oracle_id":"01a0889d-8552-751b-a09a-1a44de23dc0b","side":"model","ord":4,"text":"руки движутся над поручнями тренажёра"}
+{"id":"994f1e65-71df-7d51-80f3-d9cd5fa026d9","oracle_id":"01a0889d-8552-751b-a09a-1a44de23dc0b","side":"counter","ord":1,"text":"пульс бьёт в горле"}
+{"id":"76e977ce-a3d3-7662-8c98-c4266c455e1a","oracle_id":"01a0889d-8552-751b-a09a-1a44de23dc0b","side":"counter","ord":2,"text":"покалывание в пальцах кисти"}
+{"id":"82bb99ba-b972-78fe-b559-2222ff047b66","oracle_id":"01a0889d-8555-7376-afdc-df38e954a797","side":"model","ord":1,"text":"шаг укорачивается"}
+{"id":"e4085d1d-3265-7371-a9b8-5885189979f9","oracle_id":"01a0889d-8555-7376-afdc-df38e954a797","side":"counter","ord":1,"text":"жжение в мышце по ходу движения"}
+{"id":"446fa96c-6392-7b08-ae45-c2d42e3c1bd0","oracle_id":"01a0889d-8557-761a-9d26-1cb306f007c7","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"2ea82b4e-45d7-7762-af54-67e616482f7a","oracle_id":"01a0889d-8557-761a-9d26-1cb306f007c7","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"0c36e369-eea2-777d-9490-0d71876c5265","oracle_id":"01a0889d-8559-700d-aa0a-09c4126b08aa","side":"model","ord":1,"text":"скорость снижается ступенями"}
+{"id":"7a4f202c-3d0b-7e98-8182-9c6495442ff0","oracle_id":"01a0889d-8559-700d-aa0a-09c4126b08aa","side":"model","ord":2,"text":"дыхание восстанавливается"}
+{"id":"ec25b51c-3c19-7d58-8cb3-cdd4c0884bb0","oracle_id":"01a0889d-8559-700d-aa0a-09c4126b08aa","side":"counter","ord":1,"text":"к концу подхода подбородок выдвигается вперёд"}
+{"id":"13f60963-5995-7faf-9c41-434bc5532017","oracle_id":"01a0889d-855c-7303-8df7-92c52df09101","side":"model","ord":1,"text":"стопы переставлены на боковые площадки"}
+{"id":"2af0f356-7cc0-7a82-b785-1a8efe03e95a","oracle_id":"01a0889d-855c-7303-8df7-92c52df09101","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"32bc6f61-82b9-7e4d-ab26-41b96a1bfcc5","oracle_id":"01a0889d-855c-7303-8df7-92c52df09101","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"6feda495-3a50-73e1-9203-44cd94ffbf59","oracle_id":"01a0889d-855c-7303-8df7-92c52df09101","side":"model","ord":4,"text":"руки висят вдоль тела"}
+{"id":"e45ace7e-960e-774a-b97e-bac6c3434cb2","oracle_id":"01a0889d-855c-7303-8df7-92c52df09101","side":"model","ord":5,"text":"стопы стоят на раме тренажёра"}
+{"id":"e1459132-5178-79ae-ac22-ee2a213171a6","oracle_id":"01a0889d-855c-7303-8df7-92c52df09101","side":"counter","ord":1,"text":"стук носка о раму слышен с каждой перестановкой"}
+{"id":"eac953e6-e5e5-7d1a-bf13-ccbe9a52d152","oracle_id":"01a0889d-855e-7ba5-95a3-1266fe60347f","side":"model","ord":1,"text":"полотно остановлено"}
+{"id":"26fdf9d2-c163-7636-88d6-c5ea6cf2b24e","oracle_id":"01a0889d-855e-7ba5-95a3-1266fe60347f","side":"model","ord":2,"text":"аварийный шнур снят"}
+{"id":"a742ff29-16a7-7d15-a979-1f21c88be24d","oracle_id":"01a0889d-855e-7ba5-95a3-1266fe60347f","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"89f8e88f-c89c-7c0b-914e-0897c003fc33","oracle_id":"01a0889d-8560-749b-a43e-4536b6f863e8","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"3a578ea7-823e-7073-8b60-197fc68b918b","oracle_id":"01a0889d-8560-749b-a43e-4536b6f863e8","side":"counter","ord":1,"text":"головокружение при сходе"}
+{"id":"ab8b5159-6564-7e1d-a29f-5511e3123575","oracle_id":"01a0889d-8567-7454-ad00-6be3ad1e61b5","side":"model","ord":1,"text":"скорость ступеней на минимальном значении"}
+{"id":"1a0b1c4d-3160-7379-8f72-72459cbb6691","oracle_id":"01a0889d-8567-7454-ad00-6be3ad1e61b5","side":"model","ord":2,"text":"лента ступеней неподвижна"}
+{"id":"12be07f6-8eb1-77e2-8bd5-404ec2e5cfda","oracle_id":"01a0889d-8567-7454-ad00-6be3ad1e61b5","side":"model","ord":3,"text":"взгляд направлен на консоль"}
+{"id":"b8e80988-fdce-7c94-93c8-83f0f677f23c","oracle_id":"01a0889d-8567-7454-ad00-6be3ad1e61b5","side":"model","ord":4,"text":"ладони лежат на поручнях"}
+{"id":"7175e9aa-7406-7f96-be25-a4920bbcb55e","oracle_id":"01a0889d-8567-7454-ad00-6be3ad1e61b5","side":"model","ord":5,"text":"колени смотрят вперёд"}
+{"id":"3f43bddc-a23a-73b8-9e27-db6476bba360","oracle_id":"01a0889d-8567-7454-ad00-6be3ad1e61b5","side":"model","ord":6,"text":"стопы опираются на ступень целиком"}
+{"id":"95ba4ea2-c2ad-79e6-8af9-caca9f06e7ae","oracle_id":"01a0889d-8567-7454-ad00-6be3ad1e61b5","side":"counter","ord":1,"text":"покрытие пола скользкое"}
+{"id":"40239ec7-f33b-738b-a83a-6b7f29c77343","oracle_id":"01a0889d-8569-7b5b-bd46-7a06cb3fb170","side":"model","ord":1,"text":"выбран ручной режим"}
+{"id":"e784f5e9-7e5c-783d-9e5e-14e1b6a32175","oracle_id":"01a0889d-8569-7b5b-bd46-7a06cb3fb170","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"68a74354-dd57-7940-9fa9-0d9ceb7009e8","oracle_id":"01a0889d-856b-7da8-a82e-3ea4de2d308f","side":"model","ord":1,"text":"поручни на уровне таза"}
+{"id":"31e7a1be-1c69-77a2-a265-9d464847004a","oracle_id":"01a0889d-856b-7da8-a82e-3ea4de2d308f","side":"counter","ord":1,"text":"вес тела переносится на поручни"}
+{"id":"f2de60bc-81d8-7ed8-89a3-6cb44797a050","oracle_id":"01a0889d-856e-789a-b20c-bb88db888055","side":"model","ord":1,"text":"стопа ставится на ступень целиком"}
+{"id":"398826bc-c64e-7808-b40b-9314167b8ce0","oracle_id":"01a0889d-856e-789a-b20c-bb88db888055","side":"model","ord":2,"text":"гребни таза смотрят вперёд"}
+{"id":"52ea70c7-16f8-7f8b-88ed-4ddf6600bda3","oracle_id":"01a0889d-856e-789a-b20c-bb88db888055","side":"counter","ord":1,"text":"грохот ступени под стопой"}
+{"id":"953c1554-ab14-7330-b115-07ecc7f1acc8","oracle_id":"01a0889d-8570-73c1-a245-8a5f7d90b71e","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"e8b9267f-75fb-79ab-8634-3ac7420fb2d3","oracle_id":"01a0889d-8570-73c1-a245-8a5f7d90b71e","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"51be57c6-9235-721a-afe2-945e358a3bf2","oracle_id":"01a0889d-8570-73c1-a245-8a5f7d90b71e","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"153002b2-9ff6-7f3e-ad48-0b9aef086786","oracle_id":"01a0889d-8572-7f18-bf55-cc682d75b98b","side":"model","ord":1,"text":"взгляд направлен вперёд"}
+{"id":"b7c15869-0a7e-7715-8884-02913485221d","oracle_id":"01a0889d-8572-7f18-bf55-cc682d75b98b","side":"counter","ord":1,"text":"шея выдвигается вперёд"}
+{"id":"bea1de30-0912-7eac-9f67-31881307ef64","oracle_id":"01a0889d-8574-75cb-a3b6-a865d1d1ee73","side":"model","ord":1,"text":"кисти лежат на поручнях свободно"}
+{"id":"6305fa99-62b8-7c8d-a890-c75141400525","oracle_id":"01a0889d-8574-75cb-a3b6-a865d1d1ee73","side":"counter","ord":1,"text":"онемение в кисти"}
+{"id":"c8b58889-3a34-77bd-89a6-96b11a023b45","oracle_id":"01a0889d-8577-75d9-93c1-02b7e92df720","side":"model","ord":1,"text":"колено поднимается до высоты ступени"}
+{"id":"54d465f4-3e00-7748-87f6-f5ccd5b42f20","oracle_id":"01a0889d-8577-75d9-93c1-02b7e92df720","side":"model","ord":2,"text":"бёдра работают поочерёдно"}
+{"id":"1d2f00d5-9271-7261-a145-e36d51e2ee39","oracle_id":"01a0889d-8577-75d9-93c1-02b7e92df720","side":"model","ord":3,"text":"взгляд направлен вперёд"}
+{"id":"36bb1848-2f2f-7684-8651-70403f1c283c","oracle_id":"01a0889d-8577-75d9-93c1-02b7e92df720","side":"model","ord":4,"text":"гребни таза смотрят вперёд"}
+{"id":"b5db552f-b096-76fb-84cb-29770338ff03","oracle_id":"01a0889d-8577-75d9-93c1-02b7e92df720","side":"model","ord":5,"text":"кисти лежат на поручнях"}
+{"id":"d64522b0-bf98-70d4-885a-fcc8119bf4ac","oracle_id":"01a0889d-8577-75d9-93c1-02b7e92df720","side":"model","ord":6,"text":"стопа встаёт на ступень целиком"}
+{"id":"416319af-48b9-7b2b-afd9-92c7ddc5b783","oracle_id":"01a0889d-8577-75d9-93c1-02b7e92df720","side":"counter","ord":1,"text":"опора предплечьями на поручни"}
+{"id":"28989cea-19ef-7a4e-adfc-f1d2ae1b9f16","oracle_id":"01a0889d-8577-75d9-93c1-02b7e92df720","side":"counter","ord":2,"text":"жжение в шее"}
+{"id":"29410054-e07d-7bc8-b671-1aec0566e940","oracle_id":"01a0889d-857a-7711-999b-741b9e254971","side":"model","ord":1,"text":"поясница нейтральна"}
+{"id":"0772388f-5f2a-7a7b-a476-16579d5c4783","oracle_id":"01a0889d-857a-7711-999b-741b9e254971","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"f0fe8421-1d7c-7275-9890-54e9c4d53d9d","oracle_id":"01a0889d-857c-7a42-8ec8-18f0183b3eb8","side":"model","ord":1,"text":"шаг идёт от пятки"}
+{"id":"854b1969-1e62-7a45-a520-cc41c882d43d","oracle_id":"01a0889d-857c-7a42-8ec8-18f0183b3eb8","side":"counter","ord":1,"text":"вес уходит на пятки"}
+{"id":"d73351ae-4240-7872-bd45-03967e9aa0fa","oracle_id":"01a0889d-857c-7a42-8ec8-18f0183b3eb8","side":"counter","ord":2,"text":"приземление идёт с ударом пятки"}
+{"id":"3b2551b4-11d0-79c8-83f6-649c0b0bbcb0","oracle_id":"01a0889d-857f-717b-a3aa-be127b68a68f","side":"model","ord":1,"text":"скорость растёт ступенями"}
+{"id":"a88ef81a-f1c0-7576-93a2-5ca25957c89e","oracle_id":"01a0889d-857f-717b-a3aa-be127b68a68f","side":"counter","ord":1,"text":"грохот ступени под стопой"}
+{"id":"bd4738e2-c6c3-7b4e-9e57-669a03e41c46","oracle_id":"01a0889d-8582-7cb0-a722-059b37811ed8","side":"model","ord":1,"text":"ритм шагов ровный"}
+{"id":"415873cd-b1c5-78f9-ae18-8b5589a3fac1","oracle_id":"01a0889d-8582-7cb0-a722-059b37811ed8","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"c71dd1e0-c639-707c-9ab0-ebc8403dc124","oracle_id":"01a0889d-8582-7cb0-a722-059b37811ed8","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"125ccb97-88c2-70c3-8d2e-2aaff3f2e59b","oracle_id":"01a0889d-8582-7cb0-a722-059b37811ed8","side":"model","ord":4,"text":"кисти лежат на поручнях"}
+{"id":"451e8c15-6b99-7db1-8d73-7b9ded0a3299","oracle_id":"01a0889d-8582-7cb0-a722-059b37811ed8","side":"counter","ord":1,"text":"вес переносится на поручни к концу отрезка"}
+{"id":"02ce23a0-47fc-754c-8171-d9e8d291bb34","oracle_id":"01a0889d-8582-7cb0-a722-059b37811ed8","side":"counter","ord":2,"text":"колени сходятся внутрь"}
+{"id":"eb4afb28-2385-7554-9b12-a720dcf938ec","oracle_id":"01a0889d-8582-7cb0-a722-059b37811ed8","side":"counter","ord":3,"text":"жжение при вдохе"}
+{"id":"4e38903e-409b-7352-a01b-084620cc0a3a","oracle_id":"01a0889d-8586-70c3-ba96-b2c236f1a48e","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"02dff7a1-98b0-7fa5-a0de-5a9956ed65bd","oracle_id":"01a0889d-8586-70c3-ba96-b2c236f1a48e","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"6f2dfd15-ab38-7659-aa3d-f32d58d83571","oracle_id":"01a0889d-8586-70c3-ba96-b2c236f1a48e","side":"model","ord":3,"text":"стопа ставится на ступень целиком"}
+{"id":"ef867de4-7437-7c40-9687-daec710c8ee8","oracle_id":"01a0889d-8586-70c3-ba96-b2c236f1a48e","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"4dd4d645-6b9a-7b29-9485-590dad1cf771","oracle_id":"01a0889d-8588-74be-b3e1-18c926074d0a","side":"model","ord":1,"text":"дыхание ровное"}
+{"id":"d415acc4-ff1b-7e98-86a5-514c730a9600","oracle_id":"01a0889d-8588-74be-b3e1-18c926074d0a","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"41600ce7-8385-777b-bf3b-e46f760a1f23","oracle_id":"01a0889d-858b-797e-a1c4-f4f8cf7f9479","side":"model","ord":1,"text":"стопы стоят на ступенях"}
+{"id":"6bddc3ae-3d40-79ba-b837-72665251d212","oracle_id":"01a0889d-858b-797e-a1c4-f4f8cf7f9479","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"82969299-4d78-78e5-ac0a-3471673aa95d","oracle_id":"01a0889d-858b-797e-a1c4-f4f8cf7f9479","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"3b949666-aee4-76d2-8239-714e464cb07a","oracle_id":"01a0889d-858b-797e-a1c4-f4f8cf7f9479","side":"model","ord":4,"text":"кисти лежат на поручнях"}
+{"id":"0149433d-dfaf-73d1-9fc4-99158bb25769","oracle_id":"01a0889d-858b-797e-a1c4-f4f8cf7f9479","side":"model","ord":5,"text":"стопа опирается на ступень целиком"}
+{"id":"642fdfd7-ff91-7273-b328-c33f2cd5e6db","oracle_id":"01a0889d-858b-797e-a1c4-f4f8cf7f9479","side":"counter","ord":1,"text":"пульс бьёт в горле"}
+{"id":"c91ffd57-8d21-706b-a993-eb7f5cc9ca33","oracle_id":"01a0889d-858b-797e-a1c4-f4f8cf7f9479","side":"counter","ord":2,"text":"вес тела переносится на поручни"}
+{"id":"8fac1ad9-111b-7a5d-aec6-d5216bf00ee5","oracle_id":"01a0889d-858b-797e-a1c4-f4f8cf7f9479","side":"counter","ord":3,"text":"жжение в шее"}
+{"id":"6f89c3ef-c44e-78cb-b4e3-a6778af4c673","oracle_id":"01a0889d-858f-7a33-b531-51e412ade4e6","side":"model","ord":1,"text":"шаг укорачивается"}
+{"id":"acd12ed4-dae3-7920-8ed1-6a5cd88f3ec8","oracle_id":"01a0889d-858f-7a33-b531-51e412ade4e6","side":"counter","ord":1,"text":"онемение в предплечье"}
+{"id":"6dff4c3c-5dce-7a18-b529-b4847cc91c80","oracle_id":"01a0889d-8591-7ec9-8c70-a7f3ba14dfb1","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"aa40c4fe-aa09-70d2-81f0-c936dee6e70a","oracle_id":"01a0889d-8591-7ec9-8c70-a7f3ba14dfb1","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"6b2f71a9-9b90-7685-8012-9f118c9e1e6d","oracle_id":"01a0889d-8593-7aef-b0be-a2aa2e28d009","side":"model","ord":1,"text":"скорость снижается ступенями"}
+{"id":"e73559ec-8961-7dd0-8858-614477a51d88","oracle_id":"01a0889d-8593-7aef-b0be-a2aa2e28d009","side":"model","ord":2,"text":"дыхание восстанавливается"}
+{"id":"535fb7dc-088b-7710-b1fd-50b4d47a39c8","oracle_id":"01a0889d-8593-7aef-b0be-a2aa2e28d009","side":"counter","ord":1,"text":"к концу подхода подбородок выдвигается вперёд"}
+{"id":"d66d68ff-eec2-7433-9eec-b4d783b6574b","oracle_id":"01a0889d-8596-7e3f-b8b4-8c59b63374cc","side":"model","ord":1,"text":"стопы переставлены на боковые площадки"}
+{"id":"176a5952-4478-7326-aca1-3b9a837d6e8e","oracle_id":"01a0889d-8596-7e3f-b8b4-8c59b63374cc","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"425eb01d-f9fb-74b1-8d2a-6085f49a3db9","oracle_id":"01a0889d-8596-7e3f-b8b4-8c59b63374cc","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"47ce1f91-1081-7b85-8300-c7998e7860cd","oracle_id":"01a0889d-8596-7e3f-b8b4-8c59b63374cc","side":"model","ord":4,"text":"руки висят вдоль тела"}
+{"id":"6034a2da-a06e-7e4e-8c87-00f23bbbaec6","oracle_id":"01a0889d-8596-7e3f-b8b4-8c59b63374cc","side":"model","ord":5,"text":"стопы стоят на раме тренажёра"}
+{"id":"3d04864c-d9ea-75d8-9f35-1e5424d7c160","oracle_id":"01a0889d-8596-7e3f-b8b4-8c59b63374cc","side":"counter","ord":1,"text":"стук стопы о боковую площадку"}
+{"id":"60b0cf0d-8528-7e79-9331-f955b4335381","oracle_id":"01a0889d-8598-7822-a5a5-4a2d08087cef","side":"model","ord":1,"text":"лента остановлена"}
+{"id":"1e18c1f2-eb34-728e-aa43-32eafebf6606","oracle_id":"01a0889d-8598-7822-a5a5-4a2d08087cef","side":"counter","ord":1,"text":"головокружение при сходе"}
+{"id":"684b4b20-e0a7-7b3c-bcad-50e8a1400424","oracle_id":"01a0889d-859a-787a-a705-47ccc76b1956","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"3f8db57b-caf1-74b7-9e55-4633261705af","oracle_id":"01a0889d-859a-787a-a705-47ccc76b1956","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"dd2c94bd-ab21-75f1-90c4-7c3579974ee9","oracle_id":"01a0889d-859a-787a-a705-47ccc76b1956","side":"counter","ord":1,"text":"колени сходятся внутрь на опоре"}
+{"id":"06bb927b-ade1-700f-98c0-54d3fda97f47","oracle_id":"01a0889d-85a1-7f86-ad72-7c36178a24b7","side":"model","ord":1,"text":"рукояти висят на уровне лба"}
+{"id":"372975f9-c846-729d-985b-67b1f2d7abb5","oracle_id":"01a0889d-85a1-7f86-ad72-7c36178a24b7","side":"model","ord":2,"text":"взгляд направлен на консоль"}
+{"id":"916c6199-8c7d-773d-9703-c2b1e64c9655","oracle_id":"01a0889d-85a1-7f86-ad72-7c36178a24b7","side":"model","ord":3,"text":"корпус вертикален у рамы"}
+{"id":"1b122563-6d27-73f7-aba7-462b7c55c81f","oracle_id":"01a0889d-85a1-7f86-ad72-7c36178a24b7","side":"model","ord":4,"text":"гребни таза смотрят к тренажёру"}
+{"id":"60a926ec-9925-78a0-a7b7-0974760e8fc8","oracle_id":"01a0889d-85a1-7f86-ad72-7c36178a24b7","side":"model","ord":5,"text":"ладони лежат на рукоятях"}
+{"id":"dcba018f-bfea-7273-828c-e7b7c4e05c3b","oracle_id":"01a0889d-85a1-7f86-ad72-7c36178a24b7","side":"model","ord":6,"text":"колени смотрят вперёд"}
+{"id":"a6dde5e3-cff0-73a7-9f99-da6b8a3a98cf","oracle_id":"01a0889d-85a1-7f86-ad72-7c36178a24b7","side":"counter","ord":1,"text":"стук рукояти о раму"}
+{"id":"d85e542f-340f-70eb-b24b-66a72402e4e3","oracle_id":"01a0889d-85a3-7938-a92f-2101ebe282f5","side":"model","ord":1,"text":"демпфер выставлен на нижнее значение"}
+{"id":"01b3a303-e985-7dbf-9375-df9bf1d04917","oracle_id":"01a0889d-85a3-7938-a92f-2101ebe282f5","side":"model","ord":2,"text":"монитор обнулён"}
+{"id":"7dec3e11-a3ef-732d-a862-97092ac23285","oracle_id":"01a0889d-85a3-7938-a92f-2101ebe282f5","side":"model","ord":3,"text":"маховик неподвижен"}
+{"id":"baedf34e-f6f7-7a62-aad5-d13664ec4daa","oracle_id":"01a0889d-85a3-7938-a92f-2101ebe282f5","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"bcf551b7-42f3-7c13-bf46-2aafbb3df1ab","oracle_id":"01a0889d-85a6-7174-a462-81ec1b8dd8f7","side":"model","ord":1,"text":"стопы на ширине таза"}
+{"id":"99b465ee-78d2-78b2-a319-bef6b3f3c17a","oracle_id":"01a0889d-85a6-7174-a462-81ec1b8dd8f7","side":"model","ord":2,"text":"корпус вертикален"}
+{"id":"b1a96871-a261-78c5-8600-13692d6446fd","oracle_id":"01a0889d-85a6-7174-a462-81ec1b8dd8f7","side":"model","ord":3,"text":"поясница нейтральна"}
+{"id":"eddb0f03-adcc-7cc7-a99f-6a7b5df488ff","oracle_id":"01a0889d-85a6-7174-a462-81ec1b8dd8f7","side":"counter","ord":1,"text":"плечи подтянуты к ушам"}
+{"id":"063e2340-4213-7194-b249-34b858e77bec","oracle_id":"01a0889d-85a8-7c20-887f-4fb22d279208","side":"model","ord":1,"text":"кисти держат рукояти над головой"}
+{"id":"545b6840-1f6c-789c-aaa7-f0487438ee84","oracle_id":"01a0889d-85a8-7c20-887f-4fb22d279208","side":"counter","ord":1,"text":"вес тела переносится на рукояти"}
+{"id":"83065ba9-4cb7-7245-bd00-31f157264ced","oracle_id":"01a0889d-85aa-74c3-8fe9-2761effa7998","side":"model","ord":1,"text":"колени слегка согнуты"}
+{"id":"3fa4dcc2-485c-79fe-bb19-d39a9f3edd16","oracle_id":"01a0889d-85aa-74c3-8fe9-2761effa7998","side":"model","ord":2,"text":"рёбра опущены вниз"}
+{"id":"ec4d595a-fa99-7b8e-a91b-a382daa2b576","oracle_id":"01a0889d-85aa-74c3-8fe9-2761effa7998","side":"counter","ord":1,"text":"покалывание в стопе"}
+{"id":"892f1d9d-5037-7cb9-8904-8c1533f6f131","oracle_id":"01a0889d-85ad-78c0-b8b2-d7fa6389a74d","side":"model","ord":1,"text":"тяга идёт от широчайших"}
+{"id":"9c00a49d-3e38-73a1-9adc-2125f06d5769","oracle_id":"01a0889d-85ad-78c0-b8b2-d7fa6389a74d","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"bcaf0ae8-e4a3-79fc-a1f3-5820f4e00774","oracle_id":"01a0889d-85ad-78c0-b8b2-d7fa6389a74d","side":"model","ord":3,"text":"колени слегка согнуты"}
+{"id":"3739bee1-8e6e-7dfd-965a-ed8943e7e865","oracle_id":"01a0889d-85ad-78c0-b8b2-d7fa6389a74d","side":"counter","ord":1,"text":"стопа перекатывается на внешний край"}
+{"id":"217b967f-708c-74fb-9d54-660783756c63","oracle_id":"01a0889d-85af-7674-bcbc-8dca4926f626","side":"model","ord":1,"text":"локти проходят вдоль корпуса"}
+{"id":"ec364568-e4f9-784c-a687-0340b8473ce4","oracle_id":"01a0889d-85af-7674-bcbc-8dca4926f626","side":"model","ord":2,"text":"таз опускается назад слегка"}
+{"id":"25c9c003-bb8d-7227-bc69-760b79f06d8f","oracle_id":"01a0889d-85af-7674-bcbc-8dca4926f626","side":"model","ord":3,"text":"поясница нейтральна"}
+{"id":"7b0aa882-807f-793e-9b5d-f07a59543076","oracle_id":"01a0889d-85af-7674-bcbc-8dca4926f626","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"164c4d4c-6223-7460-bf34-6204cc470df8","oracle_id":"01a0889d-85b1-7bc9-97c3-7a277785e59d","side":"model","ord":1,"text":"возврат рукоятей плавный"}
+{"id":"2e68d6ba-b6fd-74de-9ff4-e502c03f00c6","oracle_id":"01a0889d-85b1-7bc9-97c3-7a277785e59d","side":"counter","ord":1,"text":"стук рукояти о раму"}
+{"id":"f4ef7084-d2fe-7c48-b923-5e9cfdca53a0","oracle_id":"01a0889d-85b4-7da4-99d2-dafdaabde30d","side":"model","ord":1,"text":"ритм тяги ровный"}
+{"id":"bc02a549-c88f-7afd-913c-a831b52eef25","oracle_id":"01a0889d-85b4-7da4-99d2-dafdaabde30d","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"498454cc-7c2c-7950-94ec-56548952bb98","oracle_id":"01a0889d-85b4-7da4-99d2-dafdaabde30d","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"28d05fb7-7de1-780b-ac36-f9ef9c78e103","oracle_id":"01a0889d-85b4-7da4-99d2-dafdaabde30d","side":"model","ord":4,"text":"кисти держат рукояти сверху"}
+{"id":"b98cce9c-b8f6-7e18-9069-9e441636eea0","oracle_id":"01a0889d-85b4-7da4-99d2-dafdaabde30d","side":"counter","ord":1,"text":"ротация корпуса при тяге"}
+{"id":"5d5bce30-a7e0-7f3c-b04d-195855424184","oracle_id":"01a0889d-85b4-7da4-99d2-dafdaabde30d","side":"counter","ord":2,"text":"онемение в кистях"}
+{"id":"b00f5f24-ba62-7458-b342-20dc68dd49f0","oracle_id":"01a0889d-85b4-7da4-99d2-dafdaabde30d","side":"counter","ord":3,"text":"жжение при вдохе"}
+{"id":"c6a495f4-89f4-7658-8c0f-ea9cbd734160","oracle_id":"01a0889d-85b8-7ad2-b33e-ecf80ec22350","side":"model","ord":1,"text":"поясница нейтральна"}
+{"id":"2da8c62a-978b-7ed6-8da3-d0628d83d04e","oracle_id":"01a0889d-85b8-7ad2-b33e-ecf80ec22350","side":"model","ord":2,"text":"возврат рукоятей плавный"}
+{"id":"8deb190f-23ab-7123-9d61-3da7080dbadb","oracle_id":"01a0889d-85b8-7ad2-b33e-ecf80ec22350","side":"counter","ord":1,"text":"тянущая боль в пояснице"}
+{"id":"02f33018-6da2-7a64-85d4-0fc06ba27e4c","oracle_id":"01a0889d-85ba-7378-a512-7df65f08c331","side":"model","ord":1,"text":"дыхание ровное"}
+{"id":"1fc2cd0b-c4b8-7877-8024-08f3971f13bf","oracle_id":"01a0889d-85ba-7378-a512-7df65f08c331","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"bcd23f24-b63a-7828-96e2-483c17ef6e40","oracle_id":"01a0889d-85bc-762b-b98e-7dee0ff88653","side":"model","ord":1,"text":"колени слегка согнуты"}
+{"id":"a7ffca33-fef7-71bf-9c8a-8c7b110a26e7","oracle_id":"01a0889d-85bc-762b-b98e-7dee0ff88653","side":"counter","ord":1,"text":"покалывание усиливается на последних повторах"}
+{"id":"384f01d8-abbe-79e4-9eba-85d0a57aabbc","oracle_id":"01a0889d-85bf-7ced-b6a7-0a0102db49cd","side":"model","ord":1,"text":"стопы стоят на платформе"}
+{"id":"a002dadb-cdd3-7ddf-99a7-a07386b99d77","oracle_id":"01a0889d-85bf-7ced-b6a7-0a0102db49cd","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"c87ac701-c2e5-7ad5-a34f-11a9aa810e3d","oracle_id":"01a0889d-85bf-7ced-b6a7-0a0102db49cd","side":"model","ord":3,"text":"кисти держат рукояти сверху"}
+{"id":"41a1fc23-8b22-74df-a3a8-f2aba9eae047","oracle_id":"01a0889d-85bf-7ced-b6a7-0a0102db49cd","side":"counter","ord":1,"text":"жжение в мышце по ходу движения"}
+{"id":"c986461a-19f6-7b76-9dcd-0582b1325f3e","oracle_id":"01a0889d-85bf-7ced-b6a7-0a0102db49cd","side":"counter","ord":2,"text":"удар рукоятей о раму"}
+{"id":"df2f68ed-fed6-7cb1-8cae-6e450e83e749","oracle_id":"01a0889d-85c2-719c-9e45-d59ab7e32a9e","side":"model","ord":1,"text":"амплитуда тяги укорачивается"}
+{"id":"971e636d-47d2-7019-99c5-63457e42af51","oracle_id":"01a0889d-85c2-719c-9e45-d59ab7e32a9e","side":"counter","ord":1,"text":"боль в локте на амплитуде"}
+{"id":"1adef1a8-bd5b-74c4-8abe-0730442b4d4c","oracle_id":"01a0889d-85c4-7905-8fd7-2dec00d616cb","side":"model","ord":1,"text":"корпус выпрямляется"}
+{"id":"cf5d7a66-38ac-765a-ace9-aa6ef9015dc2","oracle_id":"01a0889d-85c4-7905-8fd7-2dec00d616cb","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"452dcd93-75cf-7107-a526-92fbbe82508f","oracle_id":"01a0889d-85c4-7905-8fd7-2dec00d616cb","side":"counter","ord":1,"text":"выпрямление корпуса рывком"}
+{"id":"c394e4a1-673c-7c1d-b17e-b179f3e1c5f5","oracle_id":"01a0889d-85c6-7440-9e18-629d71fbbc47","side":"model","ord":1,"text":"дыхание восстанавливается"}
+{"id":"b0286120-6c8c-78dc-9ad6-81189ba59cf4","oracle_id":"01a0889d-85c6-7440-9e18-629d71fbbc47","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"6d40006a-d217-7f96-8369-69d20a83691e","oracle_id":"01a0889d-85c9-7810-aa48-d4e19d6e97a0","side":"model","ord":1,"text":"рукояти опущены к раме под контролем"}
+{"id":"8aa02f4b-cd01-790f-89e0-7a23e6f333c7","oracle_id":"01a0889d-85c9-7810-aa48-d4e19d6e97a0","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"dadd508e-5ce4-7c42-b00e-1346662de71a","oracle_id":"01a0889d-85c9-7810-aa48-d4e19d6e97a0","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"6deaadea-aa6a-7c66-9d0b-46a2da01827e","oracle_id":"01a0889d-85c9-7810-aa48-d4e19d6e97a0","side":"model","ord":4,"text":"колени смотрят вперёд"}
+{"id":"114e7d60-7eff-7c6c-8325-fde8351c89f4","oracle_id":"01a0889d-85c9-7810-aa48-d4e19d6e97a0","side":"counter","ord":1,"text":"головокружение при отходе"}
+{"id":"19180c66-0e6a-7c6a-8e43-f47e241043c2","oracle_id":"01a0889d-85c9-7810-aa48-d4e19d6e97a0","side":"counter","ord":2,"text":"резкая боль в колене"}
+{"id":"0480e342-bf58-762e-9947-7d6a14f22036","oracle_id":"01a0889d-85cc-7dfb-af49-c978619f4576","side":"model","ord":1,"text":"шаг назад от тренажёра"}
+{"id":"2eec41ff-2dbd-77f3-bc7e-c2a725fd0ffb","oracle_id":"01a0889d-85cc-7dfb-af49-c978619f4576","side":"counter","ord":1,"text":"покалывание в пальцах стопы"}
+{"id":"53fc7859-95aa-742d-9bab-08813a2192d5","oracle_id":"01a0889d-85ce-7206-9035-ed44314d5032","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"4deae8bd-f40a-7da9-b1e3-4a75c7f3b781","oracle_id":"01a0889d-85ce-7206-9035-ed44314d5032","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"baf00165-395a-79d1-9821-ebade6eedb19","oracle_id":"01a0889d-85d0-7a63-b169-29ab2aac36b3","side":"model","ord":1,"text":"дыхание ровное"}
+{"id":"d4255a35-bc51-7d11-9ea9-f3dd370145f9","oracle_id":"01a0889d-85d0-7a63-b169-29ab2aac36b3","side":"counter","ord":1,"text":"к концу подхода подбородок выдвигается вперёд"}
+{"id":"bc8acbeb-ebfd-73d7-b3c4-8fb3904c369f","oracle_id":"01a0889d-85d7-7d81-8572-b231c4b967ff","side":"model","ord":1,"text":"педали неподвижны"}
+{"id":"67aa9018-73ce-737c-b562-db00d0f485e4","oracle_id":"01a0889d-85d7-7d81-8572-b231c4b967ff","side":"model","ord":2,"text":"взгляд направлен на седло"}
+{"id":"42202229-5550-7bb5-bfb2-7551e721dfbd","oracle_id":"01a0889d-85d7-7d81-8572-b231c4b967ff","side":"model","ord":3,"text":"корпус вертикален у рамы"}
+{"id":"057e8ddc-bc8c-7168-bdbd-dcd4bb745920","oracle_id":"01a0889d-85d7-7d81-8572-b231c4b967ff","side":"model","ord":4,"text":"ладони лежат на рукоятях"}
+{"id":"3beae7bf-9480-7d5b-9ec9-27979931b9f3","oracle_id":"01a0889d-85d7-7d81-8572-b231c4b967ff","side":"model","ord":5,"text":"колени смотрят вперёд"}
+{"id":"bfd2a383-829d-7787-8e7c-369b262828df","oracle_id":"01a0889d-85d7-7d81-8572-b231c4b967ff","side":"counter","ord":1,"text":"покрытие пола скользкое"}
+{"id":"0e6d7d90-ad20-7204-9401-c118a5c761cc","oracle_id":"01a0889d-85d9-78b1-b088-3a1e7727eaf7","side":"model","ord":1,"text":"подвижные рычаги в вертикальном положении"}
+{"id":"dddb1930-7d2e-7784-a9db-5f883774aafc","oracle_id":"01a0889d-85d9-78b1-b088-3a1e7727eaf7","side":"model","ord":2,"text":"монитор обнулён"}
+{"id":"65758f9b-d39b-7f77-a688-1593a1df22ef","oracle_id":"01a0889d-85d9-78b1-b088-3a1e7727eaf7","side":"counter","ord":1,"text":"опорная стопа подворачивается внутрь"}
+{"id":"59f7328a-1483-7a0e-8198-c0d204518bb6","oracle_id":"01a0889d-85db-7667-8c6b-bf44a6bcfbe1","side":"model","ord":1,"text":"седло на уровне гребня таза стоя рядом"}
+{"id":"477d5339-5c24-799d-bc77-e0c14e6458a5","oracle_id":"01a0889d-85db-7667-8c6b-bf44a6bcfbe1","side":"counter","ord":1,"text":"седло качается в стакане"}
+{"id":"5b5a7fed-efec-75c1-a366-a025e6b377d9","oracle_id":"01a0889d-85de-74ba-8e0f-d949e1777317","side":"model","ord":1,"text":"стопа на педали серединой"}
+{"id":"9c1f4bff-ddc9-756b-9f79-a4e7cbdc6f73","oracle_id":"01a0889d-85de-74ba-8e0f-d949e1777317","side":"counter","ord":1,"text":"жжение в своде стопы"}
+{"id":"66eb9825-6af0-74f9-812b-bebdec3a9711","oracle_id":"01a0889d-85e0-7ef8-a022-1cf1abf8ed42","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"82c89b82-97a7-7fb6-8c8c-746ae7716ffe","oracle_id":"01a0889d-85e0-7ef8-a022-1cf1abf8ed42","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"1b188211-f3e6-7d1d-ac5e-14090a4a86b5","oracle_id":"01a0889d-85e0-7ef8-a022-1cf1abf8ed42","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"f3524357-00f6-7e73-af69-168f7366288b","oracle_id":"01a0889d-85e2-7a0a-9b99-1391e8ecbcf4","side":"model","ord":1,"text":"взгляд направлен вперёд"}
+{"id":"9e932dec-4fb6-7c48-9998-2cc46d182f40","oracle_id":"01a0889d-85e2-7a0a-9b99-1391e8ecbcf4","side":"counter","ord":1,"text":"шея выдвигается вперёд"}
+{"id":"0170e68b-a99e-7f2f-a599-3143b4dffba7","oracle_id":"01a0889d-85e4-70ad-8af1-ae2226a57c54","side":"model","ord":1,"text":"седалищные кости на седле"}
+{"id":"0e0633fd-1dde-7609-8bf7-27356b8982a1","oracle_id":"01a0889d-85e4-70ad-8af1-ae2226a57c54","side":"model","ord":2,"text":"кисти держат подвижные рычаги"}
+{"id":"3fe59642-4054-7cd6-afb5-90daa24b5aee","oracle_id":"01a0889d-85e4-70ad-8af1-ae2226a57c54","side":"model","ord":3,"text":"плечи опущены"}
+{"id":"8bc57d09-1efe-74c5-9ca0-c441a4fc379d","oracle_id":"01a0889d-85e4-70ad-8af1-ae2226a57c54","side":"counter","ord":1,"text":"онемение в кисти"}
+{"id":"bd9a5028-67d7-7044-97e0-b6e0ef414abc","oracle_id":"01a0889d-85e7-7a47-813f-2932acc3fe5f","side":"model","ord":1,"text":"рычаги толкаются вперёд поочерёдно"}
+{"id":"694e92b0-fed2-78cc-8543-dcb8146c04b4","oracle_id":"01a0889d-85e7-7a47-813f-2932acc3fe5f","side":"model","ord":2,"text":"движение рук согласовано с ногами"}
+{"id":"787476a7-d336-7053-b5b1-d0ef8243085b","oracle_id":"01a0889d-85e7-7a47-813f-2932acc3fe5f","side":"model","ord":3,"text":"взгляд направлен вперёд"}
+{"id":"ff57eaf7-8bb9-720b-ad15-585f320f78f3","oracle_id":"01a0889d-85e7-7a47-813f-2932acc3fe5f","side":"model","ord":4,"text":"седалищные кости лежат на седле"}
+{"id":"7698d904-c817-7c78-bef1-f65c472ecc30","oracle_id":"01a0889d-85e7-7a47-813f-2932acc3fe5f","side":"counter","ord":1,"text":"пульс бьёт в висках"}
+{"id":"1e03e12d-1426-7551-9183-403534807999","oracle_id":"01a0889d-85e9-73ce-98a1-f3ca509e9af9","side":"model","ord":1,"text":"поясница нейтральна"}
+{"id":"accd0bb8-81b9-7cb4-8f4d-97f01c3bd7ec","oracle_id":"01a0889d-85e9-73ce-98a1-f3ca509e9af9","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"410f9a92-fb76-76de-ad89-c8cada1c7836","oracle_id":"01a0889d-85eb-7ca6-881f-889dc5c0c6af","side":"model","ord":1,"text":"ноги ведут педаль по кругу"}
+{"id":"1651c37f-412d-7773-8887-d3f7c0ca370b","oracle_id":"01a0889d-85eb-7ca6-881f-889dc5c0c6af","side":"counter","ord":1,"text":"лопатка ведущей стороны поднимается к уху"}
+{"id":"41884f64-7230-7028-83ab-994c5b4bf330","oracle_id":"01a0889d-85ed-7049-bf70-8969605dde21","side":"model","ord":1,"text":"темп нарастает постепенно"}
+{"id":"598cba06-6cfe-702a-aa5e-1c2eb12389f2","oracle_id":"01a0889d-85ed-7049-bf70-8969605dde21","side":"counter","ord":1,"text":"онемение в кисти"}
+{"id":"a27d0ffb-1108-725f-83c6-89c31d7344e7","oracle_id":"01a0889d-85f0-7305-83e4-346cff5f3081","side":"model","ord":1,"text":"каденс ровный"}
+{"id":"17174a7a-5408-726e-80ef-ba022738c196","oracle_id":"01a0889d-85f0-7305-83e4-346cff5f3081","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"95527560-7cee-75a4-b9dc-e3185ab0035c","oracle_id":"01a0889d-85f0-7305-83e4-346cff5f3081","side":"model","ord":3,"text":"колени идут вдоль стоп"}
+{"id":"11fca5a0-e7bd-721c-bc3e-08f8b2abb994","oracle_id":"01a0889d-85f0-7305-83e4-346cff5f3081","side":"model","ord":4,"text":"стопы лежат на педалях серединой"}
+{"id":"e93bcce3-1ee0-7d4f-bbfd-6d0b535445f7","oracle_id":"01a0889d-85f0-7305-83e4-346cff5f3081","side":"counter","ord":1,"text":"онемение в кистях"}
+{"id":"29d443e6-0e29-7ed2-81a8-ca7ed4077c6a","oracle_id":"01a0889d-85f0-7305-83e4-346cff5f3081","side":"counter","ord":2,"text":"амплитуда сокращается к концу подхода"}
+{"id":"4ade20f7-28ea-700b-ab81-47af61a6b723","oracle_id":"01a0889d-85f0-7305-83e4-346cff5f3081","side":"counter","ord":3,"text":"жжение при вдохе"}
+{"id":"68cfb510-98ca-7e2c-86f3-fdd8739b5994","oracle_id":"01a0889d-85f4-7229-9745-17d018ba7abd","side":"model","ord":1,"text":"таз неподвижен на седле"}
+{"id":"c53c0696-7c39-76d2-b859-006e8fb5beaa","oracle_id":"01a0889d-85f4-7229-9745-17d018ba7abd","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"cf746262-763f-768e-822d-e15a47085cc6","oracle_id":"01a0889d-85f4-7229-9745-17d018ba7abd","side":"model","ord":3,"text":"локти движутся вдоль корпуса"}
+{"id":"942606e6-8285-7c3a-9e8a-d79e0995bab2","oracle_id":"01a0889d-85f4-7229-9745-17d018ba7abd","side":"counter","ord":1,"text":"онемение в кисти"}
+{"id":"fa42f6fd-5d5c-7101-9269-654568b29749","oracle_id":"01a0889d-85f4-7229-9745-17d018ba7abd","side":"counter","ord":2,"text":"жжение в пояснице"}
+{"id":"5003cebc-47c1-7e80-9320-0ca4427c85a8","oracle_id":"01a0889d-85f7-7fda-bcc8-8bd3f553405e","side":"model","ord":1,"text":"дыхание ровное"}
+{"id":"671af9cf-b004-7833-818a-9637e22d31bb","oracle_id":"01a0889d-85f7-7fda-bcc8-8bd3f553405e","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"c1be0396-d76f-78a2-a878-e3cefaec3a1a","oracle_id":"01a0889d-85fa-7bac-a46c-f9455d338113","side":"model","ord":1,"text":"стопы стоят на педалях"}
+{"id":"f9bd53b4-8cae-7748-967e-453c50d70c50","oracle_id":"01a0889d-85fa-7bac-a46c-f9455d338113","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"4a328850-b06f-7ebc-8796-c0186da05204","oracle_id":"01a0889d-85fa-7bac-a46c-f9455d338113","side":"model","ord":3,"text":"седалищные кости лежат на седле"}
+{"id":"c79dfb43-f9d4-794f-8f36-7bdb49269627","oracle_id":"01a0889d-85fa-7bac-a46c-f9455d338113","side":"model","ord":4,"text":"кисти лежат на подвижных рукоятях"}
+{"id":"726cbad8-dff9-7724-9a61-efa0105eee6c","oracle_id":"01a0889d-85fa-7bac-a46c-f9455d338113","side":"counter","ord":1,"text":"пульс отдаётся ударами в шее"}
+{"id":"0fda2fe3-d6aa-716f-b742-b57b29409807","oracle_id":"01a0889d-85fc-79dc-8674-504222bfa51a","side":"model","ord":1,"text":"рычаги останавливаются в вертикальном положении"}
+{"id":"209e3242-efd6-70f6-aa75-cdcadd5dadde","oracle_id":"01a0889d-85fc-79dc-8674-504222bfa51a","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"5e16dfa1-8ab4-78f5-9700-d639cdee5f8d","oracle_id":"01a0889d-85fe-71b7-91ec-901565ea06c6","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"a5e3ab1e-6d90-752a-a55e-b186990dc6b2","oracle_id":"01a0889d-85fe-71b7-91ec-901565ea06c6","side":"counter","ord":1,"text":"к концу подхода подбородок выдвигается вперёд"}
+{"id":"ee1ac343-ee38-7d1f-b000-e8cb6a521c27","oracle_id":"01a0889d-8600-7b62-80b4-ae59cd2fb115","side":"model","ord":1,"text":"темп снижается плавно"}
+{"id":"0bf5ce47-3bfd-77db-bc26-ff6ff1e6b543","oracle_id":"01a0889d-8600-7b62-80b4-ae59cd2fb115","side":"model","ord":2,"text":"дыхание восстанавливается"}
+{"id":"99282359-134c-73d5-8769-d3e1b0de87fd","oracle_id":"01a0889d-8600-7b62-80b4-ae59cd2fb115","side":"counter","ord":1,"text":"судорога в икре"}
+{"id":"d6054c96-a083-76a2-9f59-a04e7de9047a","oracle_id":"01a0889d-8603-780b-8ec4-1dcb18e520a6","side":"model","ord":1,"text":"стопа опускается на пол целиком"}
+{"id":"2c504a07-f26e-72ab-8d6d-6d7fb89db6e3","oracle_id":"01a0889d-8603-780b-8ec4-1dcb18e520a6","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"582bd2da-fbf4-71ae-bf5b-0272629f3b86","oracle_id":"01a0889d-8603-780b-8ec4-1dcb18e520a6","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"c9153ada-1a74-751e-a756-dd321fefdfb6","oracle_id":"01a0889d-8603-780b-8ec4-1dcb18e520a6","side":"model","ord":4,"text":"руки висят вдоль тела"}
+{"id":"6d8cc396-8a5d-782a-8c88-78eed87a8f02","oracle_id":"01a0889d-8603-780b-8ec4-1dcb18e520a6","side":"model","ord":5,"text":"стопы стоят на полу рядом с педалями"}
+{"id":"25812860-9fee-799c-8c6b-bd6801fb42e4","oracle_id":"01a0889d-8603-780b-8ec4-1dcb18e520a6","side":"counter","ord":1,"text":"выдох идёт рывками"}
+{"id":"d4102ee5-20a3-7fa1-955d-296d59999da9","oracle_id":"01a0889d-8605-72a1-99a8-b45e8b671de2","side":"model","ord":1,"text":"рычаги неподвижны"}
+{"id":"e335a72b-51f9-7ebf-a392-b733250fbe07","oracle_id":"01a0889d-8605-72a1-99a8-b45e8b671de2","side":"counter","ord":1,"text":"головокружение при сходе"}
+{"id":"f13271a5-cd72-7271-8247-195de6d9b9c9","oracle_id":"01a0889d-8607-7865-a8c7-0e7e24f4432b","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"e091fd02-0feb-771e-b92f-604a40a27926","oracle_id":"01a0889d-8607-7865-a8c7-0e7e24f4432b","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"c3c13916-fd9c-7c72-b230-3d7e190da7da","oracle_id":"01a0889d-8607-7865-a8c7-0e7e24f4432b","side":"counter","ord":1,"text":"плечи разворачиваются вбок при сходе"}
+{"id":"4afbd0a6-0015-7e6a-a758-bc4ec15cf112","oracle_id":"01a0889d-860d-718a-95b6-0a4c3a7aaa0d","side":"model","ord":1,"text":"вокруг стоп свободен метр пола"}
+{"id":"306b3ff6-df39-70d2-a7d3-2a4ed589ea4a","oracle_id":"01a0889d-860d-718a-95b6-0a4c3a7aaa0d","side":"model","ord":2,"text":"опора для руки в шаге доступна"}
+{"id":"434c0087-cc49-7d2b-829e-b86f24b42773","oracle_id":"01a0889d-860d-718a-95b6-0a4c3a7aaa0d","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"6186f325-4765-7351-8eb1-7e9d8fc642a9","oracle_id":"01a0889d-860d-718a-95b6-0a4c3a7aaa0d","side":"counter","ord":1,"text":"коврик скользит по полу"}
+{"id":"040d839c-1915-7b38-b3ec-fc64b6e328c0","oracle_id":"01a0889d-860d-718a-95b6-0a4c3a7aaa0d","side":"counter","ord":2,"text":"стопа перекатывается на внешний край"}
+{"id":"af6ac97f-b8fb-7dc3-bff6-81e764f15d8b","oracle_id":"01a0889d-8610-7b9c-855c-fcc28842ed65","side":"model","ord":1,"text":"поясница нейтральна"}
+{"id":"6e6a60c6-c906-7842-be9a-10fe2938f4fa","oracle_id":"01a0889d-8610-7b9c-855c-fcc28842ed65","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"18b8a9d0-48ac-784c-9cae-6288fd646004","oracle_id":"01a0889d-8612-7a88-8de5-f370671a0952","side":"model","ord":1,"text":"пол сухой"}
+{"id":"02b6ac66-b5ef-7eba-a188-6bce23916182","oracle_id":"01a0889d-8612-7a88-8de5-f370671a0952","side":"counter","ord":1,"text":"рывок в начале движения"}
+{"id":"100cb893-c19f-792f-ad0e-894b0e848927","oracle_id":"01a0889d-8614-73f9-aabf-fd782f3b94c3","side":"model","ord":1,"text":"обувь зашнурована"}
+{"id":"bd9c8247-07b8-7203-8ca1-23ef72410c0b","oracle_id":"01a0889d-8614-73f9-aabf-fd782f3b94c3","side":"counter","ord":1,"text":"стопа шлёпает по полу"}
+{"id":"b29d4e6f-744f-7fbb-beeb-903715f863e3","oracle_id":"01a0889d-8617-7caa-8326-c13926ff62aa","side":"model","ord":1,"text":"стопы на ширине таза"}
+{"id":"9eeefc36-7582-772a-8da9-026eefd904e2","oracle_id":"01a0889d-8617-7caa-8326-c13926ff62aa","side":"model","ord":2,"text":"корпус вертикален"}
+{"id":"780489a9-4a25-708d-9c84-fef19e12e495","oracle_id":"01a0889d-8617-7caa-8326-c13926ff62aa","side":"model","ord":3,"text":"поясница нейтральна"}
+{"id":"46efcb03-e3b1-7d4f-91c8-e47b8d22f027","oracle_id":"01a0889d-8617-7caa-8326-c13926ff62aa","side":"counter","ord":1,"text":"стопа шлёпает по полу"}
+{"id":"22ff0cdf-64e2-7f83-9f3c-e6b7f6bdf37b","oracle_id":"01a0889d-8619-73d5-8858-db2a024f4258","side":"model","ord":1,"text":"взгляд направлен вперёд"}
+{"id":"bf6b981a-1815-7fde-8cd6-41120bb88996","oracle_id":"01a0889d-8619-73d5-8858-db2a024f4258","side":"counter","ord":1,"text":"подбородок выдвинут вперёд"}
+{"id":"ed65cf49-29c5-7425-8bcf-4b9172e3aded","oracle_id":"01a0889d-861b-7cfe-8dd1-a05aa809e730","side":"model","ord":1,"text":"колени слегка согнуты"}
+{"id":"f248ffac-99bc-7018-a067-ee24f954e570","oracle_id":"01a0889d-861b-7cfe-8dd1-a05aa809e730","side":"model","ord":2,"text":"плечи опущены"}
+{"id":"86eba652-5c7c-72fe-bda9-924a61672016","oracle_id":"01a0889d-861b-7cfe-8dd1-a05aa809e730","side":"counter","ord":1,"text":"высота колена падает к концу отрезка"}
+{"id":"e306674d-84f5-7f69-a8d3-2b852e0c4741","oracle_id":"01a0889d-861e-7349-8f64-d54f392c6b88","side":"model","ord":1,"text":"бедро поднимается до горизонтали"}
+{"id":"cd160762-8b17-74d6-9e3d-d27a33e298ee","oracle_id":"01a0889d-861e-7349-8f64-d54f392c6b88","side":"model","ord":2,"text":"руки движутся навстречу ногам"}
+{"id":"50572d74-a75d-7ac8-b674-b70c45f10dc0","oracle_id":"01a0889d-861e-7349-8f64-d54f392c6b88","side":"model","ord":3,"text":"взгляд направлен вперёд"}
+{"id":"4faeee7b-fbc5-732f-8426-10131ab3afc7","oracle_id":"01a0889d-861e-7349-8f64-d54f392c6b88","side":"counter","ord":1,"text":"судорога в икре"}
+{"id":"ee899c71-17f4-74f5-8b4e-2ec9c03248ed","oracle_id":"01a0889d-861e-7349-8f64-d54f392c6b88","side":"counter","ord":2,"text":"плечи поднимаются к ушам"}
+{"id":"fd980ccd-a9c6-77a1-8368-0125057c6019","oracle_id":"01a0889d-861e-7349-8f64-d54f392c6b88","side":"counter","ord":3,"text":"головокружение к концу отрезка"}
+{"id":"23edf1f9-6bf8-723d-b464-6301149039c5","oracle_id":"01a0889d-8622-7fde-8dfc-39369e665a83","side":"model","ord":1,"text":"стопа ставится под таз"}
+{"id":"244d0c6f-dede-7ee3-a81c-b117c36d35eb","oracle_id":"01a0889d-8622-7fde-8dfc-39369e665a83","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"b90b5ea4-72d3-7090-99f2-dc3c4f1cbea8","oracle_id":"01a0889d-8622-7fde-8dfc-39369e665a83","side":"counter","ord":1,"text":"покалывание в стопе"}
+{"id":"2a0d0f29-6cf6-7c0d-8ff0-9c31419c6b95","oracle_id":"01a0889d-8624-7118-b822-2be7234139bd","side":"model","ord":1,"text":"опорное колено слегка согнуто"}
+{"id":"a3196270-1ef7-702c-90d6-4fa825c4d2a4","oracle_id":"01a0889d-8624-7118-b822-2be7234139bd","side":"counter","ord":1,"text":"пальцы разгибаются в стороны"}
+{"id":"01366fd9-2626-7685-b476-7cd1e32190bd","oracle_id":"01a0889d-8624-7118-b822-2be7234139bd","side":"counter","ord":2,"text":"резкая боль в колене"}
+{"id":"af89594e-6704-71ea-9af6-6fe6e38f3c02","oracle_id":"01a0889d-8628-7d33-b321-18fe32a7c5d6","side":"model","ord":1,"text":"ритм шагов ровный"}
+{"id":"aabf36f9-7011-7965-a562-76a1616c38ad","oracle_id":"01a0889d-8628-7d33-b321-18fe32a7c5d6","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"e73e2a7c-540b-7458-9588-dc44cf0b1700","oracle_id":"01a0889d-8628-7d33-b321-18fe32a7c5d6","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"e7aced19-3568-7bed-8b41-bf21d3169df5","oracle_id":"01a0889d-8628-7d33-b321-18fe32a7c5d6","side":"model","ord":4,"text":"руки движутся вдоль корпуса"}
+{"id":"b5643873-cce0-7e77-a0fd-610b043b2e2f","oracle_id":"01a0889d-8628-7d33-b321-18fe32a7c5d6","side":"model","ord":5,"text":"стопы стоят на полу целиком"}
+{"id":"df9386db-0dee-7917-8e13-a563d1d8117f","oracle_id":"01a0889d-8628-7d33-b321-18fe32a7c5d6","side":"counter","ord":1,"text":"стопа шлёпает о пол"}
+{"id":"fd32610e-d573-7472-87f7-3266d1b7652a","oracle_id":"01a0889d-8628-7d33-b321-18fe32a7c5d6","side":"counter","ord":2,"text":"колено уходит внутрь"}
+{"id":"e8e44b96-7621-728a-b270-171ee91097d2","oracle_id":"01a0889d-8628-7d33-b321-18fe32a7c5d6","side":"counter","ord":3,"text":"к концу подхода подбородок выдвигается вперёд"}
+{"id":"0c4ad354-19e4-78b0-82ce-760cf09d3a48","oracle_id":"01a0889d-8628-7d33-b321-18fe32a7c5d6","side":"counter","ord":4,"text":"жжение при вдохе"}
+{"id":"a93b282e-6dbd-76ca-a2c6-f31684e9bbd2","oracle_id":"01a0889d-862d-7d43-9915-04a00b4b99f8","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"867a46b1-7979-7d6d-b0a0-5ac93d94da25","oracle_id":"01a0889d-862d-7d43-9915-04a00b4b99f8","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"b35cf994-a254-7cf8-97c7-6d3c27730bc0","oracle_id":"01a0889d-862d-7d43-9915-04a00b4b99f8","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"fc57ffa3-14d8-7767-806b-999b1b0787bf","oracle_id":"01a0889d-862f-7259-abcc-bcf7d2be1baf","side":"model","ord":1,"text":"дыхание ровное"}
+{"id":"1ebbd882-cba4-7936-98f5-59fa2ea5c7ae","oracle_id":"01a0889d-862f-7259-abcc-bcf7d2be1baf","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"beae039c-10e9-7b68-bb84-0264d20b7eb0","oracle_id":"01a0889d-8631-7324-9068-37b264d05f18","side":"model","ord":1,"text":"высота бедра постоянна"}
+{"id":"cd7d72ac-e8a9-70a8-8bbf-c87490753610","oracle_id":"01a0889d-8631-7324-9068-37b264d05f18","side":"counter","ord":1,"text":"жжение поднимается по бедру"}
+{"id":"63b5f4c3-675e-7d4f-976a-36ab86f99557","oracle_id":"01a0889d-8634-7532-abe0-ff6f319fc334","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"d762c25f-8f15-759b-bad3-e0d779e27213","oracle_id":"01a0889d-8634-7532-abe0-ff6f319fc334","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"5a546512-5f16-7dde-857b-1a2a605bcbf6","oracle_id":"01a0889d-8634-7532-abe0-ff6f319fc334","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"3d15b343-dff5-77d7-a117-e5fb8cf960af","oracle_id":"01a0889d-8634-7532-abe0-ff6f319fc334","side":"model","ord":4,"text":"руки движутся вдоль корпуса"}
+{"id":"d0872c51-fc5a-7415-9f7e-c099841ae8bd","oracle_id":"01a0889d-8634-7532-abe0-ff6f319fc334","side":"model","ord":5,"text":"стопы стоят на полу целиком"}
+{"id":"2fa078d9-d48e-7245-9f45-6dc1570d9c4d","oracle_id":"01a0889d-8634-7532-abe0-ff6f319fc334","side":"counter","ord":1,"text":"боль в запястье на амплитуде"}
+{"id":"075a6038-2ad0-7bb4-ac32-37305ed61cec","oracle_id":"01a0889d-8634-7532-abe0-ff6f319fc334","side":"counter","ord":2,"text":"головокружение к концу отрезка"}
+{"id":"60c000ba-7f4e-7276-8be9-a2924897d3ae","oracle_id":"01a0889d-8634-7532-abe0-ff6f319fc334","side":"counter","ord":3,"text":"резкая боль в колене"}
+{"id":"ca3db1fc-b947-7260-8250-5f849d1d4b68","oracle_id":"01a0889d-8638-7278-a0f9-47bf891b26d3","side":"model","ord":1,"text":"высота бедра снижается плавно"}
+{"id":"e7b2fada-ed65-7956-842b-032282f207de","oracle_id":"01a0889d-8638-7278-a0f9-47bf891b26d3","side":"model","ord":2,"text":"ритм шагов сохраняется"}
+{"id":"fb041b97-8a69-7fcb-9659-b44f56c6bba3","oracle_id":"01a0889d-8638-7278-a0f9-47bf891b26d3","side":"model","ord":3,"text":"дыхание восстанавливается"}
+{"id":"ccac7613-c9be-78af-a8c1-cdeb7bcec4c7","oracle_id":"01a0889d-8638-7278-a0f9-47bf891b26d3","side":"counter","ord":1,"text":"плечи поднимаются к ушам"}
+{"id":"71fc2290-40b0-70ac-824e-4498164773d4","oracle_id":"01a0889d-863b-7b8f-af87-602a9724fb0e","side":"model","ord":1,"text":"шаги укорачиваются"}
+{"id":"ece37023-d9b2-7a97-ae2d-5a1b17df408f","oracle_id":"01a0889d-863b-7b8f-af87-602a9724fb0e","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"a7897546-4f62-7b6a-92ef-8b5ee7aaeec2","oracle_id":"01a0889d-863b-7b8f-af87-602a9724fb0e","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"355d7b7f-d321-7abb-b093-93575d5868b3","oracle_id":"01a0889d-863b-7b8f-af87-602a9724fb0e","side":"model","ord":4,"text":"руки движутся вдоль корпуса"}
+{"id":"04cb69e3-a534-76b7-b5d3-77fb7a0f52af","oracle_id":"01a0889d-863b-7b8f-af87-602a9724fb0e","side":"counter","ord":1,"text":"онемение в пальцах стопы"}
+{"id":"2f65e85f-3b00-72a3-a13b-24e7688bc3cb","oracle_id":"01a0889d-863b-7b8f-af87-602a9724fb0e","side":"counter","ord":2,"text":"головокружение при остановке"}
+{"id":"45e92f30-a039-7e14-9500-33886ca6d9cc","oracle_id":"01a0889d-863b-7b8f-af87-602a9724fb0e","side":"counter","ord":3,"text":"кисть ударяется о бедро"}
+{"id":"94a4f3db-3aa7-7c77-9fb7-06f3999ef2af","oracle_id":"01a0889d-863f-797e-b3b5-8476d34eedb7","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"50b1721f-5e5f-7c73-bab0-cdb706f7eb0b","oracle_id":"01a0889d-863f-797e-b3b5-8476d34eedb7","side":"counter","ord":1,"text":"вес переносится на носки"}
+{"id":"bedee4f5-8b54-74f1-981f-f86de8721689","oracle_id":"01a0889d-8641-7e0f-8c9d-6090e4654f27","side":"model","ord":1,"text":"стопы опускаются на пол целиком"}
+{"id":"bff5d0cb-acd9-78a7-ba01-9d134480292f","oracle_id":"01a0889d-8641-7e0f-8c9d-6090e4654f27","side":"counter","ord":1,"text":"стопа шлёпает по полу"}
+{"id":"b652b113-23a2-7567-b9fa-f40b48b6ce5f","oracle_id":"01a0889d-8643-75a7-8039-ec24206dbb9a","side":"model","ord":1,"text":"дыхание ровное"}
+{"id":"13905e8f-1559-726b-9e26-8b67b6209c43","oracle_id":"01a0889d-8643-75a7-8039-ec24206dbb9a","side":"counter","ord":1,"text":"боль в своде стопы"}
+{"id":"235276b2-2f28-777e-9ebc-f11aa4eac266","oracle_id":"01a0889d-8649-7d9b-98d9-fae15091e625","side":"model","ord":1,"text":"вокруг стоп свободен метр пола"}
+{"id":"29239ad3-661b-749f-b9fc-3cdba2f69a47","oracle_id":"01a0889d-8649-7d9b-98d9-fae15091e625","side":"model","ord":2,"text":"гребни таза смотрят вперёд"}
+{"id":"a6e5ff49-4103-788d-ae15-4d41ae356b65","oracle_id":"01a0889d-8649-7d9b-98d9-fae15091e625","side":"counter","ord":1,"text":"коврик скользит по полу"}
+{"id":"fc8508de-7ef2-7c22-bc4d-993699090cfa","oracle_id":"01a0889d-8649-7d9b-98d9-fae15091e625","side":"counter","ord":2,"text":"низкий потолок над поднятой рукой"}
+{"id":"a34a6e7b-cc5c-796f-aa1e-2d4386371737","oracle_id":"01a0889d-864c-7d4e-9adf-5cbcefc0c8ec","side":"model","ord":1,"text":"поясница нейтральна"}
+{"id":"3455988a-570b-7e56-83cb-2cc21da84dee","oracle_id":"01a0889d-864c-7d4e-9adf-5cbcefc0c8ec","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"16dffe53-ffb2-7617-83d0-eceb391673af","oracle_id":"01a0889d-864e-7af5-a045-7987db424103","side":"model","ord":1,"text":"пол сухой"}
+{"id":"90937745-e642-7a31-a14c-018da8d8cb99","oracle_id":"01a0889d-864e-7af5-a045-7987db424103","side":"counter","ord":1,"text":"рывок в начале движения"}
+{"id":"55c5cada-3253-7226-a8f6-202279922b8e","oracle_id":"01a0889d-8650-74d0-86a8-dbebb1c4e1e7","side":"model","ord":1,"text":"перед лицом нет предметов на уровне рук"}
+{"id":"92239406-6f1f-7512-8863-a74e3180fcba","oracle_id":"01a0889d-8650-74d0-86a8-dbebb1c4e1e7","side":"model","ord":2,"text":"обувь зашнурована"}
+{"id":"db24bf47-22ca-7b43-a498-1c2fc196356b","oracle_id":"01a0889d-8650-74d0-86a8-dbebb1c4e1e7","side":"counter","ord":1,"text":"стопа перекатывается на внешний край"}
+{"id":"81e7ea2f-d72c-77bb-b78e-e2273bb60773","oracle_id":"01a0889d-8653-722c-a702-03ba501a3c08","side":"model","ord":1,"text":"одна стопа впереди другой на длину шага"}
+{"id":"2c759c37-99d7-7cd3-bb6b-3cefb9f5c3eb","oracle_id":"01a0889d-8653-722c-a702-03ba501a3c08","side":"counter","ord":1,"text":"плечи подтянуты к ушам"}
+{"id":"4c8cc1fb-2a51-7677-8343-6dd339807d6f","oracle_id":"01a0889d-8653-722c-a702-03ba501a3c08","side":"counter","ord":2,"text":"шея выдвигается вперёд"}
+{"id":"b58895ff-10b4-77ab-bcd8-3e4712b4eab3","oracle_id":"01a0889d-8656-7607-a729-e8aec0457247","side":"model","ord":1,"text":"стопы на ширине таза"}
+{"id":"af43e1f9-82da-7cfd-bd04-5e81528728a5","oracle_id":"01a0889d-8656-7607-a729-e8aec0457247","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"a55d0d53-fc94-7f7f-a7a2-768bd1f186f7","oracle_id":"01a0889d-8656-7607-a729-e8aec0457247","side":"counter","ord":1,"text":"стопа шлёпает по полу"}
+{"id":"51f75014-7962-7738-8c8d-02ec3c762dd0","oracle_id":"01a0889d-8658-77d4-8971-2a074aed1bbd","side":"model","ord":1,"text":"кулаки у подбородка"}
+{"id":"9fb1a069-0912-765d-8512-0c81c040b975","oracle_id":"01a0889d-8658-77d4-8971-2a074aed1bbd","side":"counter","ord":1,"text":"покалывание в пальцах"}
+{"id":"4bf963f1-2d19-769d-9744-e0e94c154d35","oracle_id":"01a0889d-865a-73aa-8e92-352b61b66664","side":"model","ord":1,"text":"колени слегка согнуты"}
+{"id":"bf103240-91eb-7354-b7a5-bdf85c12bd2c","oracle_id":"01a0889d-865a-73aa-8e92-352b61b66664","side":"model","ord":2,"text":"локти прижаты к рёбрам"}
+{"id":"beb10582-8d39-7686-b8e4-0e9a2968519e","oracle_id":"01a0889d-865a-73aa-8e92-352b61b66664","side":"counter","ord":1,"text":"покалывание в стопе"}
+{"id":"03c9843e-aea5-7012-afad-3376bc79904a","oracle_id":"01a0889d-865d-72fb-b4fa-ccd0015f36fe","side":"model","ord":1,"text":"грудной отдел ведёт поворот"}
+{"id":"b0d8fb27-0daf-7d93-bbd0-8f5f13553b8b","oracle_id":"01a0889d-865d-72fb-b4fa-ccd0015f36fe","side":"counter","ord":1,"text":"локоть выпрямляется до щелчка"}
+{"id":"1f755924-e7d9-7488-8a35-dabc19cbeca0","oracle_id":"01a0889d-865f-7650-b8e9-0fe4ca1f3cca","side":"model","ord":1,"text":"таз поворачивается вслед за стопой"}
+{"id":"b2d5a77f-c680-757b-890a-0da782459863","oracle_id":"01a0889d-865f-7650-b8e9-0fe4ca1f3cca","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"cba7a6ee-95b6-7b1a-855e-4d26a9db98d2","oracle_id":"01a0889d-865f-7650-b8e9-0fe4ca1f3cca","side":"counter","ord":1,"text":"стопа скользит по полу"}
+{"id":"c9f8016f-d37e-744b-a58a-11676f8b9983","oracle_id":"01a0889d-8661-72bf-a6f0-d4e9ff209970","side":"model","ord":1,"text":"удар идёт от поворота стопы"}
+{"id":"8ed34fb4-c72f-7878-9a43-e21cb746dc00","oracle_id":"01a0889d-8661-72bf-a6f0-d4e9ff209970","side":"counter","ord":1,"text":"корпус заваливается за ударом"}
+{"id":"25f6d946-10d0-7d12-8cc9-5c3e2d8d8a4a","oracle_id":"01a0889d-8663-78e8-88c6-4b80aa4a7d3f","side":"model","ord":1,"text":"рука возвращается к подбородку"}
+{"id":"29160a48-e918-7e34-81f3-a200b0cb9e4c","oracle_id":"01a0889d-8663-78e8-88c6-4b80aa4a7d3f","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"4543fc67-9581-705b-b62c-92af8c454f63","oracle_id":"01a0889d-8666-762f-9897-ed82ce45135a","side":"model","ord":1,"text":"ритм ударов ровный"}
+{"id":"312515c2-240d-734e-9654-f2ea3d86e5d6","oracle_id":"01a0889d-8666-762f-9897-ed82ce45135a","side":"model","ord":2,"text":"гребни таза смотрят вперёд"}
+{"id":"93f2adc1-e2ef-7a45-a751-4fd9c8a2a99d","oracle_id":"01a0889d-8666-762f-9897-ed82ce45135a","side":"model","ord":3,"text":"стопы стоят на полу целиком"}
+{"id":"55e408c4-b092-7be8-8af1-cdbc1e952de0","oracle_id":"01a0889d-8666-762f-9897-ed82ce45135a","side":"counter","ord":1,"text":"переразгибание локтя"}
+{"id":"e95fc4da-06da-7df6-ad18-d0b2c2420bce","oracle_id":"01a0889d-8666-762f-9897-ed82ce45135a","side":"counter","ord":2,"text":"покалывание в предплечье"}
+{"id":"6cc5b597-c8e1-7c0b-9f34-e84fc6aab063","oracle_id":"01a0889d-8666-762f-9897-ed82ce45135a","side":"counter","ord":3,"text":"амплитуда сокращается к концу подхода"}
+{"id":"2bff1462-3ed9-706e-bb65-9d9aca91d0c6","oracle_id":"01a0889d-8666-762f-9897-ed82ce45135a","side":"counter","ord":4,"text":"жжение при вдохе"}
+{"id":"f3f0dd4a-1f61-700e-a0d2-41b2f06492d6","oracle_id":"01a0889d-866b-70a4-aef7-12eea3f7b126","side":"model","ord":1,"text":"поясница нейтральна"}
+{"id":"c1b71c69-a468-7765-94e8-7e619e686c3d","oracle_id":"01a0889d-866b-70a4-aef7-12eea3f7b126","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"7d1770ca-2afb-7286-a607-3932e799002e","oracle_id":"01a0889d-866d-7472-a825-2fbd5a5cea0f","side":"model","ord":1,"text":"дыхание ровное с выдохом на удар"}
+{"id":"c68e6955-b09e-7cb9-85ae-588d3983fef1","oracle_id":"01a0889d-866d-7472-a825-2fbd5a5cea0f","side":"counter","ord":1,"text":"предплечье разворачивается наружу"}
+{"id":"cfce6959-5d39-7005-9dfd-38d122dfd63d","oracle_id":"01a0889d-866f-76fb-8f94-032fefb488be","side":"model","ord":1,"text":"колени слегка согнуты"}
+{"id":"6ecbf0b7-6a40-7b8b-9a9e-eaef34ee6e63","oracle_id":"01a0889d-866f-76fb-8f94-032fefb488be","side":"counter","ord":1,"text":"стопа шлёпает по полу"}
+{"id":"3e8cc17b-371c-7557-9943-d01347a20f0f","oracle_id":"01a0889d-8671-7e66-bc19-c8513bac72cf","side":"model","ord":1,"text":"кулак возвращается к подбородку каждый раз"}
+{"id":"ad7ecb69-1a0e-7f05-8084-e4e18eec9a7d","oracle_id":"01a0889d-8671-7e66-bc19-c8513bac72cf","side":"counter","ord":1,"text":"с каждой минутой амплитуда падает"}
+{"id":"b7022a21-e45c-7c0d-97c3-7619657bf4a5","oracle_id":"01a0889d-8674-7517-8c18-3ac94143236d","side":"model","ord":1,"text":"амплитуда поворота уменьшается"}
+{"id":"ce6feb5d-f717-7041-b685-53d5c87ba139","oracle_id":"01a0889d-8674-7517-8c18-3ac94143236d","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"1cd8aff0-1c25-77a4-9981-5148b411813c","oracle_id":"01a0889d-8674-7517-8c18-3ac94143236d","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"1a1f8063-3311-728f-9ff5-8d6b2c0ef977","oracle_id":"01a0889d-8674-7517-8c18-3ac94143236d","side":"model","ord":4,"text":"кисти собраны в кулаки у подбородка"}
+{"id":"b7e4b436-dab2-739a-9d45-c82e29465dd2","oracle_id":"01a0889d-8674-7517-8c18-3ac94143236d","side":"counter","ord":1,"text":"плечи поднимаются к ушам"}
+{"id":"c8c93f88-5539-70e4-a275-f7d0c020d50c","oracle_id":"01a0889d-8674-7517-8c18-3ac94143236d","side":"counter","ord":2,"text":"прострел в плече"}
+{"id":"e90794c0-c1c0-76cc-93b7-73783ec2b604","oracle_id":"01a0889d-8677-731a-9438-2c4a265c9c35","side":"model","ord":1,"text":"поясница нейтральна"}
+{"id":"2afbfe03-fa49-7eb7-92c8-de0ba6a7fbdf","oracle_id":"01a0889d-8677-731a-9438-2c4a265c9c35","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"2f719d76-db06-79d2-a512-3e1e50f3fc7a","oracle_id":"01a0889d-8679-7ffc-9f83-baaf95aa06c8","side":"model","ord":1,"text":"стойка сохраняется"}
+{"id":"d1207b9c-2fe0-7200-a2f4-46c467abc968","oracle_id":"01a0889d-8679-7ffc-9f83-baaf95aa06c8","side":"counter","ord":1,"text":"покалывание в стопе"}
+{"id":"5e7b733e-0c9d-7722-ab6d-7e26ac8e5f6a","oracle_id":"01a0889d-867b-725c-a6d4-576e08c1321d","side":"model","ord":1,"text":"частота ударов снижается плавно"}
+{"id":"15c80e1e-d0b5-7f0a-ac82-eed618513982","oracle_id":"01a0889d-867b-725c-a6d4-576e08c1321d","side":"model","ord":2,"text":"дыхание восстанавливается"}
+{"id":"f451c29e-4010-7ea2-946a-db46f532908a","oracle_id":"01a0889d-867b-725c-a6d4-576e08c1321d","side":"counter","ord":1,"text":"пульс бьёт в горле"}
+{"id":"649c01f5-7936-7ed1-a2d9-201da84e3dd9","oracle_id":"01a0889d-867e-7e5b-a740-58ffcde7e6ec","side":"model","ord":1,"text":"руки опущены вдоль корпуса"}
+{"id":"e2ece581-d589-71cd-9552-e609595b1ff5","oracle_id":"01a0889d-867e-7e5b-a740-58ffcde7e6ec","side":"model","ord":2,"text":"корпус вертикален"}
+{"id":"b79c7d81-933a-7c8d-ae78-4719cb8b8545","oracle_id":"01a0889d-867e-7e5b-a740-58ffcde7e6ec","side":"model","ord":3,"text":"взгляд направлен вперёд"}
+{"id":"434f7764-1fe9-7d20-842f-b9dcc47299f8","oracle_id":"01a0889d-867e-7e5b-a740-58ffcde7e6ec","side":"model","ord":4,"text":"гребни таза смотрят вперёд"}
+{"id":"7f2a547d-18fa-7a59-982e-d06543beabe1","oracle_id":"01a0889d-867e-7e5b-a740-58ffcde7e6ec","side":"counter","ord":1,"text":"головокружение при остановке"}
+{"id":"49df8b6e-c07a-770a-8d0b-9a468b489882","oracle_id":"01a0889d-867e-7e5b-a740-58ffcde7e6ec","side":"counter","ord":2,"text":"кисть ударяется о бедро"}
+{"id":"238b7083-a886-7e5f-8990-319ba04123f7","oracle_id":"01a0889d-8681-7d26-961d-9475fdc36eed","side":"model","ord":1,"text":"задняя стопа приставлена к передней"}
+{"id":"a9d2a8dc-fb9c-7a20-bfec-a114f1661c98","oracle_id":"01a0889d-8681-7d26-961d-9475fdc36eed","side":"counter","ord":1,"text":"стопа перекатывается на внешний край"}
+{"id":"e30ade4f-cdde-74f3-8772-bba71f3eeb2b","oracle_id":"01a0889d-8683-741e-ab99-a9e23aca7196","side":"model","ord":1,"text":"дыхание ровное"}
+{"id":"3a23a81e-efbc-74f2-978c-3df610f023aa","oracle_id":"01a0889d-8683-741e-ab99-a9e23aca7196","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"a928ef09-9d2c-7ead-a0bf-d2b153e31db5","oracle_id":"01a0889d-8689-72c9-a1ce-a3f9c4bd46a3","side":"model","ord":1,"text":"вокруг стоп свободен метр пола"}
+{"id":"1646bd2f-b7aa-7d3b-ada5-0717b0dd10c3","oracle_id":"01a0889d-8689-72c9-a1ce-a3f9c4bd46a3","side":"model","ord":2,"text":"пол не скользкий"}
+{"id":"9827159e-15b8-78b2-a60f-d4c66e5f747a","oracle_id":"01a0889d-8689-72c9-a1ce-a3f9c4bd46a3","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"c2276de8-2682-7604-9b9e-a7e09ffc86fc","oracle_id":"01a0889d-8689-72c9-a1ce-a3f9c4bd46a3","side":"counter","ord":1,"text":"жжение в шее"}
+{"id":"dd570b31-cb82-776d-8005-93396ea27995","oracle_id":"01a0889d-8689-72c9-a1ce-a3f9c4bd46a3","side":"counter","ord":2,"text":"предплечье разворачивается наружу"}
+{"id":"93e3055e-bd55-7d02-b1b1-88362f5a55ba","oracle_id":"01a0889d-868c-734b-85e9-ed0afc702df4","side":"model","ord":1,"text":"поясница нейтральна"}
+{"id":"92d23a95-f69e-7691-9058-4e9db6963d79","oracle_id":"01a0889d-868c-734b-85e9-ed0afc702df4","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"1769009b-5ec4-73e7-b5d4-58531affbd9f","oracle_id":"01a0889d-868e-72a6-aeb7-77050544f7be","side":"model","ord":1,"text":"над головой свободно на длину руки"}
+{"id":"5e0e0340-cff7-794c-b7c3-11b81a4e1504","oracle_id":"01a0889d-868e-72a6-aeb7-77050544f7be","side":"counter","ord":1,"text":"головокружение к концу отрезка"}
+{"id":"dd4386bd-d4a4-7909-9144-359568d20021","oracle_id":"01a0889d-8690-7956-985c-732de1feb504","side":"model","ord":1,"text":"обувь с амортизацией на ногах"}
+{"id":"c16f63b7-d3ec-7193-9773-c6af6794c16b","oracle_id":"01a0889d-8690-7956-985c-732de1feb504","side":"counter","ord":1,"text":"стопа шлёпает по полу"}
+{"id":"8c03bf2f-f03c-733b-964f-8db76cc81803","oracle_id":"01a0889d-8693-784f-b90c-956fd776d25a","side":"model","ord":1,"text":"стопы вместе"}
+{"id":"c34845d1-c7d2-720d-be24-ca798b00eed5","oracle_id":"01a0889d-8693-784f-b90c-956fd776d25a","side":"model","ord":2,"text":"гребни таза смотрят вперёд"}
+{"id":"36a04f09-89d6-7ec5-be8e-7af1eac533ad","oracle_id":"01a0889d-8693-784f-b90c-956fd776d25a","side":"counter","ord":1,"text":"плечи подтянуты к ушам"}
+{"id":"2f847dfd-3383-7691-934b-9e6562f830d9","oracle_id":"01a0889d-8693-784f-b90c-956fd776d25a","side":"counter","ord":2,"text":"вес на пятках"}
+{"id":"82367a00-f9d9-7694-9ee4-10f87fb3344c","oracle_id":"01a0889d-8693-784f-b90c-956fd776d25a","side":"counter","ord":3,"text":"опорная стопа подворачивается внутрь"}
+{"id":"246fe69a-4bae-7686-8524-5dc211f1d9ae","oracle_id":"01a0889d-8697-7613-93c2-a2d9f0373a01","side":"model","ord":1,"text":"руки опущены вдоль корпуса"}
+{"id":"8084fa86-3a1f-7db2-9053-894e6af3b99a","oracle_id":"01a0889d-8697-7613-93c2-a2d9f0373a01","side":"model","ord":2,"text":"корпус вертикален"}
+{"id":"7764c6d9-38f5-7dc5-8dd6-4211e9e7a85d","oracle_id":"01a0889d-8697-7613-93c2-a2d9f0373a01","side":"model","ord":3,"text":"поясница нейтральна"}
+{"id":"c41a3b2c-4356-72e0-a4d9-5274388d1688","oracle_id":"01a0889d-8697-7613-93c2-a2d9f0373a01","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"acaf15e7-c22f-7dfb-8f43-088ff0acccc3","oracle_id":"01a0889d-8699-74d4-980d-c369e4683ce7","side":"model","ord":1,"text":"взгляд направлен вперёд"}
+{"id":"f2f0359c-46c5-7990-b972-1ec4cfe3a938","oracle_id":"01a0889d-8699-74d4-980d-c369e4683ce7","side":"counter","ord":1,"text":"шея выдвигается вперёд"}
+{"id":"18f9e634-050c-7d40-9bfc-b03c9a2e36c8","oracle_id":"01a0889d-869b-7d25-ae63-231386927373","side":"model","ord":1,"text":"колени слегка согнуты"}
+{"id":"6382f460-831f-79e4-b464-8678ef729c7c","oracle_id":"01a0889d-869b-7d25-ae63-231386927373","side":"counter","ord":1,"text":"жжение за грудиной"}
+{"id":"61cd256a-1b4a-74ee-8407-a53220205816","oracle_id":"01a0889d-869e-7f2c-a818-f9e9f4f80124","side":"model","ord":1,"text":"поясница нейтральна"}
+{"id":"1f6cf2b0-0ee9-7544-adcb-de3810094a8c","oracle_id":"01a0889d-869e-7f2c-a818-f9e9f4f80124","side":"model","ord":2,"text":"гребни таза смотрят вперёд"}
+{"id":"5cc08709-97c8-72c5-9612-e8e1d9b6277d","oracle_id":"01a0889d-869e-7f2c-a818-f9e9f4f80124","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"73c94043-524d-73d7-b306-8f5b6ab6de0f","oracle_id":"01a0889d-869e-7f2c-a818-f9e9f4f80124","side":"counter","ord":2,"text":"каденс падает к концу отрезка"}
+{"id":"002b2cee-2f47-792a-929b-e786327ec342","oracle_id":"01a0889d-86a1-7ee4-a00d-828dc63d24e5","side":"model","ord":1,"text":"отталкивание идёт носками"}
+{"id":"da9f7207-f427-725b-8cd5-4c8ff5b0c963","oracle_id":"01a0889d-86a1-7ee4-a00d-828dc63d24e5","side":"model","ord":2,"text":"приземление на носок с мягким переходом на пятку"}
+{"id":"9aea73fb-ea18-7be7-a6b8-8ea309b2c88f","oracle_id":"01a0889d-86a1-7ee4-a00d-828dc63d24e5","side":"model","ord":3,"text":"колени сгибаются при касании пола"}
+{"id":"3c3251af-613b-7d3b-a960-c2a736f614b3","oracle_id":"01a0889d-86a1-7ee4-a00d-828dc63d24e5","side":"counter","ord":1,"text":"жжение в мышце по ходу движения"}
+{"id":"8f72444f-1cb8-7d5b-8ec0-4a07c9d861b3","oracle_id":"01a0889d-86a3-73fe-b0f5-e351126146e4","side":"model","ord":1,"text":"руки поднимаются через стороны до макушки"}
+{"id":"f86455e8-cf31-77cc-b063-86300043aaf4","oracle_id":"01a0889d-86a3-73fe-b0f5-e351126146e4","side":"counter","ord":1,"text":"лопатка ведущей стороны поднимается к уху"}
+{"id":"c38e0247-40c3-70e3-a139-ae4f5d0fa52b","oracle_id":"01a0889d-86a6-7746-b539-a53fab7d617b","side":"model","ord":1,"text":"ритм прыжков ровный"}
+{"id":"3fd983b3-d1ae-708f-9294-95ab7ea66787","oracle_id":"01a0889d-86a6-7746-b539-a53fab7d617b","side":"model","ord":2,"text":"гребни таза смотрят вперёд"}
+{"id":"95054c4b-e61c-7617-b404-5d23f899aa8f","oracle_id":"01a0889d-86a6-7746-b539-a53fab7d617b","side":"model","ord":3,"text":"руки идут через стороны вверх"}
+{"id":"931600eb-590e-7bdf-ba0d-12336bdfcd67","oracle_id":"01a0889d-86a6-7746-b539-a53fab7d617b","side":"model","ord":4,"text":"стопы приземляются на переднюю часть"}
+{"id":"7fdbfdf7-693f-76fb-a390-5a1ffb4a81c3","oracle_id":"01a0889d-86a6-7746-b539-a53fab7d617b","side":"counter","ord":1,"text":"высота прыжка падает к концу отрезка"}
+{"id":"e88a4b6d-3107-7a01-a6e9-2375b5a61a29","oracle_id":"01a0889d-86a6-7746-b539-a53fab7d617b","side":"counter","ord":2,"text":"боль в голеностопе"}
+{"id":"fb436ac5-e455-7881-8705-e8adc5ea6f09","oracle_id":"01a0889d-86a6-7746-b539-a53fab7d617b","side":"counter","ord":3,"text":"жжение при вдохе"}
+{"id":"a1507d9d-2eda-7889-8682-2bd5e6064121","oracle_id":"01a0889d-86aa-7c71-bcdf-191958c717be","side":"model","ord":1,"text":"поясница нейтральна"}
+{"id":"a8582fa2-cc70-7ab6-a929-a32ac9fd70de","oracle_id":"01a0889d-86aa-7c71-bcdf-191958c717be","side":"counter","ord":1,"text":"отдача в поясницу при приземлении"}
+{"id":"0dd26d5e-cbb1-7daa-a222-2d361867ef42","oracle_id":"01a0889d-86ac-7ca2-bbcb-25d887e5028d","side":"model","ord":1,"text":"дыхание ровное"}
+{"id":"0fd63499-be6b-7ac5-9ef8-8a510d6346dd","oracle_id":"01a0889d-86ac-7ca2-bbcb-25d887e5028d","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"3e53c699-77fd-7185-b699-2651477f06bd","oracle_id":"01a0889d-86ae-77c8-b38c-5433b3bb3666","side":"model","ord":1,"text":"приземление мягкое на носок"}
+{"id":"4528e2eb-6fca-7067-8dcc-cc0390b25bdf","oracle_id":"01a0889d-86ae-77c8-b38c-5433b3bb3666","side":"model","ord":2,"text":"колени идут вдоль стоп"}
+{"id":"959f6d12-1566-74c6-8e9d-9b9ac42a27ce","oracle_id":"01a0889d-86ae-77c8-b38c-5433b3bb3666","side":"counter","ord":1,"text":"хруст в колене"}
+{"id":"e713b21d-607f-7b19-b57d-fc3543dc2231","oracle_id":"01a0889d-86b1-7026-bc29-d0ec45e1b292","side":"model","ord":1,"text":"руки поднимаются не выше плеч"}
+{"id":"ff0bede7-512d-7a5b-9a03-19ef2a7042c3","oracle_id":"01a0889d-86b1-7026-bc29-d0ec45e1b292","side":"model","ord":2,"text":"приземление мягкое"}
+{"id":"1a0f245b-4394-792f-9c64-23c3df6c3d17","oracle_id":"01a0889d-86b1-7026-bc29-d0ec45e1b292","side":"model","ord":3,"text":"взгляд направлен вперёд"}
+{"id":"2e57d61e-773e-7ea2-953f-2da6d84cf2ea","oracle_id":"01a0889d-86b1-7026-bc29-d0ec45e1b292","side":"model","ord":4,"text":"гребни таза смотрят вперёд"}
+{"id":"595be968-418d-7594-adca-8080b308d10c","oracle_id":"01a0889d-86b1-7026-bc29-d0ec45e1b292","side":"counter","ord":1,"text":"жжение в шее"}
+{"id":"93dda446-92ca-717a-a7b2-900ea3e86e42","oracle_id":"01a0889d-86b1-7026-bc29-d0ec45e1b292","side":"counter","ord":2,"text":"рывок руками вверх"}
+{"id":"edcc9db4-c55f-7ca8-a015-b67c2a4e4170","oracle_id":"01a0889d-86b1-7026-bc29-d0ec45e1b292","side":"counter","ord":3,"text":"плечи поднимаются к ушам"}
+{"id":"6348dc8c-ffc0-7ba8-982a-4864dd6bb7c0","oracle_id":"01a0889d-86b5-753a-b9d2-4ad7d83bf438","side":"model","ord":1,"text":"поясница нейтральна"}
+{"id":"09221577-b60f-7edb-8166-d5bfeeaf8703","oracle_id":"01a0889d-86b5-753a-b9d2-4ad7d83bf438","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"e3a8da1d-6de3-7809-adf3-1f65d4bef2f1","oracle_id":"01a0889d-86b7-7b7b-b3c7-6368829e2b93","side":"model","ord":1,"text":"высота прыжка снижается плавно"}
+{"id":"a55f84e3-66a7-76cf-b818-b3cb34d492d7","oracle_id":"01a0889d-86b7-7b7b-b3c7-6368829e2b93","side":"model","ord":2,"text":"дыхание восстанавливается"}
+{"id":"ec58e534-4a0c-7c30-b092-608cb6d0a448","oracle_id":"01a0889d-86b7-7b7b-b3c7-6368829e2b93","side":"counter","ord":1,"text":"покалывание в стопе"}
+{"id":"6a294c95-994b-74b9-9d72-d09d52bce9a1","oracle_id":"01a0889d-86ba-7234-a2de-a3c65051c61a","side":"model","ord":1,"text":"ноги разводятся шагом без отрыва обеих стоп"}
+{"id":"c123c286-9c32-7c3a-b254-85ae64f69242","oracle_id":"01a0889d-86ba-7234-a2de-a3c65051c61a","side":"model","ord":2,"text":"руки движутся через стороны"}
+{"id":"106e949b-3fff-77d7-b41b-c9e3d8e83dbf","oracle_id":"01a0889d-86ba-7234-a2de-a3c65051c61a","side":"model","ord":3,"text":"взгляд направлен вперёд"}
+{"id":"a72cfade-13fd-7f2a-8fec-b4862f903632","oracle_id":"01a0889d-86ba-7234-a2de-a3c65051c61a","side":"model","ord":4,"text":"гребни таза смотрят вперёд"}
+{"id":"0aaff967-00a7-7f63-8f0c-bb9fa37bc05b","oracle_id":"01a0889d-86ba-7234-a2de-a3c65051c61a","side":"counter","ord":1,"text":"головокружение при остановке"}
+{"id":"89d03074-b333-7bb0-a912-5edc3745d0f8","oracle_id":"01a0889d-86ba-7234-a2de-a3c65051c61a","side":"counter","ord":2,"text":"плечи поднимаются к ушам"}
+{"id":"72d3c768-4428-7a04-b57d-5700c2be875c","oracle_id":"01a0889d-86ba-7234-a2de-a3c65051c61a","side":"counter","ord":3,"text":"с каждой минутой амплитуда падает"}
+{"id":"f0ac4abc-797a-7590-8ae0-d614a4a1bf28","oracle_id":"01a0889d-86be-755e-8e50-b6ede59e37a6","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"ec22227e-efe4-7e3a-a2df-672663f971c2","oracle_id":"01a0889d-86be-755e-8e50-b6ede59e37a6","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"774c7398-276d-778c-b4b7-85b01b218f44","oracle_id":"01a0889d-86c0-7c62-9130-8a16d1c957e6","side":"model","ord":1,"text":"дыхание ровное"}
+{"id":"75d2da51-1a95-7015-ba82-4c99533faf7d","oracle_id":"01a0889d-86c0-7c62-9130-8a16d1c957e6","side":"counter","ord":1,"text":"судорога в своде стопы"}
+{"id":"f75a2f3c-a1a7-7a18-b4ef-7054cf8b2590","oracle_id":"01a0889d-86c7-7970-b20f-49456f9e179e","side":"model","ord":1,"text":"стопа стоит на середине троса"}
+{"id":"934d4c36-2292-7dea-a9c0-d9defb00e612","oracle_id":"01a0889d-86c7-7970-b20f-49456f9e179e","side":"model","ord":2,"text":"рукояти подняты до подмышек"}
+{"id":"fcbbbe37-d7d0-7c8b-ba46-7b9f57391473","oracle_id":"01a0889d-86c7-7970-b20f-49456f9e179e","side":"model","ord":3,"text":"трос без узлов"}
+{"id":"3d159c7a-95d7-7296-9afa-8b420184bdfe","oracle_id":"01a0889d-86c7-7970-b20f-49456f9e179e","side":"model","ord":4,"text":"взгляд направлен вперёд"}
+{"id":"aafa9f84-f02a-7a20-beea-f17c3968c018","oracle_id":"01a0889d-86c7-7970-b20f-49456f9e179e","side":"model","ord":5,"text":"корпус вертикален"}
+{"id":"bda10725-dbd1-7621-9ff8-118d8f791829","oracle_id":"01a0889d-86c7-7970-b20f-49456f9e179e","side":"model","ord":6,"text":"гребни таза смотрят вперёд"}
+{"id":"e09f1cdd-d61d-76e9-a560-03d5dd825c61","oracle_id":"01a0889d-86c7-7970-b20f-49456f9e179e","side":"model","ord":7,"text":"ладони держат ручки скакалки"}
+{"id":"8cc3e652-4985-7dae-bd25-107a7eddcd16","oracle_id":"01a0889d-86c7-7970-b20f-49456f9e179e","side":"counter","ord":1,"text":"прыжки на голом кафеле"}
+{"id":"eca81450-f883-7f4c-8638-eb9888d0c754","oracle_id":"01a0889d-86c7-7970-b20f-49456f9e179e","side":"counter","ord":2,"text":"рукоять скользит в ладони"}
+{"id":"098d56ba-b0b2-7dde-a6b4-bc82ac6469c6","oracle_id":"01a0889d-86ca-7e2c-b6a3-7fca3c9f6f41","side":"model","ord":1,"text":"пол ровный без ковра"}
+{"id":"a8fcdb7c-ea66-7be0-8e91-5174ac4c88f8","oracle_id":"01a0889d-86ca-7e2c-b6a3-7fca3c9f6f41","side":"counter","ord":1,"text":"рывок в начале движения"}
+{"id":"d7c644d1-a858-7775-9f9e-c8e94e7eea2d","oracle_id":"01a0889d-86cd-7c1e-b421-c60291e32edf","side":"model","ord":1,"text":"трос лежит за пятками"}
+{"id":"81fb18af-260a-787b-8af0-aa2712e0db53","oracle_id":"01a0889d-86cd-7c1e-b421-c60291e32edf","side":"counter","ord":1,"text":"взгляд опущен под ноги"}
+{"id":"967ba20f-d94a-7713-a45d-0757da7ce93b","oracle_id":"01a0889d-86cf-7308-baa9-a2f170874339","side":"model","ord":1,"text":"стопы на ширине таза"}
+{"id":"4eae3a77-f4aa-7493-800b-359fdcd7399b","oracle_id":"01a0889d-86cf-7308-baa9-a2f170874339","side":"model","ord":2,"text":"кисти на уровне таза"}
+{"id":"92bf2656-0063-73b2-ad37-680e6f5baeaa","oracle_id":"01a0889d-86cf-7308-baa9-a2f170874339","side":"model","ord":3,"text":"корпус вертикален"}
+{"id":"10c82509-38b7-73c5-bb19-3ed15236c80d","oracle_id":"01a0889d-86cf-7308-baa9-a2f170874339","side":"model","ord":4,"text":"поясница нейтральна"}
+{"id":"ac5b2326-d78b-744a-866c-2ebe1bfead42","oracle_id":"01a0889d-86cf-7308-baa9-a2f170874339","side":"counter","ord":1,"text":"покалывание в стопе"}
+{"id":"5446c532-65ac-7d56-9999-2a0af8eeed8e","oracle_id":"01a0889d-86d1-7dff-9bdf-7ce288bcbb71","side":"model","ord":1,"text":"голова остаётся над плечами"}
+{"id":"97c0f4a7-2e74-7d63-a01f-df5f140fd3db","oracle_id":"01a0889d-86d1-7dff-9bdf-7ce288bcbb71","side":"counter","ord":1,"text":"плечи поднимаются к ушам"}
+{"id":"d81343ae-f085-7caa-b3e9-f4b6ad9a9312","oracle_id":"01a0889d-86d3-7f76-810d-c72cb6549d93","side":"model","ord":1,"text":"локти прижаты к рёбрам"}
+{"id":"12b4f642-c331-723e-b384-83ba6947e356","oracle_id":"01a0889d-86d3-7f76-810d-c72cb6549d93","side":"counter","ord":1,"text":"прострел в локте"}
+{"id":"03f91518-64cd-7794-be76-92009e25873c","oracle_id":"01a0889d-86d6-74dc-9832-561a2933c4e5","side":"model","ord":1,"text":"трос вращают кисти"}
+{"id":"69424bf7-6ef4-7a3b-86ce-067f818dc143","oracle_id":"01a0889d-86d6-74dc-9832-561a2933c4e5","side":"model","ord":2,"text":"плечи неподвижны"}
+{"id":"af77f0c0-f628-7254-b90c-f2788a06acac","oracle_id":"01a0889d-86d6-74dc-9832-561a2933c4e5","side":"model","ord":3,"text":"приземление на носок"}
+{"id":"497522b1-fef8-773d-ad6a-62a9469c3fb5","oracle_id":"01a0889d-86d6-74dc-9832-561a2933c4e5","side":"model","ord":4,"text":"гребни таза смотрят вперёд"}
+{"id":"8e8627e2-3737-7c9e-b8fe-c68a4ff49d06","oracle_id":"01a0889d-86d6-74dc-9832-561a2933c4e5","side":"counter","ord":1,"text":"удар троса о стопу"}
+{"id":"9a7548c6-3266-7712-aef2-fb2eeb73d85a","oracle_id":"01a0889d-86d6-74dc-9832-561a2933c4e5","side":"counter","ord":2,"text":"брови поднимаются на амплитуде"}
+{"id":"76a96f9f-7635-7923-9525-747789606d5b","oracle_id":"01a0889d-86d9-7177-be56-fc415d147443","side":"model","ord":1,"text":"поясница нейтральна"}
+{"id":"e5e43ee6-0f28-7922-8557-cd2e15d6e16a","oracle_id":"01a0889d-86d9-7177-be56-fc415d147443","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"33d8e15d-44bc-7679-b2f2-0115c2a0c751","oracle_id":"01a0889d-86db-75a2-98a4-11079b911c00","side":"model","ord":1,"text":"прыжок ниже высоты ладони"}
+{"id":"c952fe5e-a768-7eba-b0c1-9bc63bf81a02","oracle_id":"01a0889d-86db-75a2-98a4-11079b911c00","side":"model","ord":2,"text":"колени сгибаются при касании пола"}
+{"id":"959d5a01-6e17-7e95-9267-3a295c53665d","oracle_id":"01a0889d-86db-75a2-98a4-11079b911c00","side":"counter","ord":1,"text":"подтягивание коленей к груди"}
+{"id":"e2be51fa-0bb7-7366-b355-1312ece0febe","oracle_id":"01a0889d-86de-7399-aea6-c25bbd8c9116","side":"model","ord":1,"text":"ритм прыжков ровный"}
+{"id":"3f6638bd-ec15-7149-a4f8-ce65f03777d1","oracle_id":"01a0889d-86de-7399-aea6-c25bbd8c9116","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"ed8b3290-7780-78cc-bbd4-7358956e53b4","oracle_id":"01a0889d-86de-7399-aea6-c25bbd8c9116","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"f35156c8-4dc0-7894-bb22-8e608ecd3cec","oracle_id":"01a0889d-86de-7399-aea6-c25bbd8c9116","side":"model","ord":4,"text":"колени слегка согнуты"}
+{"id":"8c058339-43ab-7735-b2e2-2881e5f3c61d","oracle_id":"01a0889d-86de-7399-aea6-c25bbd8c9116","side":"counter","ord":1,"text":"приземление становится шумным к концу отрезка"}
+{"id":"e377a362-677a-7cc6-bc76-863af9eb269e","oracle_id":"01a0889d-86de-7399-aea6-c25bbd8c9116","side":"counter","ord":2,"text":"двойной подскок между оборотами"}
+{"id":"75d2ff98-6f1a-760c-90db-3ff070477f84","oracle_id":"01a0889d-86de-7399-aea6-c25bbd8c9116","side":"counter","ord":3,"text":"боль в голеностопе"}
+{"id":"bb9c9a98-30f9-7b24-8bc8-8db02e281dbc","oracle_id":"01a0889d-86de-7399-aea6-c25bbd8c9116","side":"counter","ord":4,"text":"жжение при вдохе"}
+{"id":"7f9e6831-5402-7c8d-bd37-8df9f9bdded5","oracle_id":"01a0889d-86e3-76da-a976-2fb41f28e72e","side":"model","ord":1,"text":"поясница нейтральна"}
+{"id":"29d8db81-1cc1-7d9d-be95-d1f9a5a997f5","oracle_id":"01a0889d-86e3-76da-a976-2fb41f28e72e","side":"model","ord":2,"text":"высота прыжка ниже ладони"}
+{"id":"463930ae-16ed-7a12-ad11-cd269913742a","oracle_id":"01a0889d-86e3-76da-a976-2fb41f28e72e","side":"counter","ord":1,"text":"отдача в поясницу при приземлении"}
+{"id":"ed0a02d2-a336-74de-970f-126aa4a2f656","oracle_id":"01a0889d-86e5-711c-aa19-d38dee78b4aa","side":"model","ord":1,"text":"дыхание ровное"}
+{"id":"4b6fd1b7-1584-79bb-b298-372fa446e073","oracle_id":"01a0889d-86e5-711c-aa19-d38dee78b4aa","side":"counter","ord":1,"text":"трос задевает пол на обороте"}
+{"id":"78a168cb-3179-7d7f-bf3e-9da3990debb7","oracle_id":"01a0889d-86e7-72d8-9453-8af083fac213","side":"model","ord":1,"text":"локти прижаты к рёбрам"}
+{"id":"4f21a70b-cc40-7d57-b371-1d73293e561f","oracle_id":"01a0889d-86e7-72d8-9453-8af083fac213","side":"model","ord":2,"text":"рукояти скакалки лежат в кистях у бёдер"}
+{"id":"9aeab2e9-61d3-73bd-93a6-af9140b8f325","oracle_id":"01a0889d-86e7-72d8-9453-8af083fac213","side":"counter","ord":1,"text":"прострел в локте"}
+{"id":"39230e99-670b-798d-b785-31a1c34aea35","oracle_id":"01a0889d-86ea-7a8f-9412-fbf0e0dc8d15","side":"model","ord":1,"text":"высота прыжка снижается"}
+{"id":"b14beb0d-b2b6-7a89-934f-6a659aece821","oracle_id":"01a0889d-86ea-7a8f-9412-fbf0e0dc8d15","side":"model","ord":2,"text":"приземление мягкое"}
+{"id":"73709889-0dc6-79e5-ab9b-ab4118d7d8fd","oracle_id":"01a0889d-86ea-7a8f-9412-fbf0e0dc8d15","side":"model","ord":3,"text":"взгляд направлен вперёд"}
+{"id":"8469688c-b42c-7fd8-a25a-28a4075e5350","oracle_id":"01a0889d-86ea-7a8f-9412-fbf0e0dc8d15","side":"model","ord":4,"text":"гребни таза смотрят вперёд"}
+{"id":"ed422831-bcfb-721d-a1d4-df79ed719445","oracle_id":"01a0889d-86ea-7a8f-9412-fbf0e0dc8d15","side":"model","ord":5,"text":"локти прижаты к бокам"}
+{"id":"45dd09d4-a882-7fe0-9aed-755c16060f08","oracle_id":"01a0889d-86ea-7a8f-9412-fbf0e0dc8d15","side":"model","ord":6,"text":"колени слегка согнуты"}
+{"id":"4f07e992-94fb-7256-85ef-fcfaa794a73e","oracle_id":"01a0889d-86ea-7a8f-9412-fbf0e0dc8d15","side":"model","ord":7,"text":"стопы приземляются на переднюю часть"}
+{"id":"9965a2c5-6b30-74c9-a0f2-7cdde279d881","oracle_id":"01a0889d-86ea-7a8f-9412-fbf0e0dc8d15","side":"counter","ord":1,"text":"стопа перекатывается на внешний край"}
+{"id":"f5c5d6d6-6d20-7ae2-be07-b72e2336425a","oracle_id":"01a0889d-86ea-7a8f-9412-fbf0e0dc8d15","side":"counter","ord":2,"text":"кисть ударяется о бедро"}
+{"id":"effcca1b-854d-7297-a1bd-0c83a2320c3f","oracle_id":"01a0889d-86ed-78b8-a679-32d1634b3448","side":"model","ord":1,"text":"поясница нейтральна"}
+{"id":"db26962a-e28c-744e-820f-1402e7492986","oracle_id":"01a0889d-86ed-78b8-a679-32d1634b3448","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"0af2e8b3-51a9-7d0f-b54f-403b05a21af7","oracle_id":"01a0889d-86ef-7018-92f4-8ecc8047afb4","side":"model","ord":1,"text":"частота оборотов снижается плавно"}
+{"id":"441b2005-d69e-7239-912d-6e2d3f0b0301","oracle_id":"01a0889d-86ef-7018-92f4-8ecc8047afb4","side":"model","ord":2,"text":"дыхание восстанавливается"}
+{"id":"9e046d44-fa4a-7cd8-a2f4-262cd898c300","oracle_id":"01a0889d-86ef-7018-92f4-8ecc8047afb4","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"48ae98cb-f463-71b7-a11d-1e537654dc5f","oracle_id":"01a0889d-86f2-7947-a77a-86d190fd1699","side":"model","ord":1,"text":"стопы стоят на полу целиком"}
+{"id":"8f74bf61-c273-76a5-a245-fc99a0df3a9d","oracle_id":"01a0889d-86f2-7947-a77a-86d190fd1699","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"e935ff59-b803-76dd-9566-908140ecbaa5","oracle_id":"01a0889d-86f2-7947-a77a-86d190fd1699","side":"model","ord":3,"text":"локти прижаты к бокам"}
+{"id":"375b1f93-650e-7caf-a80b-acbb02425bd7","oracle_id":"01a0889d-86f2-7947-a77a-86d190fd1699","side":"counter","ord":1,"text":"покалывание в стопе"}
+{"id":"b49c8c0b-170c-7adf-9ba7-07f3d7e6da47","oracle_id":"01a0889d-86f4-7f07-b16a-85846717dfd9","side":"model","ord":1,"text":"трос остановлен за спиной"}
+{"id":"d1674136-1059-78a2-a33a-9e5ec38afcea","oracle_id":"01a0889d-86f4-7f07-b16a-85846717dfd9","side":"counter","ord":1,"text":"головокружение при остановке"}
+{"id":"aa804296-c94e-70d2-8763-067e8feb105a","oracle_id":"01a0889d-86f6-7496-a3ab-8d6605d8b506","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"ba1376e8-1898-7f4c-b2f1-4cc01a047964","oracle_id":"01a0889d-86f6-7496-a3ab-8d6605d8b506","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"ad495dc6-6006-7aa2-af26-08ce40822f2a","oracle_id":"01a0889d-86f8-7d05-bb14-9bfc5b36307c","side":"model","ord":1,"text":"дыхание ровное"}
+{"id":"cd336a4c-3ca2-7a80-b1cf-40645b3e7c58","oracle_id":"01a0889d-86f8-7d05-bb14-9bfc5b36307c","side":"counter","ord":1,"text":"остановка идёт рывком"}
+{"id":"51b26833-c494-7d97-98eb-bb5beb90c37f","oracle_id":"01a0889d-86fe-73aa-abf9-2a58ada1bc68","side":"model","ord":1,"text":"высота платформы ниже колена"}
+{"id":"10377af5-32d8-7119-897c-8cddab919c21","oracle_id":"01a0889d-86fe-73aa-abf9-2a58ada1bc68","side":"model","ord":2,"text":"платформа стоит на всех опорах"}
+{"id":"6d122bf9-901d-7f15-94da-4bb1ac63af0d","oracle_id":"01a0889d-86fe-73aa-abf9-2a58ada1bc68","side":"model","ord":3,"text":"поверхность платформы сухая"}
+{"id":"787b6d74-c594-72e8-8a5e-27fca541a010","oracle_id":"01a0889d-86fe-73aa-abf9-2a58ada1bc68","side":"model","ord":4,"text":"корпус вертикален"}
+{"id":"4b9503b5-66fc-7559-b994-c40d234983f1","oracle_id":"01a0889d-86fe-73aa-abf9-2a58ada1bc68","side":"model","ord":5,"text":"гребни таза смотрят вперёд"}
+{"id":"3ad49fca-8d62-7616-89ea-a0b28d465d3e","oracle_id":"01a0889d-86fe-73aa-abf9-2a58ada1bc68","side":"counter","ord":1,"text":"платформа съезжает по полу"}
+{"id":"bf09e551-0c13-78ed-bd8f-09895d91a125","oracle_id":"01a0889d-8700-71be-acfe-943827ad3235","side":"model","ord":1,"text":"в руках нет отягощения"}
+{"id":"ab4dfa59-be55-752d-9f84-47a19a2fba35","oracle_id":"01a0889d-8700-71be-acfe-943827ad3235","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"d17de896-de73-7c9a-b826-690eb4b6d152","oracle_id":"01a0889d-8703-73f3-ab15-cdf9e5d86d3e","side":"model","ord":1,"text":"носки в шаге от края платформы"}
+{"id":"dc8981cf-3154-78eb-866a-1e57de95d2d3","oracle_id":"01a0889d-8703-73f3-ab15-cdf9e5d86d3e","side":"counter","ord":1,"text":"взгляд опущен под ноги"}
+{"id":"1db2c445-e322-7a81-8b77-a0ed608e7c29","oracle_id":"01a0889d-8705-7533-82f0-81f3efe84845","side":"model","ord":1,"text":"стопы на ширине таза"}
+{"id":"a271f3b4-667a-7c98-b331-878cd843c790","oracle_id":"01a0889d-8705-7533-82f0-81f3efe84845","side":"model","ord":2,"text":"корпус вертикален"}
+{"id":"2673991f-fd8c-7dc3-8494-a427476c27cb","oracle_id":"01a0889d-8705-7533-82f0-81f3efe84845","side":"model","ord":3,"text":"поясница нейтральна"}
+{"id":"20704db5-a747-72d9-ab9c-11dd63cf2fc1","oracle_id":"01a0889d-8705-7533-82f0-81f3efe84845","side":"model","ord":4,"text":"руки свободны вдоль корпуса"}
+{"id":"b8426566-4069-7842-8c18-0f3ebccd203a","oracle_id":"01a0889d-8705-7533-82f0-81f3efe84845","side":"counter","ord":1,"text":"жжение в пояснице"}
+{"id":"b63df668-18f6-7264-bab1-304087f007dc","oracle_id":"01a0889d-8707-78fa-93ff-06f47ba1df08","side":"model","ord":1,"text":"голова остаётся над плечами"}
+{"id":"01b64af5-15ec-7421-ae03-d2dda529d309","oracle_id":"01a0889d-8707-78fa-93ff-06f47ba1df08","side":"counter","ord":1,"text":"плечи завалены вперёд"}
+{"id":"33da0288-42c0-7ac4-b7ec-2110ff9960cc","oracle_id":"01a0889d-870a-7c7d-808f-4d95dffdd1a0","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"0d806f93-8446-730f-bfc7-ab4b28dd5067","oracle_id":"01a0889d-870a-7c7d-808f-4d95dffdd1a0","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"efb0a28e-0850-75ba-adc1-89e68b93f2f2","oracle_id":"01a0889d-870a-7c7d-808f-4d95dffdd1a0","side":"model","ord":3,"text":"взгляд направлен вперёд"}
+{"id":"7f06d9b9-2afd-7ce5-9116-44f1204850fd","oracle_id":"01a0889d-870a-7c7d-808f-4d95dffdd1a0","side":"model","ord":4,"text":"гребни таза смотрят вперёд"}
+{"id":"78fe7b94-d77b-7958-abd0-420c8c2424f0","oracle_id":"01a0889d-870a-7c7d-808f-4d95dffdd1a0","side":"model","ord":5,"text":"руки движутся вдоль корпуса"}
+{"id":"cc325c2c-fbd2-7588-819e-35a4c786f6c0","oracle_id":"01a0889d-870a-7c7d-808f-4d95dffdd1a0","side":"counter","ord":1,"text":"пальцы разгибаются в стороны"}
+{"id":"c9553673-57ec-768f-933e-9efb9b3c7097","oracle_id":"01a0889d-870c-7958-afe6-0d33853dd5b1","side":"model","ord":1,"text":"стопа ставится на платформу целиком"}
+{"id":"0ae492c1-44a1-72bd-ad1f-1fe9f230f4e5","oracle_id":"01a0889d-870c-7958-afe6-0d33853dd5b1","side":"model","ord":2,"text":"подъём идёт толчком опорной пятки"}
+{"id":"1259c8dc-0496-7db0-9aa3-433402d9cbc8","oracle_id":"01a0889d-870c-7958-afe6-0d33853dd5b1","side":"model","ord":3,"text":"колено идёт вдоль стопы"}
+{"id":"2f36bd7f-4ade-7e0b-9239-ac1779862b43","oracle_id":"01a0889d-870c-7958-afe6-0d33853dd5b1","side":"counter","ord":1,"text":"грохот платформы под стопой"}
+{"id":"2329d190-dab0-7804-affd-a2d8b11fa28c","oracle_id":"01a0889d-870c-7958-afe6-0d33853dd5b1","side":"counter","ord":2,"text":"покалывание в стопе"}
+{"id":"4df88186-67b3-7b7a-bd38-542e0391ed02","oracle_id":"01a0889d-870c-7958-afe6-0d33853dd5b1","side":"counter","ord":3,"text":"платформа съезжает по полу"}
+{"id":"9cc9171a-6ae6-7866-9a99-229269e77d7e","oracle_id":"01a0889d-8711-78a4-9acd-fdb570e296d5","side":"model","ord":1,"text":"ритм зашагиваний ровный"}
+{"id":"4453f544-f31e-7388-b203-7c5c6aa87580","oracle_id":"01a0889d-8711-78a4-9acd-fdb570e296d5","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"9b6819e7-e545-753b-bd04-73df84d949d3","oracle_id":"01a0889d-8711-78a4-9acd-fdb570e296d5","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"bbb1e366-bf14-7592-833d-91dec8c982ea","oracle_id":"01a0889d-8711-78a4-9acd-fdb570e296d5","side":"model","ord":4,"text":"руки движутся вдоль корпуса"}
+{"id":"e8a289c5-d662-7891-8e98-f6cd5149cc19","oracle_id":"01a0889d-8711-78a4-9acd-fdb570e296d5","side":"model","ord":5,"text":"стопа встаёт на платформу целиком"}
+{"id":"06431323-c660-7ca7-9a35-d85bdd89f7df","oracle_id":"01a0889d-8711-78a4-9acd-fdb570e296d5","side":"counter","ord":1,"text":"спуск становится шумным к концу отрезка"}
+{"id":"d882a526-eec2-7c92-bab3-28eec46c22ba","oracle_id":"01a0889d-8711-78a4-9acd-fdb570e296d5","side":"counter","ord":2,"text":"онемение в предплечье"}
+{"id":"75d46069-31dc-737d-88ed-379107d6d165","oracle_id":"01a0889d-8711-78a4-9acd-fdb570e296d5","side":"counter","ord":3,"text":"жжение при вдохе"}
+{"id":"933e27b1-3d1d-7a8d-ba2c-6ec9f5477a65","oracle_id":"01a0889d-8715-7232-807a-ae08a3c049d9","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"6788f45e-f7ab-795a-bfab-7e269a29fac2","oracle_id":"01a0889d-8715-7232-807a-ae08a3c049d9","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"4a6d9834-7352-7368-92d3-e3fc337be190","oracle_id":"01a0889d-8715-7232-807a-ae08a3c049d9","side":"counter","ord":1,"text":"отдача в поясницу при спуске"}
+{"id":"7e5fa795-5202-7719-9735-7fed76260d51","oracle_id":"01a0889d-8715-7232-807a-ae08a3c049d9","side":"counter","ord":2,"text":"жжение в пояснице"}
+{"id":"d56ed709-6e41-719d-a984-0b9116b20a05","oracle_id":"01a0889d-8718-7d68-bd99-e551058d7ab9","side":"model","ord":1,"text":"дыхание ровное"}
+{"id":"b103f0f8-8ecb-753c-a32f-b220846dbf04","oracle_id":"01a0889d-8718-7d68-bd99-e551058d7ab9","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"2ac75383-4097-7857-978b-39dbbe43a1cf","oracle_id":"01a0889d-871a-7370-9733-df52db4962a3","side":"model","ord":1,"text":"ноги чередуются каждый цикл"}
+{"id":"966b0f75-6b4d-7039-9366-602d6ff84891","oracle_id":"01a0889d-871a-7370-9733-df52db4962a3","side":"counter","ord":1,"text":"колено опорной ноги подламывается"}
+{"id":"9b1bf2d7-7622-7b23-b898-0f1fc92b182b","oracle_id":"01a0889d-871d-769d-8837-c2e2ef557bb4","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"dcdc0176-8624-7732-b52f-920ea80843aa","oracle_id":"01a0889d-871d-769d-8837-c2e2ef557bb4","side":"model","ord":2,"text":"гребни таза смотрят вперёд"}
+{"id":"8551de2f-99d3-71e3-a761-92c72651177b","oracle_id":"01a0889d-871d-769d-8837-c2e2ef557bb4","side":"model","ord":3,"text":"руки движутся вдоль корпуса"}
+{"id":"ede6c172-451b-7746-99b8-9b6a2c5a9dbe","oracle_id":"01a0889d-871d-769d-8837-c2e2ef557bb4","side":"counter","ord":1,"text":"приземление на прямую ногу"}
+{"id":"49333de4-0a71-7620-8aba-035cd866da98","oracle_id":"01a0889d-871d-769d-8837-c2e2ef557bb4","side":"counter","ord":2,"text":"грохот платформы под стопой"}
+{"id":"81d56b2e-4e0f-7eea-958f-9086fa4a6462","oracle_id":"01a0889d-8720-7b5e-b82a-b698c9c25e9a","side":"model","ord":1,"text":"спуск идёт с носка на пятку"}
+{"id":"6cb5e171-c08b-7a35-9c77-c499106b8add","oracle_id":"01a0889d-8720-7b5e-b82a-b698c9c25e9a","side":"model","ord":2,"text":"стопа встаёт на платформу целиком"}
+{"id":"d9f22cc8-070d-739c-9e2c-d970b30db1c4","oracle_id":"01a0889d-8720-7b5e-b82a-b698c9c25e9a","side":"counter","ord":1,"text":"платформа съезжает по полу"}
+{"id":"e10baec4-59c4-7d50-9adb-69ac110faad8","oracle_id":"01a0889d-8722-75e9-9272-e218aa6ccf94","side":"model","ord":1,"text":"темп снижается плавно"}
+{"id":"a9777962-85df-7326-b141-51aa903be44e","oracle_id":"01a0889d-8722-75e9-9272-e218aa6ccf94","side":"model","ord":2,"text":"дыхание восстанавливается"}
+{"id":"b7cad251-6c8b-7f45-b05c-cf79cf76d2cd","oracle_id":"01a0889d-8722-75e9-9272-e218aa6ccf94","side":"counter","ord":1,"text":"подбородок выдвигается вперёд"}
+{"id":"ef20e549-3d77-7345-8b62-2a31bfe8aa4d","oracle_id":"01a0889d-8725-776a-b6a2-62ba50454d5b","side":"model","ord":1,"text":"стопа опускается на пол под контролем"}
+{"id":"08049c7f-74e1-730b-a489-ba4766ffccf3","oracle_id":"01a0889d-8725-776a-b6a2-62ba50454d5b","side":"model","ord":2,"text":"взгляд направлен вперёд"}
+{"id":"b78ccf72-72ff-78ce-bb6c-669acdcca196","oracle_id":"01a0889d-8725-776a-b6a2-62ba50454d5b","side":"model","ord":3,"text":"гребни таза смотрят вперёд"}
+{"id":"7db4a8a3-5af9-7a07-a29f-346bbbc40c4f","oracle_id":"01a0889d-8725-776a-b6a2-62ba50454d5b","side":"model","ord":4,"text":"руки движутся вдоль корпуса"}
+{"id":"c16677e0-8b80-759c-935e-ae88d73eeb44","oracle_id":"01a0889d-8725-776a-b6a2-62ba50454d5b","side":"counter","ord":1,"text":"грохот платформы под стопой"}
+{"id":"c828aa6a-3321-7e66-9fcf-b78260ce63fe","oracle_id":"01a0889d-8727-7960-9019-6c2d3d4cd28a","side":"model","ord":1,"text":"корпус вертикален"}
+{"id":"e442dacd-ecd8-74f9-af92-87f5e3980161","oracle_id":"01a0889d-8727-7960-9019-6c2d3d4cd28a","side":"model","ord":2,"text":"поясница нейтральна"}
+{"id":"c9b57a30-471f-7024-b9b8-0048129e317c","oracle_id":"01a0889d-8727-7960-9019-6c2d3d4cd28a","side":"counter","ord":1,"text":"хруст в суставе на амплитуде"}
+{"id":"91f80b60-7807-77fc-a6f4-d508c394bfc4","oracle_id":"01a0889d-8727-7960-9019-6c2d3d4cd28a","side":"counter","ord":2,"text":"головокружение при сходе"}
+{"id":"83245d31-bcf5-785d-a215-bfe91ef351d5","oracle_id":"01a0889d-872a-7bc2-b03b-96e7d6a35e2e","side":"model","ord":1,"text":"дыхание ровное"}
+{"id":"fdeb71ef-d37f-7a5b-9670-fc27917666b3","oracle_id":"01a0889d-872a-7bc2-b03b-96e7d6a35e2e","side":"counter","ord":1,"text":"колени сходятся внутрь на опоре"}
 {"id":"ddb1d57a-8570-7fee-a0ac-1ed22ed4cc26","oracle_id":"01a0889d-3854-78be-a741-f14e631d24f1","side":"model","ord":1,"text":"стопы на ширине таза"}
 {"id":"92d38623-ecea-777f-814b-146bed0b5f47","oracle_id":"01a0889d-3854-78be-a741-f14e631d24f1","side":"model","ord":2,"text":"корпус вертикален"}
 {"id":"32e2bab0-7882-7afc-a10f-fa8857d104d4","oracle_id":"01a0889d-3854-78be-a741-f14e631d24f1","side":"model","ord":3,"text":"поясница нейтральна"}

@@ -50,7 +50,7 @@ const drawnPicks = (
 ): readonly TargetPick[] => {
 	const { draw } = block;
 	if (draw === undefined) return [];
-	const pinnedGroups = new Set(block.pinnedGroups.map((pin) => pin.id));
+	const pinnedGroups = new Set<string | undefined>(block.pinnedGroups.map((pin) => pin.id));
 	if (draw.level === DRAW_LEVEL.muscle_group)
 		return groups
 			.filter((group) => !pinnedGroups.has(group.id))

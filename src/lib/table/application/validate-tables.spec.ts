@@ -19,7 +19,7 @@ describe('validateTables', () => {
 			catalog: { readSourceCatalog: () => sourceCatalog() },
 			tables: { readAll: () => set, writeAll: noWrite }
 		});
-		expect(report.tables.find((table) => table.name === 'exercise')?.rowCount).toBe(4);
+		expect(report.tables.find((table) => table.name === 'exercise')?.rowCount).toBe(5);
 		expect(report.failureCount).toBe(report.findings.length);
 		expect(report.findings.some((finding) => finding.rule.startsWith('C1'))).toBe(true);
 	});

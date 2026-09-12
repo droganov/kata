@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
 import { sourceCatalog } from '../../../test/table-fixtures.ts';
-import { isUuid } from '../../shared/uuid.ts';
 import { procedureTablesOf } from './procedure.ts';
 
 const catalog = sourceCatalog();
@@ -28,7 +27,7 @@ describe('шаги', () => {
 	});
 
 	it('несут по строке на каждый шаг всех упражнений', () => {
-		expect(tables.step).toHaveLength(8);
+		expect(tables.step).toHaveLength(10);
 	});
 });
 
@@ -80,33 +79,41 @@ describe('строки наблюдений', () => {
 	});
 
 	it('переносят все строки всех оракулов', () => {
-		expect(tables.oracle_line).toHaveLength(32);
+		expect(tables.oracle_line).toHaveLength(40);
 	});
 });
 
 describe('вердикты', () => {
-	it('ссылаются на строку наблюдения вместо оракула и текста', () => {
-		const line = linesOf('oracle-neck_roll-1').find((row) => row.side === 'counter');
-		const { id, ...rest } = tables.verdict[0] ?? {};
-		expect(isUuid(String(id))).toBe(true);
-		expect(rest).toEqual({
+	it('несут идентификатор источника, хэш, решение и причину судьи', () => {
+		expect(tables.verdict[0]).toEqual({
 			hash: 'a'.repeat(40),
-			line_id: line?.id,
+			id: 'verdict-a',
 			reason: null,
 			verdict: 'independent'
 		});
+		expect(tables.verdict[1]?.reason).toBe('наблюдение не противоречит утверждению');
 	});
 
-	it('несут причину, когда судья её оставил', () => {
-		expect(tables.verdict[1]?.reason).toBe('наблюдение не противоречит утверждению');
+	it('связываются со строкой наблюдения', () => {
+		const line = linesOf('oracle-neck_roll-1').find((row) => row.side === 'counter');
+		expect(tables.verdict_line[0]).toEqual({ line_id: line?.id, verdict_id: 'verdict-a' });
 	});
 
 	it('опускают вердикт, чья строка наблюдения исчезла из оракула', () => {
 		expect(tables.verdict).toHaveLength(2);
+		expect(tables.verdict_line).toHaveLength(2);
 	});
 
-	it('опознаются каждый своим идентификатором', () => {
-		const ids = tables.verdict.map((row) => row.id);
-		expect(new Set(ids).size).toBe(ids.length);
+	it('держат один вердикт на все строки с тем же текстом', () => {
+		const [first] = catalog.verdicts;
+		const shared = procedureTablesOf({
+			...catalog,
+			verdicts: [first!, { ...first!, oracle: 'oracle-neck_press-1' }]
+		});
+		expect(shared.verdict).toHaveLength(1);
+		expect(shared.verdict_line.map((row) => row.verdict_id)).toEqual([
+			'verdict-a',
+			'verdict-a'
+		]);
 	});
 });

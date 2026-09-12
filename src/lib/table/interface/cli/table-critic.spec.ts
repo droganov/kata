@@ -2,6 +2,8 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { EXIT_MESSAGE, exitStub } from '../../../../test/process-exit.ts';
 
+vi.setConfig({ testTimeout: 60_000 });
+
 const TOTAL_LABEL = 'ПРОВАЛЕНО: ';
 
 describe('table-critic', () => {

@@ -1,10 +1,18 @@
 export interface SourceCatalog {
+	readonly documents: readonly SourceDocument[];
 	readonly equipment: readonly SourceEquipment[];
 	readonly files: readonly SourceFile[];
+	readonly persons: readonly SourcePerson[];
 	readonly programs: readonly SourceProgram[];
 	readonly references: readonly SourceReference[];
 	readonly targets: readonly SourceTarget[];
 	readonly verdicts: readonly SourceVerdict[];
+}
+
+export interface SourceDocument {
+	readonly kind: string;
+	readonly name: string;
+	readonly value: unknown;
 }
 
 export interface SourceEquipment {
@@ -17,21 +25,32 @@ export interface SourceEquipment {
 
 export interface SourceExercise {
 	readonly constraints: SourceConstraints;
+	readonly corePlane?: string;
 	readonly dose: string;
 	readonly equipment: readonly SourceLink[];
+	readonly goal?: string;
+	readonly hipPlane?: string;
 	readonly id: string;
+	readonly met?: number;
 	readonly modality: string;
 	readonly name: string;
 	readonly note?: string;
+	readonly procedureId: string;
 	readonly reference: string;
+	readonly seconds?: number;
 	readonly slug: string;
 	readonly steps: readonly SourceStep[];
 	readonly targets: readonly SourceLink[];
 }
 
 export interface SourceFile {
+	readonly excluded: readonly SourceExcluded[];
 	readonly groups: readonly SourceGroup[];
+	readonly id: string;
+	readonly rules: readonly string[];
+	readonly sessionBudgetSec?: number;
 	readonly slug: string;
+	readonly title: string;
 }
 
 export interface SourceLink {
@@ -46,6 +65,20 @@ export interface SourceOracle {
 	readonly predicate: string;
 }
 
+export interface SourceOutsideGym {
+	readonly intensity?: string;
+	readonly key: string;
+	readonly minutes: number;
+	readonly name: string;
+	readonly perWeek: number;
+}
+
+export interface SourcePerson {
+	readonly id: string;
+	readonly name: string;
+	readonly programs: readonly string[];
+}
+
 export interface SourcePlacement {
 	readonly catalogTarget: SourceCatalogTarget;
 	readonly file: SourceFile;
@@ -54,10 +87,20 @@ export interface SourcePlacement {
 
 export interface SourceProgram {
 	readonly contraindications: SourceContraindications;
+	readonly goals: SourceGoals;
+	readonly hipPlanes: readonly string[];
 	readonly id: string;
+	readonly outsideGym: readonly SourceOutsideGym[];
+	readonly pairings: readonly SourcePairing[];
 	readonly person: string;
+	readonly progression: SourceProgression;
+	readonly rotationWeeks: number;
+	readonly sections: readonly SourceSection[];
 	readonly sessionBudgetMin: number;
 	readonly sessionsPerWeek: number;
+	readonly timing: SourceTiming;
+	readonly title: string;
+	readonly volumes: readonly SourceVolume[];
 }
 
 export interface SourceRecord extends SourcePlacement {
@@ -69,6 +112,26 @@ export interface SourceReference {
 	readonly note?: string;
 	readonly title: string;
 	readonly url?: string;
+}
+
+export interface SourceSection {
+	readonly bank: string;
+	readonly id: string;
+	readonly mode: string;
+	readonly slots: readonly SourceSlot[];
+	readonly slug: string;
+	readonly title: string;
+}
+
+export interface SourceSlot {
+	readonly allowRepeat?: boolean;
+	readonly exercises: readonly string[];
+	readonly id: string;
+	readonly kind: string;
+	readonly label: string;
+	readonly pick?: number;
+	readonly rule?: string;
+	readonly secEach?: number;
 }
 
 export interface SourceStep {
@@ -91,10 +154,12 @@ export interface SourceTarget {
 	readonly latin: string;
 	readonly name: string;
 	readonly slug: string;
+	readonly targetGroup?: string;
 }
 
 export interface SourceVerdict {
 	readonly hash: string;
+	readonly id: string;
 	readonly line: string;
 	readonly oracle: string;
 	readonly reason?: string;
@@ -105,6 +170,7 @@ interface SourceCatalogTarget {
 	readonly exercises: readonly SourceExercise[];
 	readonly id: string;
 	readonly name: string;
+	readonly pick?: number;
 	readonly slug: string;
 }
 
@@ -123,11 +189,49 @@ interface SourceContraindications {
 	readonly lumbarFlexion: boolean;
 }
 
+interface SourceExcluded {
+	readonly name: string;
+	readonly reason: string;
+}
+
+interface SourceGoals {
+	readonly primary: readonly string[];
+	readonly secondary: readonly string[];
+}
+
 interface SourceGroup {
 	readonly id: string;
 	readonly name: string;
+	readonly rule?: string;
 	readonly slug: string;
 	readonly targets: readonly SourceCatalogTarget[];
+}
+
+interface SourcePairing {
+	readonly exercises: readonly string[];
+	readonly slot: string;
+}
+
+interface SourceProgression {
+	readonly drawn: string;
+	readonly isometric: string;
+	readonly pinned: string;
+	readonly stopRule: string;
+}
+
+interface SourceTiming {
+	readonly holdRestSec: number;
+	readonly restSecAccessory: number;
+	readonly restSecStrength: number;
+	readonly transitionSec: number;
+	readonly warmupGeneralMin?: number;
+	readonly workSecPerSet: number;
+}
+
+interface SourceVolume {
+	readonly group: string;
+	readonly max: number;
+	readonly min: number;
 }
 
 export const sourceOracles = (catalog: SourceCatalog): readonly SourceOracle[] =>

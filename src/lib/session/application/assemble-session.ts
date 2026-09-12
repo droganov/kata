@@ -10,5 +10,10 @@ export const assembleSession = (gateways: SessionGateways, programId: string): S
 	const program = gateways.programs.readPrograms().find((item) => item.id === programId);
 	if (program === undefined) throw new Error(NO_PROGRAM + programId);
 	const catalog = gateways.catalog.readCatalog();
-	return sessionViewOf(program, catalog, sessionOf(program, catalog));
+	return sessionViewOf(
+		program,
+		catalog,
+		sessionOf(program, catalog),
+		gateways.details.readDetails()
+	);
 };

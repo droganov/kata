@@ -22,6 +22,7 @@ export const createTables = (): TableUseCases => {
 			programsFile: TABLE_PATHS.programs,
 			referencesFile: TABLE_PATHS.references,
 			targetsFile: TABLE_PATHS.targets,
+			usersFile: TABLE_PATHS.users,
 			validator,
 			verdictsFile: TABLE_PATHS.verdicts
 		}),

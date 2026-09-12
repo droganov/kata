@@ -20,6 +20,6 @@ export interface MuscleGroup {
 
 export interface Target {
 	readonly id: string;
-	readonly muscleGroup: string;
+	readonly muscleGroup?: string;
 	readonly slug: string;
 }

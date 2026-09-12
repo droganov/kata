@@ -6,9 +6,12 @@ import type { TargetRepository } from '../../catalog/application/target-reposito
 import type { CatalogGateway } from '../application/catalog-gateway.ts';
 import type {
 	SourceCatalog,
+	SourceDocument,
 	SourceEquipment,
 	SourceExercise,
 	SourceFile,
+	SourceOutsideGym,
+	SourcePerson,
 	SourceProgram,
 	SourceReference,
 	SourceStep,
@@ -26,11 +29,22 @@ const EQUIPMENT_SCHEMA_ID = 'equipment.schema.json';
 const PROGRAM_SCHEMA_ID = 'program.schema.json';
 const SOURCE_SCHEMA_ID = 'source.schema.json';
 const TARGET_SCHEMA_ID = 'target.schema.json';
+const USER_SCHEMA_ID = 'user.schema.json';
 const VERDICT_SCHEMA_ID = 'verdict.schema.json';
 const JSON_SUFFIX = '.json';
 const ITEM_MARK = '#';
-const CARDIO_FILE = 'cardio.json';
-const FILE_ORDER: readonly string[] = ['warmup', 'strength', 'calisthenics', 'stretch'];
+const FILE_ORDER: readonly string[] = ['cardio', 'warmup', 'strength', 'calisthenics', 'stretch'];
+const WALKING = 'walking';
+const MOBILITY_HOME = 'mobility_home';
+const DOCUMENT_KIND = {
+	banks: 'banks',
+	equipment: 'equipment',
+	programs: 'programs',
+	sources: 'sources',
+	targets: 'targets',
+	users: 'users',
+	verdicts: 'verdicts'
+} as const;
 
 export interface CatalogJsonSource {
 	readonly equipmentFile: string;
@@ -38,6 +52,7 @@ export interface CatalogJsonSource {
 	readonly programsFile: string;
 	readonly referencesFile: string;
 	readonly targetsFile: string;
+	readonly usersFile: string;
 	readonly validator: SchemaValidator;
 	readonly verdictsFile: string;
 }
@@ -45,13 +60,19 @@ export interface CatalogJsonSource {
 type CatalogEquipment = ReturnType<EquipmentRepository['readAll']>[number];
 
 interface CatalogFile {
+	readonly excluded?: readonly { readonly name: string; readonly reason: string }[];
+	readonly id: string;
+	readonly rules: readonly string[];
+	readonly session_budget_sec?: number;
 	readonly slug: string;
+	readonly title: string;
 	readonly zones: readonly CatalogFileZone[];
 }
 
 interface CatalogFileContour {
 	readonly exercises: readonly CatalogFileExercise[];
 	readonly id: string;
+	readonly pick?: number;
 	readonly slug: string;
 	readonly title: string;
 }
@@ -66,11 +87,16 @@ interface CatalogFileExercise {
 	};
 	readonly dose: string;
 	readonly equipment: readonly { id: string; role: string }[];
+	readonly goal?: string;
+	readonly hip_plane?: string;
 	readonly id: string;
+	readonly met?: number;
 	readonly mode: string;
 	readonly name: string;
 	readonly note?: string;
+	readonly plane?: string;
 	readonly procedure: CatalogFileProcedure;
+	readonly seconds?: number;
 	readonly slug: string;
 	readonly source: string;
 	readonly targets: readonly { id: string; role: string }[];
@@ -84,6 +110,7 @@ interface CatalogFileOracle {
 }
 
 interface CatalogFileProcedure {
+	readonly id: string;
 	readonly steps: readonly CatalogFileStep[];
 }
 
@@ -97,6 +124,7 @@ interface CatalogFileStep {
 interface CatalogFileZone {
 	readonly contours: readonly CatalogFileContour[];
 	readonly id: string;
+	readonly rule?: string;
 	readonly slug: string;
 	readonly title: string;
 }
@@ -110,12 +138,64 @@ interface ProgramFile {
 		readonly loaded_lumbar_extension: boolean;
 		readonly loaded_lumbar_flexion: boolean;
 	};
+	readonly goals: { readonly primary: readonly string[]; readonly secondary: readonly string[] };
+	readonly hip_planes?: readonly string[];
 	readonly id: string;
+	readonly outside_gym?: {
+		readonly mobility_home?: {
+			readonly days_per_week: number;
+			readonly min_per_day: number;
+			readonly name: string;
+		};
+		readonly walking?: {
+			readonly intensity: string;
+			readonly min_per_session: number;
+			readonly name: string;
+			readonly sessions_per_week: number;
+		};
+	};
+	readonly pairing?: readonly { readonly exercises: readonly string[]; readonly slot: string }[];
+	readonly progression: {
+		readonly base: string;
+		readonly isometric: string;
+		readonly pool: string;
+		readonly stop_rule: string;
+	};
 	readonly schedule: {
+		readonly rotation_weeks: number;
 		readonly session_budget_min: number;
 		readonly sessions_per_week: number;
 	};
+	readonly sections: readonly {
+		readonly bank: string;
+		readonly id: string;
+		readonly mode: string;
+		readonly slots: readonly {
+			readonly allow_repeat?: boolean;
+			readonly exercises: readonly string[];
+			readonly id: string;
+			readonly kind: string;
+			readonly label: string;
+			readonly pick?: number;
+			readonly rule?: string;
+			readonly sec_each?: number;
+		}[];
+		readonly slug: string;
+		readonly title: string;
+	}[];
+	readonly timing: {
+		readonly hold_rest_sec: number;
+		readonly rest_sec_accessory: number;
+		readonly rest_sec_strength: number;
+		readonly transition_sec: number;
+		readonly warmup_general_min?: number;
+		readonly work_sec_per_set: number;
+	};
+	readonly title: string;
 	readonly user: string;
+	readonly volume_targets?: Readonly<
+		Record<string, { readonly max: number; readonly min: number }>
+	>;
 }
 
 interface ReferenceFile {
@@ -125,8 +205,15 @@ interface ReferenceFile {
 	readonly url?: string;
 }
 
+interface UserFile {
+	readonly id: string;
+	readonly name: string;
+	readonly programs: readonly string[];
+}
+
 interface VerdictFile {
 	readonly hash: string;
+	readonly id: string;
 	readonly line: string;
 	readonly oracle: string;
 	readonly reason?: string;
@@ -173,6 +260,14 @@ const assertReferenceFile: (
 	validator.assertValid(SOURCE_SCHEMA_ID, value, subject);
 };
 
+const assertUserFile: (
+	validator: SchemaValidator,
+	value: unknown,
+	subject: string
+) => asserts value is UserFile = (validator, value, subject) => {
+	validator.assertValid(USER_SCHEMA_ID, value, subject);
+};
+
 const assertVerdictFile: (
 	validator: SchemaValidator,
 	value: unknown,
@@ -209,6 +304,13 @@ const targetItems = (source: CatalogJsonSource): readonly CatalogTarget[] =>
 		return item;
 	});
 
+const userItems = (source: CatalogJsonSource): readonly UserFile[] =>
+	readJsonArray(source.usersFile).map((item, at) => {
+		const subject = `${source.usersFile}${ITEM_MARK}${String(at)}`;
+		assertUserFile(source.validator, item, subject);
+		return item;
+	});
+
 const verdictItems = (source: CatalogJsonSource): readonly VerdictFile[] =>
 	readJsonArray(source.verdictsFile).map((item, at) => {
 		const subject = `${source.verdictsFile}${ITEM_MARK}${String(at)}`;
@@ -218,14 +320,53 @@ const verdictItems = (source: CatalogJsonSource): readonly VerdictFile[] =>
 
 export const createCatalogJsonGateway = (source: CatalogJsonSource): CatalogGateway => ({
 	readSourceCatalog: (): SourceCatalog => ({
+		documents: documentsOf(source),
 		equipment: equipmentOf(source),
 		files: filesOf(source),
+		persons: personsOf(source),
 		programs: programsOf(source),
 		references: referencesOf(source),
 		targets: targetsOf(source),
 		verdicts: verdictsOf(source)
 	})
 });
+
+const bankNames = (source: CatalogJsonSource): readonly string[] =>
+	readdirSync(source.modalityDirectory).filter((name) => name.endsWith(JSON_SUFFIX));
+
+const documentsOf = (source: CatalogJsonSource): readonly SourceDocument[] => [
+	...bankNames(source).map((name) => ({
+		kind: DOCUMENT_KIND.banks,
+		name,
+		value: readJsonFile(path.join(source.modalityDirectory, name))
+	})),
+	{
+		kind: DOCUMENT_KIND.equipment,
+		name: source.equipmentFile,
+		value: readJsonFile(source.equipmentFile)
+	},
+	{
+		kind: DOCUMENT_KIND.programs,
+		name: source.programsFile,
+		value: readJsonFile(source.programsFile)
+	},
+	{
+		kind: DOCUMENT_KIND.sources,
+		name: source.referencesFile,
+		value: readJsonFile(source.referencesFile)
+	},
+	{
+		kind: DOCUMENT_KIND.targets,
+		name: source.targetsFile,
+		value: readJsonFile(source.targetsFile)
+	},
+	{ kind: DOCUMENT_KIND.users, name: source.usersFile, value: readJsonFile(source.usersFile) },
+	{
+		kind: DOCUMENT_KIND.verdicts,
+		name: source.verdictsFile,
+		value: readJsonFile(source.verdictsFile)
+	}
+];
 
 const equipmentOf = (source: CatalogJsonSource): readonly SourceEquipment[] => {
 	const items = findEquipment({
@@ -250,42 +391,84 @@ const exerciseOf = (exercise: CatalogFileExercise): SourceExercise => ({
 		lumbarExt: exercise.constraints.lumbar_ext,
 		lumbarFlex: exercise.constraints.lumbar_flex
 	},
+	...(exercise.plane !== undefined && { corePlane: exercise.plane }),
 	dose: exercise.dose,
 	equipment: exercise.equipment,
+	...(exercise.goal !== undefined && { goal: exercise.goal }),
+	...(exercise.hip_plane !== undefined && { hipPlane: exercise.hip_plane }),
 	id: exercise.id,
+	...(exercise.met !== undefined && { met: exercise.met }),
 	modality: exercise.mode,
 	name: exercise.name,
 	...(exercise.note !== undefined && { note: exercise.note }),
+	procedureId: exercise.procedure.id,
 	reference: exercise.source,
+	...(exercise.seconds !== undefined && { seconds: exercise.seconds }),
 	slug: exercise.slug,
 	steps: exercise.procedure.steps.map((step) => stepOf(step)),
 	targets: exercise.targets
 });
 
 const fileOf = (file: CatalogFile): SourceFile => ({
+	excluded: file.excluded ?? [],
 	groups: file.zones.map((zone) => ({
 		id: zone.id,
 		name: zone.title,
+		...(zone.rule !== undefined && { rule: zone.rule }),
 		slug: zone.slug,
 		targets: zone.contours.map((contour) => ({
 			exercises: contour.exercises.map((exercise) => exerciseOf(exercise)),
 			id: contour.id,
 			name: contour.title,
+			...(contour.pick !== undefined && { pick: contour.pick }),
 			slug: contour.slug
 		}))
 	})),
-	slug: file.slug
+	id: file.id,
+	rules: file.rules,
+	...(file.session_budget_sec !== undefined && { sessionBudgetSec: file.session_budget_sec }),
+	slug: file.slug,
+	title: file.title
 });
 
 const filesOf = (source: CatalogJsonSource): readonly SourceFile[] =>
-	readdirSync(source.modalityDirectory)
-		.filter((name) => name.endsWith(JSON_SUFFIX) && name !== CARDIO_FILE)
+	bankNames(source)
 		.map((name) => {
 			const parsed = readJsonFile(path.join(source.modalityDirectory, name));
 			assertCatalogFile(source.validator, parsed, name);
 			return fileOf(parsed);
 		})
 		.toSorted((first, second) => rank(first.slug) - rank(second.slug));
+
+const outsideGymOf = (program: ProgramFile): readonly SourceOutsideGym[] => {
+	const { mobility_home: home, walking } = program.outside_gym ?? {};
+	return [
+		...(walking === undefined
+			? []
+			: [
+					{
+						intensity: walking.intensity,
+						key: WALKING,
+						minutes: walking.min_per_session,
+						name: walking.name,
+						perWeek: walking.sessions_per_week
+					}
+				]),
+		...(home === undefined
+			? []
+			: [
+					{
+						key: MOBILITY_HOME,
+						minutes: home.min_per_day,
+						name: home.name,
+						perWeek: home.days_per_week
+					}
+				])
+	];
+};
+
+const personsOf = (source: CatalogJsonSource): readonly SourcePerson[] =>
+	userItems(source).map((user) => ({ id: user.id, name: user.name, programs: user.programs }));
 
 const programsOf = (source: CatalogJsonSource): readonly SourceProgram[] =>
 	programItems(source).map((program) => ({
@@ -295,10 +478,54 @@ const programsOf = (source: CatalogJsonSource): readonly SourceProgram[] =>
 			lumbarExtension: program.contraindications.loaded_lumbar_extension,
 			lumbarFlexion: program.contraindications.loaded_lumbar_flexion
 		},
+		goals: { primary: program.goals.primary, secondary: program.goals.secondary },
+		hipPlanes: program.hip_planes ?? [],
 		id: program.id,
+		outsideGym: outsideGymOf(program),
+		pairings: program.pairing ?? [],
 		person: program.user,
+		progression: {
+			drawn: program.progression.pool,
+			isometric: program.progression.isometric,
+			pinned: program.progression.base,
+			stopRule: program.progression.stop_rule
+		},
+		rotationWeeks: program.schedule.rotation_weeks,
+		sections: program.sections.map((section) => ({
+			bank: section.bank,
+			id: section.id,
+			mode: section.mode,
+			slots: section.slots.map((slot) => ({
+				...(slot.allow_repeat !== undefined && { allowRepeat: slot.allow_repeat }),
+				exercises: slot.exercises,
+				id: slot.id,
+				kind: slot.kind,
+				label: slot.label,
+				...(slot.pick !== undefined && { pick: slot.pick }),
+				...(slot.rule !== undefined && { rule: slot.rule }),
+				...(slot.sec_each !== undefined && { secEach: slot.sec_each })
+			})),
+			slug: section.slug,
+			title: section.title
+		})),
 		sessionBudgetMin: program.schedule.session_budget_min,
-		sessionsPerWeek: program.schedule.sessions_per_week
+		sessionsPerWeek: program.schedule.sessions_per_week,
+		timing: {
+			holdRestSec: program.timing.hold_rest_sec,
+			restSecAccessory: program.timing.rest_sec_accessory,
+			restSecStrength: program.timing.rest_sec_strength,
+			transitionSec: program.timing.transition_sec,
+			...(program.timing.warmup_general_min !== undefined && {
+				warmupGeneralMin: program.timing.warmup_general_min
+			}),
+			workSecPerSet: program.timing.work_sec_per_set
+		},
+		title: program.title,
+		volumes: Object.entries(program.volume_targets ?? {}).map(([group, volume]) => ({
+			group,
+			max: volume.max,
+			min: volume.min
+		}))
 	}));
 
 const rank = (slug: string): number => FILE_ORDER.indexOf(slug);
@@ -333,13 +560,15 @@ const targetsOf = (source: CatalogJsonSource): readonly SourceTarget[] => {
 		kind: target.kind,
 		latin: target.latin,
 		name: target.name,
-		slug: target.slug
+		slug: target.slug,
+		...(target.group !== undefined && { targetGroup: target.group })
 	}));
 };
 
 const verdictsOf = (source: CatalogJsonSource): readonly SourceVerdict[] =>
 	verdictItems(source).map((verdict) => ({
 		hash: verdict.hash,
+		id: verdict.id,
 		line: verdict.line,
 		oracle: verdict.oracle,
 		...(verdict.reason !== undefined && { reason: verdict.reason }),

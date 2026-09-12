@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'vitest';
 
 import { sourceCatalog, tableSetOf } from '../../../../test/table-fixtures.ts';
-import { CATALOG_RULES, FORMAT_RULES, INTEGRITY_RULES, tableRules } from './table-rules.ts';
+import {
+	CARRY_RULES,
+	CATALOG_RULES,
+	FORMAT_RULES,
+	INTEGRITY_RULES,
+	tableRules
+} from './table-rules.ts';
 
 const FORMAT_RULE_COUNT = 5;
 
@@ -10,7 +16,7 @@ describe('перечень правил', () => {
 		expect(FORMAT_RULES).toHaveLength(FORMAT_RULE_COUNT);
 		expect(INTEGRITY_RULES.length).toBeGreaterThan(0);
 		expect(tableRules()).toHaveLength(
-			FORMAT_RULES.length + INTEGRITY_RULES.length + CATALOG_RULES.length
+			FORMAT_RULES.length + INTEGRITY_RULES.length + CATALOG_RULES.length + CARRY_RULES.length
 		);
 	});
 

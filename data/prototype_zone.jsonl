@@ -1,0 +1,38 @@
+{"id":"01a0889d-847d-7d1b-a71d-1c4dfdf9c6b4","bank_id":"01a0889d-847c-7e2e-9bb7-6fcc9d121745","ord":1,"slug":"cardio","title":"Сердце, сосуды, лёгкие","muscle_group_id":null}
+{"id":"01a0889d-391d-7b41-942b-8df11d52765c","bank_id":"01a0889d-4422-7136-b68e-84808d6000c0","ord":1,"slug":"neck","title":"Шея","muscle_group_id":"01a0889d-4558-7396-9e5d-878fdf19cfda"}
+{"id":"01a0889d-3d56-7015-9946-0975b020ebb0","bank_id":"01a0889d-4422-7136-b68e-84808d6000c0","ord":2,"slug":"shoulder_girdle","title":"Плечевой пояс","muscle_group_id":null}
+{"id":"01a0889d-3ec5-7d87-b5af-fc79eed9bbe9","bank_id":"01a0889d-4422-7136-b68e-84808d6000c0","ord":3,"slug":"thoracic","title":"Грудь, спина","muscle_group_id":null}
+{"id":"01a0889d-3f7a-7555-909b-041b4dd49391","bank_id":"01a0889d-4422-7136-b68e-84808d6000c0","ord":4,"slug":"lumbar","title":"Поясница","muscle_group_id":null}
+{"id":"01a0889d-4167-70fc-befa-1d77f59f9e8c","bank_id":"01a0889d-4422-7136-b68e-84808d6000c0","ord":5,"slug":"hips","title":"Бёдра","muscle_group_id":null}
+{"id":"01a0889d-42bd-75cb-9911-eec2025a5c3b","bank_id":"01a0889d-4422-7136-b68e-84808d6000c0","ord":6,"slug":"knee","title":"Колени","muscle_group_id":null}
+{"id":"01a0889d-4421-7f27-8dea-28c45c69bdae","bank_id":"01a0889d-4422-7136-b68e-84808d6000c0","ord":7,"slug":"foot","title":"Стопы","muscle_group_id":null}
+{"id":"01a0889d-4558-7396-9e5d-878fdf19cfda","bank_id":"01a0889d-5fff-78b5-82a8-fb69c70c4ce8","ord":1,"slug":"neck","title":"Шея","muscle_group_id":"01a0889d-4558-7396-9e5d-878fdf19cfda"}
+{"id":"01a0889d-46c5-711d-9edd-837dbf80621d","bank_id":"01a0889d-5fff-78b5-82a8-fb69c70c4ce8","ord":2,"slug":"traps","title":"Трапеция","muscle_group_id":"01a0889d-46c5-711d-9edd-837dbf80621d"}
+{"id":"01a0889d-4a17-753f-b22d-13e2f26cabff","bank_id":"01a0889d-5fff-78b5-82a8-fb69c70c4ce8","ord":3,"slug":"shoulders","title":"Плечи","muscle_group_id":"01a0889d-4a17-753f-b22d-13e2f26cabff"}
+{"id":"01a0889d-4d0a-77d1-bee6-5fe32f5eddfc","bank_id":"01a0889d-5fff-78b5-82a8-fb69c70c4ce8","ord":4,"slug":"chest","title":"Грудь","muscle_group_id":"01a0889d-4d0a-77d1-bee6-5fe32f5eddfc"}
+{"id":"01a0889d-5258-7fa8-a0c9-1824acbc43b5","bank_id":"01a0889d-5fff-78b5-82a8-fb69c70c4ce8","ord":5,"slug":"back","title":"Спина","muscle_group_id":"01a0889d-5258-7fa8-a0c9-1824acbc43b5"}
+{"id":"01a0889d-558c-72b3-849e-faf90a2e79ec","bank_id":"01a0889d-5fff-78b5-82a8-fb69c70c4ce8","ord":6,"slug":"arms","title":"Руки","muscle_group_id":"01a0889d-558c-72b3-849e-faf90a2e79ec"}
+{"id":"01a0889d-56f6-78f3-8de6-965c93d19ce3","bank_id":"01a0889d-5fff-78b5-82a8-fb69c70c4ce8","ord":7,"slug":"core","title":"Пресс и кор","muscle_group_id":"01a0889d-56f6-78f3-8de6-965c93d19ce3"}
+{"id":"01a0889d-5968-71d3-bba6-c4c747ce4b69","bank_id":"01a0889d-5fff-78b5-82a8-fb69c70c4ce8","ord":8,"slug":"glutes","title":"Ягодичные","muscle_group_id":"01a0889d-5968-71d3-bba6-c4c747ce4b69"}
+{"id":"01a0889d-5eca-76f4-9518-a52c7177db5a","bank_id":"01a0889d-5fff-78b5-82a8-fb69c70c4ce8","ord":9,"slug":"thighs","title":"Бёдра","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a"}
+{"id":"01a0889d-5ffe-7a59-86d7-cdba15dbfed6","bank_id":"01a0889d-5fff-78b5-82a8-fb69c70c4ce8","ord":10,"slug":"calves","title":"Икры","muscle_group_id":"01a0889d-5ffe-7a59-86d7-cdba15dbfed6"}
+{"id":"01a0889d-6130-7c0d-941c-fd7f59973629","bank_id":"01a0889d-7615-7422-a14e-0e6ad02d30cc","ord":1,"slug":"neck","title":"Шея","muscle_group_id":"01a0889d-4558-7396-9e5d-878fdf19cfda"}
+{"id":"01a0889d-6255-721e-825b-93d09c604901","bank_id":"01a0889d-7615-7422-a14e-0e6ad02d30cc","ord":2,"slug":"traps","title":"Трапеция","muscle_group_id":"01a0889d-46c5-711d-9edd-837dbf80621d"}
+{"id":"01a0889d-642c-7115-bb42-b00349ed51a2","bank_id":"01a0889d-7615-7422-a14e-0e6ad02d30cc","ord":3,"slug":"shoulders","title":"Плечи","muscle_group_id":"01a0889d-4a17-753f-b22d-13e2f26cabff"}
+{"id":"01a0889d-65e6-79f2-9dc6-68a13414e50e","bank_id":"01a0889d-7615-7422-a14e-0e6ad02d30cc","ord":4,"slug":"chest","title":"Грудь","muscle_group_id":"01a0889d-4d0a-77d1-bee6-5fe32f5eddfc"}
+{"id":"01a0889d-68ea-7a77-b3bc-0257d83c1fe3","bank_id":"01a0889d-7615-7422-a14e-0e6ad02d30cc","ord":5,"slug":"back","title":"Спина","muscle_group_id":"01a0889d-5258-7fa8-a0c9-1824acbc43b5"}
+{"id":"01a0889d-6ab9-7805-901f-b732e54f3015","bank_id":"01a0889d-7615-7422-a14e-0e6ad02d30cc","ord":6,"slug":"arms","title":"Руки","muscle_group_id":"01a0889d-558c-72b3-849e-faf90a2e79ec"}
+{"id":"01a0889d-6d03-7725-ad23-4766bdf57daf","bank_id":"01a0889d-7615-7422-a14e-0e6ad02d30cc","ord":7,"slug":"core","title":"Пресс и кор","muscle_group_id":"01a0889d-56f6-78f3-8de6-965c93d19ce3"}
+{"id":"01a0889d-6f62-77c8-bf75-9e6b9dc48030","bank_id":"01a0889d-7615-7422-a14e-0e6ad02d30cc","ord":8,"slug":"glutes","title":"Ягодичные","muscle_group_id":"01a0889d-5968-71d3-bba6-c4c747ce4b69"}
+{"id":"01a0889d-74dd-7985-9eed-97f7b35dedec","bank_id":"01a0889d-7615-7422-a14e-0e6ad02d30cc","ord":9,"slug":"thighs","title":"Бёдра","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a"}
+{"id":"01a0889d-7614-79f3-a5d4-cbf3dc010b67","bank_id":"01a0889d-7615-7422-a14e-0e6ad02d30cc","ord":10,"slug":"calves","title":"Икры","muscle_group_id":"01a0889d-5ffe-7a59-86d7-cdba15dbfed6"}
+{"id":"01a0889d-7739-78d0-bf30-23ec794ecb14","bank_id":"01a0889d-847b-77ff-a92b-b567b569eeb1","ord":1,"slug":"neck","title":"Шея","muscle_group_id":"01a0889d-4558-7396-9e5d-878fdf19cfda"}
+{"id":"01a0889d-77dc-75b9-981f-3a7773725398","bank_id":"01a0889d-847b-77ff-a92b-b567b569eeb1","ord":2,"slug":"traps","title":"Трапеция","muscle_group_id":"01a0889d-46c5-711d-9edd-837dbf80621d"}
+{"id":"01a0889d-791c-7020-a827-685e8529b6da","bank_id":"01a0889d-847b-77ff-a92b-b567b569eeb1","ord":3,"slug":"shoulders","title":"Плечи","muscle_group_id":"01a0889d-4a17-753f-b22d-13e2f26cabff"}
+{"id":"01a0889d-7a46-7609-bd5c-f7adb3c16739","bank_id":"01a0889d-847b-77ff-a92b-b567b569eeb1","ord":4,"slug":"chest","title":"Грудь","muscle_group_id":"01a0889d-4d0a-77d1-bee6-5fe32f5eddfc"}
+{"id":"01a0889d-7d15-7c54-96ee-756df97774ed","bank_id":"01a0889d-847b-77ff-a92b-b567b569eeb1","ord":5,"slug":"back","title":"Спина","muscle_group_id":"01a0889d-5258-7fa8-a0c9-1824acbc43b5"}
+{"id":"01a0889d-7e1d-7e2f-80f7-8ed467d73c1b","bank_id":"01a0889d-847b-77ff-a92b-b567b569eeb1","ord":6,"slug":"arms","title":"Руки","muscle_group_id":"01a0889d-558c-72b3-849e-faf90a2e79ec"}
+{"id":"01a0889d-7e83-74d6-977e-403c89f754e8","bank_id":"01a0889d-847b-77ff-a92b-b567b569eeb1","ord":7,"slug":"core","title":"Пресс и кор","muscle_group_id":"01a0889d-56f6-78f3-8de6-965c93d19ce3"}
+{"id":"01a0889d-7fdc-7ee3-8cff-aaffcfdde4b3","bank_id":"01a0889d-847b-77ff-a92b-b567b569eeb1","ord":8,"slug":"glutes","title":"Ягодичные","muscle_group_id":"01a0889d-5968-71d3-bba6-c4c747ce4b69"}
+{"id":"01a0889d-834c-7e97-a7ab-bf6a45befa83","bank_id":"01a0889d-847b-77ff-a92b-b567b569eeb1","ord":9,"slug":"thighs","title":"Бёдра","muscle_group_id":"01a0889d-5eca-76f4-9518-a52c7177db5a"}
+{"id":"01a0889d-847a-7c0a-91ac-416e863a7538","bank_id":"01a0889d-847b-77ff-a92b-b567b569eeb1","ord":10,"slug":"calves","title":"Икры","muscle_group_id":"01a0889d-5ffe-7a59-86d7-cdba15dbfed6"}

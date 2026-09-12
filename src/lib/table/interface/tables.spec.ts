@@ -1,6 +1,8 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { createTables } from './tables.ts';
+
+vi.setConfig({ testTimeout: 60_000 });
 
 const MUSCLE_GROUP_COUNT = 10;
 

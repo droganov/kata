@@ -14,7 +14,7 @@ describe('tableRowsOf', () => {
 });
 
 describe('BUNDLED_TABLES', () => {
-	it('держит в памяти таблицы Программы и каталога, без процедур', () => {
+	it('держит в памяти таблицы Программы, каталога и процедур', () => {
 		expect(
 			BUNDLED_TABLES.keys()
 				.toArray()
@@ -24,11 +24,18 @@ describe('BUNDLED_TABLES', () => {
 			'block_draw',
 			'block_pin_group',
 			'block_pin_target',
+			'equipment',
 			'exercise',
+			'exercise_equipment',
+			'exercise_target',
 			'muscle_group',
+			'oracle',
+			'oracle_line',
 			'program',
+			'step',
+			'step_target',
 			'target'
 		]);
-		expect(BUNDLED_TABLES.get('exercise')).toHaveLength(408);
+		expect(BUNDLED_TABLES.get('exercise')).toHaveLength(420);
 	});
 });

@@ -7,13 +7,15 @@ const session = createSession();
 
 describe('createSession на боевых таблицах', () => {
 	it('перечисляет Программы', () => {
-		expect(session.listPrograms()).toEqual([{ id: PROGRAM_ID, title: 'Закрепления и добор' }]);
+		expect(session.listPrograms()).toEqual([
+			{ id: PROGRAM_ID, title: 'Программа: БАЗА + ПУЛ' }
+		]);
 	});
 
 	it('собирает Занятие, разбитое на пять Блоков', () => {
 		const view = session.assembleSession(PROGRAM_ID);
 		expect(view.blocks.map((block) => [block.name, block.items.length])).toEqual([
-			['Разогрев', 0],
+			['Разогрев', 1],
 			['Разминка', 14],
 			['Силовой', 4],
 			['Изометрия', 4],
@@ -26,6 +28,14 @@ describe('createSession на боевых таблицах', () => {
 		for (const item of items) {
 			expect(item.name).not.toBe('');
 			expect(item.dose).not.toBe('');
+		}
+	});
+
+	it('раскрывает каждое Упражнение Занятия процедурой и Мишенями', () => {
+		const items = session.assembleSession(PROGRAM_ID).blocks.flatMap((block) => block.items);
+		for (const item of items) {
+			expect(item.detail.steps.length).toBeGreaterThan(0);
+			expect(item.detail.targets).not.toBe('');
 		}
 	});
 });

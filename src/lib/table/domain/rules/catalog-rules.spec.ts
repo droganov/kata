@@ -96,8 +96,8 @@ describe('C5 ни одно упражнение не потеряно', () => {
 	it('называет потерянные по slug', () => {
 		const broken = tableSetOf({ exercise: tables.exercise.slice(1) });
 		const findings = everyExerciseCarried(broken, catalog);
-		expect(findings[0]?.message).toContain('neck_roll');
-		expect(findings[1]?.message).toContain('строк 3');
+		expect(findings[0]?.message).toContain('bike');
+		expect(findings[1]?.message).toContain('строк 4');
 	});
 });
 
@@ -138,7 +138,7 @@ describe('C8 одно главное оборудование', () => {
 
 	it('находит упражнение без главного и с двумя главными', () => {
 		const broken = tableSetOf({
-			exercise: tables.exercise.slice(0, 2),
+			exercise: tables.exercise.slice(1, 3),
 			exercise_equipment: [
 				{ equipment_id: 'a', exercise_id: 'ex-neck-2', role: 'main' },
 				{ equipment_id: 'b', exercise_id: 'ex-neck-2', role: 'main' }
@@ -159,7 +159,7 @@ describe('C9 источник упражнения', () => {
 
 	it('находит упражнение без источника', () => {
 		const broken = tableSetOf({ exercise: tables.exercise.slice(0, 1) });
-		expect(everyExerciseHasSource(broken)[0]?.subject).toContain('neck_roll');
+		expect(everyExerciseHasSource(broken)[0]?.subject).toContain('bike');
 	});
 });
 
@@ -200,7 +200,7 @@ describe('C11 оракулы и строки наблюдений перенес
 			oracle_line: tables.oracle_line.slice(1)
 		});
 		const findings = everyOracleCarried(broken, catalog);
-		expect(findings[0]?.message).toContain('oracle-neck_roll-1');
+		expect(findings[0]?.message).toContain('oracle-bike-1');
 		expect(findings[1]?.message).toContain('не перенесены строки наблюдений: 1');
 	});
 
@@ -224,7 +224,7 @@ describe('C12 вердикты перенесены', () => {
 	it('находит вердикт, потерянный при конвертации', () => {
 		const broken = tableSetOf({
 			oracle_line: tables.oracle_line,
-			verdict: tables.verdict.slice(1)
+			verdict_line: tables.verdict_line.slice(1)
 		});
 		expect(everyVerdictCarried(broken, catalog)[0]?.message).toContain(
 			'вес перенесён на пятки'
@@ -234,7 +234,7 @@ describe('C12 вердикты перенесены', () => {
 	it('не считает перенесённым вердикт, чья строка наблюдения не контр-строка', () => {
 		const broken = tableSetOf({
 			oracle_line: tables.oracle_line.filter((row) => row.side === 'model'),
-			verdict: tables.verdict
+			verdict_line: tables.verdict_line
 		});
 		expect(everyVerdictCarried(broken, catalog)).toHaveLength(1);
 	});

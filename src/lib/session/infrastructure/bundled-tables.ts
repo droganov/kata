@@ -14,9 +14,16 @@ const TABLE_FILES = import.meta.glob<string>(
 		'/data/block_draw.jsonl',
 		'/data/block_pin_group.jsonl',
 		'/data/block_pin_target.jsonl',
+		'/data/equipment.jsonl',
 		'/data/exercise.jsonl',
+		'/data/exercise_equipment.jsonl',
+		'/data/exercise_target.jsonl',
 		'/data/muscle_group.jsonl',
+		'/data/oracle.jsonl',
+		'/data/oracle_line.jsonl',
 		'/data/program.jsonl',
+		'/data/step.jsonl',
+		'/data/step_target.jsonl',
 		'/data/target.jsonl'
 	],
 	{ eager: true, import: 'default', query: '?raw' }

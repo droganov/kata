@@ -9,8 +9,37 @@ const DATA = {
 		{
 			id: 'b-warmup',
 			items: [
-				{ dose: '2×10', name: 'Круги головой', ord: 1 },
-				{ dose: '40с × 2', name: 'Наклоны головы', ord: 2 }
+				{
+					detail: {
+						equipment: 'Тело — main',
+						note: 'медленно',
+						steps: [
+							{
+								active: 'Шея',
+								id: 's1',
+								oracles: [
+									{
+										counterModel: ['рывок'],
+										id: 'o1',
+										model: ['плавно'],
+										predicate: 'Плечи опущены'
+									}
+								],
+								title: 'Наклон'
+							}
+						],
+						targets: 'Шея — primary'
+					},
+					dose: '2×10',
+					name: 'Круги головой',
+					ord: 1
+				},
+				{
+					detail: { equipment: '', steps: [], targets: '' },
+					dose: '40с × 2',
+					name: 'Наклоны головы',
+					ord: 2
+				}
 			],
 			name: 'Разминка'
 		}
@@ -25,7 +54,18 @@ it('показывает Занятие по Блокам с названием 
 		screen.getAllByRole('heading', { level: 2 }).map((heading) => heading.textContent)
 	).toEqual(['Разогрев', 'Разминка']);
 	expect(screen.getByText('Упражнений нет')).toBeInTheDocument();
-	expect(
-		screen.getAllByRole('listitem').map((row) => row.textContent.replaceAll(/\s+/g, ' ').trim())
-	).toEqual(['Круги головой 2×10', 'Наклоны головы 40с × 2']);
+	expect(screen.getByText('Круги головой')).toBeInTheDocument();
+	expect(screen.getByText('40с × 2')).toBeInTheDocument();
+});
+
+it('раскрывает Упражнение процедурой с оракулами, оборудованием, Мишенями и заметкой', () => {
+	render(Page, { data: DATA });
+	expect(screen.getByText('Оборудование: Тело — main')).toBeInTheDocument();
+	expect(screen.getByText('Мишени: Шея — primary')).toBeInTheDocument();
+	expect(screen.getByText('Заметка: медленно')).toBeInTheDocument();
+	expect(screen.getByText('Наклон')).toBeInTheDocument();
+	expect(screen.getByText('Плечи опущены')).toBeInTheDocument();
+	expect(screen.getByText('плавно')).toBeInTheDocument();
+	expect(screen.getByText('рывок')).toBeInTheDocument();
+	expect(screen.getByText('Процедуры нет')).toBeInTheDocument();
 });

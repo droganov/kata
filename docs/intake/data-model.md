@@ -4,7 +4,7 @@
 
 Модель описана как схема Postgres. Пока базы нет, каждая таблица хранится файлом `data/<table>.jsonl`: одна строка это один кортеж, ключи это имена столбцов, значения только скалярные. Ни вложенных объектов, ни массивов. Переезд на Postgres это `COPY` из этих файлов, без преобразования формы.
 
-Термины по `CONTEXT.md`. Двадцать девять таблиц и одно представление.
+Термины по `CONTEXT.md`. 45 таблиц и одно представление.
 
 ## Что даёт нормализация
 
@@ -66,10 +66,18 @@ create table muscle_group (
   ord  smallint not null unique      -- порядок показа
 );
 
+-- Анатомическая группа: delts, rotators, quads, hamstrings…
+-- По ней записан недельный объём программы
+create table target_group (
+  id   uuid primary key,
+  slug text not null unique
+);
+
 -- Нижний уровень: мышца, пучок мышцы, сустав, паттерн движения, система
 create table target (
   id              uuid primary key,
-  muscle_group_id uuid not null references muscle_group(id),
+  muscle_group_id uuid references muscle_group(id),   -- пусто ровно у мишени вида system
+  target_group_id uuid references target_group(id),   -- есть у мышц словаря
   slug            text not null,
   name            text not null,
   latin           text,               -- есть у мышц, нет у суставов и паттернов
@@ -100,7 +108,12 @@ create table exercise (
   lumbar_flex       boolean not null, -- сгибание поясницы под нагрузкой
   lumbar_ext        boolean not null, -- разгибание поясницы под нагрузкой
   free_weight       boolean not null,
-  kg_max            numeric
+  kg_max            numeric,
+  seconds           smallint,         -- длительность в занятии: разминка, кардио
+  met               numeric,          -- метаболический эквивалент: кардио
+  core_plane        text,             -- плоскость нагрузки кора: изометрия
+  hip_plane         text,             -- плоскость тазобедренного сустава
+  goal_id           uuid references goal(id)  -- цель программы, которой служит упражнение
 );
 
 create table exercise_target (
@@ -168,12 +181,19 @@ create table oracle_line (
   unique (oracle_id, side, ord)
 );
 
+-- Одна оценка текста наблюдения. Одна и та же строка стоит в разных оракулах,
+-- поэтому вердикт один, а связей со строками несколько
 create table verdict (
   id      uuid primary key,
-  line_id uuid not null unique references oracle_line(id) on delete cascade,
-  hash    char(40) not null,
+  hash    char(40) not null unique,
   verdict verdict_kind not null,
   reason  text
+);
+
+create table verdict_line (
+  verdict_id uuid not null references verdict(id) on delete cascade,
+  line_id    uuid not null unique references oracle_line(id) on delete cascade,
+  primary key (verdict_id, line_id)
 );
 ```
 
@@ -190,6 +210,9 @@ create table person (
   email_verified_at timestamptz,
   created_at       timestamptz not null
 );
+
+-- Пока входа нет, data/person.jsonl несёт только id и nickname из прототипа.
+-- Остальные столбцы появляются со входом.
 
 -- Код подтверждения почты. Им же связывается создаваемый passkey.
 create table email_code (
@@ -250,7 +273,9 @@ create table program_goal (
   program_id uuid not null references program(id) on delete cascade,
   goal_id    uuid not null references goal(id),
   priority   goal_priority not null,
-  primary key (program_id, goal_id)
+  ord        smallint not null,
+  primary key (program_id, goal_id),
+  unique (program_id, priority, ord)
 );
 
 -- Отдых зависит от вида работы, поэтому это таблица, а не набор столбцов
@@ -261,22 +286,53 @@ create table program_timing (
   primary key (program_id, key)
 );
 
--- Недельный коридор подходов на группу мышц
+-- Недельный коридор подходов на анатомическую группу: так он записан в прототипе
 create table program_volume (
   program_id      uuid not null references program(id) on delete cascade,
-  muscle_group_id uuid not null references muscle_group(id),
+  target_group_id uuid not null references target_group(id),
   min_sets        smallint not null,
   max_sets        smallint not null,
-  primary key (program_id, muscle_group_id)
+  primary key (program_id, target_group_id)
+);
+
+-- Прогрессия словами: pinned, drawn, isometric, stop_rule
+create table program_progression (
+  program_id uuid not null references program(id) on delete cascade,
+  key        text not null,
+  text       text not null,
+  primary key (program_id, key)
+);
+
+-- Занятия вне зала: ходьба, подвижность дома
+create table program_outside_gym (
+  program_id uuid not null references program(id) on delete cascade,
+  key        text not null,
+  name       text not null,
+  minutes    smallint not null,
+  per_week   smallint not null,
+  intensity  text,
+  primary key (program_id, key)
+);
+
+-- Плоскости тазобедренного сустава, которые программа обязана покрыть
+create table program_hip_plane (
+  program_id uuid not null references program(id) on delete cascade,
+  hip_plane  text not null,
+  ord        smallint not null,
+  primary key (program_id, hip_plane),
+  unique (program_id, ord)
 );
 
 create table block (
   id         uuid primary key,
   program_id uuid not null references program(id) on delete cascade,
   ord        smallint not null,
+  slug       text not null,
   name       text not null,          -- Разогрев, Разминка, Силовой, Изометрия, Растяжка
   modality   modality not null,      -- из какого режима берутся упражнения
-  unique (program_id, ord)
+  budget_sec smallint,               -- бюджет времени блока
+  unique (program_id, ord),
+  unique (program_id, slug)
 );
 
 -- Закрепление на группе мышц: мишень внутри группы выбирается случайно
@@ -294,6 +350,7 @@ create table block_pin_target (
   target_id uuid not null references target(id),
   ord       smallint not null,
   pick      smallint not null,
+  sec_each  smallint,                 -- длительность одного упражнения
   primary key (block_id, target_id)
 );
 
@@ -302,7 +359,8 @@ create table block_draw (
   block_id  uuid primary key references block(id) on delete cascade,
   level     draw_level not null,      -- добираем группы мышц или мишени
   count     smallint not null,        -- сколько добрать
-  pick_each smallint not null         -- сколько упражнений с каждой
+  pick_each smallint not null,        -- сколько упражнений с каждой
+  sec_each  smallint                  -- длительность одного упражнения
 );
 
 -- Растяжка под нагруженную сегодня группу
@@ -312,14 +370,35 @@ create table block_pair (
   then_target_id  uuid not null references target(id),
   primary key (block_id, when_group_id, then_target_id)
 );
+
+-- Правило блока словами: из zones[].rule и rules[] прототипа
+create table block_rule (
+  id              uuid primary key,
+  block_id        uuid not null references block(id) on delete cascade,
+  muscle_group_id uuid references muscle_group(id),
+  ord             smallint not null,
+  text            text not null,
+  unique (block_id, ord)
+);
+
+-- Движение, исключённое из блока, с причиной
+create table block_excluded (
+  id       uuid primary key,
+  block_id uuid not null references block(id) on delete cascade,
+  ord      smallint not null,
+  name     text not null,
+  reason   text not null,
+  unique (block_id, ord)
+);
 ```
 
 Как записывается текущая программа:
 
 | Блок | Строки |
 |---|---|
+| Разогрев | `block_pin_target` на мишень вида `system` «Сердечно-сосудистая и дыхательная система», `pick = 1`, `sec_each = 260` |
 | Силовой | `block_pin_group` на Ягодичные и Грудь, у обеих `pick = 1`. Одна строка `block_draw` с `level = muscle_group`, `count = 2`, `pick_each = 1` |
-| Разминка | одиннадцать строк `block_pin_target` на суставы, `pick` от 1 до 4. Строки `block_draw` нет |
+| Разминка | одиннадцать строк `block_pin_target` на суставы, `pick` от 1 до 4, `sec_each` из `slots[]` прототипа. Строки `block_draw` нет |
 
 Добор всегда исключает уже закреплённое. Силовой блок добирает две группы из восьми оставшихся, а не из десяти.
 
@@ -410,11 +489,109 @@ where s.ended_at is not null
 | `data/procedures.json`, `data/links.json`, `data/dose_by_key.json` | входят в конвертер как источники, затем удаляются |
 | критики в `tools/` | перенацеливаются на таблицы, правила сохраняются |
 
+## Перенос прототипа без потерь
+
+Всё, что знал прототип, лежит в таблицах. Каноническая модель несёт то, что нужно приложению. Устройство прототипа, которое спека заменила закреплениями и добором, лежит в архивных таблицах `prototype_*` со ссылками на канонические строки.
+
+```sql
+-- Файл каталога прототипа и секция программы, которая его брала
+create table prototype_bank (
+  id    uuid primary key,
+  slug  text not null unique,
+  title text not null
+);
+
+create table prototype_section (
+  block_id uuid primary key references block(id),
+  bank_id  uuid not null unique references prototype_bank(id),
+  title    text not null
+);
+
+-- zones[] и contours[] каждого файла по порядку, с упражнениями и id процедуры
+create table prototype_zone (
+  id              uuid primary key,
+  bank_id         uuid not null references prototype_bank(id),
+  ord             smallint not null,
+  slug            text not null,
+  title           text not null,
+  muscle_group_id uuid references muscle_group(id),
+  unique (bank_id, ord)
+);
+
+create table prototype_contour (
+  id        uuid primary key,
+  zone_id   uuid not null references prototype_zone(id),
+  ord       smallint not null,
+  slug      text not null,
+  title     text not null,
+  pick      smallint,
+  target_id uuid not null references target(id),
+  unique (zone_id, ord)
+);
+
+create table prototype_contour_exercise (
+  exercise_id  uuid primary key references exercise(id),
+  contour_id   uuid not null references prototype_contour(id),
+  ord          smallint not null,
+  procedure_id uuid not null unique,
+  unique (contour_id, ord)
+);
+
+-- slots[] секций с кандидатами и пары растяжки под нагрузку дня
+create table prototype_slot (
+  id           uuid primary key,
+  block_id     uuid not null references block(id),
+  ord          smallint not null,
+  kind         text not null,
+  label        text not null,
+  pick         smallint,
+  rule         text,
+  sec_each     smallint,
+  allow_repeat boolean,
+  unique (block_id, ord)
+);
+
+create table prototype_slot_exercise (
+  slot_id     uuid not null references prototype_slot(id),
+  ord         smallint not null,
+  exercise_id uuid not null references exercise(id),
+  primary key (slot_id, ord)
+);
+
+create table prototype_pairing (
+  slot_id     uuid not null references prototype_slot(id),
+  pairing_ord smallint not null,
+  ord         smallint not null,
+  exercise_id uuid not null references exercise(id),
+  primary key (slot_id, ord)
+);
+
+create table prototype_program (
+  program_id     uuid primary key references program(id),
+  rotation_weeks smallint not null
+);
+
+-- zone и kind записи словаря targets.json
+create table prototype_target (
+  target_id uuid primary key references target(id),
+  zone      text not null,
+  kind      text not null
+);
+```
+
+Отсутствие дыр доказывается обратным ходом, а не перечнем. Критик таблиц держит три правила:
+
+| Правило | Что проверяет |
+|---|---|
+| C13 SYSTEM | группы мышц нет ровно у мишеней вида `system` |
+| C14 RESTORE | каждый исходник прототипа собирается из таблиц и совпадает с оригиналом по значениям |
+| C15 CONVERTED | таблицы на диске равны конвертации исходников |
+
+Сравнение в C14 не различает порядок там, где порядок не несёт смысла: оборудование, мишени и активные мишени шага упражнения, упражнения оборудования, программы владельца, записи верхнего уровня словарей. Везде остальной порядок хранится столбцом `ord`.
+
 ## Что осталось нерешённым
 
 - Суставы разминки приписаны к группам мышц: лопатки к Трапеции, локоть и запястье к Рукам, голеностоп к Икрам, тазобедренный и коленный к Бёдрам. Приписка сделана при проектировании, её надо подтвердить.
 - Перечисления сделаны типами Postgres. Альтернатива это таблицы-справочники, тогда добавление значения это данные, а не изменение схемы.
-- Кардио-упражнения существуют только в прототипе и в каталоги не входят. Им нужна мишень вида `system`.
-- Поля упражнения `seconds`, `goal`, `plane` и `hip_plane` в каноническую схему не вошли и при конвертации отброшены. Правило боковой плоскости опиралось на `plane`, его потеря разбирается в сборке занятия.
 - Блок Изометрии набирает режим `isometric`, поэтому семьдесят три упражнения режима `calisthenic` пока не достаются ни одному блоку.
 - Расхождение с планом хранения истории: здесь она выводится из занятий, а не хранится отдельным перечнем идентификаторов. Разбирается в тикете про историю.

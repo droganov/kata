@@ -140,7 +140,7 @@ export const everyVerdictCarried = (set: TableSet, catalog: SourceCatalog): Find
 			.map((row) => [textAt(row, COLUMN_ID), keyOf(row, VERDICT_LINE_COLUMNS)])
 	);
 	const carried = new Set(
-		rowsOf(set, TABLE_NAME.verdict).flatMap((row) => {
+		rowsOf(set, TABLE_NAME.verdict_line).flatMap((row) => {
 			const key = keyByLine.get(textAt(row, COLUMN_LINE));
 			return key === undefined ? [] : [key];
 		})

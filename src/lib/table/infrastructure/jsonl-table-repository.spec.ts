@@ -25,6 +25,7 @@ describe('writeAll', () => {
 		expect(Object.keys(row)).toEqual([
 			'id',
 			'muscle_group_id',
+			'target_group_id',
 			'slug',
 			'name',
 			'latin',

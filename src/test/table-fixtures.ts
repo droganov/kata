@@ -1,8 +1,10 @@
+import type { SourceProgramBlocks } from '../lib/table/domain/program-blocks.ts';
 import type {
 	SourceCatalog,
 	SourceExercise,
 	SourceFile,
 	SourceLink,
+	SourceProgram,
 	SourceStep,
 	SourceVerdict
 } from '../lib/table/domain/source-catalog.ts';
@@ -14,7 +16,8 @@ const CERVICAL_TARGET = '01a0889d-3845-7b73-adc5-6b00a88f5523';
 const LATS_TARGET = '01a0889d-3846-7b73-adc5-6b00a88f5524';
 const RHOMBOIDS_TARGET = '01a0889d-3847-7b73-adc5-6b00a88f5525';
 const CARDIO_TARGET = '01a0889d-3848-7b73-adc5-6b00a88f5526';
-const EXERCISE_SLUGS = ['neck_roll', 'neck_press', 'pulldown', 'row'];
+const EXERCISE_SLUGS = ['bike', 'neck_roll', 'neck_press', 'pulldown', 'row'];
+export const PROGRAM_ID = 'program-1';
 
 const stepsOf = (slug: string, targets: readonly SourceLink[]): readonly SourceStep[] => [
 	{
@@ -64,6 +67,7 @@ const exerciseOf = (
 	id,
 	modality,
 	name: slug,
+	procedureId: `procedure-${slug}`,
 	reference: `source-${slug}`,
 	slug,
 	steps: stepsOf(slug, targets),
@@ -71,7 +75,39 @@ const exerciseOf = (
 	...extra
 });
 
+const CARDIO: SourceFile = {
+	excluded: [],
+	groups: [
+		{
+			id: 'group-cardio',
+			name: 'Сердце, сосуды, лёгкие',
+			slug: 'cardio',
+			targets: [
+				{
+					exercises: [
+						exerciseOf(
+							'ex-cardio-1',
+							'bike',
+							'cardio',
+							[{ id: CARDIO_TARGET, role: 'primary' }],
+							{ met: 5, seconds: 300 }
+						)
+					],
+					id: 'catalog-target-cardio',
+					name: 'кардио',
+					slug: 'cardio'
+				}
+			]
+		}
+	],
+	id: 'file-cardio',
+	rules: [],
+	slug: 'cardio',
+	title: 'Разогрев'
+};
+
 const WARMUP: SourceFile = {
+	excluded: [],
 	groups: [
 		{
 			id: 'group-warmup-neck',
@@ -86,15 +122,21 @@ const WARMUP: SourceFile = {
 					],
 					id: 'catalog-target-cervical',
 					name: 'шейный отдел',
+					pick: 4,
 					slug: 'cervical'
 				}
 			]
 		}
 	],
-	slug: 'warmup'
+	id: 'file-warmup',
+	rules: [],
+	sessionBudgetSec: 420,
+	slug: 'warmup',
+	title: 'Разминка'
 };
 
 const STRENGTH: SourceFile = {
+	excluded: [{ name: 'Становая тяга', reason: 'наклон под нагрузкой' }],
 	groups: [
 		{
 			id: 'group-neck',
@@ -116,6 +158,7 @@ const STRENGTH: SourceFile = {
 		{
 			id: 'group-back',
 			name: 'Спина',
+			rule: 'амплитуда до нейтрали',
 			slug: 'back',
 			targets: [
 				{
@@ -161,18 +204,23 @@ const STRENGTH: SourceFile = {
 			]
 		}
 	],
-	slug: 'strength'
+	id: 'file-strength',
+	rules: [],
+	slug: 'strength',
+	title: 'Силовой'
 };
 
 const VERDICTS: readonly SourceVerdict[] = [
 	{
 		hash: 'a'.repeat(40),
+		id: 'verdict-a',
 		line: 'вес перенесён на пятки',
 		oracle: 'oracle-neck_roll-1',
 		verdict: 'independent'
 	},
 	{
 		hash: 'b'.repeat(40),
+		id: 'verdict-b',
 		line: 'жжение в пояснице',
 		oracle: 'oracle-neck_roll-2',
 		reason: 'наблюдение не противоречит утверждению',
@@ -180,12 +228,14 @@ const VERDICTS: readonly SourceVerdict[] = [
 	},
 	{
 		hash: 'c'.repeat(40),
+		id: 'verdict-c',
 		line: 'строка наблюдения удалена из оракула',
 		oracle: 'oracle-neck_roll-2',
 		verdict: 'unobservable'
 	},
 	{
 		hash: 'd'.repeat(40),
+		id: 'verdict-d',
 		line: 'пульс не восстанавливается',
 		oracle: 'oracle-cardio-1',
 		verdict: 'independent'
@@ -193,11 +243,13 @@ const VERDICTS: readonly SourceVerdict[] = [
 ];
 
 export const sourceCatalog = (): SourceCatalog => ({
+	documents: [],
 	equipment: [
 		{ canonEn: 'Bodyweight', id: BODY_EQUIPMENT, kind: 'body', name: 'Тело', slug: 'body' },
 		{ canonEn: 'Band', id: BAND_EQUIPMENT, kind: 'tool', name: 'Резина', slug: 'band' }
 	],
-	files: [WARMUP, STRENGTH],
+	files: [CARDIO, WARMUP, STRENGTH],
+	persons: [],
 	programs: [],
 	references: EXERCISE_SLUGS.map((slug) => ({
 		id: `source-${slug}`,
@@ -218,7 +270,8 @@ export const sourceCatalog = (): SourceCatalog => ({
 			kind: 'muscle',
 			latin: 'Latissimus dorsi',
 			name: 'Широчайшая',
-			slug: 'latissimus_dorsi'
+			slug: 'latissimus_dorsi',
+			targetGroup: 'back'
 		},
 		{
 			group: 'back',
@@ -245,4 +298,122 @@ export const tableSetOf = (files: Record<string, readonly unknown[]>): TableSet 
 		lines: rows.map((parsed, at) => ({ at: at + 1, parsed, text: JSON.stringify(parsed) })),
 		name
 	}))
+});
+
+export const programBlocks = (): Readonly<Record<string, SourceProgramBlocks>> => ({
+	[PROGRAM_ID]: {
+		blocks: {
+			strength: {
+				draw: { count: 1, level: 'muscle_group', pickEach: 1 },
+				name: 'Силовой блок',
+				pinnedGroups: [{ pick: 1, slug: 'back' }]
+			}
+		},
+		slug: 'pins_and_draw'
+	}
+});
+
+export const sourceProgram = (): SourceProgram => ({
+	contraindications: {
+		axialLoad: true,
+		freeWeightKgMax: 10,
+		lumbarExtension: true,
+		lumbarFlexion: false
+	},
+	goals: { primary: ['glutes'], secondary: ['strength'] },
+	hipPlanes: ['flexion'],
+	id: PROGRAM_ID,
+	outsideGym: [
+		{
+			intensity: 'moderate',
+			key: 'walking',
+			minutes: 45,
+			name: 'Ходьба',
+			perWeek: 4
+		},
+		{ key: 'mobility_home', minutes: 10, name: 'Подвижность дома', perWeek: 7 }
+	],
+	pairings: [{ exercises: ['ex-neck-1'], slot: 'slot-pool' }],
+	person: 'person-1',
+	progression: {
+		drawn: 'добор',
+		isometric: 'изометрия',
+		pinned: 'закрепления',
+		stopRule: 'стоп'
+	},
+	rotationWeeks: 2,
+	sections: [
+		{
+			bank: 'file-cardio',
+			id: 'section-cardio',
+			mode: 'cardio',
+			slots: [
+				{
+					allowRepeat: true,
+					exercises: ['ex-cardio-1'],
+					id: 'slot-cardio',
+					kind: 'pool',
+					label: 'Кардио',
+					pick: 1,
+					secEach: 260
+				}
+			],
+			slug: 'warmup_cardio',
+			title: 'Разогрев'
+		},
+		{
+			bank: 'file-warmup',
+			id: 'section-warmup',
+			mode: 'dynamic',
+			slots: [
+				{
+					exercises: ['ex-neck-1'],
+					id: 'slot-neck',
+					kind: 'pool',
+					label: 'Шея',
+					pick: 1,
+					secEach: 20
+				}
+			],
+			slug: 'warmup',
+			title: 'Разминка'
+		},
+		{
+			bank: 'file-strength',
+			id: 'section-strength',
+			mode: 'loaded',
+			slots: [
+				{ exercises: ['ex-lats-1'], id: 'slot-base', kind: 'base', label: 'Основные' },
+				{
+					exercises: ['ex-row-1', 'ex-neck-2'],
+					id: 'slot-pool',
+					kind: 'pool',
+					label: 'Тяга',
+					pick: 1,
+					rule: 'правило из slots[]',
+					secEach: 60
+				}
+			],
+			slug: 'strength',
+			title: 'Силовой'
+		}
+	],
+	sessionBudgetMin: 70,
+	sessionsPerWeek: 3,
+	timing: {
+		holdRestSec: 10,
+		restSecAccessory: 60,
+		restSecStrength: 70,
+		transitionSec: 45,
+		warmupGeneralMin: 5,
+		workSecPerSet: 45
+	},
+	title: 'Программа: БАЗА + ПУЛ',
+	volumes: [{ group: 'back', max: 14, min: 6 }]
+});
+
+export const catalogWithProgram = (program: SourceProgram = sourceProgram()): SourceCatalog => ({
+	...sourceCatalog(),
+	persons: [{ id: 'person-1', name: 'Sergei', programs: [PROGRAM_ID] }],
+	programs: [program]
 });

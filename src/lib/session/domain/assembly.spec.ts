@@ -36,7 +36,7 @@ describe('sessionOf', () => {
 
 	it('идёт по Блокам в порядке Программы', () => {
 		const blocks = [...new Set(session.items.map((item) => item.block))];
-		expect(blocks).toEqual(['block-warmup', 'block-strength']);
+		expect(blocks).toEqual(['block-cardio', 'block-warmup', 'block-strength']);
 	});
 
 	it('нумерует позиции подряд с единицы через всё Занятие', () => {
@@ -45,8 +45,27 @@ describe('sessionOf', () => {
 		);
 	});
 
+	it('закрепляет системную Мишень вне Групп мышц', () => {
+		expect(itemsOf('block-cardio').map((item) => [item.target, item.exercise])).toEqual([
+			['target-cardio', 'ex-bike']
+		]);
+	});
+
 	it('не даёт позиций Блоку, в Режиме которого нет Упражнений', () => {
-		expect(itemsOf('block-cardio')).toEqual([]);
+		const empty: Program = {
+			...PROGRAM,
+			blocks: [
+				{
+					id: 'block-empty',
+					modality: 'calisthenic',
+					name: 'Калистеника',
+					ord: 1,
+					pinnedGroups: [{ id: 'group-back', ord: 1, pick: 1 }],
+					pinnedTargets: []
+				}
+			]
+		};
+		expect(sessionOf(empty, CATALOG).items).toEqual([]);
 	});
 
 	it('берёт из Закреплённой Мишени столько Упражнений, сколько велено, в Режиме Блока', () => {

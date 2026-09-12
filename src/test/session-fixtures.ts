@@ -1,8 +1,17 @@
 import type { Catalog } from '../lib/session/domain/catalog.ts';
+import type { ExerciseDetail } from '../lib/session/domain/exercise-detail.ts';
 import type { Program } from '../lib/session/domain/program.ts';
 
 export const CATALOG: Catalog = {
 	exercises: [
+		{
+			catalogTarget: 'target-cardio',
+			dose: '5 мин',
+			id: 'ex-bike',
+			modality: 'cardio',
+			name: 'Велотренажёр',
+			slug: 'bike'
+		},
 		{
 			catalogTarget: 'target-cervical',
 			dose: '2×10',
@@ -75,6 +84,7 @@ export const CATALOG: Catalog = {
 		{ id: 'group-glutes', ord: 8 }
 	],
 	targets: [
+		{ id: 'target-cardio', slug: 'cardiorespiratory' },
 		{ id: 'target-cervical', muscleGroup: 'group-neck', slug: 'cervical_spine' },
 		{ id: 'target-neck-flexors', muscleGroup: 'group-neck', slug: 'neck_flexors' },
 		{ id: 'target-chest', muscleGroup: 'group-chest', slug: 'pectoralis_major_sternal' },
@@ -104,7 +114,7 @@ export const PROGRAM: Program = {
 			name: 'Разогрев',
 			ord: 1,
 			pinnedGroups: [],
-			pinnedTargets: []
+			pinnedTargets: [{ id: 'target-cardio', ord: 1, pick: 1 }]
 		},
 		{
 			id: 'block-warmup',
@@ -117,4 +127,43 @@ export const PROGRAM: Program = {
 	],
 	id: 'program-1',
 	title: 'Закрепления и добор'
+};
+
+const PLAIN_DETAIL: ExerciseDetail = {
+	equipment: [{ name: 'Тело', role: 'main' }],
+	steps: [],
+	targets: [{ name: 'Шея', role: 'primary' }]
+};
+
+export const DETAILS: ReadonlyMap<string, ExerciseDetail> = new Map(
+	CATALOG.exercises.map((exercise) => [
+		exercise.id,
+		exercise.id === 'ex-neck-roll'
+			? {
+					...PLAIN_DETAIL,
+					note: 'медленно',
+					steps: [
+						{
+							active: ['Шея', 'Трапеция'],
+							id: 'step-1',
+							oracles: [
+								{
+									counterModel: ['рывок'],
+									id: 'oracle-1',
+									model: ['плавно'],
+									predicate: 'Плечи опущены'
+								}
+							],
+							title: 'Наклон'
+						}
+					]
+				}
+			: PLAIN_DETAIL
+	])
+);
+
+export const GATEWAYS = {
+	catalog: { readCatalog: () => CATALOG },
+	details: { readDetails: () => DETAILS },
+	programs: { readPrograms: () => [PROGRAM] }
 };

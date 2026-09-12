@@ -6,7 +6,6 @@ import { sourceOracles, sourceSteps } from './source-catalog.ts';
 
 const FIRST_ORD = 1;
 const KEY_SEPARATOR = '\u{1F}';
-const VERDICT_MARK = 'verdict';
 
 const ORACLE_SIDE = {
 	counter: 'counter',
@@ -19,18 +18,21 @@ export interface ProcedureTables {
 	readonly step: readonly Row[];
 	readonly step_target: readonly Row[];
 	readonly verdict: readonly Row[];
+	readonly verdict_line: readonly Row[];
 }
 
 type OracleSide = (typeof ORACLE_SIDE)[keyof typeof ORACLE_SIDE];
 
 export const procedureTablesOf = (catalog: SourceCatalog): ProcedureTables => {
 	const lines = oracleLineRows(catalog);
+	const verdicts = verdictTablesOf(catalog, lines);
 	return {
 		oracle: oracleRows(catalog),
 		oracle_line: lines,
 		step: stepRows(catalog),
 		step_target: stepTargetRows(catalog),
-		verdict: verdictRows(catalog, lines)
+		verdict: verdicts.verdict,
+		verdict_line: verdicts.verdict_line
 	};
 };
 
@@ -79,24 +81,35 @@ const stepTargetRows = (catalog: SourceCatalog): readonly Row[] =>
 		step.active.map((targetId) => ({ step_id: step.id, target_id: targetId }))
 	);
 
-const verdictRows = (catalog: SourceCatalog, lines: readonly Row[]): readonly Row[] => {
+const verdictTablesOf = (
+	catalog: SourceCatalog,
+	lines: readonly Row[]
+): Pick<ProcedureTables, 'verdict' | 'verdict_line'> => {
 	const idByLine = new Map(
 		lines
 			.filter((row) => row.side === ORACLE_SIDE.counter)
 			.map((row) => [counterLineKey(String(row.oracle_id), String(row.text)), String(row.id)])
 	);
-	return catalog.verdicts.flatMap((verdict) => {
+	const applied = catalog.verdicts.flatMap((verdict) => {
 		const lineId = idByLine.get(counterLineKey(verdict.oracle, verdict.line));
-		return lineId === undefined
-			? []
-			: [
-					{
-						hash: verdict.hash,
-						id: derivedId([lineId, VERDICT_MARK]),
-						line_id: lineId,
-						reason: verdict.reason ?? null,
-						verdict: verdict.verdict
-					}
-				];
+		return lineId === undefined ? [] : [{ lineId, verdict }];
 	});
+	const judged = new Map(
+		applied.map(({ verdict }) => [
+			verdict.id,
+			{
+				hash: verdict.hash,
+				id: verdict.id,
+				reason: verdict.reason ?? null,
+				verdict: verdict.verdict
+			}
+		])
+	);
+	return {
+		verdict: judged.values().toArray(),
+		verdict_line: applied.map(({ lineId, verdict }) => ({
+			line_id: lineId,
+			verdict_id: verdict.id
+		}))
+	};
 };

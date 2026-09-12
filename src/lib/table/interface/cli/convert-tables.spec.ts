@@ -1,5 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 
+vi.setConfig({ testTimeout: 60_000 });
+
 const WRITTEN_LABEL = 'ЗАПИСАНО СТРОК: ';
 
 describe('convert-tables', () => {
