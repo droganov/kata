@@ -12,13 +12,13 @@ import { createSchemaValidator } from '../infrastructure/json-schema-validator.t
 import { createJsonTargetRepository } from '../infrastructure/json-target-repository.ts';
 
 export interface CatalogUseCases {
-	findEquipment: (ids?: readonly string[]) => EquipmentView[];
-	findTargets: (ids?: readonly string[]) => TargetView[];
-	listBanks: () => BankView[];
+	findEquipment: (ids?: readonly string[]) => readonly EquipmentView[];
+	findTargets: (ids?: readonly string[]) => readonly TargetView[];
+	listBanks: () => readonly BankView[];
 	validateCatalog: () => CatalogReport;
 }
 
-export function createCatalog(): CatalogUseCases {
+export const createCatalog = (): CatalogUseCases => {
 	const validator = createSchemaValidator(CATALOG_PATHS.schema);
 	const repositories = {
 		banks: createJsonBankRepository({ directory: CATALOG_PATHS.banks, validator }),
@@ -31,4 +31,4 @@ export function createCatalog(): CatalogUseCases {
 		listBanks: () => listBanks(repositories.banks),
 		validateCatalog: () => validateCatalog(repositories)
 	};
-}
+};

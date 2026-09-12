@@ -16,49 +16,42 @@ export interface JsonlTableSource {
 	readonly directory: string;
 }
 
-export function createJsonlTableRepository(source: JsonlTableSource): TableRepository {
-	return {
-		readAll: (): TableSet => ({ files: tableFiles(source.directory) }),
-		writeAll: (tables: Tables): void => {
-			for (const name of tableNames())
-				writeFileSync(
-					path.join(source.directory, name + JSONL_SUFFIX),
-					serialized(name, tables),
-					ENCODING
-				);
-		}
-	};
-}
+export const createJsonlTableRepository = (source: JsonlTableSource): TableRepository => ({
+	readAll: (): TableSet => ({ files: tableFiles(source.directory) }),
+	writeAll: (tables: Tables): void => {
+		for (const name of tableNames())
+			writeFileSync(
+				path.join(source.directory, name + JSONL_SUFFIX),
+				serialized(name, tables),
+				ENCODING
+			);
+	}
+});
 
-function parsedLine(text: string): unknown {
+const parsedLine = (text: string): unknown => {
 	try {
 		const parsed: unknown = JSON.parse(text);
 		return parsed;
 	} catch {
 		return text;
 	}
-}
+};
 
-function serialized(name: TableName, tables: Tables): string {
-	return (
-		tables[name].map((row) => JSON.stringify(tupleOf(name, row))).join(LINE_BREAK) + LINE_BREAK
-	);
-}
+const serialized = (name: TableName, tables: Tables): string =>
+	tables[name].map((row) => JSON.stringify(tupleOf(name, row))).join(LINE_BREAK) + LINE_BREAK;
 
-function tableFiles(directory: string): readonly TableFile[] {
-	return readdirSync(directory)
+const tableFiles = (directory: string): readonly TableFile[] =>
+	readdirSync(directory)
 		.filter((name) => name.endsWith(JSONL_SUFFIX))
 		.toSorted((first, second) => first.localeCompare(second))
 		.map((name) => ({
 			lines: tableLines(readFileSync(path.join(directory, name), ENCODING)),
 			name: name.slice(0, -JSONL_SUFFIX.length)
 		}));
-}
 
-function tableLines(text: string): readonly TableLine[] {
-	return text
+const tableLines = (text: string): readonly TableLine[] =>
+	text
 		.split(LINE_BREAK)
 		.map((line, at) => ({ at: at + FIRST_LINE, text: line }))
 		.filter((line) => line.text.trim().length > 0)
 		.map((line) => ({ ...line, parsed: parsedLine(line.text) }));
-}

@@ -5,6 +5,7 @@ import type { ProgramPlan } from '../program-plan.ts';
 import type { CorePlane, HipPlane, Program, Slot } from '../program.ts';
 import type { Session } from '../session.ts';
 
+import { PROGRAM_BASE } from '../../../../test/program-base.ts';
 import { HIP_PLANE_RULE, LATERAL_RULE } from '../rotation.ts';
 import { freeWeightLimit, sessionTimeBudget, slotDepth } from './constraint-rules.ts';
 
@@ -66,7 +67,8 @@ const poolOf = (over: Partial<Slot>): Slot => ({
 });
 
 const planOf = (seed: PlanSeed = {}): ProgramPlan => {
-	const program = {
+	const program: Program = {
+		...PROGRAM_BASE,
 		contraindications: {
 			axial_load: true,
 			free_weight_kg_max: 10,
@@ -86,7 +88,7 @@ const planOf = (seed: PlanSeed = {}): ProgramPlan => {
 			}
 		],
 		title: 'Программа'
-	} as unknown as Program;
+	};
 	return {
 		exercises: new Map((seed.seeds ?? []).map((one) => [one.id, exerciseOf(one)])),
 		hipMobilityExerciseIds: new Set(),

@@ -8,7 +8,7 @@ import { findTargets } from './find-targets.ts';
 const MUSCLE_ID = uuidOf('01a0889d-3800-7ef5-adfd-a56bcb2334c5');
 const JOINT_ID = uuidOf('01a0889d-3845-7b73-adc5-6b00a88f5523');
 
-const targets = [
+const targets: readonly Target[] = [
 	{
 		group: 'neck',
 		id: MUSCLE_ID,
@@ -17,7 +17,7 @@ const targets = [
 		name: 'ГКС',
 		slug: 'sternocleidomastoid',
 		zone: 'neck'
-	} as Target,
+	},
 	{
 		id: JOINT_ID,
 		kind: 'joint',
@@ -25,7 +25,7 @@ const targets = [
 		name: 'Шейный отдел',
 		slug: 'cervical_spine',
 		zone: 'neck'
-	} as Target
+	}
 ];
 const repository = { readAll: () => targets };
 

@@ -17,7 +17,7 @@ const TOTAL_LABEL = ' мин = ';
 const WEEK_LABEL = ' мин/нед';
 const BY_SESSION = 'по занятиям: ';
 
-export function aerobicWeeklyMinutes(plan: ProgramPlan): readonly Finding[] {
+export const aerobicWeeklyMinutes = (plan: ProgramPlan): readonly Finding[] => {
 	const gym =
 		(plan.program.timing.warmup_general_min ?? NO_MINUTES) *
 		plan.program.schedule.sessions_per_week;
@@ -30,9 +30,9 @@ export function aerobicWeeklyMinutes(plan: ProgramPlan): readonly Finding[] {
 		programSubject(plan.program),
 		`${GYM_LABEL}${String(gym)}${WALKING_LABEL}${String(walking)}${TOTAL_LABEL}${String(total)}${WEEK_LABEL}`
 	);
-}
+};
 
-export function staticStretchEverySession(plan: ProgramPlan): readonly Finding[] {
+export const staticStretchEverySession = (plan: ProgramPlan): readonly Finding[] => {
 	const counts = plan.sessions.map(
 		(session) => sessionExercisesWithMode(session, SECTION_MODE.static_stretch).length
 	);
@@ -43,4 +43,4 @@ export function staticStretchEverySession(plan: ProgramPlan): readonly Finding[]
 		programSubject(plan.program),
 		`${BY_SESSION}${counts.map(String).join(LIST_SEPARATOR)}`
 	);
-}
+};

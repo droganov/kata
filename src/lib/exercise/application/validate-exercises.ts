@@ -19,7 +19,7 @@ export interface ExerciseReport {
 	readonly verdictCount: number;
 }
 
-export function validateExercises(repositories: ExerciseRepositories): ExerciseReport {
+export const validateExercises = (repositories: ExerciseRepositories): ExerciseReport => {
 	const records = repositories.exercises.readAll();
 	const verdicts = repositories.verdicts.readAll();
 	const independentHashes = independentHashesOf(verdicts);
@@ -55,8 +55,7 @@ export function validateExercises(repositories: ExerciseRepositories): ExerciseR
 		recordCount: records.length,
 		verdictCount: verdicts.length
 	};
-}
+};
 
-function hasMainGear(record: ExerciseRecord, bodyIds: ReadonlySet<string>): boolean {
-	return mainEquipmentIdsOf(record.exercise).some((id) => !bodyIds.has(id));
-}
+const hasMainGear = (record: ExerciseRecord, bodyIds: ReadonlySet<string>): boolean =>
+	mainEquipmentIdsOf(record.exercise).some((id) => !bodyIds.has(id));

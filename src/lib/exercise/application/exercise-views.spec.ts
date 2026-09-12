@@ -2,29 +2,30 @@ import { describe, expect, it } from 'vitest';
 
 import type { Exercise } from '../domain/exercise.ts';
 
+import { uuidOfLabel } from '../../../test/uuid.ts';
 import { exerciseViewOf } from './exercise-views.ts';
 
 const base = {
 	constraints: { axial: false, free_weight: false, lumbar_ext: false, lumbar_flex: false },
 	dose: '3×10',
-	equipment: [{ id: 'body', role: 'main' }],
-	id: 'e1',
+	equipment: [{ id: uuidOfLabel('body'), role: 'main' }],
+	id: uuidOfLabel('e1'),
 	mode: 'dynamic',
 	name: 'Выпад',
-	procedure: { id: 'p1', steps: [] },
+	procedure: { id: uuidOfLabel('p1'), steps: [] },
 	slug: 'lunge',
-	source: 'src',
-	targets: [{ id: 't1', role: 'primary' }]
-};
+	source: uuidOfLabel('src'),
+	targets: [{ id: uuidOfLabel('t1'), role: 'primary' }]
+} satisfies Exercise;
 
 describe('exerciseViewOf', () => {
 	it('переносит обязательные поля и опускает пустые', () => {
-		const view = exerciseViewOf(base as unknown as Exercise);
+		const view = exerciseViewOf(base);
 		expect(view).toEqual({
 			constraints: base.constraints,
 			dose: '3×10',
 			equipment: base.equipment,
-			id: 'e1',
+			id: base.id,
 			mode: 'dynamic',
 			name: 'Выпад',
 			procedure: base.procedure,
@@ -41,7 +42,7 @@ describe('exerciseViewOf', () => {
 			note: 'заметка',
 			plane: 'anterior',
 			seconds: 30
-		} as unknown as Exercise);
+		});
 		expect([view.goal, view.hipPlane, view.note, view.plane, view.seconds]).toEqual([
 			'glutes',
 			'extension',

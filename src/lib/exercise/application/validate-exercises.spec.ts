@@ -4,73 +4,73 @@ import type { ExerciseRecord } from '../domain/exercise.ts';
 import type { Verdict } from '../domain/verdict.ts';
 import type { ExerciseRepositories } from './exercise-repositories.ts';
 
+import { EXERCISE_BASE } from '../../../test/exercise-base.ts';
+import { uuidOfLabel } from '../../../test/uuid.ts';
+import { uuidOf } from '../../shared/uuid.ts';
 import { verdictHashText } from '../domain/verdict.ts';
 import { counterLinesOf } from './counter-lines.ts';
 import { validateExercises } from './validate-exercises.ts';
 
-const TARGET = '01a0889d-0000-7000-8000-000000000001';
-const BODY = '01a0889d-0000-7000-8000-000000000010';
-const SOURCE = '01a0889d-0000-7000-8000-000000000020';
+const TARGET = uuidOf('01a0889d-0000-7000-8000-000000000001');
+const BODY = uuidOf('01a0889d-0000-7000-8000-000000000010');
+const SOURCE = uuidOf('01a0889d-0000-7000-8000-000000000020');
 
 const hasher = { digest: (text: string): string => text };
 
-const recordOf = (): ExerciseRecord =>
-	({
-		bank: 'stretch',
-		contourSlug: 'hip',
-		contourTitle: 'бёдра',
-		exercise: {
-			dose: '3×10',
-			equipment: [{ id: BODY, role: 'main' }],
-			id: 'e1',
-			procedure: {
-				id: 'p1',
-				steps: [
-					{
-						active: [],
-						id: 's1',
-						oracles: [
-							{
-								counterModel: ['таз уходит вперёд'],
-								id: 'o1',
-								model: ['таз под корпусом'],
-								predicate: 'Таз на месте'
-							}
-						],
-						title: 'Принять исходное положение'
-					},
-					{
-						active: [TARGET],
-						id: 's2',
-						oracles: [
-							{
-								counterModel: ['таз качает в конце подхода'],
-								id: 'o2',
-								model: ['таз под корпусом на счёт 10'],
-								predicate: 'Таз неподвижен'
-							}
-						],
-						title: 'Повторить 10 раз'
-					}
-				]
-			},
-			slug: 'lunge',
-			source: SOURCE,
-			targets: [{ id: TARGET, role: 'primary' }]
-		}
-	}) as unknown as ExerciseRecord;
+const recordOf = (): ExerciseRecord => ({
+	bank: 'stretch',
+	contourSlug: 'hip',
+	contourTitle: 'бёдра',
+	exercise: {
+		...EXERCISE_BASE,
+		dose: '3×10',
+		equipment: [{ id: BODY, role: 'main' }],
+		id: uuidOfLabel('e1'),
+		procedure: {
+			id: uuidOfLabel('p1'),
+			steps: [
+				{
+					active: [],
+					id: uuidOfLabel('s1'),
+					oracles: [
+						{
+							counterModel: ['таз уходит вперёд'],
+							id: uuidOfLabel('o1'),
+							model: ['таз под корпусом'],
+							predicate: 'Таз на месте'
+						}
+					],
+					title: 'Принять исходное положение'
+				},
+				{
+					active: [TARGET],
+					id: uuidOfLabel('s2'),
+					oracles: [
+						{
+							counterModel: ['таз качает в конце подхода'],
+							id: uuidOfLabel('o2'),
+							model: ['таз под корпусом на счёт 10'],
+							predicate: 'Таз неподвижен'
+						}
+					],
+					title: 'Повторить 10 раз'
+				}
+			]
+		},
+		slug: 'lunge',
+		source: SOURCE,
+		targets: [{ id: TARGET, role: 'primary' }]
+	}
+});
 
 const verdictsFor = (records: readonly ExerciseRecord[]): Verdict[] =>
-	counterLinesOf(records, hasher).map(
-		(counter, at) =>
-			({
-				hash: counter.hash,
-				id: `v${String(at)}`,
-				line: counter.line,
-				oracle: counter.oracleId,
-				verdict: 'independent'
-			}) as unknown as Verdict
-	);
+	counterLinesOf(records, hasher).map((counter, at) => ({
+		hash: counter.hash,
+		id: uuidOfLabel(`v${String(at)}`),
+		line: counter.line,
+		oracle: counter.oracleId,
+		verdict: 'independent'
+	}));
 
 const repositoriesOf = (
 	records: readonly ExerciseRecord[],
@@ -94,7 +94,7 @@ const repositoriesOf = (
 	exercises: { readAll: () => records },
 	hasher,
 	sources: {
-		readAll: () => [{ exercise: 'e1', id: SOURCE, title: 'NASM' }] as never
+		readAll: () => [{ exercise: uuidOfLabel('e1'), id: SOURCE, title: 'NASM' }]
 	},
 	verdicts: { readAll: () => verdicts, save: vi.fn() }
 });

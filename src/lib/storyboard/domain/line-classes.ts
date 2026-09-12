@@ -109,12 +109,10 @@ const CLASS_PATTERNS: readonly (readonly [LineClass, RegExp])[] = [
 	[LINE_CLASS.sensation, SENSATION]
 ];
 
-export function hasNoVisualForm(text: string): boolean {
-	return lineClassOf(text) !== undefined;
-}
+export const hasNoVisualForm = (text: string): boolean => lineClassOf(text) !== undefined;
 
-export function lineClassOf(text: string): LineClass | undefined {
+export const lineClassOf = (text: string): LineClass | undefined => {
 	const lowered = text.toLowerCase();
 	const matched = CLASS_PATTERNS.find(([, pattern]) => pattern.test(lowered));
 	return matched === undefined ? undefined : matched[0];
-}
+};

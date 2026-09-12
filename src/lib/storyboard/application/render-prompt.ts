@@ -5,11 +5,11 @@ import { promptOf } from '../domain/render-prompt.ts';
 import { promptViewOf } from './prompt-views.ts';
 import { promptCatalogOf } from './storyboard-gateways.ts';
 
-export function renderPrompt(
+export const renderPrompt = (
 	gateways: StoryboardGateways,
 	exerciseId: string
-): PromptView | undefined {
+): PromptView | undefined => {
 	const exercise = gateways.exercises.find(exerciseId);
 	if (exercise === undefined) return undefined;
 	return promptViewOf(exercise, promptOf(exercise, promptCatalogOf(gateways.catalog)));
-}
+};

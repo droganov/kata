@@ -10,20 +10,18 @@ const RULE_POOL_DEPTH = 'I3 POOL_DEPTH';
 const RULE_PAIRING_SLOT = 'I4 PAIRING_SLOT';
 const LIST_SEPARATOR = ', ';
 
-export function programInvariants(
+export const programInvariants = (
 	program: Program,
 	knownExerciseIds: ReadonlySet<string>
-): readonly Finding[] {
-	return [
-		...slotInvariants(program, knownExerciseIds),
-		...pairingInvariants(program, knownExerciseIds)
-	];
-}
+): readonly Finding[] => [
+	...slotInvariants(program, knownExerciseIds),
+	...pairingInvariants(program, knownExerciseIds)
+];
 
-function pairingInvariants(
+const pairingInvariants = (
 	program: Program,
 	knownExerciseIds: ReadonlySet<string>
-): readonly Finding[] {
+): readonly Finding[] => {
 	const slotIds = new Set(sectionSlotsOf(program).map(({ slot }) => slot.id));
 	return pairingsOf(program).flatMap((pairing) => {
 		const lost = pairing.exercises.filter((id) => !knownExerciseIds.has(id));
@@ -35,13 +33,13 @@ function pairingInvariants(
 			`пара для слота ${pairing.slot}: висячие ссылки ${lost.join(LIST_SEPARATOR)}`
 		);
 	});
-}
+};
 
-function slotInvariants(
+const slotInvariants = (
 	program: Program,
 	knownExerciseIds: ReadonlySet<string>
-): readonly Finding[] {
-	return sectionSlotsOf(program).flatMap(({ section, slot }) => {
+): readonly Finding[] =>
+	sectionSlotsOf(program).flatMap(({ section, slot }) => {
 		const subject = slotSubject(program, section, slot);
 		const lost = slot.exercises.filter((id) => !knownExerciseIds.has(id));
 		const isPool = slot.kind === SLOT_KIND.pool;
@@ -69,4 +67,3 @@ function slotInvariants(
 			)
 		];
 	});
-}

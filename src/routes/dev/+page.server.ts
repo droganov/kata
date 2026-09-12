@@ -6,11 +6,10 @@ import { createProgram } from '../../lib/program/interface/program.ts';
 import { createStoryboard } from '../../lib/storyboard/interface/storyboard.ts';
 import { loadDevPage } from './dev-page.ts';
 
-export function load(): DevPageData {
-	return loadDevPage({
+export const load = (): DevPageData =>
+	loadDevPage({
 		catalog: createCatalog(),
 		exercise: createExercise(),
 		program: createProgram(),
 		storyboard: createStoryboard()
 	});
-}

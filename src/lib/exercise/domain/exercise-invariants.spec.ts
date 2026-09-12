@@ -1,30 +1,37 @@
 import { describe, expect, it } from 'vitest';
 
-import type { Exercise } from './exercise.ts';
+import type { Exercise, Oracle } from './exercise.ts';
 
+import { EXERCISE_BASE } from '../../../test/exercise-base.ts';
+import { uuidOfLabel } from '../../../test/uuid.ts';
 import { exerciseInvariants } from './exercise-invariants.ts';
 
-const oracle = (id: string): Record<string, unknown> => ({
+const oracle = (id: string): Oracle => ({
 	counterModel: ['таз уходит'],
-	id,
+	id: uuidOfLabel(id),
 	model: ['таз под корпусом'],
 	predicate: 'Таз на месте'
 });
 
-const exerciseOf = (patch: Record<string, unknown>): Exercise =>
-	({
-		equipment: [{ id: 'body', role: 'main' }],
-		id: 'e1',
-		procedure: {
-			id: 'p1',
-			steps: [
-				{ active: ['t1'], id: 's1', oracles: [oracle('o1')], title: 'Принять положение' },
-				{ active: [], id: 's2', oracles: [oracle('o2')], title: 'Вернуть таз' }
-			]
-		},
-		targets: [{ id: 't1', role: 'primary' }],
-		...patch
-	}) as unknown as Exercise;
+const exerciseOf = (patch: Partial<Exercise>): Exercise => ({
+	...EXERCISE_BASE,
+	equipment: [{ id: uuidOfLabel('body'), role: 'main' }],
+	id: uuidOfLabel('e1'),
+	procedure: {
+		id: uuidOfLabel('p1'),
+		steps: [
+			{
+				active: [uuidOfLabel('t1')],
+				id: uuidOfLabel('s1'),
+				oracles: [oracle('o1')],
+				title: 'Принять положение'
+			},
+			{ active: [], id: uuidOfLabel('s2'), oracles: [oracle('o2')], title: 'Вернуть таз' }
+		]
+	},
+	targets: [{ id: uuidOfLabel('t1'), role: 'primary' }],
+	...patch
+});
 
 const rulesOf = (exercise: Exercise): readonly string[] =>
 	exerciseInvariants(exercise).map((issue) => issue.rule);
@@ -37,10 +44,20 @@ describe('exerciseInvariants', () => {
 	it('ловит повтор идентификаторов внутри агрегата', () => {
 		const exercise = exerciseOf({
 			procedure: {
-				id: 'p1',
+				id: uuidOfLabel('p1'),
 				steps: [
-					{ active: [], id: 's1', oracles: [oracle('s1')], title: 'Принять положение' },
-					{ active: [], id: 's2', oracles: [oracle('o2')], title: 'Вернуть таз' }
+					{
+						active: [],
+						id: uuidOfLabel('s1'),
+						oracles: [oracle('s1')],
+						title: 'Принять положение'
+					},
+					{
+						active: [],
+						id: uuidOfLabel('s2'),
+						oracles: [oracle('o2')],
+						title: 'Вернуть таз'
+					}
 				]
 			}
 		});
@@ -48,25 +65,26 @@ describe('exerciseInvariants', () => {
 	});
 
 	it('требует ровно одно средство с ролью main', () => {
-		expect(rulesOf(exerciseOf({ equipment: [{ id: 'body', role: 'auxiliary' }] }))).toContain(
-			'A2 MAIN'
-		);
+		const exercise = exerciseOf({
+			equipment: [{ id: uuidOfLabel('body'), role: 'auxiliary' }]
+		});
+		expect(rulesOf(exercise)).toContain('A2 MAIN');
 	});
 
 	it('ловит повторы средств и целей', () => {
 		const gear = rulesOf(
 			exerciseOf({
 				equipment: [
-					{ id: 'body', role: 'main' },
-					{ id: 'body', role: 'auxiliary' }
+					{ id: uuidOfLabel('body'), role: 'main' },
+					{ id: uuidOfLabel('body'), role: 'auxiliary' }
 				]
 			})
 		);
 		const targets = rulesOf(
 			exerciseOf({
 				targets: [
-					{ id: 't1', role: 'primary' },
-					{ id: 't1', role: 'secondary' }
+					{ id: uuidOfLabel('t1'), role: 'primary' },
+					{ id: uuidOfLabel('t1'), role: 'secondary' }
 				]
 			})
 		);
@@ -75,8 +93,7 @@ describe('exerciseInvariants', () => {
 	});
 
 	it('требует active внутри целей упражнения', () => {
-		expect(rulesOf(exerciseOf({ targets: [{ id: 't9', role: 'primary' }] }))).toContain(
-			'A4 ACTIVE'
-		);
+		const exercise = exerciseOf({ targets: [{ id: uuidOfLabel('t9'), role: 'primary' }] });
+		expect(rulesOf(exercise)).toContain('A4 ACTIVE');
 	});
 });

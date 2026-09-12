@@ -8,7 +8,7 @@ import { findEquipment } from './find-equipment.ts';
 const BODY_ID = uuidOf('01a0889d-3852-7051-a039-c9778729a468');
 const PLATE_ID = uuidOf('01a0889d-3800-7ef5-adfd-a56bcb2334c5');
 
-const items = [
+const items: readonly Equipment[] = [
 	{
 		canon_en: 'Bodyweight',
 		exercises: [],
@@ -16,7 +16,7 @@ const items = [
 		kind: 'body',
 		name: 'Тело',
 		slug: 'body'
-	} as Equipment,
+	},
 	{
 		canon_en: 'Plate',
 		exercises: [],
@@ -24,7 +24,7 @@ const items = [
 		kind: 'free_weight',
 		name: 'Блин',
 		slug: 'plate'
-	} as Equipment
+	}
 ];
 const repository = { readAll: () => items };
 

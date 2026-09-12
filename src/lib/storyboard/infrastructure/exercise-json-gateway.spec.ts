@@ -53,7 +53,7 @@ writeFileSync(path.join(directory, 'notes.txt'), 'не банк', 'utf8');
 
 const subjects: string[] = [];
 const validator: SchemaValidator = {
-	assertValid: (schemaId, value, subject) => {
+	assertValid: (_schemaId, _value, subject) => {
 		subjects.push(subject);
 	}
 };
@@ -63,7 +63,12 @@ const gateway = createExerciseJsonGateway({ directory, validator });
 describe('createExerciseJsonGateway', () => {
 	it('читает банки по порядку имён и проверяет упражнения по схеме', () => {
 		expect(gateway.readAll().map((exercise) => exercise.slug)).toEqual(['plank', 'fold']);
-		expect(subjects).toEqual(['calisthenics/core/0', 'stretch/core/0']);
+		expect(subjects).toEqual([
+			'calisthenics.json',
+			'calisthenics/core/0',
+			'stretch.json',
+			'stretch/core/0'
+		]);
 	});
 
 	it('находит упражнение по идентификатору', () => {

@@ -4,11 +4,15 @@ import type { BankView, TargetView } from '../../catalog/application/catalog-vie
 import type { ExerciseView } from '../../exercise/application/exercise-views.ts';
 import type { ProgramRepositories } from './program-repositories.ts';
 
+import { uuidOfLabel } from '../../../test/uuid.ts';
 import { planCatalogueOf } from './plan-exercises.ts';
 
-const PROCEDURE = { id: 'proc', steps: [{ active: [], id: 'step', oracles: [], title: 'Шаг' }] };
+const PROCEDURE = {
+	id: uuidOfLabel('proc'),
+	steps: [{ active: [], id: uuidOfLabel('step'), oracles: [], title: 'Шаг' }]
+};
 
-const FULL = {
+const FULL: ExerciseView = {
 	constraints: {
 		axial: false,
 		free_weight: true,
@@ -17,6 +21,7 @@ const FULL = {
 		lumbar_flex: false
 	},
 	dose: '40с × 2',
+	equipment: [],
 	goal: 'hip_mobility',
 	hipPlane: 'extension',
 	id: 'st_hipflex',
@@ -27,27 +32,28 @@ const FULL = {
 	seconds: 100,
 	slug: 'st_hipflex',
 	targets: [
-		{ id: 'target-1', role: 'primary' },
-		{ id: 'target-nameless', role: 'secondary' },
-		{ id: 'target-lost', role: 'stabilizer' }
+		{ id: uuidOfLabel('target-1'), role: 'primary' },
+		{ id: uuidOfLabel('target-nameless'), role: 'secondary' },
+		{ id: uuidOfLabel('target-lost'), role: 'stabilizer' }
 	]
-} as unknown as ExerciseView;
+};
 
-const BARE = {
+const BARE: ExerciseView = {
 	constraints: { axial: false, free_weight: false, lumbar_ext: false, lumbar_flex: false },
 	dose: '3×12–15',
+	equipment: [],
 	id: 'leg_press',
 	mode: 'loaded',
 	name: 'Жим ногами',
-	procedure: { id: 'proc', steps: [] },
+	procedure: { id: uuidOfLabel('proc'), steps: [] },
 	slug: 'leg_press',
 	targets: []
-} as unknown as ExerciseView;
+};
 
-const TARGETS = [
+const TARGETS: readonly TargetView[] = [
 	{
 		group: 'hip_flexors',
-		id: 'target-1',
+		id: uuidOfLabel('target-1'),
 		kind: 'muscle',
 		latin: 'iliacus',
 		name: 'Илиакус',
@@ -55,16 +61,16 @@ const TARGETS = [
 		zone: 'Бёдра'
 	},
 	{
-		id: 'target-nameless',
+		id: uuidOfLabel('target-nameless'),
 		kind: 'muscle',
 		latin: 'x',
 		name: 'Без группы',
 		slug: 'x',
 		zone: 'Бёдра'
 	}
-] as unknown as readonly TargetView[];
+];
 
-const BANKS = [
+const BANKS: readonly BankView[] = [
 	{
 		slug: 'warmup',
 		title: 'Разминка',
@@ -80,13 +86,12 @@ const BANKS = [
 			}
 		]
 	}
-] as unknown as readonly BankView[];
+];
 
-const repositoriesOf = (): ProgramRepositories =>
-	({
-		catalog: { readBanks: () => BANKS, readTargets: () => TARGETS },
-		exercises: { readExercises: () => [FULL, BARE] }
-	}) as unknown as ProgramRepositories;
+const repositoriesOf = (): Pick<ProgramRepositories, 'catalog' | 'exercises'> => ({
+	catalog: { readBanks: () => BANKS, readTargets: () => TARGETS },
+	exercises: { readExercises: () => [FULL, BARE] }
+});
 
 describe('planCatalogueOf', () => {
 	it('переносит всё нужное правилам из представлений упражнения', () => {

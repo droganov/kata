@@ -3,20 +3,21 @@ import type { ExerciseView } from '../lib/exercise/application/exercise-views.ts
 import type { ProgramRepositories } from '../lib/program/application/program-repositories.ts';
 import type { Program, User } from '../lib/program/domain/program.ts';
 
-const exerciseViewOf = (id: string): ExerciseView =>
-	({
-		constraints: { axial: false, free_weight: false, lumbar_ext: false, lumbar_flex: false },
-		dose: '3×12–15',
-		equipment: [],
-		id,
-		mode: 'loaded',
-		name: id,
-		procedure: { id: 'proc', steps: [] },
-		slug: id,
-		targets: [{ id: 'target-1', role: 'primary' }]
-	}) as unknown as ExerciseView;
+import { uuidOfLabel } from './uuid.ts';
 
-const TARGETS = [
+const exerciseViewOf = (id: string): ExerciseView => ({
+	constraints: { axial: false, free_weight: false, lumbar_ext: false, lumbar_flex: false },
+	dose: '3×12–15',
+	equipment: [],
+	id,
+	mode: 'loaded',
+	name: id,
+	procedure: { id: uuidOfLabel('proc'), steps: [] },
+	slug: id,
+	targets: [{ id: uuidOfLabel('target-1'), role: 'primary' }]
+});
+
+const TARGETS: readonly TargetView[] = [
 	{
 		group: 'glutes',
 		id: 'target-1',
@@ -26,7 +27,7 @@ const TARGETS = [
 		slug: 'gluteus_maximus',
 		zone: 'Ягодичные'
 	}
-] as unknown as readonly TargetView[];
+];
 
 const BANKS: readonly BankView[] = [
 	{
@@ -45,7 +46,7 @@ const BANKS: readonly BankView[] = [
 	}
 ];
 
-const PROGRAM = {
+const PROGRAM: Program = {
 	contraindications: {
 		axial_load: true,
 		free_weight_kg_max: 10,
@@ -85,7 +86,7 @@ const PROGRAM = {
 	},
 	title: 'Программа',
 	user: 'user-1'
-} as unknown as Program;
+};
 
 const USERS: readonly User[] = [
 	{ id: 'user-1', name: 'Сергей', programs: ['program-1'] },

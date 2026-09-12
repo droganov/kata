@@ -8,7 +8,7 @@ import { RULE } from './rule-codes.ts';
 
 const COLUMN_MARK = '.';
 
-export function foreignKeysResolve(set: TableSet): Finding[] {
+export const foreignKeysResolve = (set: TableSet): Finding[] => {
 	const keys = keySets(set);
 	return TABLE_SCHEMAS.flatMap((schema) =>
 		schema.foreignKeys.flatMap((foreignKey) => {
@@ -23,17 +23,16 @@ export function foreignKeysResolve(set: TableSet): Finding[] {
 			);
 		})
 	);
-}
+};
 
-export function uniqueKeysHold(set: TableSet): Finding[] {
-	return TABLE_SCHEMAS.flatMap((schema) =>
+export const uniqueKeysHold = (set: TableSet): Finding[] =>
+	TABLE_SCHEMAS.flatMap((schema) =>
 		schema.unique.flatMap((columns) =>
 			repeatedFindings(schema.name, columns, rowsOf(set, schema.name))
 		)
 	);
-}
 
-function keySets(set: TableSet): ReadonlyMap<string, ReadonlySet<string>> {
+const keySets = (set: TableSet): ReadonlyMap<string, ReadonlySet<string>> => {
 	const keys = new Map<string, ReadonlySet<string>>();
 	for (const schema of TABLE_SCHEMAS) {
 		const rows = rowsOf(set, schema.name);
@@ -44,13 +43,13 @@ function keySets(set: TableSet): ReadonlyMap<string, ReadonlySet<string>> {
 			);
 	}
 	return keys;
-}
+};
 
-function repeatedFindings(
+const repeatedFindings = (
 	table: string,
 	columns: readonly string[],
 	rows: readonly RawRow[]
-): Finding[] {
+): Finding[] => {
 	const seen = new Set<string>();
 	const findings: Finding[] = [];
 	for (const [at, row] of rows.entries()) {
@@ -64,4 +63,4 @@ function repeatedFindings(
 		seen.add(key);
 	}
 	return findings;
-}
+};

@@ -9,10 +9,8 @@ export interface CatalogRepositories {
 	readonly targets: TargetRepository;
 }
 
-export function catalogOf(repositories: CatalogRepositories): Catalog {
-	return {
-		banks: repositories.banks.readAll(),
-		equipment: repositories.equipment.readAll(),
-		targets: repositories.targets.readAll()
-	};
-}
+export const catalogOf = (repositories: CatalogRepositories): Catalog => ({
+	banks: repositories.banks.readAll(),
+	equipment: repositories.equipment.readAll(),
+	targets: repositories.targets.readAll()
+});

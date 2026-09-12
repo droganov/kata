@@ -8,21 +8,20 @@ const NO_HOLD = 0;
 const LAST = -1;
 const FIRST = 0;
 
-export function holdSecondsOfDose(text: string): number {
+export const holdSecondsOfDose = (text: string): number => {
 	if (parseDose(text).unit !== DOSE_UNIT.seconds) return NO_HOLD;
 	const numbers = numbersOf(text);
 	return Number(numbers.at(SETS_LEAD.test(text) ? LAST : FIRST));
-}
+};
 
-export function setsOfDose(text: string): number {
+export const setsOfDose = (text: string): number => {
 	const numbers = numbersOf(text);
 	if (HOLD_LEADS.test(text)) return Number(numbers.at(LAST));
 	return SETS_LEAD.test(text) ? Number(numbers.at(FIRST)) : SINGLE_SET;
-}
+};
 
-function numbersOf(text: string): readonly number[] {
-	return text
+const numbersOf = (text: string): readonly number[] =>
+	text
 		.matchAll(NUMBER)
 		.map((match) => Number(match[0]))
 		.toArray();
-}

@@ -13,9 +13,9 @@ interface WrittenTable {
 	readonly rowCount: number;
 }
 
-export function writeTables(gateways: TableGateways): WriteReport {
+export const writeTables = (gateways: TableGateways): WriteReport => {
 	const tables = tablesOf(gateways.catalog.readSourceCatalog());
 	gateways.tables.writeAll(tables);
 	const files = tableNames().map((name) => ({ name, rowCount: tables[name].length }));
 	return { files, rowCount: files.reduce((total, file) => total + file.rowCount, 0) };
-}
+};

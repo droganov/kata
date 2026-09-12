@@ -22,24 +22,17 @@ export interface Finding {
 
 export type ProgramGoal = (typeof PROGRAM_GOAL)[keyof typeof PROGRAM_GOAL];
 
-export function checkedGoals(): readonly ProgramGoal[] {
-	return Object.values(PROGRAM_GOAL);
-}
+export const checkedGoals = (): readonly ProgramGoal[] => Object.values(PROGRAM_GOAL);
 
-export function programSubject(program: Program): string {
-	return program.title;
-}
+export const programSubject = (program: Program): string => program.title;
 
-export function ruleCheck(
+export const ruleCheck = (
 	isPassing: boolean,
 	goal: ProgramGoal,
 	rule: string,
 	subject: string,
 	message: string
-): readonly Finding[] {
-	return isPassing ? [] : [{ goal, message, rule, subject }];
-}
+): readonly Finding[] => (isPassing ? [] : [{ goal, message, rule, subject }]);
 
-export function slotSubject(program: Program, section: Section, slot: Slot): string {
-	return `${program.title}${SUBJECT_SEPARATOR}${section.slug}${PATH_SEPARATOR}${slot.label}`;
-}
+export const slotSubject = (program: Program, section: Section, slot: Slot): string =>
+	`${program.title}${SUBJECT_SEPARATOR}${section.slug}${PATH_SEPARATOR}${slot.label}`;

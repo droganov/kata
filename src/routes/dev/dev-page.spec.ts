@@ -2,9 +2,10 @@ import { describe, expect, it } from 'vitest';
 
 import type { DevPageInputs, DevPageUseCases } from './dev-page.ts';
 
+import { uuidOfLabel } from '../../test/uuid.ts';
 import { devPageDataOf, loadDevPage } from './dev-page.ts';
 
-const INPUTS = {
+const INPUTS: DevPageInputs = {
 	banks: [
 		{
 			slug: 'warmup',
@@ -27,7 +28,9 @@ const INPUTS = {
 			]
 		}
 	],
-	equipment: [{ canonEn: 'body', id: 'q1', kind: 'body', name: 'Тело', slug: 'body' }],
+	equipment: [
+		{ canonEn: 'body', id: uuidOfLabel('q1'), kind: 'body', name: 'Тело', slug: 'body' }
+	],
 	exercises: [
 		{
 			constraints: {
@@ -38,23 +41,23 @@ const INPUTS = {
 			},
 			dose: '2×10',
 			equipment: [
-				{ id: 'q1', role: 'main' },
-				{ id: 'q-unknown', role: 'auxiliary' }
+				{ id: uuidOfLabel('q1'), role: 'main' },
+				{ id: uuidOfLabel('q-unknown'), role: 'auxiliary' }
 			],
 			id: 'e1',
 			mode: 'dynamic',
 			name: 'Наклоны',
 			note: 'медленно',
 			procedure: {
-				id: 'p1',
+				id: uuidOfLabel('p1'),
 				steps: [
 					{
-						active: ['t1', 't-unknown'],
-						id: 's1',
+						active: [uuidOfLabel('t1'), uuidOfLabel('t-unknown')],
+						id: uuidOfLabel('s1'),
 						oracles: [
 							{
 								counterModel: ['рывок'],
-								id: 'o1',
+								id: uuidOfLabel('o1'),
 								model: ['плавно'],
 								predicate: 'темп'
 							}
@@ -64,7 +67,7 @@ const INPUTS = {
 				]
 			},
 			slug: 'neck_bend',
-			targets: [{ id: 't1', role: 'primary' }]
+			targets: [{ id: uuidOfLabel('t1'), role: 'primary' }]
 		},
 		{
 			constraints: {
@@ -78,7 +81,7 @@ const INPUTS = {
 			id: 'e2',
 			mode: 'isometric',
 			name: 'Планка',
-			procedure: { id: 'p2', steps: [] },
+			procedure: { id: uuidOfLabel('p2'), steps: [] },
 			slug: 'plank',
 			targets: []
 		}
@@ -126,25 +129,39 @@ const INPUTS = {
 		title: 'Программа'
 	},
 	prompts: [{ exercise: 'e1', slug: 'neck_bend', text: 'PROMPT' }],
-	targets: [{ id: 't1', kind: 'muscle', latin: 'l', name: 'Шея', slug: 'neck', zone: 'Шея' }]
-} as unknown as DevPageInputs;
+	targets: [
+		{
+			id: uuidOfLabel('t1'),
+			kind: 'muscle',
+			latin: 'l',
+			name: 'Шея',
+			slug: 'neck',
+			zone: 'Шея'
+		}
+	]
+};
 
 describe('devPageDataOf', () => {
 	const data = devPageDataOf(INPUTS);
 
 	it('разворачивает упражнения с именами средств и целей, промптом и заметкой', () => {
 		expect(data.exercises.e1).toEqual({
-			equipment: 'Тело — main · q-unknown — auxiliary',
+			equipment: `Тело — main · ${uuidOfLabel('q-unknown')} — auxiliary`,
 			id: 'e1',
 			name: 'Наклоны',
 			note: 'медленно',
 			prompt: 'PROMPT',
 			steps: [
 				{
-					active: 'Шея · t-unknown',
-					id: 's1',
+					active: `Шея · ${uuidOfLabel('t-unknown')}`,
+					id: uuidOfLabel('s1'),
 					oracles: [
-						{ counterModel: ['рывок'], id: 'o1', model: ['плавно'], predicate: 'темп' }
+						{
+							counterModel: ['рывок'],
+							id: uuidOfLabel('o1'),
+							model: ['плавно'],
+							predicate: 'темп'
+						}
 					],
 					title: 'Наклон'
 				}
@@ -232,20 +249,19 @@ describe('devPageDataOf', () => {
 	});
 });
 
-const useCasesOf = (programs: readonly string[]): DevPageUseCases =>
-	({
-		catalog: {
-			findEquipment: () => INPUTS.equipment,
-			findTargets: () => INPUTS.targets,
-			listBanks: () => INPUTS.banks
-		},
-		exercise: { listExercises: () => INPUTS.exercises },
-		program: {
-			listUsers: () => [{ id: 'u1', name: 'Сергей', programs }],
-			outlineProgram: () => INPUTS.outline
-		},
-		storyboard: { renderAllPrompts: () => INPUTS.prompts }
-	}) as unknown as DevPageUseCases;
+const useCasesOf = (programs: readonly string[]): DevPageUseCases => ({
+	catalog: {
+		findEquipment: () => INPUTS.equipment,
+		findTargets: () => INPUTS.targets,
+		listBanks: () => INPUTS.banks
+	},
+	exercise: { listExercises: () => INPUTS.exercises },
+	program: {
+		listUsers: () => [{ id: 'u1', name: 'Сергей', programs }],
+		outlineProgram: () => INPUTS.outline
+	},
+	storyboard: { renderAllPrompts: () => INPUTS.prompts }
+});
 
 describe('loadDevPage', () => {
 	it('берёт первую программу первого пользователя', () => {

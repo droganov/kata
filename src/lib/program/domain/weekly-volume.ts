@@ -15,15 +15,13 @@ export interface WeeklyVolume {
 	readonly volume: ReadonlyMap<string, number>;
 }
 
-export function groupFrequencyOf(weekly: WeeklyVolume, group: string): number {
-	return weekly.frequency.get(group) ?? NOTHING;
-}
+export const groupFrequencyOf = (weekly: WeeklyVolume, group: string): number =>
+	weekly.frequency.get(group) ?? NOTHING;
 
-export function groupVolumeOf(weekly: WeeklyVolume, group: string): number {
-	return weekly.volume.get(group) ?? NOTHING;
-}
+export const groupVolumeOf = (weekly: WeeklyVolume, group: string): number =>
+	weekly.volume.get(group) ?? NOTHING;
 
-export function weeklyVolumeOf(program: Program, sessions: readonly Session[]): WeeklyVolume {
+export const weeklyVolumeOf = (program: Program, sessions: readonly Session[]): WeeklyVolume => {
 	const totals = new Map<string, number>();
 	const days = new Map<string, Set<number>>();
 	for (const session of sessions)
@@ -35,14 +33,14 @@ export function weeklyVolumeOf(program: Program, sessions: readonly Session[]): 
 		frequency: new Map([...days].map(([group, seen]) => [group, seen.size / weeks])),
 		volume: new Map([...totals].map(([group, total]) => [group, total / weeks]))
 	};
-}
+};
 
-function addExercise(
+const addExercise = (
 	totals: Map<string, number>,
 	days: Map<string, Set<number>>,
 	exercise: PlanExercise,
 	index: number
-): void {
+): void => {
 	const sets = setsOfDose(exercise.dose);
 	for (const [group, weight] of groupWeightsOf(exercise)) {
 		totals.set(group, (totals.get(group) ?? NOTHING) + sets * weight);
@@ -51,4 +49,4 @@ function addExercise(
 		seen.add(index);
 		days.set(group, seen);
 	}
-}
+};

@@ -5,6 +5,7 @@ import boundaries from 'eslint-plugin-boundaries';
 import checkFile from 'eslint-plugin-check-file';
 import importX from 'eslint-plugin-import-x';
 import perfectionist from 'eslint-plugin-perfectionist';
+import preferArrowFunctions from 'eslint-plugin-prefer-arrow-functions';
 import promise from 'eslint-plugin-promise';
 import regexp from 'eslint-plugin-regexp';
 import sonarjs from 'eslint-plugin-sonarjs';
@@ -153,7 +154,7 @@ const NAMING = [
 		types: ['boolean']
 	},
 	{ format: ['camelCase'], selector: 'function' },
-	{ format: ['camelCase'], selector: 'parameter' },
+	{ format: ['camelCase'], leadingUnderscore: 'allow', selector: 'parameter' },
 	{ format: ['PascalCase'], selector: 'typeLike' },
 	{ custom: { match: false, regex: '^I[A-Z]' }, format: ['PascalCase'], selector: 'interface' },
 	{ format: ['PascalCase'], selector: 'enumMember' },
@@ -202,15 +203,13 @@ const noMagicStrings = {
 		type: 'problem',
 		messages: { magic: 'Строка-литерал вне константы модуля: вынеси в const с именем' }
 	},
-	create(context) {
-		return {
-			Literal(node) {
-				if (typeof node.value !== 'string' || node.value === '') return;
-				if (isDeclarativePosition(node) || isModuleScopeConstInitializer(node)) return;
-				context.report({ messageId: 'magic', node });
-			}
-		};
-	}
+	create: (context) => ({
+		Literal: (node) => {
+			if (typeof node.value !== 'string' || node.value === '') return;
+			if (isDeclarativePosition(node) || isModuleScopeConstInitializer(node)) return;
+			context.report({ messageId: 'magic', node });
+		}
+	})
 };
 
 const DOMAIN_PUBLIC_API = {
@@ -316,11 +315,11 @@ const aggregateRootOnly = {
 			hidden: '«{{name}}» не входит в публичный API domain капсулы «{{capsule}}» (DOMAIN_PUBLIC_API)'
 		}
 	},
-	create(context) {
+	create: (context) => {
 		const importer = context.filename;
 		const importerCapsule = domainCapsuleOf(importer);
 		return {
-			ImportDeclaration(node) {
+			ImportDeclaration: (node) => {
 				const target = resolveImport(importer, node.source.value);
 				if (target === null) return;
 				const capsule = domainCapsuleOf(target);
@@ -361,10 +360,10 @@ const sharedKernelSmall = {
 			tooBig: 'Shared kernel: {{count}} файлов, лимит {{max}} — «Keep this kernel small»'
 		}
 	},
-	create(context) {
+	create: (context) => {
 		if (!context.filename.startsWith(SHARED_DIR)) return {};
 		return {
-			Program(node) {
+			Program: (node) => {
 				const count = countSourceFiles(SHARED_DIR);
 				if (count > SHARED_KERNEL_MAX_FILES) {
 					context.report({
@@ -395,10 +394,10 @@ const specBesideSource = {
 			wrongName: 'Тест назван {{name}}: имя теста это <проверяемый файл>.spec.ts'
 		}
 	},
-	create(context) {
+	create: (context) => {
 		const name = path.basename(context.filename);
 		return {
-			Program(node) {
+			Program: (node) => {
 				if (TEST_NAME_PATTERN.test(name)) {
 					context.report({ data: { name }, messageId: 'wrongName', node });
 					return;
@@ -428,16 +427,16 @@ const selfDescribingCode = {
 					forbidden: 'Комментарии запрещены: имя и структура кода объясняют его сами'
 				}
 			},
-			create(context) {
+			create: (context) => {
 				const report = (loc) => {
 					context.report({ loc, messageId: 'forbidden' });
 				};
 				return {
-					Program() {
+					Program: () => {
 						for (const comment of context.sourceCode.getAllComments())
 							report(comment.loc);
 					},
-					SvelteHTMLComment(node) {
+					SvelteHTMLComment: (node) => {
 						report(node.loc);
 					}
 				};
@@ -475,7 +474,12 @@ export default defineConfig(
 				tsconfigRootDir: import.meta.dirname
 			}
 		},
-		plugins: { boundaries, 'check-file': checkFile, local: selfDescribingCode },
+		plugins: {
+			boundaries,
+			'check-file': checkFile,
+			local: selfDescribingCode,
+			'prefer-arrow-functions': preferArrowFunctions
+		},
 		settings: {
 			'boundaries/elements': ELEMENTS,
 			'boundaries/files': FILE_CATEGORIES,
@@ -502,6 +506,21 @@ export default defineConfig(
 			'no-console': 'error',
 			'no-undef': 'off',
 
+			'prefer-arrow-callback': ['error', { allowNamedFunctions: false }],
+			'prefer-arrow-functions/prefer-arrow-functions': [
+				'error',
+				{
+					allowedNames: [],
+					allowNamedFunctions: false,
+					allowObjectProperties: false,
+					classPropertiesAllowed: false,
+					disallowPrototype: false,
+					returnStyle: 'unchanged',
+					singleReturnOnly: false
+				}
+			],
+
+			'@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
 			'@typescript-eslint/consistent-type-imports': [
 				'error',
 				{ fixStyle: 'inline-type-imports' }

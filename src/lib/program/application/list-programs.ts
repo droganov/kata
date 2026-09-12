@@ -3,10 +3,10 @@ import type { ProgramView } from './program-views.ts';
 
 import { programViewOf } from './program-views.ts';
 
-export function listPrograms(
+export const listPrograms = (
 	repositories: ProgramRepositories,
 	userId: string
-): readonly ProgramView[] {
+): readonly ProgramView[] => {
 	const owned = new Set(
 		repositories.users
 			.readAll()
@@ -17,4 +17,4 @@ export function listPrograms(
 		.readAll()
 		.filter((program) => owned.has(program.id))
 		.map((program) => programViewOf(program));
-}
+};

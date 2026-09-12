@@ -27,7 +27,7 @@ interface NamingContext {
 	readonly groupIdBySlug: ReadonlyMap<string, string>;
 }
 
-export function tablesOf(catalog: SourceCatalog): Tables {
+export const tablesOf = (catalog: SourceCatalog): Tables => {
 	const groups = muscleGroupRows(catalog);
 	const groupIdBySlug = new Map(groups.map((group) => [String(group.slug), String(group.id)]));
 	const dictionary = dictionaryTargetRows(catalog, groupIdBySlug);
@@ -51,13 +51,11 @@ export function tablesOf(catalog: SourceCatalog): Tables {
 		target: [...dictionary, ...catalogued.targets],
 		verdict: procedure.verdict
 	};
-}
+};
 
-function capitalized(text: string): string {
-	return text.slice(0, 1).toUpperCase() + text.slice(1);
-}
+const capitalized = (text: string): string => text.slice(0, 1).toUpperCase() + text.slice(1);
 
-function cataloguedRows(catalog: SourceCatalog, context: NamingContext): Catalogued {
+const cataloguedRows = (catalog: SourceCatalog, context: NamingContext): Catalogued => {
 	const idBySlug = new Map<string, string>();
 	const targets: Row[] = [];
 	const exercises: Row[] = [];
@@ -69,13 +67,13 @@ function cataloguedRows(catalog: SourceCatalog, context: NamingContext): Catalog
 			exercises.push(exerciseRow(exercise, id));
 	}
 	return { exercises, targets };
-}
+};
 
-function dictionaryTargetRows(
+const dictionaryTargetRows = (
 	catalog: SourceCatalog,
 	groupIdBySlug: ReadonlyMap<string, string>
-): readonly Row[] {
-	return catalog.targets.flatMap((target) => {
+): readonly Row[] =>
+	catalog.targets.flatMap((target) => {
 		const groupId = groupIdBySlug.get(JOINT_MUSCLE_GROUP[target.slug] ?? target.group);
 		return groupId === undefined
 			? []
@@ -90,46 +88,41 @@ function dictionaryTargetRows(
 					}
 				];
 	});
-}
 
-function equipmentRows(catalog: SourceCatalog): readonly Row[] {
-	return catalog.equipment.map((item) => ({
+const equipmentRows = (catalog: SourceCatalog): readonly Row[] =>
+	catalog.equipment.map((item) => ({
 		canon_en: item.canonEn,
 		id: item.id,
 		kind: item.kind,
 		name: item.name,
 		slug: item.slug
 	}));
-}
 
-function exerciseEquipmentRows(catalog: SourceCatalog): readonly Row[] {
-	return sourceRecords(catalog).flatMap(({ exercise }) =>
+const exerciseEquipmentRows = (catalog: SourceCatalog): readonly Row[] =>
+	sourceRecords(catalog).flatMap(({ exercise }) =>
 		exercise.equipment.map((link) => ({
 			equipment_id: link.id,
 			exercise_id: exercise.id,
 			role: link.role
 		}))
 	);
-}
 
-function exerciseRow(exercise: SourceExercise, catalogTargetId: string): Row {
-	return {
-		axial: exercise.constraints.axial,
-		catalog_target_id: catalogTargetId,
-		dose: exercise.dose,
-		free_weight: exercise.constraints.freeWeight,
-		id: exercise.id,
-		kg_max: exercise.constraints.kgMax ?? null,
-		lumbar_ext: exercise.constraints.lumbarExt,
-		lumbar_flex: exercise.constraints.lumbarFlex,
-		modality: exercise.modality,
-		name: exercise.name,
-		note: exercise.note ?? null,
-		slug: exercise.slug
-	};
-}
+const exerciseRow = (exercise: SourceExercise, catalogTargetId: string): Row => ({
+	axial: exercise.constraints.axial,
+	catalog_target_id: catalogTargetId,
+	dose: exercise.dose,
+	free_weight: exercise.constraints.freeWeight,
+	id: exercise.id,
+	kg_max: exercise.constraints.kgMax ?? null,
+	lumbar_ext: exercise.constraints.lumbarExt,
+	lumbar_flex: exercise.constraints.lumbarFlex,
+	modality: exercise.modality,
+	name: exercise.name,
+	note: exercise.note ?? null,
+	slug: exercise.slug
+});
 
-function exerciseSourceRows(catalog: SourceCatalog): readonly Row[] {
+const exerciseSourceRows = (catalog: SourceCatalog): readonly Row[] => {
 	const byId = new Map(catalog.references.map((reference) => [reference.id, reference]));
 	return sourceRecords(catalog).map(({ exercise }) => {
 		const reference = byId.get(exercise.reference);
@@ -142,19 +135,18 @@ function exerciseSourceRows(catalog: SourceCatalog): readonly Row[] {
 			url: reference.url ?? null
 		};
 	});
-}
+};
 
-function exerciseTargetRows(catalog: SourceCatalog): readonly Row[] {
-	return sourceRecords(catalog).flatMap(({ exercise }) =>
+const exerciseTargetRows = (catalog: SourceCatalog): readonly Row[] =>
+	sourceRecords(catalog).flatMap(({ exercise }) =>
 		exercise.targets.map((link) => ({
 			exercise_id: exercise.id,
 			role: link.role,
 			target_id: link.id
 		}))
 	);
-}
 
-function muscleGroupRows(catalog: SourceCatalog): readonly Row[] {
+const muscleGroupRows = (catalog: SourceCatalog): readonly Row[] => {
 	const file = catalog.files.find((item) => item.slug === MUSCLE_GROUP_FILE);
 	if (file === undefined) throw new TypeError(NO_FILE + MUSCLE_GROUP_FILE);
 	return file.groups.map((group, at) => ({
@@ -163,9 +155,9 @@ function muscleGroupRows(catalog: SourceCatalog): readonly Row[] {
 		ord: at + FIRST_ORD,
 		slug: group.slug
 	}));
-}
+};
 
-function newTargetRow(placement: SourcePlacement, context: NamingContext, kind: string): Row {
+const newTargetRow = (placement: SourcePlacement, context: NamingContext, kind: string): Row => {
 	const { catalogTarget, group } = placement;
 	const groupId = context.groupIdBySlug.get(group.slug);
 	if (groupId === undefined) throw new TypeError(NO_GROUP + group.slug);
@@ -177,9 +169,9 @@ function newTargetRow(placement: SourcePlacement, context: NamingContext, kind: 
 		name: capitalized(catalogTarget.name),
 		slug: catalogTarget.slug
 	};
-}
+};
 
-function targetIdOf(placement: SourcePlacement, context: NamingContext, targets: Row[]): string {
+const targetIdOf = (placement: SourcePlacement, context: NamingContext, targets: Row[]): string => {
 	const slug = placement.catalogTarget.slug;
 	const entry = CATALOG_TARGETS[slug];
 	if (entry === undefined) throw new TypeError(NO_KIND + slug);
@@ -190,4 +182,4 @@ function targetIdOf(placement: SourcePlacement, context: NamingContext, targets:
 	const twin = context.dictionaryBySlug.get(entry.alias);
 	if (twin === undefined) throw new TypeError(NO_ALIAS + entry.alias);
 	return String(twin.id);
-}
+};

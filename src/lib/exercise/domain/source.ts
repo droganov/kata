@@ -8,6 +8,5 @@ export interface Source {
 	readonly url?: string;
 }
 
-export function sourceIdsOf(sources: readonly Source[]): ReadonlySet<string> {
-	return new Set(sources.map((source) => source.id));
-}
+export const sourceIdsOf = (sources: readonly Source[]): ReadonlySet<string> =>
+	new Set(sources.map((source) => source.id));

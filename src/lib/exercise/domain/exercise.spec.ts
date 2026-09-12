@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 
 import type { Exercise, ExerciseRecord, Step } from './exercise.ts';
 
+import { EXERCISE_BASE } from '../../../test/exercise-base.ts';
+import { uuidOfLabel } from '../../../test/uuid.ts';
 import {
 	counterLinesOf,
 	exerciseSubject,
@@ -11,47 +13,48 @@ import {
 	targetIdsOf
 } from './exercise.ts';
 
-const step = {
-	active: ['t1'],
-	id: 's1',
+const step: Step = {
+	active: [uuidOfLabel('t1')],
+	id: uuidOfLabel('s1'),
 	oracles: [
 		{
 			counterModel: ['крен корпуса'],
-			id: 'o1',
+			id: uuidOfLabel('o1'),
 			model: ['корпус вертикален'],
 			predicate: 'Корпус ровен'
 		},
 		{
 			counterModel: ['таз уходит'],
-			id: 'o2',
+			id: uuidOfLabel('o2'),
 			model: ['таз под корпусом'],
 			predicate: 'Таз на месте'
 		}
 	],
 	title: 'Принять положение'
-} as unknown as Step;
+};
 
-const exercise = {
+const exercise: Exercise = {
+	...EXERCISE_BASE,
 	dose: '2×10',
 	equipment: [
-		{ id: 'body', role: 'main' },
-		{ id: 'mat', role: 'auxiliary' }
+		{ id: uuidOfLabel('body'), role: 'main' },
+		{ id: uuidOfLabel('mat'), role: 'auxiliary' }
 	],
-	id: 'e1',
-	procedure: { id: 'p1', steps: [step] },
+	id: uuidOfLabel('e1'),
+	procedure: { id: uuidOfLabel('p1'), steps: [step] },
 	slug: 'lunge',
 	targets: [
-		{ id: 't1', role: 'primary' },
-		{ id: 't2', role: 'secondary' }
+		{ id: uuidOfLabel('t1'), role: 'primary' },
+		{ id: uuidOfLabel('t2'), role: 'secondary' }
 	]
-} as unknown as Exercise;
+};
 
-const record = {
+const record: ExerciseRecord = {
 	bank: 'stretch',
 	contourSlug: 'hip',
 	contourTitle: 'бёдра',
 	exercise
-} as unknown as ExerciseRecord;
+};
 
 describe('exercise', () => {
 	it('собирает контр-строки шага', () => {
@@ -69,11 +72,11 @@ describe('exercise', () => {
 	});
 
 	it('берёт средства с ролью main', () => {
-		expect(mainEquipmentIdsOf(exercise)).toEqual(['body']);
+		expect(mainEquipmentIdsOf(exercise)).toEqual([uuidOfLabel('body')]);
 	});
 
 	it('даёт идентификаторы целей и подпись записи', () => {
-		expect([...targetIdsOf(exercise)]).toEqual(['t1', 't2']);
+		expect([...targetIdsOf(exercise)]).toEqual([uuidOfLabel('t1'), uuidOfLabel('t2')]);
 		expect(exerciseSubject(record)).toBe('stretch:lunge');
 	});
 });

@@ -148,22 +148,16 @@ export const TABLE_SCHEMAS: readonly TableSchema[] = [
 	}
 ];
 
-export function keyOf(row: Readonly<Record<string, unknown>>, columns: readonly string[]): string {
-	return columns.map((column) => String(row[column])).join(UNIT_SEPARATOR);
-}
+export const keyOf = (row: Readonly<Record<string, unknown>>, columns: readonly string[]): string =>
+	columns.map((column) => String(row[column])).join(UNIT_SEPARATOR);
 
-export function schemaOf(name: TableName): TableSchema {
+export const schemaOf = (name: string): TableSchema => {
 	const found = TABLE_SCHEMAS.find((schema) => schema.name === name);
 	if (found === undefined) throw new TypeError(name);
 	return found;
-}
+};
 
-export function tableNames(): readonly TableName[] {
-	return TABLE_SCHEMAS.map((schema) => schema.name);
-}
+export const tableNames = (): readonly TableName[] => TABLE_SCHEMAS.map((schema) => schema.name);
 
-export function tupleOf(name: TableName, row: Row): Row {
-	return Object.fromEntries(
-		schemaOf(name).columns.map((column) => [column, row[column] ?? null])
-	);
-}
+export const tupleOf = (name: TableName, row: Row): Row =>
+	Object.fromEntries(schemaOf(name).columns.map((column) => [column, row[column] ?? null]));

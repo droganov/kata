@@ -46,18 +46,17 @@ const NOTE_SEPARATOR = ' ';
 const EMPTY_NOTE = '';
 const NO_MAIN_GEAR = 'нет';
 
-export function calisthenicsDoseFormat(bank: Bank): Finding[] {
-	return bankRecords(bank)
+export const calisthenicsDoseFormat = (bank: Bank): Finding[] =>
+	bankRecords(bank)
 		.filter(({ exercise }) => !CALISTHENICS_DOSE.test(exercise.dose))
 		.map(({ exercise }) => ({
 			message: `${exercise.name}: доза ${exercise.dose}`,
 			rule: RULE_DOSE,
 			subject: exerciseSubject(bank, exercise)
 		}));
-}
 
-export function calisthenicsMainGearKind(bank: Bank, catalog: Catalog): Finding[] {
-	return bankRecords(bank).flatMap(({ exercise }) => {
+export const calisthenicsMainGearKind = (bank: Bank, catalog: Catalog): Finding[] =>
+	bankRecords(bank).flatMap(({ exercise }) => {
 		const main = mainEquipmentOf(catalog, exercise);
 		return ruleCheck(
 			main !== undefined && CALISTHENICS_KINDS.has(main.kind),
@@ -66,10 +65,9 @@ export function calisthenicsMainGearKind(bank: Bank, catalog: Catalog): Finding[
 			`${exercise.name}: главное средство ${main?.slug ?? NO_MAIN_GEAR} вида ${main?.kind ?? NO_MAIN_GEAR}`
 		);
 	});
-}
 
-export function calisthenicsModeMatchesDose(bank: Bank): Finding[] {
-	return bankRecords(bank).flatMap(({ exercise }) => {
+export const calisthenicsModeMatchesDose = (bank: Bank): Finding[] =>
+	bankRecords(bank).flatMap(({ exercise }) => {
 		const isHeldInSeconds = parseDose(exercise.dose).unit === DOSE_UNIT.seconds;
 		const subject = exerciseSubject(bank, exercise);
 		return [
@@ -87,10 +85,9 @@ export function calisthenicsModeMatchesDose(bank: Bank): Finding[] {
 			)
 		];
 	});
-}
 
-export function calisthenicsSpineSafety(bank: Bank): Finding[] {
-	return bankRecords(bank).flatMap(({ contour, exercise }) => {
+export const calisthenicsSpineSafety = (bank: Bank): Finding[] =>
+	bankRecords(bank).flatMap(({ contour, exercise }) => {
 		const matched = matchedPatterns(exercise.name, SPINE_PATTERNS);
 		const text = `${exercise.name}${NOTE_SEPARATOR}${exercise.note ?? EMPTY_NOTE}`;
 		const subject = exerciseSubject(bank, exercise);
@@ -116,4 +113,3 @@ export function calisthenicsSpineSafety(bank: Bank): Finding[] {
 			)
 		];
 	});
-}

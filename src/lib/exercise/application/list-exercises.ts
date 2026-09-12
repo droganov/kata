@@ -3,6 +3,5 @@ import type { ExerciseView } from './exercise-views.ts';
 
 import { exerciseViewOf } from './exercise-views.ts';
 
-export function listExercises(repository: ExerciseRepository): readonly ExerciseView[] {
-	return repository.readAll().map((record) => exerciseViewOf(record.exercise));
-}
+export const listExercises = (repository: ExerciseRepository): readonly ExerciseView[] =>
+	repository.readAll().map((record) => exerciseViewOf(record.exercise));

@@ -8,17 +8,24 @@ import path from 'node:path';
 import { readJsonFile } from './json-file.ts';
 
 const SCHEMA_SUFFIX = '.schema.json';
+const OBJECT_TYPE = 'object';
 
 export interface SchemaValidator {
 	assertValid: (schemaId: string, value: unknown, subject: string) => void;
 }
 
-export function createSchemaValidator(schemaDirectory: string): SchemaValidator {
+const isSchemaObject = (value: unknown): value is AnySchemaObject =>
+	typeof value === OBJECT_TYPE && value !== null && !Array.isArray(value);
+
+export const createSchemaValidator = (schemaDirectory: string): SchemaValidator => {
 	const ajv = new Ajv({ allErrors: true });
 	addFormats(ajv);
 	const files = readdirSync(schemaDirectory).filter((name) => name.endsWith(SCHEMA_SUFFIX));
-	for (const file of files)
-		ajv.addSchema(readJsonFile(path.join(schemaDirectory, file)) as AnySchemaObject);
+	for (const file of files) {
+		const schema = readJsonFile(path.join(schemaDirectory, file));
+		if (!isSchemaObject(schema)) throw new TypeError(`${file}: схема не объект JSON`);
+		ajv.addSchema(schema);
+	}
 	return {
 		assertValid: (schemaId: string, value: unknown, subject: string): void => {
 			const check = ajv.getSchema(schemaId);
@@ -26,4 +33,4 @@ export function createSchemaValidator(schemaDirectory: string): SchemaValidator 
 			if (!check(value)) throw new Error(`${subject}: ${ajv.errorsText(check.errors)}`);
 		}
 	};
-}
+};

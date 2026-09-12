@@ -32,28 +32,26 @@ const NEUTRAL_PATTERNS = ['до нейтрали', 'нейтральн', 'не �
 const NOTE_SEPARATOR = ' ';
 const EMPTY_NOTE = '';
 
-export function strengthDoseFormat(bank: Bank): Finding[] {
-	return bankRecords(bank)
+export const strengthDoseFormat = (bank: Bank): Finding[] =>
+	bankRecords(bank)
 		.filter(({ exercise }) => !STRENGTH_DOSE.test(exercise.dose))
 		.map(({ exercise }) => ({
 			message: `${exercise.name}: доза ${exercise.dose}`,
 			rule: RULE_DOSE,
 			subject: exerciseSubject(bank, exercise)
 		}));
-}
 
-export function strengthLoadedMode(bank: Bank): Finding[] {
-	return bankRecords(bank)
+export const strengthLoadedMode = (bank: Bank): Finding[] =>
+	bankRecords(bank)
 		.filter(({ exercise }) => exercise.mode !== EXERCISE_MODE.loaded)
 		.map(({ exercise }) => ({
 			message: `${exercise.name}: mode=${exercise.mode}`,
 			rule: RULE_MODE,
 			subject: exerciseSubject(bank, exercise)
 		}));
-}
 
-export function strengthSpineSafety(bank: Bank): Finding[] {
-	return bankRecords(bank).flatMap(({ contour, exercise }) => {
+export const strengthSpineSafety = (bank: Bank): Finding[] =>
+	bankRecords(bank).flatMap(({ contour, exercise }) => {
 		const matched = matchedPatterns(exercise.name, SPINE_PATTERNS);
 		const text = `${exercise.name}${NOTE_SEPARATOR}${exercise.note ?? EMPTY_NOTE}`;
 		const subject = exerciseSubject(bank, exercise);
@@ -79,10 +77,9 @@ export function strengthSpineSafety(bank: Bank): Finding[] {
 			)
 		];
 	});
-}
 
-export function strengthWeightLimit(bank: Bank, catalog: Catalog): Finding[] {
-	return bankRecords(bank).flatMap(({ exercise }) => {
+export const strengthWeightLimit = (bank: Bank, catalog: Catalog): Finding[] =>
+	bankRecords(bank).flatMap(({ exercise }) => {
 		const { constraints } = exercise;
 		const kinds = exercise.equipment.map(
 			(reference) => equipmentOf(catalog, reference.id)?.kind
@@ -105,4 +102,3 @@ export function strengthWeightLimit(bank: Bank, catalog: Catalog): Finding[] {
 			)
 		];
 	});
-}

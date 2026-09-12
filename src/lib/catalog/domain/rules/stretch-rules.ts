@@ -27,8 +27,8 @@ const MIN_NOTE_LENGTH = 40;
 const EMPTY_NOTE = '';
 const NO_MAIN_GEAR = 'нет';
 
-export function stretchBodyOnly(bank: Bank, catalog: Catalog): Finding[] {
-	return bankRecords(bank).flatMap(({ exercise }) => {
+export const stretchBodyOnly = (bank: Bank, catalog: Catalog): Finding[] =>
+	bankRecords(bank).flatMap(({ exercise }) => {
 		const main = mainEquipmentOf(catalog, exercise);
 		return ruleCheck(
 			main?.kind === EQUIPMENT_KIND.body,
@@ -37,30 +37,27 @@ export function stretchBodyOnly(bank: Bank, catalog: Catalog): Finding[] {
 			`${exercise.name}: главное средство ${main?.slug ?? NO_MAIN_GEAR}`
 		);
 	});
-}
 
-export function stretchDoseFormat(bank: Bank): Finding[] {
-	return bankRecords(bank)
+export const stretchDoseFormat = (bank: Bank): Finding[] =>
+	bankRecords(bank)
 		.filter(({ exercise }) => !STRETCH_DOSE.test(exercise.dose))
 		.map(({ exercise }) => ({
 			message: `${exercise.name}: доза ${exercise.dose}`,
 			rule: RULE_DOSE,
 			subject: exerciseSubject(bank, exercise)
 		}));
-}
 
-export function stretchHowToNote(bank: Bank): Finding[] {
-	return bankRecords(bank)
+export const stretchHowToNote = (bank: Bank): Finding[] =>
+	bankRecords(bank)
 		.filter(({ exercise }) => (exercise.note ?? EMPTY_NOTE).length < MIN_NOTE_LENGTH)
 		.map(({ exercise }) => ({
 			message: `${exercise.name}: нет заметки как делать`,
 			rule: RULE_NOTE,
 			subject: exerciseSubject(bank, exercise)
 		}));
-}
 
-export function stretchSpineSafety(bank: Bank): Finding[] {
-	return bankRecords(bank).flatMap(({ exercise }) => {
+export const stretchSpineSafety = (bank: Bank): Finding[] =>
+	bankRecords(bank).flatMap(({ exercise }) => {
 		const matched = matchedPatterns(exercise.name, SPINE_PATTERNS);
 		const subject = exerciseSubject(bank, exercise);
 		return [
@@ -78,14 +75,12 @@ export function stretchSpineSafety(bank: Bank): Finding[] {
 			)
 		];
 	});
-}
 
-export function stretchStaticMode(bank: Bank): Finding[] {
-	return bankRecords(bank)
+export const stretchStaticMode = (bank: Bank): Finding[] =>
+	bankRecords(bank)
 		.filter(({ exercise }) => exercise.mode !== EXERCISE_MODE.static_stretch)
 		.map(({ exercise }) => ({
 			message: `${exercise.name}: mode=${exercise.mode}`,
 			rule: RULE_MODE,
 			subject: exerciseSubject(bank, exercise)
 		}));
-}

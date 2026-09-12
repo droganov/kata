@@ -115,26 +115,87 @@ interface VerdictFile {
 	readonly verdict: string;
 }
 
-export function createCatalogJsonGateway(source: CatalogJsonSource): CatalogGateway {
-	return {
-		readSourceCatalog: (): SourceCatalog => ({
-			equipment: equipmentOf(source),
-			files: filesOf(source),
-			references: referencesOf(source),
-			targets: targetsOf(source),
-			verdicts: verdictsOf(source)
-		})
-	};
-}
+const assertCatalogEquipment: (
+	validator: SchemaValidator,
+	value: unknown,
+	subject: string
+) => asserts value is CatalogEquipment = (validator, value, subject) => {
+	validator.assertValid(EQUIPMENT_SCHEMA_ID, value, subject);
+};
 
-function equipmentOf(source: CatalogJsonSource): readonly SourceEquipment[] {
+const assertCatalogFile: (
+	validator: SchemaValidator,
+	value: unknown,
+	subject: string
+) => asserts value is CatalogFile = (validator, value, subject) => {
+	validator.assertValid(BANK_SCHEMA_ID, value, subject);
+};
+
+const assertCatalogTarget: (
+	validator: SchemaValidator,
+	value: unknown,
+	subject: string
+) => asserts value is CatalogTarget = (validator, value, subject) => {
+	validator.assertValid(TARGET_SCHEMA_ID, value, subject);
+};
+
+const assertReferenceFile: (
+	validator: SchemaValidator,
+	value: unknown,
+	subject: string
+) => asserts value is ReferenceFile = (validator, value, subject) => {
+	validator.assertValid(SOURCE_SCHEMA_ID, value, subject);
+};
+
+const assertVerdictFile: (
+	validator: SchemaValidator,
+	value: unknown,
+	subject: string
+) => asserts value is VerdictFile = (validator, value, subject) => {
+	validator.assertValid(VERDICT_SCHEMA_ID, value, subject);
+};
+
+const equipmentItems = (source: CatalogJsonSource): readonly CatalogEquipment[] =>
+	readJsonArray(source.equipmentFile).map((item, at) => {
+		const subject = `${source.equipmentFile}${ITEM_MARK}${String(at)}`;
+		assertCatalogEquipment(source.validator, item, subject);
+		return item;
+	});
+
+const referenceItems = (source: CatalogJsonSource): readonly ReferenceFile[] =>
+	readJsonArray(source.referencesFile).map((item, at) => {
+		const subject = `${source.referencesFile}${ITEM_MARK}${String(at)}`;
+		assertReferenceFile(source.validator, item, subject);
+		return item;
+	});
+
+const targetItems = (source: CatalogJsonSource): readonly CatalogTarget[] =>
+	readJsonArray(source.targetsFile).map((item, at) => {
+		const subject = `${source.targetsFile}${ITEM_MARK}${String(at)}`;
+		assertCatalogTarget(source.validator, item, subject);
+		return item;
+	});
+
+const verdictItems = (source: CatalogJsonSource): readonly VerdictFile[] =>
+	readJsonArray(source.verdictsFile).map((item, at) => {
+		const subject = `${source.verdictsFile}${ITEM_MARK}${String(at)}`;
+		assertVerdictFile(source.validator, item, subject);
+		return item;
+	});
+
+export const createCatalogJsonGateway = (source: CatalogJsonSource): CatalogGateway => ({
+	readSourceCatalog: (): SourceCatalog => ({
+		equipment: equipmentOf(source),
+		files: filesOf(source),
+		references: referencesOf(source),
+		targets: targetsOf(source),
+		verdicts: verdictsOf(source)
+	})
+});
+
+const equipmentOf = (source: CatalogJsonSource): readonly SourceEquipment[] => {
 	const items = findEquipment({
-		readAll: (): readonly CatalogEquipment[] =>
-			validatedItems(
-				source.equipmentFile,
-				EQUIPMENT_SCHEMA_ID,
-				source.validator
-			) as readonly CatalogEquipment[]
+		readAll: (): readonly CatalogEquipment[] => equipmentItems(source)
 	});
 	return items.map((item) => ({
 		canonEn: item.canonEn,
@@ -143,101 +204,80 @@ function equipmentOf(source: CatalogJsonSource): readonly SourceEquipment[] {
 		name: item.name,
 		slug: item.slug
 	}));
-}
+};
 
-function exerciseOf(exercise: CatalogFileExercise): SourceExercise {
-	return {
-		constraints: {
-			axial: exercise.constraints.axial,
-			freeWeight: exercise.constraints.free_weight,
-			...(exercise.constraints.kg_max !== undefined && {
-				kgMax: exercise.constraints.kg_max
-			}),
-			lumbarExt: exercise.constraints.lumbar_ext,
-			lumbarFlex: exercise.constraints.lumbar_flex
-		},
-		dose: exercise.dose,
-		equipment: exercise.equipment,
-		id: exercise.id,
-		modality: exercise.mode,
-		name: exercise.name,
-		...(exercise.note !== undefined && { note: exercise.note }),
-		reference: exercise.source,
-		slug: exercise.slug,
-		steps: exercise.procedure.steps.map((step) => stepOf(step)),
-		targets: exercise.targets
-	};
-}
+const exerciseOf = (exercise: CatalogFileExercise): SourceExercise => ({
+	constraints: {
+		axial: exercise.constraints.axial,
+		freeWeight: exercise.constraints.free_weight,
+		...(exercise.constraints.kg_max !== undefined && {
+			kgMax: exercise.constraints.kg_max
+		}),
+		lumbarExt: exercise.constraints.lumbar_ext,
+		lumbarFlex: exercise.constraints.lumbar_flex
+	},
+	dose: exercise.dose,
+	equipment: exercise.equipment,
+	id: exercise.id,
+	modality: exercise.mode,
+	name: exercise.name,
+	...(exercise.note !== undefined && { note: exercise.note }),
+	reference: exercise.source,
+	slug: exercise.slug,
+	steps: exercise.procedure.steps.map((step) => stepOf(step)),
+	targets: exercise.targets
+});
 
-function fileOf(file: CatalogFile): SourceFile {
-	return {
-		groups: file.zones.map((zone) => ({
-			id: zone.id,
-			name: zone.title,
-			slug: zone.slug,
-			targets: zone.contours.map((contour) => ({
-				exercises: contour.exercises.map((exercise) => exerciseOf(exercise)),
-				id: contour.id,
-				name: contour.title,
-				slug: contour.slug
-			}))
-		})),
-		slug: file.slug
-	};
-}
+const fileOf = (file: CatalogFile): SourceFile => ({
+	groups: file.zones.map((zone) => ({
+		id: zone.id,
+		name: zone.title,
+		slug: zone.slug,
+		targets: zone.contours.map((contour) => ({
+			exercises: contour.exercises.map((exercise) => exerciseOf(exercise)),
+			id: contour.id,
+			name: contour.title,
+			slug: contour.slug
+		}))
+	})),
+	slug: file.slug
+});
 
-function filesOf(source: CatalogJsonSource): readonly SourceFile[] {
-	return readdirSync(source.modalityDirectory)
+const filesOf = (source: CatalogJsonSource): readonly SourceFile[] =>
+	readdirSync(source.modalityDirectory)
 		.filter((name) => name.endsWith(JSON_SUFFIX) && name !== CARDIO_FILE)
 		.map((name) => {
 			const parsed = readJsonFile(path.join(source.modalityDirectory, name));
-			source.validator.assertValid(BANK_SCHEMA_ID, parsed, name);
-			return fileOf(parsed as CatalogFile);
+			assertCatalogFile(source.validator, parsed, name);
+			return fileOf(parsed);
 		})
 		.toSorted((first, second) => rank(first.slug) - rank(second.slug));
-}
 
-function rank(slug: string): number {
-	return FILE_ORDER.indexOf(slug);
-}
+const rank = (slug: string): number => FILE_ORDER.indexOf(slug);
 
-function referencesOf(source: CatalogJsonSource): readonly SourceReference[] {
-	return (
-		validatedItems(
-			source.referencesFile,
-			SOURCE_SCHEMA_ID,
-			source.validator
-		) as readonly ReferenceFile[]
-	).map((reference) => ({
+const referencesOf = (source: CatalogJsonSource): readonly SourceReference[] =>
+	referenceItems(source).map((reference) => ({
 		id: reference.id,
 		...(reference.note !== undefined && { note: reference.note }),
 		title: reference.title,
 		...(reference.url !== undefined && { url: reference.url })
 	}));
-}
 
-function stepOf(step: CatalogFileStep): SourceStep {
-	return {
-		active: step.active,
-		id: step.id,
-		oracles: step.oracles.map((oracle) => ({
-			counterModel: oracle.counterModel,
-			id: oracle.id,
-			model: oracle.model,
-			predicate: oracle.predicate
-		})),
-		title: step.title
-	};
-}
+const stepOf = (step: CatalogFileStep): SourceStep => ({
+	active: step.active,
+	id: step.id,
+	oracles: step.oracles.map((oracle) => ({
+		counterModel: oracle.counterModel,
+		id: oracle.id,
+		model: oracle.model,
+		predicate: oracle.predicate
+	})),
+	title: step.title
+});
 
-function targetsOf(source: CatalogJsonSource): readonly SourceTarget[] {
+const targetsOf = (source: CatalogJsonSource): readonly SourceTarget[] => {
 	const targets = findTargets({
-		readAll: (): readonly CatalogTarget[] =>
-			validatedItems(
-				source.targetsFile,
-				TARGET_SCHEMA_ID,
-				source.validator
-			) as readonly CatalogTarget[]
+		readAll: (): readonly CatalogTarget[] => targetItems(source)
 	});
 	return targets.map((target) => ({
 		group: target.zone,
@@ -247,31 +287,13 @@ function targetsOf(source: CatalogJsonSource): readonly SourceTarget[] {
 		name: target.name,
 		slug: target.slug
 	}));
-}
+};
 
-function validatedItems(
-	file: string,
-	schemaId: string,
-	validator: SchemaValidator
-): readonly unknown[] {
-	return readJsonArray(file).map((item, at) => {
-		validator.assertValid(schemaId, item, `${file}${ITEM_MARK}${String(at)}`);
-		return item;
-	});
-}
-
-function verdictsOf(source: CatalogJsonSource): readonly SourceVerdict[] {
-	return (
-		validatedItems(
-			source.verdictsFile,
-			VERDICT_SCHEMA_ID,
-			source.validator
-		) as readonly VerdictFile[]
-	).map((verdict) => ({
+const verdictsOf = (source: CatalogJsonSource): readonly SourceVerdict[] =>
+	verdictItems(source).map((verdict) => ({
 		hash: verdict.hash,
 		line: verdict.line,
 		oracle: verdict.oracle,
 		...(verdict.reason !== undefined && { reason: verdict.reason }),
 		verdict: verdict.verdict
 	}));
-}

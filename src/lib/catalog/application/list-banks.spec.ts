@@ -6,7 +6,7 @@ import { uuidOf } from '../../shared/uuid.ts';
 import { listBanks } from './list-banks.ts';
 
 const ID = uuidOf('01a0889d-3852-7051-a039-c9778729a468');
-const bank = {
+const bank: Bank = {
 	id: ID,
 	rules: [],
 	slug: 'cardio',
@@ -19,7 +19,7 @@ const bank = {
 			title: 'Сердце'
 		}
 	]
-} as Bank;
+};
 
 describe('listBanks', () => {
 	it('отдаёт представления всех банков', () => {

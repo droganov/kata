@@ -4,6 +4,7 @@ import type { PlanExercise } from '../plan-exercise.ts';
 import type { ProgramPlan } from '../program-plan.ts';
 import type { Program } from '../program.ts';
 
+import { PROGRAM_BASE } from '../../../../test/program-base.ts';
 import { glutesInBase, glutesWeeklyVolume } from './glute-rules.ts';
 
 interface PlanSeed {
@@ -24,21 +25,21 @@ const exerciseOf = (dose: string, isDirect: boolean): PlanExercise => ({
 	targets: [{ group: 'glutes', role: isDirect ? 'primary' : 'secondary' }]
 });
 
-const programOf = (hasTargets: boolean): Program =>
-	({
-		sections: [
-			{
-				bank: 'bank',
-				id: 'strength',
-				mode: 'loaded',
-				slots: [{ exercises: ['a'], id: 'base', kind: 'base', label: 'База' }],
-				slug: 'strength',
-				title: 'Силовой'
-			}
-		],
-		title: 'Программа',
-		...(hasTargets && { volume_targets: { glutes: { max: 22, min: 12 } } })
-	}) as unknown as Program;
+const programOf = (hasTargets: boolean): Program => ({
+	...PROGRAM_BASE,
+	sections: [
+		{
+			bank: 'bank',
+			id: 'strength',
+			mode: 'loaded',
+			slots: [{ exercises: ['a'], id: 'base', kind: 'base', label: 'База' }],
+			slug: 'strength',
+			title: 'Силовой'
+		}
+	],
+	title: 'Программа',
+	...(hasTargets && { volume_targets: { glutes: { max: 22, min: 12 } } })
+});
 
 const planOf = (seed: PlanSeed = {}): ProgramPlan => {
 	const exercise = exerciseOf(seed.dose ?? '3×12–15', seed.isDirect ?? true);

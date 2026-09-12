@@ -9,23 +9,17 @@ export interface Finding {
 	readonly subject: string;
 }
 
-export function bankSubject(bank: Bank): string {
-	return bank.slug;
-}
+export const bankSubject = (bank: Bank): string => bank.slug;
 
-export function contourSubject(bank: Bank, zone: Zone, contour: Contour): string {
-	return `${bank.slug}${SUBJECT_SEPARATOR}${zone.slug}${PATH_SEPARATOR}${contour.slug}`;
-}
+export const contourSubject = (bank: Bank, zone: Zone, contour: Contour): string =>
+	`${bank.slug}${SUBJECT_SEPARATOR}${zone.slug}${PATH_SEPARATOR}${contour.slug}`;
 
-export function exerciseSubject(bank: Bank, exercise: BankExercise): string {
-	return `${bank.slug}${SUBJECT_SEPARATOR}${exercise.slug}`;
-}
+export const exerciseSubject = (bank: Bank, exercise: BankExercise): string =>
+	`${bank.slug}${SUBJECT_SEPARATOR}${exercise.slug}`;
 
-export function ruleCheck(
+export const ruleCheck = (
 	isPassing: boolean,
 	rule: string,
 	subject: string,
 	message: string
-): Finding[] {
-	return isPassing ? [] : [{ message, rule, subject }];
-}
+): Finding[] => (isPassing ? [] : [{ message, rule, subject }]);

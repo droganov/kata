@@ -17,11 +17,11 @@ export interface ProgramPlan {
 
 export type ProgramRule = (plan: ProgramPlan) => readonly Finding[];
 
-export function programPlanOf(
+export const programPlanOf = (
 	program: Program,
 	exercises: PlanExercises,
 	hipMobilityExerciseIds: ReadonlySet<string>
-): ProgramPlan {
+): ProgramPlan => {
 	const sessions = sessionsOf(program, exercises);
 	return {
 		exercises,
@@ -30,4 +30,4 @@ export function programPlanOf(
 		sessions,
 		volume: weeklyVolumeOf(program, sessions)
 	};
-}
+};

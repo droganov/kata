@@ -1,14 +1,15 @@
 import { describe, expect, it } from 'vitest';
 
 import type { ProgramPlan } from '../program-plan.ts';
-import type { Program } from '../program.ts';
 
+import { PROGRAM_BASE } from '../../../../test/program-base.ts';
 import { rulesForProgram } from './program-rules.ts';
 
 const PLAN: ProgramPlan = {
 	exercises: new Map(),
 	hipMobilityExerciseIds: new Set(),
 	program: {
+		...PROGRAM_BASE,
 		contraindications: {
 			axial_load: true,
 			free_weight_kg_max: 10,
@@ -37,7 +38,7 @@ const PLAN: ProgramPlan = {
 		},
 		title: 'Программа',
 		user: 'user'
-	} as unknown as Program,
+	},
 	sessions: [],
 	volume: { frequency: new Map(), volume: new Map() }
 };

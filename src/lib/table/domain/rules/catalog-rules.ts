@@ -45,7 +45,7 @@ const MODALITIES: ReadonlySet<string> = new Set([
 	'static_stretch'
 ]);
 
-export function equipmentLinkedOnce(set: TableSet): Finding[] {
+export const equipmentLinkedOnce = (set: TableSet): Finding[] => {
 	const backLinks = rowsOf(set, TABLE_NAME.equipment).filter((row) =>
 		Object.hasOwn(row, BACK_LINK_COLUMN)
 	);
@@ -70,9 +70,9 @@ export function equipmentLinkedOnce(set: TableSet): Finding[] {
 		),
 		...twoWay
 	];
-}
+};
 
-export function everyExerciseCarried(set: TableSet, catalog: SourceCatalog): Finding[] {
+export const everyExerciseCarried = (set: TableSet, catalog: SourceCatalog): Finding[] => {
 	const carried = new Set(rowsOf(set, TABLE_NAME.exercise).map((row) => textAt(row, COLUMN_ID)));
 	const records = sourceRecords(catalog);
 	const lost = records.filter(({ exercise }) => !carried.has(exercise.id));
@@ -90,9 +90,9 @@ export function everyExerciseCarried(set: TableSet, catalog: SourceCatalog): Fin
 			`строк ${String(carried.size)}, упражнений в каталогах ${String(records.length)}`
 		)
 	];
-}
+};
 
-export function everyExerciseHasSource(set: TableSet): Finding[] {
+export const everyExerciseHasSource = (set: TableSet): Finding[] => {
 	const sourced = new Set(
 		rowsOf(set, TABLE_NAME.exercise_source).map((row) => textAt(row, COLUMN_EXERCISE))
 	);
@@ -104,9 +104,9 @@ export function everyExerciseHasSource(set: TableSet): Finding[] {
 			`нет источника`
 		)
 	);
-}
+};
 
-export function everyOracleCarried(set: TableSet, catalog: SourceCatalog): Finding[] {
+export const everyOracleCarried = (set: TableSet, catalog: SourceCatalog): Finding[] => {
 	const oracles = sourceOracles(catalog);
 	const carried = new Set(rowsOf(set, TABLE_NAME.oracle).map((row) => textAt(row, COLUMN_ID)));
 	const lost = oracles.filter((oracle) => !carried.has(oracle.id));
@@ -128,9 +128,9 @@ export function everyOracleCarried(set: TableSet, catalog: SourceCatalog): Findi
 			`не перенесены строки наблюдений: ${String(lostLines.length)}`
 		)
 	];
-}
+};
 
-export function everyVerdictCarried(set: TableSet, catalog: SourceCatalog): Finding[] {
+export const everyVerdictCarried = (set: TableSet, catalog: SourceCatalog): Finding[] => {
 	const counters = new Map(
 		sourceOracles(catalog).map((oracle) => [oracle.id, new Set(oracle.counterModel)])
 	);
@@ -156,10 +156,10 @@ export function everyVerdictCarried(set: TableSet, catalog: SourceCatalog): Find
 		TABLE_NAME.verdict,
 		`не перенесены вердикты: ${lost.map((verdict) => verdict.line).join(LIST_SEPARATOR)}`
 	);
-}
+};
 
-export function exerciseKnowsNoPlace(set: TableSet): Finding[] {
-	return rowsOf(set, TABLE_NAME.exercise).flatMap((row, at) => {
+export const exerciseKnowsNoPlace = (set: TableSet): Finding[] =>
+	rowsOf(set, TABLE_NAME.exercise).flatMap((row, at) => {
 		const present = PLACE_COLUMNS.filter((column) => Object.hasOwn(row, column));
 		return ruleCheck(
 			present.length === 0,
@@ -168,10 +168,9 @@ export function exerciseKnowsNoPlace(set: TableSet): Finding[] {
 			`упражнение знает своё место: ${present.join(LIST_SEPARATOR)}`
 		);
 	});
-}
 
-export function modalityReplacesCatalog(set: TableSet): Finding[] {
-	return rowsOf(set, TABLE_NAME.exercise).flatMap((row) =>
+export const modalityReplacesCatalog = (set: TableSet): Finding[] =>
+	rowsOf(set, TABLE_NAME.exercise).flatMap((row) =>
 		ruleCheck(
 			MODALITIES.has(textAt(row, COLUMN_MODALITY)),
 			RULE.modality,
@@ -179,9 +178,8 @@ export function modalityReplacesCatalog(set: TableSet): Finding[] {
 			`режим вне перечня: ${textAt(row, COLUMN_MODALITY)}`
 		)
 	);
-}
 
-export function oneMainEquipmentPerExercise(set: TableSet): Finding[] {
+export const oneMainEquipmentPerExercise = (set: TableSet): Finding[] => {
 	const mains = new Map<string, number>();
 	for (const row of rowsOf(set, TABLE_NAME.exercise_equipment))
 		if (textAt(row, COLUMN_ROLE) === MAIN_ROLE) {
@@ -197,9 +195,9 @@ export function oneMainEquipmentPerExercise(set: TableSet): Finding[] {
 			`главных средств ${String(count)}`
 		);
 	});
-}
+};
 
-export function oneRowPerCatalogTarget(set: TableSet, catalog: SourceCatalog): Finding[] {
+export const oneRowPerCatalogTarget = (set: TableSet, catalog: SourceCatalog): Finding[] => {
 	const shelved = new Set(
 		rowsOf(set, TABLE_NAME.exercise).map((row) => textAt(row, COLUMN_CATALOG_TARGET))
 	);
@@ -223,9 +221,9 @@ export function oneRowPerCatalogTarget(set: TableSet, catalog: SourceCatalog): F
 			`мишень «широчайшие» в ${String(lats.length)} экземплярах`
 		)
 	];
-}
+};
 
-export function stepTargetsWithinExercise(set: TableSet): Finding[] {
+export const stepTargetsWithinExercise = (set: TableSet): Finding[] => {
 	const exerciseOfStep = new Map(
 		rowsOf(set, TABLE_NAME.step).map((row) => [
 			textAt(row, COLUMN_ID),
@@ -249,9 +247,9 @@ export function stepTargetsWithinExercise(set: TableSet): Finding[] {
 			`цель шага не принадлежит упражнению: ${target}`
 		);
 	});
-}
+};
 
-export function targetKindsDeclared(set: TableSet, catalog: SourceCatalog): Finding[] {
+export const targetKindsDeclared = (set: TableSet, catalog: SourceCatalog): Finding[] => {
 	const targets = rowsOf(set, TABLE_NAME.target);
 	const shelved = new Set(
 		rowsOf(set, TABLE_NAME.exercise).map((row) => textAt(row, COLUMN_CATALOG_TARGET))
@@ -282,9 +280,9 @@ export function targetKindsDeclared(set: TableSet, catalog: SourceCatalog): Find
 			`мест разминки ${String(warmup)}, ожидается ${String(WARMUP_JOINT_COUNT)}`
 		)
 	];
-}
+};
 
-export function tenMuscleGroups(set: TableSet): Finding[] {
+export const tenMuscleGroups = (set: TableSet): Finding[] => {
 	const rows = rowsOf(set, TABLE_NAME.muscle_group);
 	return ruleCheck(
 		rows.length === MUSCLE_GROUP_COUNT,
@@ -292,23 +290,19 @@ export function tenMuscleGroups(set: TableSet): Finding[] {
 		TABLE_NAME.muscle_group,
 		`групп мышц ${String(rows.length)}, ожидается ${String(MUSCLE_GROUP_COUNT)}`
 	);
-}
+};
 
-function lineKey(oracle: string, side: string, text: string): string {
-	return keyOf({ oracle_id: oracle, side, text }, LINE_COLUMNS);
-}
+const lineKey = (oracle: string, side: string, text: string): string =>
+	keyOf({ oracle_id: oracle, side, text }, LINE_COLUMNS);
 
-function sourceLineKeys(oracles: readonly SourceOracle[]): readonly string[] {
-	return oracles.flatMap((oracle) => [
+const sourceLineKeys = (oracles: readonly SourceOracle[]): readonly string[] =>
+	oracles.flatMap((oracle) => [
 		...oracle.model.map((text) => lineKey(oracle.id, MODEL_SIDE, text)),
 		...oracle.counterModel.map((text) => lineKey(oracle.id, COUNTER_SIDE, text))
 	]);
-}
 
-function verdictLineKey(oracle: string, text: string): string {
-	return keyOf({ oracle_id: oracle, text }, VERDICT_LINE_COLUMNS);
-}
+const verdictLineKey = (oracle: string, text: string): string =>
+	keyOf({ oracle_id: oracle, text }, VERDICT_LINE_COLUMNS);
 
-function warmupTargetCount(catalog: SourceCatalog): number {
-	return sourcePlacements(catalog).filter(({ file }) => file.slug === WARMUP_FILE).length;
-}
+const warmupTargetCount = (catalog: SourceCatalog): number =>
+	sourcePlacements(catalog).filter(({ file }) => file.slug === WARMUP_FILE).length;

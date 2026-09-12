@@ -7,9 +7,7 @@ export interface StoryboardGateways {
 	readonly exercises: ExerciseGateway;
 }
 
-export function promptCatalogOf(gateway: CatalogGateway): PromptCatalog {
-	return {
-		equipment: new Map(gateway.readEquipment().map((item) => [item.id, item])),
-		targets: new Map(gateway.readTargets().map((item) => [item.id, item]))
-	};
-}
+export const promptCatalogOf = (gateway: CatalogGateway): PromptCatalog => ({
+	equipment: new Map(gateway.readEquipment().map((item) => [item.id, item])),
+	targets: new Map(gateway.readTargets().map((item) => [item.id, item]))
+});

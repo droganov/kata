@@ -12,16 +12,18 @@ export interface JsonUserSource {
 	readonly validator: SchemaValidator;
 }
 
-export function createJsonUserRepository(source: JsonUserSource): UserRepository {
-	return {
-		readAll: (): readonly User[] =>
-			readJsonArray(source.file).map((item, at) => {
-				source.validator.assertValid(
-					USER_SCHEMA_ID,
-					item,
-					`${source.file}${ITEM_MARK}${String(at)}`
-				);
-				return item as User;
-			})
-	};
-}
+const assertUser: (
+	validator: SchemaValidator,
+	value: unknown,
+	subject: string
+) => asserts value is User = (validator, value, subject) => {
+	validator.assertValid(USER_SCHEMA_ID, value, subject);
+};
+
+export const createJsonUserRepository = (source: JsonUserSource): UserRepository => ({
+	readAll: (): readonly User[] =>
+		readJsonArray(source.file).map((item, at) => {
+			assertUser(source.validator, item, `${source.file}${ITEM_MARK}${String(at)}`);
+			return item;
+		})
+});

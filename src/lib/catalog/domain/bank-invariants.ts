@@ -13,7 +13,7 @@ const RULE_CONTOUR_FILLED = 'I3 CONTOUR_FILLED';
 const RULE_MAIN_EQUIPMENT = 'I4 MAIN_EQUIPMENT';
 const RULE_REFERENCES = 'I5 REFERENCES';
 
-export function bankInvariants(bank: Bank, catalog: Catalog): Finding[] {
+export const bankInvariants = (bank: Bank, catalog: Catalog): Finding[] => {
 	const emptyContours = contoursOf(bank)
 		.filter(({ contour }) => contour.exercises.length === 0)
 		.map(({ contour, zone }) => ({
@@ -22,10 +22,10 @@ export function bankInvariants(bank: Bank, catalog: Catalog): Finding[] {
 			subject: contourSubject(bank, zone, contour)
 		}));
 	return [...slugInvariants(bank), ...emptyContours, ...referenceInvariants(bank, catalog)];
-}
+};
 
-function referenceInvariants(bank: Bank, catalog: Catalog): Finding[] {
-	return bankRecords(bank).flatMap(({ exercise }) => {
+const referenceInvariants = (bank: Bank, catalog: Catalog): Finding[] =>
+	bankRecords(bank).flatMap(({ exercise }) => {
 		const subject = exerciseSubject(bank, exercise);
 		const mains = mainEquipmentRefsOf(exercise);
 		const lostEquipment = exercise.equipment.filter(
@@ -49,9 +49,8 @@ function referenceInvariants(bank: Bank, catalog: Catalog): Finding[] {
 			)
 		];
 	});
-}
 
-function repeatedValues(values: readonly string[]): string[] {
+const repeatedValues = (values: readonly string[]): string[] => {
 	const seen = new Set<string>();
 	const repeated = new Set<string>();
 	for (const value of values) {
@@ -59,9 +58,9 @@ function repeatedValues(values: readonly string[]): string[] {
 		else seen.add(value);
 	}
 	return [...repeated];
-}
+};
 
-function slugInvariants(bank: Bank): Finding[] {
+const slugInvariants = (bank: Bank): Finding[] => {
 	const zoneSlugs = repeatedValues(bank.zones.map((zone) => zone.slug));
 	const contourSlugs = repeatedValues(contoursOf(bank).map(({ contour }) => contour.slug));
 	return [
@@ -78,4 +77,4 @@ function slugInvariants(bank: Bank): Finding[] {
 			`повтор slug контура: ${contourSlugs.join(LIST_SEPARATOR)}`
 		)
 	];
-}
+};

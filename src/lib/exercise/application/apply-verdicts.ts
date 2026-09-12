@@ -8,12 +8,12 @@ export interface VerdictMerge {
 	readonly total: number;
 }
 
-export function applyVerdicts(
+export const applyVerdicts = (
 	repository: VerdictRepository,
 	incoming: readonly Verdict[]
-): VerdictMerge {
+): VerdictMerge => {
 	const stored = repository.readAll();
 	const merged = mergeVerdicts(stored, incoming);
 	repository.save(merged);
 	return { added: merged.length - stored.length, total: merged.length };
-}
+};

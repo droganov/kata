@@ -24,18 +24,17 @@ const LABEL_ID = 'id';
 const LABEL_NAME = 'имя';
 const MIN_PICK = 1;
 
-export function filledContours(bank: Bank): Finding[] {
-	return contoursOf(bank)
+export const filledContours = (bank: Bank): Finding[] =>
+	contoursOf(bank)
 		.filter(({ contour }) => contour.exercises.length === 0)
 		.map(({ contour, zone }) => ({
 			message: `${zone.title} / ${contour.title}: банк пуст`,
 			rule: RULE_COVERAGE,
 			subject: contourSubject(bank, zone, contour)
 		}));
-}
 
-export function pickWithinContourBank(bank: Bank): Finding[] {
-	return contoursOf(bank).flatMap(({ contour, zone }) => {
+export const pickWithinContourBank = (bank: Bank): Finding[] =>
+	contoursOf(bank).flatMap(({ contour, zone }) => {
 		const pick = contour.pick ?? 0;
 		return ruleCheck(
 			pick >= MIN_PICK && contour.exercises.length >= pick,
@@ -44,57 +43,52 @@ export function pickWithinContourBank(bank: Bank): Finding[] {
 			`${zone.title} / ${contour.title}: pick ${String(pick)}, банк ${String(contour.exercises.length)}`
 		);
 	});
-}
 
-export function russianNames(bank: Bank): Finding[] {
-	return bankRecords(bank)
+export const russianNames = (bank: Bank): Finding[] =>
+	bankRecords(bank)
 		.filter(({ exercise }) => hasLatinLetters(exercise.name))
 		.map(({ exercise }) => ({
 			message: `${exercise.name}: латиница`,
 			rule: RULE_NAMES,
 			subject: exerciseSubject(bank, exercise)
 		}));
-}
 
-export function singleDosePerRecord(bank: Bank): Finding[] {
-	return bankRecords(bank)
+export const singleDosePerRecord = (bank: Bank): Finding[] =>
+	bankRecords(bank)
 		.filter(({ exercise }) => hasCompoundDose(exercise.dose))
 		.map(({ exercise }) => ({
 			message: `${exercise.name}: составная доза ${exercise.dose}`,
 			rule: RULE_SRP,
 			subject: exerciseSubject(bank, exercise)
 		}));
-}
 
-export function singleMovementAllowingPerSide(bank: Bank): Finding[] {
-	return bankRecords(bank)
+export const singleMovementAllowingPerSide = (bank: Bank): Finding[] =>
+	bankRecords(bank)
 		.filter(({ exercise }) => hasGluedName(exercise.name) && !hasPerSideSuffix(exercise.name))
 		.map(({ exercise }) => ({
 			message: `${exercise.name}: склейка в имени`,
 			rule: RULE_SRP,
 			subject: exerciseSubject(bank, exercise)
 		}));
-}
 
-export function singleMovementPerRecord(bank: Bank): Finding[] {
-	return bankRecords(bank)
+export const singleMovementPerRecord = (bank: Bank): Finding[] =>
+	bankRecords(bank)
 		.filter(({ exercise }) => hasGluedName(exercise.name))
 		.map(({ exercise }) => ({
 			message: `${exercise.name}: склейка в имени`,
 			rule: RULE_SRP,
 			subject: exerciseSubject(bank, exercise)
 		}));
-}
 
-export function uniqueRecords(bank: Bank): Finding[] {
+export const uniqueRecords = (bank: Bank): Finding[] => {
 	const records = bankRecords(bank);
 	return [
 		...duplicateFindings(bank, records, (exercise) => exercise.id, LABEL_ID),
 		...duplicateFindings(bank, records, (exercise) => normalizedName(exercise.name), LABEL_NAME)
 	];
-}
+};
 
-export function zonesMatchStrengthBank(bank: Bank, catalog: Catalog): Finding[] {
+export const zonesMatchStrengthBank = (bank: Bank, catalog: Catalog): Finding[] => {
 	const reference = bankOf(catalog, BANK_SLUG.strength)?.zones ?? [];
 	const slugs = bank.zones.map((zone) => zone.slug);
 	const referenceSlugs = reference.map((zone) => zone.slug);
@@ -114,14 +108,14 @@ export function zonesMatchStrengthBank(bank: Bank, catalog: Catalog): Finding[] 
 			`названия зон ${titles.join(LIST_SEPARATOR)} ≠ силовой ${referenceTitles.join(LIST_SEPARATOR)}`
 		)
 	];
-}
+};
 
-function duplicateFindings(
+const duplicateFindings = (
 	bank: Bank,
 	records: readonly BankRecord[],
 	keyOf: (exercise: BankExercise) => string,
 	label: string
-): Finding[] {
+): Finding[] => {
 	const seen = new Map<string, string>();
 	const findings: Finding[] = [];
 	for (const { exercise } of records) {
@@ -136,4 +130,4 @@ function duplicateFindings(
 			});
 	}
 	return findings;
-}
+};

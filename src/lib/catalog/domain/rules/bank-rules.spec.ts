@@ -23,13 +23,13 @@ describe('rulesForBank', () => {
 	});
 
 	it('правила выполняются на пустом банке без исключений', () => {
-		const bank = {
+		const bank: Bank = {
 			id: ID,
 			rules: [],
 			slug: BANK_SLUG.stretch,
 			title: 'Растяжка',
 			zones: []
-		} as Bank;
+		};
 		const findings = rulesForBank(bank.slug).flatMap((rule) => rule(bank, emptyCatalog));
 		expect(findings.every((finding) => finding.rule.length > 0)).toBe(true);
 	});

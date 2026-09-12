@@ -5,18 +5,19 @@ import { describe, expect, it, vi } from 'vitest';
 
 import type { Verdict } from '../domain/verdict.ts';
 
+import { uuidOfLabel } from '../../../test/uuid.ts';
 import { readJsonArray } from './json-file.ts';
 import { createJsonVerdictRepository } from './json-verdict-repository.ts';
 
 const directory = mkdtempSync(path.join(tmpdir(), 'exercise-verdicts-'));
 const file = path.join(directory, 'verdicts.json');
-const verdict = {
+const verdict: Verdict = {
 	hash: 'h1',
-	id: 'v1',
+	id: uuidOfLabel('v1'),
 	line: 'таз уходит',
-	oracle: 'o1',
+	oracle: uuidOfLabel('o1'),
 	verdict: 'independent'
-} as unknown as Verdict;
+};
 writeFileSync(file, JSON.stringify([verdict]), 'utf8');
 
 describe('createJsonVerdictRepository', () => {

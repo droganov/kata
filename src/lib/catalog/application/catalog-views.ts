@@ -41,43 +41,37 @@ interface BankZoneView {
 	readonly title: string;
 }
 
-export function bankViewOf(bank: Bank): BankView {
-	return {
-		slug: bank.slug,
-		title: bank.title,
-		zones: bank.zones.map((zone) => ({
-			contours: zone.contours.map((contour) => ({
-				exerciseIds: contour.exercises.map((exercise) => exercise.id),
-				id: contour.id,
-				...(contour.pick !== undefined && { pick: contour.pick }),
-				slug: contour.slug,
-				title: contour.title
-			})),
-			id: zone.id,
-			slug: zone.slug,
-			title: zone.title
-		}))
-	};
-}
+export const bankViewOf = (bank: Bank): BankView => ({
+	slug: bank.slug,
+	title: bank.title,
+	zones: bank.zones.map((zone) => ({
+		contours: zone.contours.map((contour) => ({
+			exerciseIds: contour.exercises.map((exercise) => exercise.id),
+			id: contour.id,
+			...(contour.pick !== undefined && { pick: contour.pick }),
+			slug: contour.slug,
+			title: contour.title
+		})),
+		id: zone.id,
+		slug: zone.slug,
+		title: zone.title
+	}))
+});
 
-export function equipmentViewOf(equipment: Equipment): EquipmentView {
-	return {
-		canonEn: equipment.canon_en,
-		id: equipment.id,
-		kind: equipment.kind,
-		name: equipment.name,
-		slug: equipment.slug
-	};
-}
+export const equipmentViewOf = (equipment: Equipment): EquipmentView => ({
+	canonEn: equipment.canon_en,
+	id: equipment.id,
+	kind: equipment.kind,
+	name: equipment.name,
+	slug: equipment.slug
+});
 
-export function targetViewOf(target: Target): TargetView {
-	return {
-		...(target.group !== undefined && { group: target.group }),
-		id: target.id,
-		kind: target.kind,
-		latin: target.latin,
-		name: target.name,
-		slug: target.slug,
-		zone: target.zone
-	};
-}
+export const targetViewOf = (target: Target): TargetView => ({
+	...(target.group !== undefined && { group: target.group }),
+	id: target.id,
+	kind: target.kind,
+	latin: target.latin,
+	name: target.name,
+	slug: target.slug,
+	zone: target.zone
+});

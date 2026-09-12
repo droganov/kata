@@ -15,10 +15,10 @@ export interface ProgramReport {
 	readonly title: string;
 }
 
-export function validateProgram(
+export const validateProgram = (
 	repositories: ProgramRepositories,
 	programId: string
-): ProgramReport {
+): ProgramReport => {
 	const program = programOf(repositories, programId);
 	const catalogue = planCatalogueOf(repositories);
 	const plan = programPlanOf(program, catalogue.exercises, catalogue.hipMobilityExerciseIds);
@@ -29,4 +29,4 @@ export function validateProgram(
 		sessions: plan.sessions.map((session) => sessionViewOf(session)),
 		title: program.title
 	};
-}
+};

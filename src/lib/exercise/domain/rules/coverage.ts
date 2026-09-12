@@ -111,20 +111,21 @@ export const MODEL_COVERAGE: Record<StepType, readonly CoverageClass[]> = {
 	switch: [CONTACT_CLASS]
 };
 
-export function counterClassesOf(type: StepType, hasSpineLoad: boolean): readonly CoverageClass[] {
+export const counterClassesOf = (
+	type: StepType,
+	hasSpineLoad: boolean
+): readonly CoverageClass[] => {
 	const classes = COUNTER_COVERAGE[type];
 	return hasSpineLoad ? [...classes, SYMPTOM_CLASS] : classes;
-}
+};
 
-export function frameClassesOf(
+export const frameClassesOf = (
 	type: StepType,
 	hasMainGear: boolean,
 	isPerSide: boolean
-): readonly CoverageClass[] {
-	return [
-		...FRAME_BASE,
-		...(hasMainGear ? [GEAR_CLASS] : []),
-		...FRAME_BY_TYPE[type],
-		...(isPerSide && type !== STEP_TYPE.setup ? [SIDE_CLASS] : [])
-	];
-}
+): readonly CoverageClass[] => [
+	...FRAME_BASE,
+	...(hasMainGear ? [GEAR_CLASS] : []),
+	...FRAME_BY_TYPE[type],
+	...(isPerSide && type !== STEP_TYPE.setup ? [SIDE_CLASS] : [])
+];

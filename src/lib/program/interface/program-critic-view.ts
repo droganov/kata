@@ -14,37 +14,31 @@ const TOTAL_LABEL = 'ПРОВАЛЕНО: ';
 const OPEN = ' (';
 const CLOSE = ')';
 
-export function criticExitCode(reports: readonly ProgramReport[]): number {
-	return failureCountOf(reports) > 0 ? 1 : 0;
-}
+export const criticExitCode = (reports: readonly ProgramReport[]): number =>
+	failureCountOf(reports) > 0 ? 1 : 0;
 
-export function criticLines(reports: readonly ProgramReport[]): readonly string[] {
-	return [
-		...reports.flatMap((report) => [
-			`${PROGRAM_LABEL}${report.title}`,
-			...report.sessions.flatMap((session) => sessionLines(session)),
-			...report.findings.map(
-				(finding) =>
-					`${FAIL_MARK}${finding.rule}${FIELD_GAP}${finding.goal}${FIELD_GAP}${finding.subject}${FIELD_GAP}${finding.message}`
-			)
-		]),
-		`${TOTAL_LABEL}${String(failureCountOf(reports))}`
-	];
-}
+export const criticLines = (reports: readonly ProgramReport[]): readonly string[] => [
+	...reports.flatMap((report) => [
+		`${PROGRAM_LABEL}${report.title}`,
+		...report.sessions.flatMap((session) => sessionLines(session)),
+		...report.findings.map(
+			(finding) =>
+				`${FAIL_MARK}${finding.rule}${FIELD_GAP}${finding.goal}${FIELD_GAP}${finding.subject}${FIELD_GAP}${finding.message}`
+		)
+	]),
+	`${TOTAL_LABEL}${String(failureCountOf(reports))}`
+];
 
-function failureCountOf(reports: readonly ProgramReport[]): number {
-	return reports.reduce((total, report) => total + report.failureCount, 0);
-}
+const failureCountOf = (reports: readonly ProgramReport[]): number =>
+	reports.reduce((total, report) => total + report.failureCount, 0);
 
-function sessionLines(session: SessionView): readonly string[] {
-	return [
-		`${SESSION_LABEL}${String(session.index)}${OPEN}${session.slug}${LIST_SEPARATOR}${String(session.minutes)}${MINUTES_LABEL}${CLOSE}`,
-		...session.sections.flatMap((section) => [
-			`${SECTION_INDENT}${section.title}`,
-			...section.slots.map(
-				(slot) =>
-					`${SLOT_INDENT}${slot.label}${LABEL_SEPARATOR}${slot.exercises.map((exercise) => exercise.slug).join(LIST_SEPARATOR)}`
-			)
-		])
-	];
-}
+const sessionLines = (session: SessionView): readonly string[] => [
+	`${SESSION_LABEL}${String(session.index)}${OPEN}${session.slug}${LIST_SEPARATOR}${String(session.minutes)}${MINUTES_LABEL}${CLOSE}`,
+	...session.sections.flatMap((section) => [
+		`${SECTION_INDENT}${section.title}`,
+		...section.slots.map(
+			(slot) =>
+				`${SLOT_INDENT}${slot.label}${LABEL_SEPARATOR}${slot.exercises.map((exercise) => exercise.slug).join(LIST_SEPARATOR)}`
+		)
+	])
+];

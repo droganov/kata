@@ -25,7 +25,7 @@ export interface ExerciseUseCases {
 	validateExercises: () => ExerciseReport;
 }
 
-export function createExercise(): ExerciseUseCases {
+export const createExercise = (): ExerciseUseCases => {
 	const validator = createSchemaValidator(EXERCISE_PATHS.schema);
 	const repositories = {
 		catalog: createCatalogJsonGateway({
@@ -45,4 +45,4 @@ export function createExercise(): ExerciseUseCases {
 		listExercises: () => listExercises(repositories.exercises),
 		validateExercises: () => validateExercises(repositories)
 	};
-}
+};

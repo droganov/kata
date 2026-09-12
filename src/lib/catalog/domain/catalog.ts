@@ -9,14 +9,11 @@ export interface Catalog {
 	readonly targets: readonly Target[];
 }
 
-export function bankOf(catalog: Catalog, slug: BankSlug): Bank | undefined {
-	return catalog.banks.find((bank) => bank.slug === slug);
-}
+export const bankOf = (catalog: Catalog, slug: BankSlug): Bank | undefined =>
+	catalog.banks.find((bank) => bank.slug === slug);
 
-export function equipmentOf(catalog: Catalog, id: Uuid): Equipment | undefined {
-	return catalog.equipment.find((item) => item.id === id);
-}
+export const equipmentOf = (catalog: Catalog, id: Uuid): Equipment | undefined =>
+	catalog.equipment.find((item) => item.id === id);
 
-export function targetOf(catalog: Catalog, id: Uuid): Target | undefined {
-	return catalog.targets.find((target) => target.id === id);
-}
+export const targetOf = (catalog: Catalog, id: Uuid): Target | undefined =>
+	catalog.targets.find((target) => target.id === id);

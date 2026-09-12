@@ -1,16 +1,13 @@
-import type { RequestEvent } from '@sveltejs/kit';
-
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import type { WebManifest } from './web-manifest.ts';
+import type { JsonObject } from '../../test/json.ts';
 
+import { jsonObjectOf } from '../../test/json.ts';
 import { GET } from './+server.ts';
 
-const eventOf = (href: string): RequestEvent => ({ url: new URL(href) }) as unknown as RequestEvent;
-
-const manifestOf = async (href: string): Promise<WebManifest> => {
-	const response = await GET(eventOf(href));
-	return (await response.json()) as WebManifest;
+const manifestOf = async (href: string): Promise<JsonObject> => {
+	const response = GET({ url: new URL(href) });
+	return jsonObjectOf(await response.text());
 };
 
 describe('GET /manifest', () => {
@@ -18,8 +15,8 @@ describe('GET /manifest', () => {
 		vi.unstubAllEnvs();
 	});
 
-	it('отдаётся под медиатипом манифеста, иначе браузер его не прочтёт', async () => {
-		const response = await GET(eventOf('https://training.example/manifest'));
+	it('отдаётся под медиатипом манифеста, иначе браузер его не прочтёт', () => {
+		const response = GET({ url: new URL('https://training.example/manifest') });
 		expect(response.headers.get('content-type')).toBe('application/manifest+json');
 	});
 

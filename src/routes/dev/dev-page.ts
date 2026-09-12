@@ -35,10 +35,10 @@ export interface DevPageInputs {
 }
 
 export interface DevPageUseCases {
-	readonly catalog: CatalogUseCases;
-	readonly exercise: ExerciseUseCases;
-	readonly program: ProgramUseCases;
-	readonly storyboard: StoryboardUseCases;
+	readonly catalog: Pick<CatalogUseCases, 'findEquipment' | 'findTargets' | 'listBanks'>;
+	readonly exercise: Pick<ExerciseUseCases, 'listExercises'>;
+	readonly program: Pick<ProgramUseCases, 'listUsers' | 'outlineProgram'>;
+	readonly storyboard: Pick<StoryboardUseCases, 'renderAllPrompts'>;
 }
 
 export interface DevRow {
@@ -232,7 +232,7 @@ const banksOf = (
 		}))
 	}));
 
-export function devPageDataOf(inputs: DevPageInputs): DevPageData {
+export const devPageDataOf = (inputs: DevPageInputs): DevPageData => {
 	const exercises = new Map(inputs.exercises.map((exercise) => [exercise.id, exercise]));
 	const equipment = nameIndexOf(inputs.equipment);
 	const targets = nameIndexOf(inputs.targets);
@@ -248,9 +248,9 @@ export function devPageDataOf(inputs: DevPageInputs): DevPageData {
 		program: { id: inputs.outline.id, title: inputs.outline.title },
 		sections: sectionsOf(inputs.outline, exercises)
 	};
-}
+};
 
-export function loadDevPage(useCases: DevPageUseCases): DevPageData {
+export const loadDevPage = (useCases: DevPageUseCases): DevPageData => {
 	const programId = useCases.program.listUsers()[0]?.programs[0];
 	if (programId === undefined) throw new Error(NO_PROGRAM);
 	return devPageDataOf({
@@ -261,4 +261,4 @@ export function loadDevPage(useCases: DevPageUseCases): DevPageData {
 		prompts: useCases.storyboard.renderAllPrompts(),
 		targets: useCases.catalog.findTargets()
 	});
-}
+};

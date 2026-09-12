@@ -16,7 +16,7 @@ interface TableCount {
 	readonly rowCount: number;
 }
 
-export function validateTables(gateways: TableGateways): TableReport {
+export const validateTables = (gateways: TableGateways): TableReport => {
 	const set = gateways.tables.readAll();
 	const catalog = gateways.catalog.readSourceCatalog();
 	const findings = tableRules().flatMap((rule) => rule(set, catalog));
@@ -25,4 +25,4 @@ export function validateTables(gateways: TableGateways): TableReport {
 		findings,
 		tables: tableNames().map((name) => ({ name, rowCount: rowsOf(set, name).length }))
 	};
-}
+};

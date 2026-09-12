@@ -26,7 +26,7 @@ export interface ProgramUseCases {
 	validateProgram: (programId: string) => ProgramReport;
 }
 
-export function createProgram(): ProgramUseCases {
+export const createProgram = (): ProgramUseCases => {
 	const validator = createSchemaValidator(PROGRAM_PATHS.schema);
 	const repositories: ProgramRepositories = {
 		catalog: createCatalogJsonGateway({
@@ -46,4 +46,4 @@ export function createProgram(): ProgramUseCases {
 		outlineProgram: (programId) => outlineProgram(repositories, programId),
 		validateProgram: (programId) => validateProgram(repositories, programId)
 	};
-}
+};

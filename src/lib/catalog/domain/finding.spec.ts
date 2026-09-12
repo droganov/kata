@@ -2,14 +2,15 @@ import { describe, expect, it } from 'vitest';
 
 import type { Bank, BankExercise, Contour, Zone } from './bank.ts';
 
+import { BANK_EXERCISE_BASE } from '../../../test/bank-exercise-base.ts';
 import { uuidOf } from '../../shared/uuid.ts';
 import { bankSubject, contourSubject, exerciseSubject, ruleCheck } from './finding.ts';
 
 const ID = uuidOf('01a0889d-3852-7051-a039-c9778729a468');
-const bank = { id: ID, rules: [], slug: 'stretch', title: 'Растяжка', zones: [] } as Bank;
-const zone = { contours: [], id: ID, slug: 'neck', title: 'Шея' } as Zone;
-const contour = { exercises: [], id: ID, slug: 'neck_flexors', title: 'Сгибатели' } as Contour;
-const exercise = { id: ID, slug: 'st_nk_ext' } as BankExercise;
+const bank: Bank = { id: ID, rules: [], slug: 'stretch', title: 'Растяжка', zones: [] };
+const zone: Zone = { contours: [], id: ID, slug: 'neck', title: 'Шея' };
+const contour: Contour = { exercises: [], id: ID, slug: 'neck_flexors', title: 'Сгибатели' };
+const exercise: BankExercise = { ...BANK_EXERCISE_BASE, id: ID, slug: 'st_nk_ext' };
 
 describe('bankSubject', () => {
 	it('это slug банка', () => {

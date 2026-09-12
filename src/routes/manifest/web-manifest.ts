@@ -45,7 +45,7 @@ const ICONS: readonly WebManifestIcon[] = [
 
 export const WEB_MANIFEST_MEDIA_TYPE = 'application/manifest+json';
 
-export function webManifestOf(origin: string): WebManifest {
+export const webManifestOf = (origin: string): WebManifest => {
 	const startUrl = new URL(START_PATH, origin).href;
 	return {
 		background_color: BACKGROUND_COLOR,
@@ -58,4 +58,4 @@ export function webManifestOf(origin: string): WebManifest {
 		start_url: startUrl,
 		theme_color: THEME_COLOR
 	};
-}
+};

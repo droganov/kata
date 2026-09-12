@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-import type { Program } from './program.ts';
+import type { Program, Slot } from './program.ts';
 import type { ContourLocator } from './section-outline.ts';
 
+import { PROGRAM_BASE } from '../../../test/program-base.ts';
 import { sectionOutlinesOf } from './section-outline.ts';
 
 const CONTOURS: readonly ContourLocator[] = [
@@ -16,12 +17,10 @@ const CONTOURS: readonly ContourLocator[] = [
 	}
 ];
 
-const programOf = (slots: readonly Record<string, unknown>[]): Program =>
-	({
-		sections: [
-			{ bank: 'b', id: 'sec', mode: 'dynamic', slots, slug: 'warmup', title: 'Разминка' }
-		]
-	}) as unknown as Program;
+const programOf = (slots: readonly Slot[]): Program => ({
+	...PROGRAM_BASE,
+	sections: [{ bank: 'b', id: 'sec', mode: 'dynamic', slots, slug: 'warmup', title: 'Разминка' }]
+});
 
 describe('sectionOutlinesOf', () => {
 	it('разделяет базу и пул, узнаёт контур по составу слота и склеивает соседние слоты одной зоны', () => {

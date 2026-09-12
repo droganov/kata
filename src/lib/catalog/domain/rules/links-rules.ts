@@ -100,7 +100,7 @@ const GEAR_REQUIREMENTS: readonly GearRequirement[] = [
 	}
 ];
 
-export function equipmentBackLinksSymmetric(bank: Bank, catalog: Catalog): Finding[] {
+export const equipmentBackLinksSymmetric = (bank: Bank, catalog: Catalog): Finding[] => {
 	const records = bankRecords(bank);
 	const exerciseById = new Map(records.map(({ exercise }) => [exercise.id, exercise]));
 	const forward = records.flatMap(({ exercise }) =>
@@ -130,10 +130,10 @@ export function equipmentBackLinksSymmetric(bank: Bank, catalog: Catalog): Findi
 		})
 	);
 	return [...forward, ...backward];
-}
+};
 
-export function equipmentRefsValid(bank: Bank, catalog: Catalog): Finding[] {
-	return bankRecords(bank).flatMap(({ exercise }) => {
+export const equipmentRefsValid = (bank: Bank, catalog: Catalog): Finding[] =>
+	bankRecords(bank).flatMap(({ exercise }) => {
 		const references = exercise.equipment;
 		const subject = exerciseSubject(bank, exercise);
 		const unknown = references.filter(
@@ -167,10 +167,9 @@ export function equipmentRefsValid(bank: Bank, catalog: Catalog): Finding[] {
 			)
 		];
 	});
-}
 
-export function equipmentRolesValid(bank: Bank): Finding[] {
-	return bankRecords(bank).flatMap(({ exercise }) =>
+export const equipmentRolesValid = (bank: Bank): Finding[] =>
+	bankRecords(bank).flatMap(({ exercise }) =>
 		exercise.equipment
 			.filter((reference) => !EQUIPMENT_ROLES.has(reference.role))
 			.map((reference) => ({
@@ -179,10 +178,9 @@ export function equipmentRolesValid(bank: Bank): Finding[] {
 				subject: exerciseSubject(bank, exercise)
 			}))
 	);
-}
 
-export function nameMentionsOwnedGear(bank: Bank, catalog: Catalog): Finding[] {
-	return bankRecords(bank).flatMap(({ exercise }) => {
+export const nameMentionsOwnedGear = (bank: Bank, catalog: Catalog): Finding[] =>
+	bankRecords(bank).flatMap(({ exercise }) => {
 		const owned = ownedEquipmentOf(catalog, exercise);
 		const name = exercise.name.toLowerCase();
 		return GEAR_REQUIREMENTS.filter(
@@ -193,9 +191,8 @@ export function nameMentionsOwnedGear(bank: Bank, catalog: Catalog): Finding[] {
 			subject: exerciseSubject(bank, exercise)
 		}));
 	});
-}
 
-export function sameNameSameLinks(bank: Bank): Finding[] {
+export const sameNameSameLinks = (bank: Bank): Finding[] => {
 	const seen = new Map<string, string>();
 	const findings: Finding[] = [];
 	for (const { exercise } of bankRecords(bank)) {
@@ -210,9 +207,9 @@ export function sameNameSameLinks(bank: Bank): Finding[] {
 			});
 	}
 	return findings;
-}
+};
 
-export function targetKindMatchesBank(bank: Bank, catalog: Catalog): Finding[] {
+export const targetKindMatchesBank = (bank: Bank, catalog: Catalog): Finding[] => {
 	const expected = BANK_TARGET_KIND[bank.slug];
 	return bankRecords(bank).flatMap(({ exercise }) =>
 		exercise.targets.flatMap((reference) => {
@@ -227,10 +224,10 @@ export function targetKindMatchesBank(bank: Bank, catalog: Catalog): Finding[] {
 					);
 		})
 	);
-}
+};
 
-export function targetRefsValid(bank: Bank, catalog: Catalog): Finding[] {
-	return bankRecords(bank).flatMap(({ exercise }) => {
+export const targetRefsValid = (bank: Bank, catalog: Catalog): Finding[] =>
+	bankRecords(bank).flatMap(({ exercise }) => {
 		const references = exercise.targets;
 		const subject = exerciseSubject(bank, exercise);
 		const unknown = references.filter(
@@ -270,9 +267,8 @@ export function targetRefsValid(bank: Bank, catalog: Catalog): Finding[] {
 			)
 		];
 	});
-}
 
-function hasRequiredGear(requirement: GearRequirement, owned: readonly Equipment[]): boolean {
+const hasRequiredGear = (requirement: GearRequirement, owned: readonly Equipment[]): boolean => {
 	const slugs = requirement.slugs ?? [];
 	const prefixes = requirement.prefixes ?? [];
 	const kinds = requirement.kinds ?? [];
@@ -282,10 +278,10 @@ function hasRequiredGear(requirement: GearRequirement, owned: readonly Equipment
 			prefixes.some((prefix) => item.slug.startsWith(prefix)) ||
 			kinds.includes(item.kind)
 	);
-}
+};
 
-function linkSignature(exercise: BankExercise): string {
-	return [
+const linkSignature = (exercise: BankExercise): string =>
+	[
 		...exercise.equipment.map(
 			(reference) => `${reference.id}${ROLE_SEPARATOR}${reference.role}`
 		),
@@ -293,11 +289,9 @@ function linkSignature(exercise: BankExercise): string {
 	]
 		.toSorted((first, second) => first.localeCompare(second))
 		.join(LIST_SEPARATOR);
-}
 
-function ownedEquipmentOf(catalog: Catalog, exercise: BankExercise): Equipment[] {
-	return exercise.equipment.flatMap((reference) => {
+const ownedEquipmentOf = (catalog: Catalog, exercise: BankExercise): Equipment[] =>
+	exercise.equipment.flatMap((reference) => {
 		const item = equipmentOf(catalog, reference.id);
 		return item === undefined ? [] : [item];
 	});
-}

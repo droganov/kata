@@ -50,7 +50,7 @@ export interface StepScan {
 	readonly texts: readonly string[];
 }
 
-export function stepScan(check: ExerciseCheck, step: Step, at: number): StepScan {
+export const stepScan = (check: ExerciseCheck, step: Step, at: number): StepScan => {
 	const tag = `${STEP_LABEL}${String(at)}`;
 	if (!hasStepShape(step))
 		return {
@@ -92,14 +92,14 @@ export function stepScan(check: ExerciseCheck, step: Step, at: number): StepScan
 		normalizedPredicates: shaped.map((oracle) => normalizeLine(oracle.predicate)),
 		texts: [step.title, ...shaped.map((oracle) => oracle.predicate)]
 	};
-}
+};
 
-function activeIssues(
+const activeIssues = (
 	check: ExerciseCheck,
 	step: Step,
 	tag: string,
 	type: StepType
-): readonly Issue[] {
+): readonly Issue[] => {
 	if (!Object.hasOwn(step, ACTIVE_FIELD))
 		return [{ message: `${tag}${TAG_GAP}${NO_ACTIVE_MESSAGE}`, rule: RULE.active }];
 	const active = step.active;
@@ -108,13 +108,13 @@ function activeIssues(
 			? [{ message: `${tag}${TAG_GAP}${ACTIVE_EMPTY_MESSAGE}${type}`, rule: RULE.active }]
 			: [];
 	return [...activeSetIssues(check, active, tag), ...emptyIssues];
-}
+};
 
-function activeSetIssues(
+const activeSetIssues = (
 	check: ExerciseCheck,
 	active: readonly string[],
 	tag: string
-): readonly Issue[] {
+): readonly Issue[] => {
 	if (new Set(active).size !== active.length)
 		return [{ message: `${tag}${TAG_GAP}${ACTIVE_REPEATS_MESSAGE}`, rule: RULE.active }];
 	const targetIds = targetIdsOf(check.record.exercise);
@@ -124,26 +124,25 @@ function activeSetIssues(
 		...missingRefIssues(outside, `${tag}${TAG_GAP}${ACTIVE_OUTSIDE_MESSAGE}`),
 		...missingRefIssues(unknown, `${tag}${TAG_GAP}${ACTIVE_UNKNOWN_MESSAGE}`)
 	];
-}
+};
 
-function coverageIssues(
+const coverageIssues = (
 	classes: readonly CoverageClass[],
 	text: string,
 	prefix: string,
 	rule: string
-): readonly Issue[] {
-	return classes
+): readonly Issue[] =>
+	classes
 		.filter((coverage) => !coverage.pattern.test(text))
 		.map((coverage) => ({ message: `${prefix}${coverage.name}${CLASS_CLOSE}`, rule }));
-}
 
-function frameIssues(
+const frameIssues = (
 	check: ExerciseCheck,
 	step: Step,
 	tag: string,
 	type: StepType,
 	modelText: string
-): readonly Issue[] {
+): readonly Issue[] => {
 	const isPerSide = parseDose(check.record.exercise.dose).isPerSide;
 	return coverageIssues(
 		frameClassesOf(type, check.hasMainGear, isPerSide),
@@ -151,27 +150,29 @@ function frameIssues(
 		`${tag}${typeMark(type)}${FRAME_CLASS_MESSAGE}`,
 		RULE.frame
 	);
-}
+};
 
-function hasFields(value: object, fields: readonly string[], ignored: readonly string[]): boolean {
+const hasFields = (
+	value: object,
+	fields: readonly string[],
+	ignored: readonly string[]
+): boolean => {
 	const keys = Object.keys(value).filter((key) => !ignored.includes(key));
 	return keys.length === fields.length && fields.every((field) => keys.includes(field));
-}
+};
 
-function hasOracleShape(oracle: Oracle): boolean {
+const hasOracleShape = (oracle: Oracle): boolean => {
 	if (!hasFields(oracle, ORACLE_FIELDS, NO_IGNORED_FIELDS)) return false;
 	return oracle.model.length > 0 && oracle.counterModel.length > 0;
-}
+};
 
-function hasStepShape(step: Step): boolean {
-	return hasFields(step, STEP_FIELDS, IGNORED_STEP_FIELDS) && step.oracles.length > 0;
-}
+const hasStepShape = (step: Step): boolean =>
+	hasFields(step, STEP_FIELDS, IGNORED_STEP_FIELDS) && step.oracles.length > 0;
 
-function loweredText(parts: readonly string[]): string {
-	return parts.map((part) => part.toLowerCase()).join(SPACE);
-}
+const loweredText = (parts: readonly string[]): string =>
+	parts.map((part) => part.toLowerCase()).join(SPACE);
 
-function missingRefIssues(missing: readonly string[], prefix: string): readonly Issue[] {
+const missingRefIssues = (missing: readonly string[], prefix: string): readonly Issue[] => {
 	if (missing.length === 0) return [];
 	return [
 		{
@@ -179,15 +180,15 @@ function missingRefIssues(missing: readonly string[], prefix: string): readonly 
 			rule: RULE.active
 		}
 	];
-}
+};
 
-function oracleShapeIssues(tag: string, oracle: Oracle): readonly Issue[] {
+const oracleShapeIssues = (tag: string, oracle: Oracle): readonly Issue[] => {
 	if (!hasFields(oracle, ORACLE_FIELDS, NO_IGNORED_FIELDS))
 		return [{ message: `${tag}${TAG_GAP}${ORACLE_SHAPE_MESSAGE}`, rule: RULE.present }];
 	return [{ message: `${tag}${TAG_GAP}${ORACLE_LISTS_MESSAGE}`, rule: RULE.present }];
-}
+};
 
-function oraclesIssues(check: ExerciseCheck, step: Step, tag: string): readonly Issue[] {
+const oraclesIssues = (check: ExerciseCheck, step: Step, tag: string): readonly Issue[] => {
 	const stepModel = stepModelOf(step);
 	return step.oracles.flatMap((oracle, index) => {
 		const oracleTag = `${tag}${ORACLE_LABEL}${String(index + 1)}`;
@@ -200,9 +201,9 @@ function oraclesIssues(check: ExerciseCheck, step: Step, tag: string): readonly 
 			tag: oracleTag
 		});
 	});
-}
+};
 
-function titleIssues(title: string, tag: string): readonly Issue[] {
+const titleIssues = (title: string, tag: string): readonly Issue[] => {
 	const isBad =
 		!isInfinitive(firstWordOf(title.toLowerCase())) ||
 		title.includes(COMMA) ||
@@ -210,8 +211,6 @@ function titleIssues(title: string, tag: string): readonly Issue[] {
 		title.length > TITLE_MAX_LENGTH ||
 		hasLatin(title);
 	return isBad ? [{ message: `${tag}${TAG_GAP}${title}`, rule: RULE.title }] : [];
-}
+};
 
-function typeMark(type: StepType): string {
-	return `${TYPE_OPEN}${type}${TYPE_CLOSE}`;
-}
+const typeMark = (type: StepType): string => `${TYPE_OPEN}${type}${TYPE_CLOSE}`;

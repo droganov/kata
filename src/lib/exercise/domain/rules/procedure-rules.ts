@@ -40,7 +40,7 @@ const NUMBER_GUARD_HEAD = String.raw`(?<!\d)`;
 const NUMBER_GUARD_TAIL = String.raw`(?!\d)`;
 const UNICODE_FLAG = 'u';
 
-export function cycleIssues(exercise: Exercise, titles: readonly string[]): readonly Issue[] {
+export const cycleIssues = (exercise: Exercise, titles: readonly string[]): readonly Issue[] => {
 	if (titles.length === 0) return [];
 	const dose = parseDose(exercise.dose);
 	const isPerSide = dose.isPerSide || exercise.dose.includes(EACH_LEG_INSTRUMENTAL);
@@ -66,17 +66,16 @@ export function cycleIssues(exercise: Exercise, titles: readonly string[]): read
 		),
 		...unitIssues(dose.unit === REPS_UNIT, types)
 	];
-}
+};
 
-export function distinctIssues(normalizedPredicates: readonly string[]): readonly Issue[] {
-	return issueCheck(
+export const distinctIssues = (normalizedPredicates: readonly string[]): readonly Issue[] =>
+	issueCheck(
 		new Set(normalizedPredicates).size === normalizedPredicates.length,
 		RULE.distinct,
 		DUPLICATE_PREDICATES_MESSAGE
 	);
-}
 
-export function doseIssues(exercise: Exercise, texts: readonly string[]): readonly Issue[] {
+export const doseIssues = (exercise: Exercise, texts: readonly string[]): readonly Issue[] => {
 	const text = texts.join(SPACE);
 	return parseDose(exercise.dose)
 		.numbers.filter((number) => !hasNumber(text, number))
@@ -84,25 +83,24 @@ export function doseIssues(exercise: Exercise, texts: readonly string[]): readon
 			message: `${DOSE_NUMBER_MESSAGE}${number}${OPEN_BRACKET}${exercise.dose}${CLOSE_BRACKET}${DOSE_NUMBER_TAIL}`,
 			rule: RULE.dose
 		}));
-}
+};
 
-export function procedureFormIssues(procedure: Procedure): readonly Issue[] {
+export const procedureFormIssues = (procedure: Procedure): readonly Issue[] => {
 	const keys = Object.keys(procedure);
 	const hasShape =
 		keys.length === PROCEDURE_FIELDS.length &&
 		PROCEDURE_FIELDS.every((field) => keys.includes(field)) &&
 		procedure.steps.length >= MIN_STEPS;
 	return issueCheck(hasShape, RULE.present, PROCEDURE_SHAPE_MESSAGE);
-}
+};
 
-export function sourceIssues(check: ExerciseCheck): readonly Issue[] {
-	return issueCheck(!check.shouldUseVerdicts || check.hasSource, RULE.source, NO_SOURCE_MESSAGE);
-}
+export const sourceIssues = (check: ExerciseCheck): readonly Issue[] =>
+	issueCheck(!check.shouldUseVerdicts || check.hasSource, RULE.source, NO_SOURCE_MESSAGE);
 
-export function spineIssues(
+export const spineIssues = (
 	record: ExerciseRecord,
 	modelTexts: readonly string[]
-): readonly Issue[] {
+): readonly Issue[] => {
 	const isErectorContour =
 		record.contourSlug.includes(ERECTOR_SLUG) ||
 		record.contourTitle.toLowerCase().includes(ERECTOR_TITLE);
@@ -118,23 +116,21 @@ export function spineIssues(
 			NO_ERECTOR_MESSAGE
 		)
 	];
-}
+};
 
-function hasNumber(text: string, number: string): boolean {
-	return new RegExp(
+const hasNumber = (text: string, number: string): boolean =>
+	new RegExp(
 		`${NUMBER_GUARD_HEAD}${escapeForRegexp(number)}${NUMBER_GUARD_TAIL}`,
 		UNICODE_FLAG
 	).test(text);
-}
 
-function startIssues(titles: readonly string[]): readonly Issue[] {
-	return titles
+const startIssues = (titles: readonly string[]): readonly Issue[] =>
+	titles
 		.slice(0, 1)
 		.filter((title) => !START_TYPES.has(stepTypeOf(title)))
 		.map((title) => ({ message: `${START_MESSAGE}${title}`, rule: RULE.cycle }));
-}
 
-function unitIssues(isRepsUnit: boolean, types: readonly string[]): readonly Issue[] {
+const unitIssues = (isRepsUnit: boolean, types: readonly string[]): readonly Issue[] => {
 	if (isRepsUnit)
 		return issueCheck(
 			types.includes(STEP_TYPE.repeat) || types.includes(STEP_TYPE.hold),
@@ -142,4 +138,4 @@ function unitIssues(isRepsUnit: boolean, types: readonly string[]): readonly Iss
 			NO_REPEAT_MESSAGE
 		);
 	return issueCheck(types.includes(STEP_TYPE.hold), RULE.cycle, NO_HOLD_MESSAGE);
-}
+};

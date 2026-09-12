@@ -1,20 +1,22 @@
 import { describe, expect, it } from 'vitest';
 
+import type { Uuid } from '../../../shared/uuid.ts';
 import type { Exercise } from '../exercise.ts';
 import type { Issue } from '../finding.ts';
 import type { ExerciseCheck } from './exercise-check.ts';
 
+import { uuidOf } from '../../../shared/uuid.ts';
 import { counterLineKey } from '../verdict.ts';
 import { exerciseIssues } from './exercise-rules.ts';
 
-const TARGET_ILIOPSOAS = '01a0889d-0000-7000-8000-000000000001';
-const TARGET_RECTUS = '01a0889d-0000-7000-8000-000000000002';
-const TARGET_UNKNOWN = '01a0889d-0000-7000-8000-0000000000ff';
-const BODY_EQUIPMENT = '01a0889d-0000-7000-8000-000000000010';
-const SOURCE_ID = '01a0889d-0000-7000-8000-000000000020';
+const TARGET_ILIOPSOAS = uuidOf('01a0889d-0000-7000-8000-000000000001');
+const TARGET_RECTUS = uuidOf('01a0889d-0000-7000-8000-000000000002');
+const TARGET_UNKNOWN = uuidOf('01a0889d-0000-7000-8000-0000000000ff');
+const BODY_EQUIPMENT = uuidOf('01a0889d-0000-7000-8000-000000000010');
+const SOURCE_ID = uuidOf('01a0889d-0000-7000-8000-000000000020');
 
-const id = (index: number): string =>
-	`01a0889d-0000-7000-8000-0000000001${index.toString(16).padStart(2, '0')}`;
+const id = (index: number): Uuid =>
+	uuidOf(`01a0889d-0000-7000-8000-0000000001${index.toString(16).padStart(2, '0')}`);
 
 const GOOD = {
 	constraints: { axial: false, free_weight: false, lumbar_ext: false, lumbar_flex: false },
@@ -27,7 +29,7 @@ const GOOD = {
 		id: id(1),
 		steps: [
 			{
-				active: [] as string[],
+				active: [],
 				id: id(2),
 				oracles: [
 					{
@@ -148,7 +150,7 @@ const GOOD = {
 				title: 'Удержать положение 40 секунд'
 			},
 			{
-				active: [] as string[],
+				active: [],
 				id: id(11),
 				oracles: [
 					{
@@ -168,7 +170,7 @@ const GOOD = {
 				title: 'Вернуть таз назад'
 			},
 			{
-				active: [] as string[],
+				active: [],
 				id: id(13),
 				oracles: [
 					{
@@ -196,7 +198,7 @@ const GOOD = {
 		{ id: TARGET_ILIOPSOAS, role: 'primary' },
 		{ id: TARGET_RECTUS, role: 'secondary' }
 	]
-};
+} satisfies Exercise;
 
 interface CheckOptions {
 	readonly hasSource?: boolean;
@@ -224,7 +226,7 @@ const checkOf = (draft: Draft, options: CheckOptions = {}): ExerciseCheck => ({
 		bank: 'stretch',
 		contourSlug: 'hip_flexors',
 		contourTitle: 'сгибатели бедра',
-		exercise: draft as unknown as Exercise
+		exercise: draft
 	},
 	shouldUseVerdicts: options.shouldUseVerdicts ?? false
 });
@@ -545,7 +547,7 @@ describe('exerciseIssues — перенос эталонных тестов orac
 		expect(run(nothing)).toEqual([]);
 	});
 
-	it.each(cases)('%s валится на правиле %s', (name, rule, change) => {
+	it.each(cases)('%s валится на правиле %s', (_name, rule, change) => {
 		expect(rulesOf(run(change))).toContain(rule);
 	});
 

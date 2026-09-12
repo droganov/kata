@@ -36,4 +36,10 @@ describe('createSchemaValidator', () => {
 			validator.assertValid('missing.schema.json', {}, 'thing');
 		}).toThrow('нет схемы');
 	});
+
+	it('сообщает о файле схемы, который не объект JSON', () => {
+		const broken = mkdtempSync(path.join(tmpdir(), 'broken-schema-'));
+		writeFileSync(path.join(broken, 'list.schema.json'), '[]', 'utf8');
+		expect(() => createSchemaValidator(broken)).toThrow('не объект JSON');
+	});
 });

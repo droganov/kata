@@ -1,24 +1,27 @@
 import { describe, expect, it } from 'vitest';
 
-import type { ExerciseRecord } from '../domain/exercise.ts';
+import type { Exercise, ExerciseRecord } from '../domain/exercise.ts';
 
+import { EXERCISE_BASE } from '../../../test/exercise-base.ts';
+import { uuidOfLabel } from '../../../test/uuid.ts';
 import { findExercise } from './find-exercise.ts';
 import { listExercises } from './list-exercises.ts';
 
-const exerciseOf = (id: string, slug: string): Record<string, unknown> => ({
+const exerciseOf = (id: string, slug: string): Exercise => ({
+	...EXERCISE_BASE,
 	constraints: { axial: false, free_weight: false, lumbar_ext: false, lumbar_flex: false },
 	dose: '3×10',
-	equipment: [{ id: 'body', role: 'main' }],
-	id,
+	equipment: [{ id: uuidOfLabel('body'), role: 'main' }],
+	id: uuidOfLabel(id),
 	mode: 'dynamic',
 	name: slug,
-	procedure: { id: `p-${id}`, steps: [] },
+	procedure: { id: uuidOfLabel(`p-${id}`), steps: [] },
 	slug,
-	source: 'src',
-	targets: [{ id: 't1', role: 'primary' }]
+	source: uuidOfLabel('src'),
+	targets: [{ id: uuidOfLabel('t1'), role: 'primary' }]
 });
 
-const records = [
+const records: readonly ExerciseRecord[] = [
 	{
 		bank: 'stretch',
 		contourSlug: 'hip',
@@ -31,17 +34,17 @@ const records = [
 		contourTitle: 'бёдра',
 		exercise: exerciseOf('e2', 'frog')
 	}
-] as unknown as readonly ExerciseRecord[];
+];
 
 const repository = { readAll: () => records };
 
 describe('findExercise и listExercises', () => {
 	it('находит упражнение по идентификатору', () => {
-		expect(findExercise(repository, 'e2')?.slug).toBe('frog');
+		expect(findExercise(repository, uuidOfLabel('e2'))?.slug).toBe('frog');
 	});
 
 	it('молчит на неизвестном идентификаторе', () => {
-		expect(findExercise(repository, 'e9')).toBeUndefined();
+		expect(findExercise(repository, uuidOfLabel('e9'))).toBeUndefined();
 	});
 
 	it('перечисляет все упражнения', () => {

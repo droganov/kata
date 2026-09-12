@@ -54,9 +54,10 @@ describe('createExerciseJsonGateway', () => {
 		const assertValid = vi.fn();
 		const gateway = createExerciseJsonGateway({ directory, validator: { assertValid } });
 		expect(gateway.readExercises().map((exercise) => exercise.slug)).toEqual(['b', 'a']);
-		expect(assertValid).toHaveBeenCalledTimes(2);
-		expect(assertValid.mock.calls[0]?.[0]).toBe('exercise.schema.json');
-		expect(assertValid.mock.calls[0]?.[2]).toBe('cardio/main/0');
+		expect(assertValid).toHaveBeenCalledTimes(4);
+		expect(assertValid.mock.calls[0]?.[0]).toBe('bank.schema.json');
+		expect(assertValid.mock.calls[1]?.[0]).toBe('exercise.schema.json');
+		expect(assertValid.mock.calls[1]?.[2]).toBe('cardio/main/0');
 	});
 
 	it('поднимает ошибку схемы наружу', () => {

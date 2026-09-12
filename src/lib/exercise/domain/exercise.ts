@@ -88,28 +88,24 @@ type EquipmentRole = 'auxiliary' | 'main';
 
 type TargetRole = 'primary' | 'secondary' | 'stabilizer';
 
-export function counterLinesOf(step: Step): readonly string[] {
-	return step.oracles.flatMap((oracle) => oracle.counterModel);
-}
+export const counterLinesOf = (step: Step): readonly string[] =>
+	step.oracles.flatMap((oracle) => oracle.counterModel);
 
-export function exerciseSubject(record: ExerciseRecord): string {
-	return `${record.bank}${SUBJECT_SEPARATOR}${record.exercise.slug}`;
-}
+export const exerciseSubject = (record: ExerciseRecord): string =>
+	`${record.bank}${SUBJECT_SEPARATOR}${record.exercise.slug}`;
 
-export function mainEquipmentIdsOf(exercise: Exercise): readonly Uuid[] {
-	return exercise.equipment
+export const mainEquipmentIdsOf = (exercise: Exercise): readonly Uuid[] =>
+	exercise.equipment
 		.filter((reference) => reference.role === MAIN_EQUIPMENT_ROLE)
 		.map((reference) => reference.id);
-}
 
-export function stepModelOf(step: Step): readonly string[] {
-	return [...stepPredicatesOf(step), ...step.oracles.flatMap((oracle) => oracle.model)];
-}
+export const stepModelOf = (step: Step): readonly string[] => [
+	...stepPredicatesOf(step),
+	...step.oracles.flatMap((oracle) => oracle.model)
+];
 
-export function stepPredicatesOf(step: Step): readonly string[] {
-	return step.oracles.map((oracle) => oracle.predicate);
-}
+export const stepPredicatesOf = (step: Step): readonly string[] =>
+	step.oracles.map((oracle) => oracle.predicate);
 
-export function targetIdsOf(exercise: Exercise): ReadonlySet<string> {
-	return new Set(exercise.targets.map((reference) => reference.id));
-}
+export const targetIdsOf = (exercise: Exercise): ReadonlySet<string> =>
+	new Set(exercise.targets.map((reference) => reference.id));

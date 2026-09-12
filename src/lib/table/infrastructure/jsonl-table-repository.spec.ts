@@ -3,6 +3,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 
+import { jsonObjectOf } from '../../../test/json.ts';
 import { sourceCatalog } from '../../../test/table-fixtures.ts';
 import { tablesOf } from '../domain/convert.ts';
 import { rowsOf } from '../domain/table-file.ts';
@@ -20,7 +21,7 @@ describe('writeAll', () => {
 
 	it('держит столбцы в порядке схемы и кладёт null вместо пропуска', () => {
 		const file = readFileSync(path.join(directory, 'target.jsonl'), 'utf8');
-		const row = JSON.parse(String(file.split('\n', 1)[0])) as object;
+		const row = jsonObjectOf(String(file.split('\n', 1)[0]));
 		expect(Object.keys(row)).toEqual([
 			'id',
 			'muscle_group_id',

@@ -13,8 +13,8 @@ export interface ProgramRepositories {
 	readonly users: UserRepository;
 }
 
-export function programOf(repositories: ProgramRepositories, id: string): Program {
+export const programOf = (repositories: ProgramRepositories, id: string): Program => {
 	const found = repositories.programs.readAll().find((program) => program.id === id);
 	if (found === undefined) throw new Error(`${NO_PROGRAM}${id}`);
 	return found;
-}
+};

@@ -5,6 +5,7 @@ import type { ProgramPlan } from '../program-plan.ts';
 import type { Program, Section } from '../program.ts';
 import type { Session } from '../session.ts';
 
+import { PROGRAM_BASE } from '../../../../test/program-base.ts';
 import {
 	allCandidatesOf,
 	baseExercisesOf,
@@ -47,7 +48,7 @@ const STRENGTH: Section = {
 	title: 'Силовой'
 };
 
-const PROGRAM = { sections: [WARMUP, STRENGTH], title: 'Программа' } as unknown as Program;
+const PROGRAM: Program = { ...PROGRAM_BASE, sections: [WARMUP, STRENGTH], title: 'Программа' };
 
 const PLAN: ProgramPlan = {
 	exercises: new Map([
@@ -87,7 +88,7 @@ describe('rule-helpers', () => {
 
 	it('перечисляет разделы до силового', () => {
 		expect(sectionsBeforeLoad(PROGRAM).map((section) => section.slug)).toEqual(['warmup']);
-		expect(sectionsBeforeLoad({ sections: [WARMUP] } as unknown as Program)).toEqual([]);
+		expect(sectionsBeforeLoad({ ...PROGRAM_BASE, sections: [WARMUP] })).toEqual([]);
 	});
 
 	it('берёт упражнения занятия по режиму раздела', () => {

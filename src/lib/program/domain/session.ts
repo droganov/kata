@@ -25,13 +25,10 @@ export interface SessionSlot {
 	readonly slot: string;
 }
 
-export function sectionExercises(section: SessionSection): readonly PlanExercise[] {
-	return section.slots.flatMap((slot) => slot.exercises);
-}
+export const sectionExercises = (section: SessionSection): readonly PlanExercise[] =>
+	section.slots.flatMap((slot) => slot.exercises);
 
-export function sessionSectionsWithMode(
+export const sessionSectionsWithMode = (
 	session: Session,
 	mode: SectionMode
-): readonly SessionSection[] {
-	return session.sections.filter((section) => section.mode === mode);
-}
+): readonly SessionSection[] => session.sections.filter((section) => section.mode === mode);

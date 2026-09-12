@@ -23,24 +23,18 @@ export interface TableSet {
 	readonly files: readonly TableFile[];
 }
 
-export function fileOf(set: TableSet, name: TableName): TableFile | undefined {
-	return set.files.find((file) => file.name === name);
-}
+export const fileOf = (set: TableSet, name: TableName): TableFile | undefined =>
+	set.files.find((file) => file.name === name);
 
-export function isPlainObject(value: unknown): value is RawRow {
-	return typeof value === OBJECT_KIND && value !== null && !Array.isArray(value);
-}
+export const isPlainObject = (value: unknown): value is RawRow =>
+	typeof value === OBJECT_KIND && value !== null && !Array.isArray(value);
 
-export function isScalar(value: unknown): boolean {
-	return value === null || SCALAR_KINDS.has(typeof value);
-}
+export const isScalar = (value: unknown): boolean =>
+	value === null || SCALAR_KINDS.has(typeof value);
 
-export function rowsOf(set: TableSet, name: TableName): readonly RawRow[] {
-	return (fileOf(set, name)?.lines ?? [])
+export const rowsOf = (set: TableSet, name: TableName): readonly RawRow[] =>
+	(fileOf(set, name)?.lines ?? [])
 		.map((line) => line.parsed)
 		.filter((parsed) => isPlainObject(parsed));
-}
 
-export function textAt(row: RawRow, column: string): string {
-	return String(row[column]);
-}
+export const textAt = (row: RawRow, column: string): string => String(row[column]);

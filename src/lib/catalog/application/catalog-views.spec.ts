@@ -4,35 +4,35 @@ import type { Bank } from '../domain/bank.ts';
 import type { Equipment } from '../domain/equipment.ts';
 import type { Target } from '../domain/target.ts';
 
+import { BANK_EXERCISE_BASE } from '../../../test/bank-exercise-base.ts';
 import { uuidOf } from '../../shared/uuid.ts';
 import { bankViewOf, equipmentViewOf, targetViewOf } from './catalog-views.ts';
 
 const ID = uuidOf('01a0889d-3852-7051-a039-c9778729a468');
 const EXERCISE_ID = uuidOf('01a0889d-4423-7162-a9b4-f38de9ce3ea4');
 
-const bankOf = (pick: number | undefined): Bank =>
-	({
-		id: ID,
-		rules: [],
-		slug: 'warmup',
-		title: 'Разминка',
-		zones: [
-			{
-				contours: [
-					{
-						exercises: [{ id: EXERCISE_ID }],
-						id: ID,
-						...(pick !== undefined && { pick }),
-						slug: 'cervical',
-						title: 'Шейный отдел'
-					}
-				],
-				id: ID,
-				slug: 'neck',
-				title: 'Шея'
-			}
-		]
-	}) as unknown as Bank;
+const bankOf = (pick: number | undefined): Bank => ({
+	id: ID,
+	rules: [],
+	slug: 'warmup',
+	title: 'Разминка',
+	zones: [
+		{
+			contours: [
+				{
+					exercises: [{ ...BANK_EXERCISE_BASE, id: EXERCISE_ID }],
+					id: ID,
+					...(pick !== undefined && { pick }),
+					slug: 'cervical',
+					title: 'Шейный отдел'
+				}
+			],
+			id: ID,
+			slug: 'neck',
+			title: 'Шея'
+		}
+	]
+});
 
 describe('bankViewOf', () => {
 	it('переносит структуру зон и контуров с id упражнений', () => {
@@ -67,14 +67,14 @@ describe('bankViewOf', () => {
 
 describe('equipmentViewOf', () => {
 	it('переводит средство в DTO с canonEn', () => {
-		const equipment = {
+		const equipment: Equipment = {
 			canon_en: 'Bodyweight',
 			exercises: [],
 			id: ID,
 			kind: 'body',
 			name: 'Тело',
 			slug: 'body'
-		} as Equipment;
+		};
 		expect(equipmentViewOf(equipment)).toEqual({
 			canonEn: 'Bodyweight',
 			id: ID,
@@ -87,7 +87,7 @@ describe('equipmentViewOf', () => {
 
 describe('targetViewOf', () => {
 	it('переносит группу, когда она задана', () => {
-		const target = {
+		const target: Target = {
 			group: 'neck',
 			id: ID,
 			kind: 'muscle',
@@ -95,19 +95,19 @@ describe('targetViewOf', () => {
 			name: 'ГКС',
 			slug: 'sternocleidomastoid',
 			zone: 'neck'
-		} as Target;
+		};
 		expect(targetViewOf(target).group).toBe('neck');
 	});
 
 	it('не добавляет группу, когда её нет', () => {
-		const target = {
+		const target: Target = {
 			id: ID,
 			kind: 'joint',
 			latin: 'Cervical spine',
 			name: 'Шейный отдел',
 			slug: 'cervical_spine',
 			zone: 'neck'
-		} as Target;
+		};
 		expect(targetViewOf(target)).not.toHaveProperty('group');
 	});
 });

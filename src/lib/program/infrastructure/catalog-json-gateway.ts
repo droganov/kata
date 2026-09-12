@@ -25,31 +25,42 @@ type CatalogBank = ReturnType<BankRepository['readAll']>[number];
 
 type CatalogTarget = ReturnType<TargetRepository['readAll']>[number];
 
-export function createCatalogJsonGateway(source: CatalogJsonSource): CatalogGateway {
-	return {
-		readBanks: () =>
-			listBanks({
-				readAll: (): readonly CatalogBank[] =>
-					readdirSync(source.banksDirectory)
-						.filter((name) => name.endsWith(JSON_SUFFIX))
-						.toSorted((first, second) => first.localeCompare(second))
-						.map((name) => {
-							const parsed = readJsonFile(path.join(source.banksDirectory, name));
-							source.validator.assertValid(BANK_SCHEMA_ID, parsed, name);
-							return parsed as CatalogBank;
-						})
-			}),
-		readTargets: () =>
-			findTargets({
-				readAll: (): readonly CatalogTarget[] =>
-					readJsonArray(source.targetsFile).map((item, at) => {
-						source.validator.assertValid(
-							TARGET_SCHEMA_ID,
-							item,
-							`${source.targetsFile}${ITEM_MARK}${String(at)}`
-						);
-						return item as CatalogTarget;
+const assertCatalogBank: (
+	validator: SchemaValidator,
+	value: unknown,
+	subject: string
+) => asserts value is CatalogBank = (validator, value, subject) => {
+	validator.assertValid(BANK_SCHEMA_ID, value, subject);
+};
+
+const assertCatalogTarget: (
+	validator: SchemaValidator,
+	value: unknown,
+	subject: string
+) => asserts value is CatalogTarget = (validator, value, subject) => {
+	validator.assertValid(TARGET_SCHEMA_ID, value, subject);
+};
+
+export const createCatalogJsonGateway = (source: CatalogJsonSource): CatalogGateway => ({
+	readBanks: () =>
+		listBanks({
+			readAll: (): readonly CatalogBank[] =>
+				readdirSync(source.banksDirectory)
+					.filter((name) => name.endsWith(JSON_SUFFIX))
+					.toSorted((first, second) => first.localeCompare(second))
+					.map((name) => {
+						const parsed = readJsonFile(path.join(source.banksDirectory, name));
+						assertCatalogBank(source.validator, parsed, name);
+						return parsed;
 					})
-			})
-	};
-}
+		}),
+	readTargets: () =>
+		findTargets({
+			readAll: (): readonly CatalogTarget[] =>
+				readJsonArray(source.targetsFile).map((item, at) => {
+					const subject = `${source.targetsFile}${ITEM_MARK}${String(at)}`;
+					assertCatalogTarget(source.validator, item, subject);
+					return item;
+				})
+		})
+});

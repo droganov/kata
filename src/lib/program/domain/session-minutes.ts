@@ -16,18 +16,18 @@ export interface PickedSlot {
 	readonly slot: Slot;
 }
 
-export function exerciseSecondsOf(timing: Timing, exercise: PlanExercise): number {
+export const exerciseSecondsOf = (timing: Timing, exercise: PlanExercise): number => {
 	if (exercise.seconds !== undefined) return exercise.seconds;
 	const hold = holdSecondsOfDose(exercise.dose);
 	return hold === 0 ? 0 : setsOfDose(exercise.dose) * (hold + timing.hold_rest_sec);
-}
+};
 
-export function sessionMinutesOf(timing: Timing, sections: readonly PickedSection[]): number {
+export const sessionMinutesOf = (timing: Timing, sections: readonly PickedSection[]): number => {
 	const seconds = sections.reduce((total, section) => total + sectionSeconds(timing, section), 0);
 	return Math.round(seconds / SECONDS_PER_MINUTE);
-}
+};
 
-function loadedSeconds(timing: Timing, section: PickedSection): number {
+const loadedSeconds = (timing: Timing, section: PickedSection): number => {
 	const sets = section.picks
 		.flatMap((picked) => picked.exercises)
 		.map((exercise) => setsOfDose(exercise.dose));
@@ -41,20 +41,19 @@ function loadedSeconds(timing: Timing, section: PickedSection): number {
 		0
 	);
 	return work + sets.length * timing.transition_sec;
-}
+};
 
-function pacedSeconds(timing: Timing, section: PickedSection): number {
-	return section.picks.reduce((total, picked) => total + slotSeconds(timing, picked), 0);
-}
+const pacedSeconds = (timing: Timing, section: PickedSection): number =>
+	section.picks.reduce((total, picked) => total + slotSeconds(timing, picked), 0);
 
-function sectionSeconds(timing: Timing, section: PickedSection): number {
+const sectionSeconds = (timing: Timing, section: PickedSection): number => {
 	if (section.section.mode === SECTION_MODE.loaded) return loadedSeconds(timing, section);
 	const paced = pacedSeconds(timing, section);
 	if (section.section.mode !== SECTION_MODE.cardio || paced > 0) return paced;
 	return (timing.warmup_general_min ?? 0) * SECONDS_PER_MINUTE;
-}
+};
 
-function slotSeconds(timing: Timing, picked: PickedSlot): number {
+const slotSeconds = (timing: Timing, picked: PickedSlot): number => {
 	const each = picked.slot.sec_each;
 	if (each === undefined)
 		return picked.exercises.reduce(
@@ -62,4 +61,4 @@ function slotSeconds(timing: Timing, picked: PickedSlot): number {
 			0
 		);
 	return pickOf(picked.slot) * each;
-}
+};

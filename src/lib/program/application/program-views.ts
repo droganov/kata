@@ -52,44 +52,40 @@ interface SessionSlotView {
 	readonly label: string;
 }
 
-export function programViewOf(program: Program): ProgramView {
-	return {
-		goals: { primary: program.goals.primary, secondary: program.goals.secondary },
-		id: program.id,
-		rotationWeeks: program.schedule.rotation_weeks,
-		sections: program.sections.map((section) => ({
-			mode: section.mode,
-			slotCount: section.slots.length,
-			slug: section.slug,
-			title: section.title
-		})),
-		sessionBudgetMin: program.schedule.session_budget_min,
-		sessionsPerWeek: program.schedule.sessions_per_week,
-		title: program.title,
-		user: program.user
-	};
-}
+export const programViewOf = (program: Program): ProgramView => ({
+	goals: { primary: program.goals.primary, secondary: program.goals.secondary },
+	id: program.id,
+	rotationWeeks: program.schedule.rotation_weeks,
+	sections: program.sections.map((section) => ({
+		mode: section.mode,
+		slotCount: section.slots.length,
+		slug: section.slug,
+		title: section.title
+	})),
+	sessionBudgetMin: program.schedule.session_budget_min,
+	sessionsPerWeek: program.schedule.sessions_per_week,
+	title: program.title,
+	user: program.user
+});
 
-export function sessionViewOf(session: Session): SessionView {
-	return {
-		index: session.index,
-		minutes: session.minutes,
-		sections: session.sections.map((section) => ({
-			mode: section.mode,
-			slots: section.slots.map((slot) => ({
-				exercises: slot.exercises.map((exercise) => ({
-					dose: exercise.dose,
-					id: exercise.id,
-					name: exercise.name,
-					slug: exercise.slug
-				})),
-				kind: slot.kind,
-				label: slot.label
+export const sessionViewOf = (session: Session): SessionView => ({
+	index: session.index,
+	minutes: session.minutes,
+	sections: session.sections.map((section) => ({
+		mode: section.mode,
+		slots: section.slots.map((slot) => ({
+			exercises: slot.exercises.map((exercise) => ({
+				dose: exercise.dose,
+				id: exercise.id,
+				name: exercise.name,
+				slug: exercise.slug
 			})),
-			slug: section.slug,
-			title: section.title
+			kind: slot.kind,
+			label: slot.label
 		})),
-		slug: session.slug,
-		title: session.title
-	};
-}
+		slug: section.slug,
+		title: section.title
+	})),
+	slug: session.slug,
+	title: session.title
+});

@@ -16,7 +16,7 @@ const SETS_IN_BASE = ' прямых подходов в базе';
 const CORRIDOR = ' подходов/нед, коридор ';
 const RANGE_DASH = '–';
 
-export function glutesInBase(plan: ProgramPlan): readonly Finding[] {
+export const glutesInBase = (plan: ProgramPlan): readonly Finding[] => {
 	const sets = baseExercisesOf(plan, SECTION_MODE.loaded)
 		.filter((exercise) => hasPrimaryGroup(exercise, GLUTES_GROUP))
 		.reduce((total, exercise) => total + setsOfDose(exercise.dose), 0);
@@ -27,9 +27,9 @@ export function glutesInBase(plan: ProgramPlan): readonly Finding[] {
 		programSubject(plan.program),
 		`${String(sets)}${SETS_IN_BASE}`
 	);
-}
+};
 
-export function glutesWeeklyVolume(plan: ProgramPlan): readonly Finding[] {
+export const glutesWeeklyVolume = (plan: ProgramPlan): readonly Finding[] => {
 	const target = volumeTargetsOf(plan.program).find((item) => item.group === GLUTES_GROUP);
 	if (target === undefined) return [];
 	const value = groupVolumeOf(plan.volume, GLUTES_GROUP);
@@ -40,4 +40,4 @@ export function glutesWeeklyVolume(plan: ProgramPlan): readonly Finding[] {
 		programSubject(plan.program),
 		`${oneDecimal(value)}${CORRIDOR}${String(target.min)}${RANGE_DASH}${String(target.max)}`
 	);
-}
+};

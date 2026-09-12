@@ -5,6 +5,7 @@ import type { ProgramPlan } from '../program-plan.ts';
 import type { Contraindications, CorePlane, Program, SectionMode } from '../program.ts';
 import type { Session } from '../session.ts';
 
+import { PROGRAM_BASE } from '../../../../test/program-base.ts';
 import {
 	isometricProgression,
 	isometricThreePlanes,
@@ -91,7 +92,8 @@ const planOf = (seed: PlanSeed = {}): ProgramPlan => {
 		constraints: { ...FREE, ...seed.constraints },
 		...(seed.name !== undefined && { name: seed.name })
 	});
-	const program = {
+	const program: Program = {
+		...PROGRAM_BASE,
 		contraindications: seed.contraindications ?? ALL_FORBIDDEN,
 		progression: {
 			base: 'b',
@@ -110,7 +112,7 @@ const planOf = (seed: PlanSeed = {}): ProgramPlan => {
 			}
 		],
 		title: 'Программа'
-	} as unknown as Program;
+	};
 	return {
 		exercises: new Map([[exercise.id, exercise]]),
 		hipMobilityExerciseIds: new Set(),

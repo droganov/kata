@@ -24,7 +24,7 @@ const MINUTES_MARK = ' мин';
 const PLANE_EMPTY = ' — направление без кандидатов: ';
 const DEPTH_SHORT = ' кандидатов при нужных ';
 
-export function freeWeightLimit(plan: ProgramPlan): readonly Finding[] {
+export const freeWeightLimit = (plan: ProgramPlan): readonly Finding[] => {
 	const limit = plan.program.contraindications.free_weight_kg_max;
 	const over = allCandidatesOf(plan)
 		.filter(
@@ -40,9 +40,9 @@ export function freeWeightLimit(plan: ProgramPlan): readonly Finding[] {
 		programSubject(plan.program),
 		over.join(LIST_SEPARATOR)
 	);
-}
+};
 
-export function sessionTimeBudget(plan: ProgramPlan): readonly Finding[] {
+export const sessionTimeBudget = (plan: ProgramPlan): readonly Finding[] => {
 	const budget = plan.program.schedule.session_budget_min;
 	const minutes = plan.sessions.map((session) => session.minutes);
 	return ruleCheck(
@@ -52,21 +52,21 @@ export function sessionTimeBudget(plan: ProgramPlan): readonly Finding[] {
 		programSubject(plan.program),
 		`${minutes.map(String).join(LIST_SEPARATOR)}${MINUTES_MARK}`
 	);
-}
+};
 
-export function slotDepth(plan: ProgramPlan): readonly Finding[] {
+export const slotDepth = (plan: ProgramPlan): readonly Finding[] => {
 	const need = rotationLength(plan.program);
 	return sectionSlotsOf(plan.program)
 		.filter(({ slot }) => slot.kind === SLOT_KIND.pool && slot.allow_repeat !== true)
 		.flatMap(({ section, slot }) => depthFindings(plan, section, slot, need));
-}
+};
 
-function depthFindings(
+const depthFindings = (
 	plan: ProgramPlan,
 	section: Section,
 	slot: Slot,
 	need: number
-): readonly Finding[] {
+): readonly Finding[] => {
 	const candidates = planExercisesOf(slot.exercises, plan.exercises);
 	const subject = slotSubject(plan.program, section, slot);
 	if (slot.rule === HIP_PLANE_RULE) {
@@ -93,4 +93,4 @@ function depthFindings(
 		subject,
 		`${slot.label}: ${String(deep)}${DEPTH_SHORT}${String(wanted)}`
 	);
-}
+};

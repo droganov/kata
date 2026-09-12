@@ -19,7 +19,7 @@ const NEED = ' нужно ';
 const RANGE_DASH = '–';
 const NO_PROGRESSION = 'не описана прогрессия базы или пула';
 
-export function groupVolumeCorridor(plan: ProgramPlan): readonly Finding[] {
+export const groupVolumeCorridor = (plan: ProgramPlan): readonly Finding[] => {
 	const out = volumeTargetsOf(plan.program)
 		.map((target) => ({ target, value: groupVolumeOf(plan.volume, target.group) }))
 		.filter(({ target, value }) => value < target.min || value > target.max)
@@ -34,9 +34,9 @@ export function groupVolumeCorridor(plan: ProgramPlan): readonly Finding[] {
 		programSubject(plan.program),
 		out.join(LIST_SEPARATOR)
 	);
-}
+};
 
-export function majorGroupFrequency(plan: ProgramPlan): readonly Finding[] {
+export const majorGroupFrequency = (plan: ProgramPlan): readonly Finding[] => {
 	const low = MAJOR_GROUPS.filter(
 		(group) => groupFrequencyOf(plan.volume, group) < MIN_SESSIONS_PER_WEEK
 	).map((group) => `${group} ${oneDecimal(groupFrequencyOf(plan.volume, group))}${PER_WEEK}`);
@@ -47,9 +47,9 @@ export function majorGroupFrequency(plan: ProgramPlan): readonly Finding[] {
 		programSubject(plan.program),
 		low.join(LIST_SEPARATOR)
 	);
-}
+};
 
-export function minSetsPerExercise(plan: ProgramPlan): readonly Finding[] {
+export const minSetsPerExercise = (plan: ProgramPlan): readonly Finding[] => {
 	const thin = candidatesOf(plan, SECTION_MODE.loaded)
 		.filter((exercise) => setsOfDose(exercise.dose) < MIN_SETS)
 		.map((exercise) => `${exercise.slug} ${exercise.dose}`);
@@ -60,9 +60,9 @@ export function minSetsPerExercise(plan: ProgramPlan): readonly Finding[] {
 		programSubject(plan.program),
 		thin.join(LIST_SEPARATOR)
 	);
-}
+};
 
-export function progressionDeclared(plan: ProgramPlan): readonly Finding[] {
+export const progressionDeclared = (plan: ProgramPlan): readonly Finding[] => {
 	const { progression } = plan.program;
 	return ruleCheck(
 		progression.base.length > 0 && progression.pool.length > 0,
@@ -71,4 +71,4 @@ export function progressionDeclared(plan: ProgramPlan): readonly Finding[] {
 		programSubject(plan.program),
 		NO_PROGRESSION
 	);
-}
+};

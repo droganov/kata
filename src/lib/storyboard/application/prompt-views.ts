@@ -7,6 +7,8 @@ export interface PromptView {
 	readonly text: string;
 }
 
-export function promptViewOf(exercise: ExerciseView, prompt: Prompt): PromptView {
-	return { exercise: prompt.exercise, slug: exercise.slug, text: prompt.text };
-}
+export const promptViewOf = (exercise: ExerciseView, prompt: Prompt): PromptView => ({
+	exercise: prompt.exercise,
+	slug: exercise.slug,
+	text: prompt.text
+});

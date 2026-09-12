@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import type { PlanExercise } from './plan-exercise.ts';
 import type { Program } from './program.ts';
 
+import { PROGRAM_BASE } from '../../../test/program-base.ts';
 import { programPlanOf } from './program-plan.ts';
 
 const exerciseOf = (id: string): PlanExercise => ({
@@ -16,7 +17,8 @@ const exerciseOf = (id: string): PlanExercise => ({
 	targets: [{ group: 'glutes', role: 'primary' }]
 });
 
-const PROGRAM = {
+const PROGRAM: Program = {
+	...PROGRAM_BASE,
 	schedule: { rotation_weeks: 1, session_budget_min: 70, sessions_per_week: 2 },
 	sections: [
 		{
@@ -36,7 +38,7 @@ const PROGRAM = {
 		work_sec_per_set: 45
 	},
 	title: 'Программа'
-} as unknown as Program;
+};
 
 describe('programPlanOf', () => {
 	it('собирает занятия и объём вокруг программы', () => {

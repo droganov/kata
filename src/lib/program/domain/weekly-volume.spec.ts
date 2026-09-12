@@ -4,11 +4,13 @@ import type { PlanExercise } from './plan-exercise.ts';
 import type { Program } from './program.ts';
 import type { Session, SessionSection } from './session.ts';
 
+import { PROGRAM_BASE } from '../../../test/program-base.ts';
 import { groupFrequencyOf, groupVolumeOf, weeklyVolumeOf } from './weekly-volume.ts';
 
-const PROGRAM = {
+const PROGRAM: Program = {
+	...PROGRAM_BASE,
 	schedule: { rotation_weeks: 2, session_budget_min: 70, sessions_per_week: 1 }
-} as unknown as Program;
+};
 
 const exerciseOf = (id: string, targets: PlanExercise['targets']): PlanExercise => ({
 	constraints: { axial: false, free_weight: false, lumbar_ext: false, lumbar_flex: false },

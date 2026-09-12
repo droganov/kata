@@ -2,10 +2,15 @@ import { describe, expect, it } from 'vitest';
 
 import type { Verdict } from './verdict.ts';
 
+import { uuidOfLabel } from '../../../test/uuid.ts';
 import { counterLineKey, independentHashesOf, mergeVerdicts, verdictHashText } from './verdict.ts';
 
-const verdictOf = (hash: string, verdict: string, line: string, oracle = 'o1'): Verdict =>
-	({ hash, id: `id-${hash}`, line, oracle, verdict }) as unknown as Verdict;
+const verdictOf = (
+	hash: string,
+	verdict: Verdict['verdict'],
+	line: string,
+	oracle: Verdict['oracle'] = uuidOfLabel('o1')
+): Verdict => ({ hash, id: uuidOfLabel(`id-${hash}`), line, oracle, verdict });
 
 describe('verdict', () => {
 	it('берёт только хеши с вердиктом «независима»', () => {
@@ -27,8 +32,8 @@ describe('verdict', () => {
 
 	it('держит записи с одним хешем, но разными оракулами', () => {
 		const stored = [
-			verdictOf('h1', 'independent', 'а', 'o1'),
-			verdictOf('h1', 'independent', 'а', 'o2')
+			verdictOf('h1', 'independent', 'а', uuidOfLabel('o1')),
+			verdictOf('h1', 'independent', 'а', uuidOfLabel('o2'))
 		];
 		expect(mergeVerdicts(stored, [])).toHaveLength(2);
 	});

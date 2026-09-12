@@ -1,5 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 
+import { EXIT_MESSAGE, exitStub } from '../../../../test/process-exit.ts';
+
 const TOTAL_LABEL = 'ПРОВАЛЕНО: ';
 
 describe('program-critic', () => {
@@ -9,13 +11,8 @@ describe('program-critic', () => {
 		const log = vi.spyOn(console, 'log').mockImplementation((line: unknown) => {
 			lines.push(String(line));
 		});
-		const exit = vi
-			.spyOn(process, 'exit')
-			.mockImplementation((code?: null | number | string) => {
-				codes.push(Number(code ?? 0));
-				return undefined as never;
-			});
-		await import('./program-critic.ts');
+		const exit = vi.spyOn(process, 'exit').mockImplementation(exitStub(codes));
+		await expect(import('./program-critic.ts')).rejects.toThrow(EXIT_MESSAGE);
 		log.mockRestore();
 		exit.mockRestore();
 		const total = lines.find((line) => line.startsWith(TOTAL_LABEL));

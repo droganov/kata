@@ -21,36 +21,38 @@ type CatalogEquipment = ReturnType<EquipmentRepository['readAll']>[number];
 
 type CatalogTarget = ReturnType<TargetRepository['readAll']>[number];
 
-export function createCatalogJsonGateway(source: CatalogJsonSource): CatalogGateway {
-	return {
-		readEquipment: () =>
-			findEquipment({
-				readAll: (): readonly CatalogEquipment[] =>
-					validatedItems(
-						source.equipmentFile,
-						EQUIPMENT_SCHEMA_ID,
-						source.validator
-					) as readonly CatalogEquipment[]
-			}),
-		readTargets: () =>
-			findTargets({
-				readAll: (): readonly CatalogTarget[] =>
-					validatedItems(
-						source.targetsFile,
-						TARGET_SCHEMA_ID,
-						source.validator
-					) as readonly CatalogTarget[]
-			})
-	};
-}
+const assertCatalogEquipment: (
+	validator: SchemaValidator,
+	value: unknown,
+	subject: string
+) => asserts value is CatalogEquipment = (validator, value, subject) => {
+	validator.assertValid(EQUIPMENT_SCHEMA_ID, value, subject);
+};
 
-function validatedItems(
-	file: string,
-	schemaId: string,
-	validator: SchemaValidator
-): readonly unknown[] {
-	return readJsonArray(file).map((item, at) => {
-		validator.assertValid(schemaId, item, `${file}${ITEM_MARK}${String(at)}`);
+const assertCatalogTarget: (
+	validator: SchemaValidator,
+	value: unknown,
+	subject: string
+) => asserts value is CatalogTarget = (validator, value, subject) => {
+	validator.assertValid(TARGET_SCHEMA_ID, value, subject);
+};
+
+const equipmentItems = (source: CatalogJsonSource): readonly CatalogEquipment[] =>
+	readJsonArray(source.equipmentFile).map((item, at) => {
+		const subject = `${source.equipmentFile}${ITEM_MARK}${String(at)}`;
+		assertCatalogEquipment(source.validator, item, subject);
 		return item;
 	});
-}
+
+const targetItems = (source: CatalogJsonSource): readonly CatalogTarget[] =>
+	readJsonArray(source.targetsFile).map((item, at) => {
+		const subject = `${source.targetsFile}${ITEM_MARK}${String(at)}`;
+		assertCatalogTarget(source.validator, item, subject);
+		return item;
+	});
+
+export const createCatalogJsonGateway = (source: CatalogJsonSource): CatalogGateway => ({
+	readEquipment: () =>
+		findEquipment({ readAll: (): readonly CatalogEquipment[] => equipmentItems(source) }),
+	readTargets: () => findTargets({ readAll: (): readonly CatalogTarget[] => targetItems(source) })
+});

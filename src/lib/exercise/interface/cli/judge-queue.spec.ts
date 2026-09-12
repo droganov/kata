@@ -3,6 +3,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
+import { EXIT_MESSAGE, exitStub } from '../../../../test/process-exit.ts';
 import { readJsonArray } from '../../infrastructure/json-file.ts';
 
 const directory = mkdtempSync(path.join(tmpdir(), 'exercise-queue-'));
@@ -20,12 +21,9 @@ describe('judge-queue', () => {
 		vi.spyOn(console, 'log').mockImplementation((line: unknown) => {
 			lines.push(String(line));
 		});
-		vi.spyOn(process, 'exit').mockImplementation((code?: null | number | string) => {
-			codes.push(Number(code ?? 0));
-			return undefined as never;
-		});
+		vi.spyOn(process, 'exit').mockImplementation(exitStub(codes));
 		vi.spyOn(process, 'argv', 'get').mockReturnValue(['node', 'judge-queue.ts', file]);
-		await import('./judge-queue.ts');
+		await expect(import('./judge-queue.ts')).rejects.toThrow(EXIT_MESSAGE);
 		expect(readJsonArray(file)).toEqual([]);
 		expect(lines).toEqual(['НА СУД: 0']);
 		expect(codes).toEqual([0]);
@@ -37,12 +35,9 @@ describe('judge-queue', () => {
 		vi.spyOn(console, 'log').mockImplementation((line: unknown) => {
 			lines.push(String(line));
 		});
-		vi.spyOn(process, 'exit').mockImplementation((code?: null | number | string) => {
-			codes.push(Number(code ?? 0));
-			return undefined as never;
-		});
+		vi.spyOn(process, 'exit').mockImplementation(exitStub(codes));
 		vi.spyOn(process, 'argv', 'get').mockReturnValue(['node', 'judge-queue.ts']);
-		await import('./judge-queue.ts');
+		await expect(import('./judge-queue.ts')).rejects.toThrow(EXIT_MESSAGE);
 		expect(lines).toEqual(['использование: judge-queue.ts <файл для очереди>']);
 		expect(codes).toEqual([1]);
 	});

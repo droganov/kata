@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { Program, Section, Slot } from './program.ts';
 
+import { PROGRAM_BASE } from '../../../test/program-base.ts';
 import { checkedGoals, PROGRAM_GOAL, programSubject, ruleCheck, slotSubject } from './finding.ts';
 
 const SLOT: Slot = { exercises: [], id: 'slot-1', kind: 'base', label: 'База' };
@@ -13,10 +14,7 @@ const SECTION: Section = {
 	slug: 'strength',
 	title: 'Силовой'
 };
-const PROGRAM = {
-	sections: [SECTION],
-	title: 'Программа'
-} as unknown as Program;
+const PROGRAM: Program = { ...PROGRAM_BASE, sections: [SECTION], title: 'Программа' };
 
 describe('finding', () => {
 	it('молчит на пройденной проверке и говорит на провале', () => {

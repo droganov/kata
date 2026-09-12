@@ -15,12 +15,10 @@ const KIND_PATTERNS: readonly (readonly [RegExp, StepKind])[] = [
 
 const CARRIED_KINDS: ReadonlySet<StepKind> = new Set([STEP_KIND.hold, STEP_KIND.repeat]);
 
-export function isCarriedKind(kind: StepKind): boolean {
-	return CARRIED_KINDS.has(kind);
-}
+export const isCarriedKind = (kind: StepKind): boolean => CARRIED_KINDS.has(kind);
 
-export function stepKindOf(title: string): StepKind {
+export const stepKindOf = (title: string): StepKind => {
 	const text = title.toLowerCase();
 	const matched = KIND_PATTERNS.find(([pattern]) => pattern.test(text));
 	return matched === undefined ? STEP_KIND.other : matched[1];
-}
+};

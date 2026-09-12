@@ -12,16 +12,18 @@ export interface JsonProgramSource {
 	readonly validator: SchemaValidator;
 }
 
-export function createJsonProgramRepository(source: JsonProgramSource): ProgramRepository {
-	return {
-		readAll: (): readonly Program[] =>
-			readJsonArray(source.file).map((item, at) => {
-				source.validator.assertValid(
-					PROGRAM_SCHEMA_ID,
-					item,
-					`${source.file}${ITEM_MARK}${String(at)}`
-				);
-				return item as Program;
-			})
-	};
-}
+const assertProgram: (
+	validator: SchemaValidator,
+	value: unknown,
+	subject: string
+) => asserts value is Program = (validator, value, subject) => {
+	validator.assertValid(PROGRAM_SCHEMA_ID, value, subject);
+};
+
+export const createJsonProgramRepository = (source: JsonProgramSource): ProgramRepository => ({
+	readAll: (): readonly Program[] =>
+		readJsonArray(source.file).map((item, at) => {
+			assertProgram(source.validator, item, `${source.file}${ITEM_MARK}${String(at)}`);
+			return item;
+		})
+});

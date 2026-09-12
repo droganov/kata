@@ -56,6 +56,4 @@ const PROGRAM_RULES: readonly ProgramRule[] = [
 	goalsChecked
 ];
 
-export function rulesForProgram(): readonly ProgramRule[] {
-	return PROGRAM_RULES;
-}
+export const rulesForProgram = (): readonly ProgramRule[] => PROGRAM_RULES;

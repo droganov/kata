@@ -145,35 +145,26 @@ interface Walking {
 	readonly sessions_per_week: number;
 }
 
-export function hipPlanesOf(program: Program): readonly HipPlane[] {
-	return program.hip_planes ?? [];
-}
+export const hipPlanesOf = (program: Program): readonly HipPlane[] => program.hip_planes ?? [];
 
-export function pairingsOf(program: Program): readonly Pairing[] {
-	return program.pairing ?? [];
-}
+export const pairingsOf = (program: Program): readonly Pairing[] => program.pairing ?? [];
 
-export function pickOf(slot: Slot): number {
-	return slot.pick ?? SINGLE_PICK;
-}
+export const pickOf = (slot: Slot): number => slot.pick ?? SINGLE_PICK;
 
-export function rotationLength(program: Program): number {
-	return program.schedule.sessions_per_week * program.schedule.rotation_weeks;
-}
+export const rotationLength = (program: Program): number =>
+	program.schedule.sessions_per_week * program.schedule.rotation_weeks;
 
-export function sectionSlotsOf(program: Program): readonly SectionSlot[] {
-	return program.sections.flatMap((section) => section.slots.map((slot) => ({ section, slot })));
-}
+export const sectionSlotsOf = (program: Program): readonly SectionSlot[] =>
+	program.sections.flatMap((section) => section.slots.map((slot) => ({ section, slot })));
 
-export function volumeTargetsOf(program: Program): readonly VolumeGroupTarget[] {
-	return Object.entries(program.volume_targets ?? {}).map(([group, target]) => ({
+export const volumeTargetsOf = (program: Program): readonly VolumeGroupTarget[] =>
+	Object.entries(program.volume_targets ?? {}).map(([group, target]) => ({
 		group,
 		max: target.max,
 		min: target.min
 	}));
-}
 
-export function walkingMinutesOf(program: Program): number {
+export const walkingMinutesOf = (program: Program): number => {
 	const walking = program.outside_gym?.walking;
 	return walking === undefined ? NO_MINUTES : walking.min_per_session * walking.sessions_per_week;
-}
+};

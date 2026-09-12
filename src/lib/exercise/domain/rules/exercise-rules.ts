@@ -11,7 +11,7 @@ import {
 } from './procedure-rules.ts';
 import { stepScan } from './step-rules.ts';
 
-export function exerciseIssues(check: ExerciseCheck): readonly Issue[] {
+export const exerciseIssues = (check: ExerciseCheck): readonly Issue[] => {
 	const { exercise } = check.record;
 	const formIssues = procedureFormIssues(exercise.procedure);
 	if (formIssues.length > 0) return formIssues;
@@ -29,4 +29,4 @@ export function exerciseIssues(check: ExerciseCheck): readonly Issue[] {
 			scans.map((scan) => scan.modelText)
 		)
 	];
-}
+};

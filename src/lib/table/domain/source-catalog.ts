@@ -114,27 +114,24 @@ interface SourceGroup {
 	readonly targets: readonly SourceCatalogTarget[];
 }
 
-export function sourceOracles(catalog: SourceCatalog): readonly SourceOracle[] {
-	return sourceSteps(catalog).flatMap(({ step }) => step.oracles);
-}
+export const sourceOracles = (catalog: SourceCatalog): readonly SourceOracle[] =>
+	sourceSteps(catalog).flatMap(({ step }) => step.oracles);
 
-export function sourcePlacements(catalog: SourceCatalog): readonly SourcePlacement[] {
+export const sourcePlacements = (catalog: SourceCatalog): readonly SourcePlacement[] => {
 	const placements: SourcePlacement[] = [];
 	for (const file of catalog.files)
 		for (const group of file.groups)
 			for (const catalogTarget of group.targets)
 				placements.push({ catalogTarget, file, group });
 	return placements;
-}
+};
 
-export function sourceRecords(catalog: SourceCatalog): readonly SourceRecord[] {
-	return sourcePlacements(catalog).flatMap((placement) =>
+export const sourceRecords = (catalog: SourceCatalog): readonly SourceRecord[] =>
+	sourcePlacements(catalog).flatMap((placement) =>
 		placement.catalogTarget.exercises.map((exercise) => ({ ...placement, exercise }))
 	);
-}
 
-export function sourceSteps(catalog: SourceCatalog): readonly SourceStepRecord[] {
-	return sourceRecords(catalog).flatMap(({ exercise }) =>
+export const sourceSteps = (catalog: SourceCatalog): readonly SourceStepRecord[] =>
+	sourceRecords(catalog).flatMap(({ exercise }) =>
 		exercise.steps.map((step, at) => ({ at, exercise, step }))
 	);
-}

@@ -52,6 +52,8 @@ export const CATALOG_RULES: readonly TableRule[] = [
 	everyVerdictCarried
 ];
 
-export function tableRules(): readonly TableRule[] {
-	return [...FORMAT_RULES, ...INTEGRITY_RULES, ...CATALOG_RULES];
-}
+export const tableRules = (): readonly TableRule[] => [
+	...FORMAT_RULES,
+	...INTEGRITY_RULES,
+	...CATALOG_RULES
+];

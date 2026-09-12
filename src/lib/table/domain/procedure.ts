@@ -23,7 +23,7 @@ export interface ProcedureTables {
 
 type OracleSide = (typeof ORACLE_SIDE)[keyof typeof ORACLE_SIDE];
 
-export function procedureTablesOf(catalog: SourceCatalog): ProcedureTables {
+export const procedureTablesOf = (catalog: SourceCatalog): ProcedureTables => {
 	const lines = oracleLineRows(catalog);
 	return {
 		oracle: oracleRows(catalog),
@@ -32,21 +32,19 @@ export function procedureTablesOf(catalog: SourceCatalog): ProcedureTables {
 		step_target: stepTargetRows(catalog),
 		verdict: verdictRows(catalog, lines)
 	};
-}
+};
 
-function counterLineKey(oracleId: string, text: string): string {
-	return `${oracleId}${KEY_SEPARATOR}${text}`;
-}
+const counterLineKey = (oracleId: string, text: string): string =>
+	`${oracleId}${KEY_SEPARATOR}${text}`;
 
-function oracleLineRows(catalog: SourceCatalog): readonly Row[] {
-	return sourceOracles(catalog).flatMap((oracle) => [
+const oracleLineRows = (catalog: SourceCatalog): readonly Row[] =>
+	sourceOracles(catalog).flatMap((oracle) => [
 		...sideRows(oracle, ORACLE_SIDE.model, oracle.model),
 		...sideRows(oracle, ORACLE_SIDE.counter, oracle.counterModel)
 	]);
-}
 
-function oracleRows(catalog: SourceCatalog): readonly Row[] {
-	return sourceSteps(catalog).flatMap(({ step }) =>
+const oracleRows = (catalog: SourceCatalog): readonly Row[] =>
+	sourceSteps(catalog).flatMap(({ step }) =>
 		step.oracles.map((oracle, at) => ({
 			id: oracle.id,
 			ord: at + FIRST_ORD,
@@ -54,38 +52,34 @@ function oracleRows(catalog: SourceCatalog): readonly Row[] {
 			step_id: step.id
 		}))
 	);
-}
 
-function sideRows(
+const sideRows = (
 	oracle: SourceOracle,
 	side: OracleSide,
 	texts: readonly string[]
-): readonly Row[] {
-	return texts.map((text, at) => ({
+): readonly Row[] =>
+	texts.map((text, at) => ({
 		id: derivedId([oracle.id, side, text]),
 		oracle_id: oracle.id,
 		ord: at + FIRST_ORD,
 		side,
 		text
 	}));
-}
 
-function stepRows(catalog: SourceCatalog): readonly Row[] {
-	return sourceSteps(catalog).map(({ at, exercise, step }) => ({
+const stepRows = (catalog: SourceCatalog): readonly Row[] =>
+	sourceSteps(catalog).map(({ at, exercise, step }) => ({
 		exercise_id: exercise.id,
 		id: step.id,
 		ord: at + FIRST_ORD,
 		title: step.title
 	}));
-}
 
-function stepTargetRows(catalog: SourceCatalog): readonly Row[] {
-	return sourceSteps(catalog).flatMap(({ step }) =>
+const stepTargetRows = (catalog: SourceCatalog): readonly Row[] =>
+	sourceSteps(catalog).flatMap(({ step }) =>
 		step.active.map((targetId) => ({ step_id: step.id, target_id: targetId }))
 	);
-}
 
-function verdictRows(catalog: SourceCatalog, lines: readonly Row[]): readonly Row[] {
+const verdictRows = (catalog: SourceCatalog, lines: readonly Row[]): readonly Row[] => {
 	const idByLine = new Map(
 		lines
 			.filter((row) => row.side === ORACLE_SIDE.counter)
@@ -105,4 +99,4 @@ function verdictRows(catalog: SourceCatalog, lines: readonly Row[]): readonly Ro
 					}
 				];
 	});
-}
+};

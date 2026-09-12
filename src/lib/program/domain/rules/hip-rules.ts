@@ -31,7 +31,7 @@ const BY_SESSION = 'по занятиям: ';
 const BASE_HIP_STRETCHES = ' статических растяжек бедра в базе';
 const WITHOUT_PROCEDURE = 'без процедуры: ';
 
-export function dynamicHipBeforeLoad(plan: ProgramPlan): readonly Finding[] {
+export const dynamicHipBeforeLoad = (plan: ProgramPlan): readonly Finding[] => {
 	const slots = sectionsBeforeLoad(plan.program)
 		.filter((section) => section.mode === SECTION_MODE.dynamic)
 		.flatMap((section) => section.slots)
@@ -43,9 +43,9 @@ export function dynamicHipBeforeLoad(plan: ProgramPlan): readonly Finding[] {
 		programSubject(plan.program),
 		NO_SLOTS
 	);
-}
+};
 
-export function hipPlanesCovered(plan: ProgramPlan): readonly Finding[] {
+export const hipPlanesCovered = (plan: ProgramPlan): readonly Finding[] => {
 	const covered = new Set(
 		plan.sessions
 			.flatMap((session) => sessionExercisesWithMode(session, SECTION_MODE.static_stretch))
@@ -59,9 +59,9 @@ export function hipPlanesCovered(plan: ProgramPlan): readonly Finding[] {
 		programSubject(plan.program),
 		`${NOT_COVERED}${missing.join(LIST_SEPARATOR)}`
 	);
-}
+};
 
-export function hipStretchMethod(plan: ProgramPlan): readonly Finding[] {
+export const hipStretchMethod = (plan: ProgramPlan): readonly Finding[] => {
 	const lost = baseHipStretches(plan)
 		.filter((exercise) => !exercise.hasProcedure)
 		.map((exercise) => exercise.name);
@@ -72,9 +72,9 @@ export function hipStretchMethod(plan: ProgramPlan): readonly Finding[] {
 		programSubject(plan.program),
 		`${WITHOUT_PROCEDURE}${lost.join(LIST_SEPARATOR)}`
 	);
-}
+};
 
-export function hipStretchPerSession(plan: ProgramPlan): readonly Finding[] {
+export const hipStretchPerSession = (plan: ProgramPlan): readonly Finding[] => {
 	const counts = plan.sessions.map(
 		(session) =>
 			sessionExercisesWithMode(session, SECTION_MODE.static_stretch).filter(
@@ -88,9 +88,9 @@ export function hipStretchPerSession(plan: ProgramPlan): readonly Finding[] {
 		programSubject(plan.program),
 		`${BY_SESSION}${counts.map(String).join(LIST_SEPARATOR)}`
 	);
-}
+};
 
-export function noLongHoldBeforeLoad(plan: ProgramPlan): readonly Finding[] {
+export const noLongHoldBeforeLoad = (plan: ProgramPlan): readonly Finding[] => {
 	const long = sectionsBeforeLoad(plan.program)
 		.flatMap((section) => section.slots)
 		.flatMap((slot) => planExercisesOf(slot.exercises, plan.exercises))
@@ -103,9 +103,9 @@ export function noLongHoldBeforeLoad(plan: ProgramPlan): readonly Finding[] {
 		programSubject(plan.program),
 		long.join(LIST_SEPARATOR)
 	);
-}
+};
 
-export function staticHipAfterLoad(plan: ProgramPlan): readonly Finding[] {
+export const staticHipAfterLoad = (plan: ProgramPlan): readonly Finding[] => {
 	const stretches = baseHipStretches(plan);
 	return ruleCheck(
 		stretches.length >= MIN_BASE_HIP_STRETCHES,
@@ -114,16 +114,15 @@ export function staticHipAfterLoad(plan: ProgramPlan): readonly Finding[] {
 		programSubject(plan.program),
 		`${String(stretches.length)}${BASE_HIP_STRETCHES}`
 	);
-}
+};
 
-function baseHipStretches(plan: ProgramPlan): readonly PlanExercise[] {
-	return baseExercisesOf(plan, SECTION_MODE.static_stretch).filter(
+const baseHipStretches = (plan: ProgramPlan): readonly PlanExercise[] =>
+	baseExercisesOf(plan, SECTION_MODE.static_stretch).filter(
 		(exercise) =>
 			exercise.goal === HIP_MOBILITY_GOAL && exercise.mode === SECTION_MODE.static_stretch
 	);
-}
 
-function isHipSlot(plan: ProgramPlan, slot: Slot): boolean {
+const isHipSlot = (plan: ProgramPlan, slot: Slot): boolean => {
 	if (pickOf(slot) < MIN_PICK) return false;
 	const items = planExercisesOf(slot.exercises, plan.exercises);
 	return (
@@ -134,4 +133,4 @@ function isHipSlot(plan: ProgramPlan, slot: Slot): boolean {
 				exercise.mode === SECTION_MODE.dynamic
 		)
 	);
-}
+};

@@ -23,16 +23,16 @@ const contourLocatorsOf = (banks: readonly BankView[]): readonly ContourLocator[
 		)
 	);
 
-export function outlineProgram(
+export const outlineProgram = (
 	repositories: ProgramRepositories,
 	programId: string
-): ProgramOutlineView {
+): ProgramOutlineView => {
 	const program = programOf(repositories, programId);
 	return {
 		id: program.id,
 		sections: sectionOutlinesOf(program, contourLocatorsOf(repositories.catalog.readBanks())),
 		title: program.title
 	};
-}
+};
 
 export { type SlotOutline } from '../domain/section-outline.ts';

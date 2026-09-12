@@ -36,43 +36,60 @@ interface BankZoneFile {
 	readonly contours: readonly BankContourFile[];
 }
 
-export function createExerciseJsonGateway(source: ExerciseJsonSource): ExerciseGateway {
-	return {
-		readExercises: () =>
-			listExercises({
-				readAll: (): readonly BankRecord[] =>
-					bankFileNames(source.directory).flatMap((name) =>
-						bankRecords(
-							readJsonFile(path.join(source.directory, name)) as BankFile,
-							source
-						)
-					)
-			})
-	};
-}
+const BANK_SCHEMA_ID = 'bank.schema.json';
 
-function bankFileNames(directory: string): readonly string[] {
-	return readdirSync(directory)
+const assertBankFile: (
+	validator: SchemaValidator,
+	value: unknown,
+	subject: string
+) => asserts value is BankFile = (validator, value, subject) => {
+	validator.assertValid(BANK_SCHEMA_ID, value, subject);
+};
+
+const assertBankExercise: (
+	validator: SchemaValidator,
+	value: unknown,
+	subject: string
+) => asserts value is BankExercise = (validator, value, subject) => {
+	validator.assertValid(EXERCISE_SCHEMA_ID, value, subject);
+};
+
+const bankFileOf = (
+	source: { readonly directory: string; readonly validator: SchemaValidator },
+	name: string
+): BankFile => {
+	const parsed = readJsonFile(path.join(source.directory, name));
+	assertBankFile(source.validator, parsed, name);
+	return parsed;
+};
+
+export const createExerciseJsonGateway = (source: ExerciseJsonSource): ExerciseGateway => ({
+	readExercises: () =>
+		listExercises({
+			readAll: (): readonly BankRecord[] =>
+				bankFileNames(source.directory).flatMap((name) =>
+					bankRecords(bankFileOf(source, name), source)
+				)
+		})
+});
+
+const bankFileNames = (directory: string): readonly string[] =>
+	readdirSync(directory)
 		.filter((name) => name.endsWith(JSON_SUFFIX))
 		.toSorted((first, second) => first.localeCompare(second));
-}
 
-function bankRecords(bank: BankFile, source: ExerciseJsonSource): readonly BankRecord[] {
-	return bank.zones.flatMap((zone) =>
+const bankRecords = (bank: BankFile, source: ExerciseJsonSource): readonly BankRecord[] =>
+	bank.zones.flatMap((zone) =>
 		zone.contours.flatMap((contour) =>
 			contour.exercises.map((item, at) => {
-				source.validator.assertValid(
-					EXERCISE_SCHEMA_ID,
-					item,
-					`${bank.slug}${PATH_MARK}${contour.slug}${PATH_MARK}${String(at)}`
-				);
+				const subject = `${bank.slug}${PATH_MARK}${contour.slug}${PATH_MARK}${String(at)}`;
+				assertBankExercise(source.validator, item, subject);
 				return {
 					bank: bank.slug,
 					contourSlug: contour.slug,
 					contourTitle: contour.title,
-					exercise: item as BankExercise
+					exercise: item
 				};
 			})
 		)
 	);
-}

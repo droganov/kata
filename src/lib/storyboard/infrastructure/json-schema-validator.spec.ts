@@ -38,4 +38,10 @@ describe('createSchemaValidator', () => {
 			validator.assertValid('нет.schema.json', VALID, 'probe#2');
 		}).toThrow('нет схемы');
 	});
+
+	it('сообщает о файле схемы, который не объект JSON', () => {
+		const broken = mkdtempSync(path.join(os.tmpdir(), 'broken-schema-'));
+		writeFileSync(path.join(broken, 'list.schema.json'), '[]', 'utf8');
+		expect(() => createSchemaValidator(broken)).toThrow('не объект JSON');
+	});
 });

@@ -92,20 +92,19 @@ const REAR_VIEW = 'rear view';
 const SIDE_VIEW = "side view from the figure's left";
 const SPACE = ' ';
 
-export function cameraViewOf(lines: readonly string[], isPosterior: boolean): string {
+export const cameraViewOf = (lines: readonly string[], isPosterior: boolean): string => {
 	const text = lines.join(SPACE).toLowerCase();
 	const isFrontal = FRONT.test(text);
 	const isLateral = SIDE.test(text);
 	const coronal = isPosterior ? REAR_VIEW : FRONT_VIEW;
 	if (isFrontal && isLateral) return `left half of the tile ${coronal}, right half ${SIDE_VIEW}`;
 	return isLateral ? SIDE_VIEW : coronal;
-}
+};
 
-export function isBilateralMuscle(latin: string): boolean {
-	return BILATERAL_NAMES.has(latin.toLowerCase());
-}
+export const isBilateralMuscle = (latin: string): boolean =>
+	BILATERAL_NAMES.has(latin.toLowerCase());
 
-export function isPosteriorMuscle(latin: string): boolean {
+export const isPosteriorMuscle = (latin: string): boolean => {
 	const lowered = latin.toLowerCase();
 	return POSTERIOR_PARTS.some((part) => lowered.includes(part));
-}
+};

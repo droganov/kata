@@ -3,6 +3,9 @@ import { describe, expect, it } from 'vitest';
 import type { Exercise, ExerciseRecord, Procedure } from '../exercise.ts';
 import type { ExerciseCheck } from './exercise-check.ts';
 
+import { EXERCISE_BASE, RECORD_BASE, STEP_BASE } from '../../../../test/exercise-base.ts';
+import { uuidOfLabel } from '../../../../test/uuid.ts';
+import { withRawField } from '../../../../test/with-raw-field.ts';
 import {
 	cycleIssues,
 	distinctIssues,
@@ -12,22 +15,32 @@ import {
 	spineIssues
 } from './procedure-rules.ts';
 
-const exerciseOf = (dose: string): Exercise => ({ dose }) as unknown as Exercise;
+const exerciseOf = (dose: string): Exercise => ({ ...EXERCISE_BASE, dose });
 
-const recordOf = (contourSlug: string, contourTitle: string): ExerciseRecord =>
-	({ bank: 'stretch', contourSlug, contourTitle }) as unknown as ExerciseRecord;
+const recordOf = (contourSlug: string, contourTitle: string): ExerciseRecord => ({
+	...RECORD_BASE,
+	bank: 'stretch',
+	contourSlug,
+	contourTitle
+});
 
-const checkOf = (hasSource: boolean, shouldUseVerdicts: boolean): ExerciseCheck =>
-	({ hasSource, shouldUseVerdicts }) as unknown as ExerciseCheck;
+const checkOf = (hasSource: boolean, shouldUseVerdicts: boolean): ExerciseCheck => ({
+	hasMainGear: true,
+	hasSource,
+	independentLines: new Set(),
+	knownTargetIds: new Set(),
+	record: RECORD_BASE,
+	shouldUseVerdicts
+});
 
 const messagesOf = (issues: readonly { readonly message: string }[]): readonly string[] =>
 	issues.map((issue) => issue.message);
 
 describe('procedure-rules', () => {
 	it('требует id и steps в процедуре и не меньше двух шагов', () => {
-		const good = { id: 'p1', steps: ['a', 'b'] } as unknown as Procedure;
-		const short = { id: 'p1', steps: ['a'] } as unknown as Procedure;
-		const extra = { id: 'p1', note: 'x', steps: ['a', 'b'] } as unknown as Procedure;
+		const good: Procedure = { id: uuidOfLabel('p1'), steps: [STEP_BASE, STEP_BASE] };
+		const short: Procedure = { id: uuidOfLabel('p1'), steps: [STEP_BASE] };
+		const extra: Procedure = withRawField(good, 'note', 'x');
 		expect(procedureFormIssues(good)).toEqual([]);
 		expect(procedureFormIssues(short)).toHaveLength(1);
 		expect(procedureFormIssues(extra)).toHaveLength(1);

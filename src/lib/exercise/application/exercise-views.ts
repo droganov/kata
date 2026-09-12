@@ -27,21 +27,19 @@ export interface ExerciseView {
 	readonly targets: readonly TargetRef[];
 }
 
-export function exerciseViewOf(exercise: Exercise): ExerciseView {
-	return {
-		constraints: exercise.constraints,
-		dose: exercise.dose,
-		equipment: exercise.equipment,
-		...(exercise.goal !== undefined && { goal: exercise.goal }),
-		...(exercise.hip_plane !== undefined && { hipPlane: exercise.hip_plane }),
-		id: exercise.id,
-		mode: exercise.mode,
-		name: exercise.name,
-		...(exercise.note !== undefined && { note: exercise.note }),
-		...(exercise.plane !== undefined && { plane: exercise.plane }),
-		procedure: exercise.procedure,
-		...(exercise.seconds !== undefined && { seconds: exercise.seconds }),
-		slug: exercise.slug,
-		targets: exercise.targets
-	};
-}
+export const exerciseViewOf = (exercise: Exercise): ExerciseView => ({
+	constraints: exercise.constraints,
+	dose: exercise.dose,
+	equipment: exercise.equipment,
+	...(exercise.goal !== undefined && { goal: exercise.goal }),
+	...(exercise.hip_plane !== undefined && { hipPlane: exercise.hip_plane }),
+	id: exercise.id,
+	mode: exercise.mode,
+	name: exercise.name,
+	...(exercise.note !== undefined && { note: exercise.note }),
+	...(exercise.plane !== undefined && { plane: exercise.plane }),
+	procedure: exercise.procedure,
+	...(exercise.seconds !== undefined && { seconds: exercise.seconds }),
+	slug: exercise.slug,
+	targets: exercise.targets
+});

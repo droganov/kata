@@ -20,34 +20,30 @@ export interface Verdict {
 
 type VerdictKind = (typeof VERDICT_KIND)[keyof typeof VERDICT_KIND];
 
-export function counterLineKey(oracle: string, line: string): string {
-	return `${oracle}${KEY_SEPARATOR}${line}`;
-}
+export const counterLineKey = (oracle: string, line: string): string =>
+	`${oracle}${KEY_SEPARATOR}${line}`;
 
-export function independentHashesOf(verdicts: readonly Verdict[]): ReadonlySet<string> {
-	return new Set(
+export const independentHashesOf = (verdicts: readonly Verdict[]): ReadonlySet<string> =>
+	new Set(
 		verdicts
 			.filter((verdict) => verdict.verdict === VERDICT_KIND.independent)
 			.map((verdict) => verdict.hash)
 	);
-}
 
-export function mergeVerdicts(
+export const mergeVerdicts = (
 	stored: readonly Verdict[],
 	incoming: readonly Verdict[]
-): readonly Verdict[] {
+): readonly Verdict[] => {
 	const byLine = new Map(
 		stored.map((verdict) => [counterLineKey(verdict.oracle, verdict.line), verdict])
 	);
 	for (const verdict of incoming)
 		byLine.set(counterLineKey(verdict.oracle, verdict.line), verdict);
 	return byLine.values().toArray();
-}
+};
 
-export function verdictHashText(
+export const verdictHashText = (
 	predicate: string,
 	stepModel: readonly string[],
 	line: string
-): string {
-	return [predicate, ...stepModel, line].join(HASH_SEPARATOR);
-}
+): string => [predicate, ...stepModel, line].join(HASH_SEPARATOR);

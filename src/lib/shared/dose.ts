@@ -38,7 +38,7 @@ const countedParts = (text: string): string[] => {
 	return isLegacyHold ? parts : parts.slice(1);
 };
 
-export function parseDose(text: string): Dose {
+export const parseDose = (text: string): Dose => {
 	const normalized = text.split(EN_DASH).join(HYPHEN);
 	const numbers = countedParts(normalized).flatMap((part) =>
 		part
@@ -52,4 +52,4 @@ export function parseDose(text: string): Dose {
 		text,
 		unit: unitOf(normalized)
 	};
-}
+};

@@ -72,8 +72,6 @@ export interface EquipmentRef {
 	readonly role: EquipmentRole;
 }
 
-export type EquipmentRole = (typeof EQUIPMENT_ROLE)[keyof typeof EQUIPMENT_ROLE];
-
 export interface ExerciseConstraints {
 	readonly axial: boolean;
 	readonly free_weight: boolean;
@@ -83,8 +81,6 @@ export interface ExerciseConstraints {
 }
 
 export type ExerciseMode = (typeof EXERCISE_MODE)[keyof typeof EXERCISE_MODE];
-
-export type TargetRole = (typeof TARGET_ROLE)[keyof typeof TARGET_ROLE];
 
 export interface Zone {
 	readonly contours: readonly Contour[];
@@ -96,6 +92,8 @@ export interface Zone {
 
 type CorePlane =
 	'anterior' | 'anti_extension' | 'anti_rotation' | 'balance' | 'lateral' | 'posterior';
+
+type EquipmentRole = (typeof EQUIPMENT_ROLE)[keyof typeof EQUIPMENT_ROLE];
 
 interface ExcludedExercise {
 	readonly name: string;
@@ -119,18 +117,17 @@ interface TargetRef {
 	readonly role: TargetRole;
 }
 
-export function bankRecords(bank: Bank): BankRecord[] {
-	return bank.zones.flatMap((zone) =>
+type TargetRole = (typeof TARGET_ROLE)[keyof typeof TARGET_ROLE];
+
+export const bankRecords = (bank: Bank): BankRecord[] =>
+	bank.zones.flatMap((zone) =>
 		zone.contours.flatMap((contour) =>
 			contour.exercises.map((exercise) => ({ contour, exercise, zone }))
 		)
 	);
-}
 
-export function contoursOf(bank: Bank): { contour: Contour; zone: Zone }[] {
-	return bank.zones.flatMap((zone) => zone.contours.map((contour) => ({ contour, zone })));
-}
+export const contoursOf = (bank: Bank): { contour: Contour; zone: Zone }[] =>
+	bank.zones.flatMap((zone) => zone.contours.map((contour) => ({ contour, zone })));
 
-export function mainEquipmentRefsOf(exercise: BankExercise): EquipmentRef[] {
-	return exercise.equipment.filter((reference) => reference.role === EQUIPMENT_ROLE.main);
-}
+export const mainEquipmentRefsOf = (exercise: BankExercise): EquipmentRef[] =>
+	exercise.equipment.filter((reference) => reference.role === EQUIPMENT_ROLE.main);

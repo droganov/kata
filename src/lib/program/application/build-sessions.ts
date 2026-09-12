@@ -6,12 +6,12 @@ import { planCatalogueOf } from './plan-exercises.ts';
 import { programOf } from './program-repositories.ts';
 import { sessionViewOf } from './program-views.ts';
 
-export function buildSessions(
+export const buildSessions = (
 	repositories: ProgramRepositories,
 	programId: string
-): readonly SessionView[] {
+): readonly SessionView[] => {
 	const program = programOf(repositories, programId);
 	return sessionsOf(program, planCatalogueOf(repositories).exercises).map((session) =>
 		sessionViewOf(session)
 	);
-}
+};

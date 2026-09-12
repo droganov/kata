@@ -21,7 +21,7 @@ const REQUIRED_PLANES: readonly CorePlane[] = [
 	CORE_PLANE.posterior
 ];
 
-export function isometricProgression(plan: ProgramPlan): readonly Finding[] {
+export const isometricProgression = (plan: ProgramPlan): readonly Finding[] => {
 	const text = plan.program.progression.isometric;
 	return ruleCheck(
 		text.includes(HOLD_STEP),
@@ -30,9 +30,9 @@ export function isometricProgression(plan: ProgramPlan): readonly Finding[] {
 		programSubject(plan.program),
 		text
 	);
-}
+};
 
-export function isometricThreePlanes(plan: ProgramPlan): readonly Finding[] {
+export const isometricThreePlanes = (plan: ProgramPlan): readonly Finding[] => {
 	const missing = plan.sessions
 		.filter((session) => !hasRequiredPlanes(planesOf(session)))
 		.map((session) => `${session.slug}: ${planesOf(session).join(LIST_SEPARATOR)}`);
@@ -43,9 +43,9 @@ export function isometricThreePlanes(plan: ProgramPlan): readonly Finding[] {
 		programSubject(plan.program),
 		missing.join(LIST_SEPARATOR)
 	);
-}
+};
 
-export function spineSafeLoad(plan: ProgramPlan): readonly Finding[] {
+export const spineSafeLoad = (plan: ProgramPlan): readonly Finding[] => {
 	const forbidden = candidatesOf(plan, SECTION_MODE.loaded)
 		.filter((exercise) => isForbiddenLoad(plan.program.contraindications, exercise))
 		.map((exercise) => exercise.name);
@@ -56,9 +56,9 @@ export function spineSafeLoad(plan: ProgramPlan): readonly Finding[] {
 		programSubject(plan.program),
 		`нарушители: ${forbidden.join(LIST_SEPARATOR)}`
 	);
-}
+};
 
-export function stretchWithoutLumbarFlexion(plan: ProgramPlan): readonly Finding[] {
+export const stretchWithoutLumbarFlexion = (plan: ProgramPlan): readonly Finding[] => {
 	const bends = candidatesOf(plan, SECTION_MODE.static_stretch)
 		.filter((exercise) => isStandingBend(exercise.name))
 		.map((exercise) => exercise.name);
@@ -69,29 +69,27 @@ export function stretchWithoutLumbarFlexion(plan: ProgramPlan): readonly Finding
 		programSubject(plan.program),
 		bends.join(LIST_SEPARATOR)
 	);
-}
+};
 
-function hasRequiredPlanes(planes: readonly string[]): boolean {
-	return REQUIRED_PLANES.every((plane) => planes.includes(plane));
-}
+const hasRequiredPlanes = (planes: readonly string[]): boolean =>
+	REQUIRED_PLANES.every((plane) => planes.includes(plane));
 
-function isForbiddenLoad(contraindications: Contraindications, exercise: PlanExercise): boolean {
+const isForbiddenLoad = (contraindications: Contraindications, exercise: PlanExercise): boolean => {
 	if (contraindications.axial_load && exercise.constraints.axial) return true;
 	if (contraindications.loaded_lumbar_flexion && exercise.constraints.lumbar_flex) return true;
 	return contraindications.loaded_lumbar_extension && exercise.constraints.lumbar_ext;
-}
+};
 
-function isStandingBend(name: string): boolean {
+const isStandingBend = (name: string): boolean => {
 	const lowered = name.toLowerCase();
 	return lowered.includes(BEND_WORD) && lowered.includes(STANDING_WORD);
-}
+};
 
-function planesOf(session: Session): readonly string[] {
-	return [
+const planesOf = (session: Session): readonly string[] =>
+	[
 		...new Set(
 			sessionExercisesWithMode(session, SECTION_MODE.isometric).flatMap((exercise) =>
 				exercise.plane === undefined ? [] : [exercise.plane]
 			)
 		)
 	].toSorted((first, second) => first.localeCompare(second));
-}

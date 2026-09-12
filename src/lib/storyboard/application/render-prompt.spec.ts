@@ -3,25 +3,26 @@ import { describe, expect, it } from 'vitest';
 import type { ExerciseView } from '../../exercise/application/exercise-views.ts';
 import type { StoryboardGateways } from './storyboard-gateways.ts';
 
+import { uuidOfLabel } from '../../../test/uuid.ts';
 import { renderPrompt } from './render-prompt.ts';
 
-const PLANK = {
+const PLANK: ExerciseView = {
 	constraints: { axial: false, free_weight: false, lumbar_ext: false, lumbar_flex: false },
 	dose: '3×30с',
-	equipment: [{ id: 'eq-mat', role: 'main' }],
+	equipment: [{ id: uuidOfLabel('eq-mat'), role: 'main' }],
 	id: 'ex-plank',
 	mode: 'isometric',
 	name: 'Планка на предплечьях',
 	procedure: {
-		id: 'pr-plank',
+		id: uuidOfLabel('pr-plank'),
 		steps: [
 			{
-				active: ['tg-abs'],
-				id: 'st-1',
+				active: [uuidOfLabel('tg-abs')],
+				id: uuidOfLabel('st-1'),
 				oracles: [
 					{
 						counterModel: ['Провисание таза'],
-						id: 'or-1',
+						id: uuidOfLabel('or-1'),
 						model: ['Ширина хвата по плечам'],
 						predicate: 'Ладони под плечами'
 					}
@@ -31,17 +32,23 @@ const PLANK = {
 		]
 	},
 	slug: 'plank_forearms',
-	targets: [{ id: 'tg-abs', role: 'primary' }]
-} as unknown as ExerciseView;
+	targets: [{ id: uuidOfLabel('tg-abs'), role: 'primary' }]
+};
 
 const GATEWAYS: StoryboardGateways = {
 	catalog: {
 		readEquipment: () => [
-			{ canonEn: 'Exercise mat', id: 'eq-mat', kind: 'tool', name: 'Коврик', slug: 'mat' }
+			{
+				canonEn: 'Exercise mat',
+				id: uuidOfLabel('eq-mat'),
+				kind: 'tool',
+				name: 'Коврик',
+				slug: 'mat'
+			}
 		],
 		readTargets: () => [
 			{
-				id: 'tg-abs',
+				id: uuidOfLabel('tg-abs'),
 				kind: 'muscle',
 				latin: 'Rectus abdominis',
 				name: 'Прямая мышца живота',

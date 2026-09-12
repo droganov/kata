@@ -1,9 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
-import type { Bank, BankExercise, BankSlug, EquipmentRole, TargetRole } from '../bank.ts';
+import type { Bank, BankExercise, BankSlug, EquipmentRef } from '../bank.ts';
+
+type TargetReference = BankExercise['targets'][number];
 import type { Catalog } from '../catalog.ts';
 import type { Equipment } from '../equipment.ts';
 
+import { withRawField } from '../../../../test/with-raw-field.ts';
 import { uuidOf } from '../../../shared/uuid.ts';
 import {
 	equipmentBackLinksSymmetric,
@@ -154,8 +157,9 @@ describe('equipmentRolesValid', () => {
 	});
 
 	it('находит чужую роль средства', () => {
-		const role = 'главное' as unknown as EquipmentRole;
-		const bank = bankOf([exerciseOf({ equipment: [{ id: BODY_ID, role }] })]);
+		const known: EquipmentRef = { id: BODY_ID, role: 'main' };
+		const reference = withRawField(known, 'role', 'главное');
+		const bank = bankOf([exerciseOf({ equipment: [reference] })]);
 		expect(equipmentRolesValid(bank)[0]?.rule).toBe('L2 ROLE_E');
 	});
 });
@@ -182,13 +186,11 @@ describe('targetRefsValid', () => {
 	});
 
 	it('находит чужую роль цели', () => {
-		const role = 'основная' as unknown as TargetRole;
+		const known: TargetReference = { id: JOINT_ID, role: 'secondary' };
+		const reference = withRawField(known, 'role', 'основная');
 		const bank = bankOf([
 			exerciseOf({
-				targets: [
-					{ id: MUSCLE_ID, role: 'primary' },
-					{ id: JOINT_ID, role }
-				]
+				targets: [{ id: MUSCLE_ID, role: 'primary' }, reference]
 			})
 		]);
 		expect(targetRefsValid(bank, catalog)[0]?.message).toContain('роль цели');

@@ -30,7 +30,7 @@ export interface OracleContext {
 	readonly tag: string;
 }
 
-export function oracleIssues(context: OracleContext): readonly Issue[] {
+export const oracleIssues = (context: OracleContext): readonly Issue[] => {
 	const { oracle, tag } = context;
 	return [
 		...predicateIssues(tag, oracle.predicate),
@@ -41,9 +41,9 @@ export function oracleIssues(context: OracleContext): readonly Issue[] {
 		...crossIssues(tag, oracle),
 		...counterLineIssues(context)
 	];
-}
+};
 
-function antonymIssues(context: OracleContext, line: string): readonly Issue[] {
+const antonymIssues = (context: OracleContext, line: string): readonly Issue[] => {
 	const source = context.stepModel.find((modelLine) => isAntonym(modelLine, line));
 	if (source === undefined) return [];
 	return [
@@ -52,35 +52,33 @@ function antonymIssues(context: OracleContext, line: string): readonly Issue[] {
 			rule: RULE.negation
 		}
 	];
-}
+};
 
-function counterLineIssues(context: OracleContext): readonly Issue[] {
-	return context.oracle.counterModel.flatMap((line) => [
+const counterLineIssues = (context: OracleContext): readonly Issue[] =>
+	context.oracle.counterModel.flatMap((line) => [
 		...lexicalNegationIssues(context, line),
 		...antonymIssues(context, line),
 		...verdictIssues(context, line)
 	]);
-}
 
-function crossIssues(tag: string, oracle: Oracle): readonly Issue[] {
+const crossIssues = (tag: string, oracle: Oracle): readonly Issue[] => {
 	const modelKeys = new Set(oracle.model.map((line) => normalizeLine(line)));
 	const hasCross = oracle.counterModel.some((line) => modelKeys.has(normalizeLine(line)));
 	return hasCross ? [{ message: `${tag}${TAG_GAP}${CROSS_MESSAGE}`, rule: RULE.unique }] : [];
-}
+};
 
-function disjointIssues(tag: string, oracle: Oracle): readonly Issue[] {
+const disjointIssues = (tag: string, oracle: Oracle): readonly Issue[] => {
 	const keys = new Set(
 		[...oracle.model, ...oracle.counterModel].map((line) => normalizeLine(line))
 	);
 	if (!keys.has(normalizeLine(oracle.predicate))) return [];
 	return [{ message: `${tag}${TAG_GAP}${DISJOINT_MESSAGE}`, rule: RULE.disjoint }];
-}
+};
 
-function hasBadLength(text: string): boolean {
-	return text.length < TEXT_MIN_LENGTH || text.length > TEXT_MAX_LENGTH;
-}
+const hasBadLength = (text: string): boolean =>
+	text.length < TEXT_MIN_LENGTH || text.length > TEXT_MAX_LENGTH;
 
-function lexicalNegationIssues(context: OracleContext, line: string): readonly Issue[] {
+const lexicalNegationIssues = (context: OracleContext, line: string): readonly Issue[] => {
 	const keys = new Set(context.stepModel.map((line) => normalizeLine(line)));
 	if (!keys.has(normalizeLine(line))) return [];
 	return [
@@ -89,9 +87,9 @@ function lexicalNegationIssues(context: OracleContext, line: string): readonly I
 			rule: RULE.negation
 		}
 	];
-}
+};
 
-function lineIssues(tag: string, field: string, line: string): readonly Issue[] {
+const lineIssues = (tag: string, field: string, line: string): readonly Issue[] => {
 	const lowered = line.toLowerCase();
 	const place = `${tag}${FIELD_GAP}${field}${TAG_GAP}${line}`;
 	const issues: Issue[] = [];
@@ -106,9 +104,9 @@ function lineIssues(tag: string, field: string, line: string): readonly Issue[] 
 	if (field === COUNTER_FIELD && VAGUE.some((bad) => lowered.includes(bad)))
 		issues.push({ message: `${tag}${TAG_GAP}${line}`, rule: RULE.specific });
 	return issues;
-}
+};
 
-function listIssues(tag: string, field: string, lines: readonly string[]): readonly Issue[] {
+const listIssues = (tag: string, field: string, lines: readonly string[]): readonly Issue[] => {
 	const repeats =
 		new Set(lines).size === lines.length
 			? []
@@ -119,18 +117,18 @@ function listIssues(tag: string, field: string, lines: readonly string[]): reado
 					}
 				];
 	return [...lines.flatMap((line) => lineIssues(tag, field, line)), ...repeats];
-}
+};
 
-function predicateIssues(tag: string, predicate: string): readonly Issue[] {
+const predicateIssues = (tag: string, predicate: string): readonly Issue[] => {
 	const isBad =
 		BAD_ATOM.some((bad) => predicate.includes(bad)) ||
 		hasBadLength(predicate) ||
 		hasLatin(predicate) ||
 		wordsOf(predicate).length < PREDICATE_MIN_WORDS;
 	return isBad ? [{ message: `${tag}${TAG_GAP}${predicate}`, rule: RULE.predicate }] : [];
-}
+};
 
-function verdictIssues(context: OracleContext, line: string): readonly Issue[] {
+const verdictIssues = (context: OracleContext, line: string): readonly Issue[] => {
 	if (!context.shouldUseVerdicts) return [];
 	if (context.independentLines.has(counterLineKey(context.oracle.id, line))) return [];
 	return [
@@ -139,10 +137,10 @@ function verdictIssues(context: OracleContext, line: string): readonly Issue[] {
 			rule: RULE.effect
 		}
 	];
-}
+};
 
-function wrapperIssues(tag: string, predicate: string): readonly Issue[] {
+const wrapperIssues = (tag: string, predicate: string): readonly Issue[] => {
 	const lowered = predicate.toLowerCase();
 	if (WRAPPER.every((bad) => !lowered.includes(bad))) return [];
 	return [{ message: `${tag}${TAG_GAP}${predicate}`, rule: RULE.wrapper }];
-}
+};

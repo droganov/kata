@@ -90,7 +90,7 @@ const activeText = (muscles: readonly string[]): string =>
 const stopWordPattern = (word: string): RegExp =>
 	new RegExp(`${WORD_START}${word}${WORD_END}`, UNICODE_FLAG);
 
-export function assertTemplateWords(lines: readonly PromptLine[]): void {
+export const assertTemplateWords = (lines: readonly PromptLine[]): void => {
 	const text = lines
 		.filter((line) => !line.isData)
 		.map((line) => line.text)
@@ -98,9 +98,9 @@ export function assertTemplateWords(lines: readonly PromptLine[]): void {
 		.toLowerCase();
 	const found = STOP_WORDS.filter((word) => stopWordPattern(word).test(text));
 	if (found.length > 0) throw new Error(`стоп-слова в шаблоне: ${found.join(ITEM_SEPARATOR)}`);
-}
+};
 
-export function decisionLines(counts: RuleCounts): readonly PromptLine[] {
+export const decisionLines = (counts: RuleCounts): readonly PromptLine[] => {
 	const total = String(counts.frameCount);
 	return [
 		templateLine(DECISION_HEAD),
@@ -114,20 +114,18 @@ export function decisionLines(counts: RuleCounts): readonly PromptLine[] {
 			`  Lines in the rule: ${String(counts.rule)}; marked ~: ${String(counts.marked)}.`
 		)
 	];
-}
+};
 
-export function frameLines(frame: Frame): readonly PromptLine[] {
-	return [
-		dataLine(`FRAME ${String(frame.number)} — ${frame.title}`),
-		templateLine(activeText(frame.activeMuscles)),
-		...frameSideLines(frame),
-		...frame.oracles.flatMap((oracle) => oracleLines(oracle)),
-		templateLine(`  CAMERA: ${frame.camera}; whole figure and equipment in the tile.`),
-		templateLine(EMPTY_LINE)
-	];
-}
+export const frameLines = (frame: Frame): readonly PromptLine[] => [
+	dataLine(`FRAME ${String(frame.number)} — ${frame.title}`),
+	templateLine(activeText(frame.activeMuscles)),
+	...frameSideLines(frame),
+	...frame.oracles.flatMap((oracle) => oracleLines(oracle)),
+	templateLine(`  CAMERA: ${frame.camera}; whole figure and equipment in the tile.`),
+	templateLine(EMPTY_LINE)
+];
 
-export function headLines(head: PromptHead): readonly PromptLine[] {
+export const headLines = (head: PromptHead): readonly PromptLine[] => {
 	const total = String(head.frameCount);
 	const columns = head.frameCount % EVEN_COLUMNS === 0 ? EVEN_COLUMNS : SINGLE_COLUMN;
 	const rows = Math.floor(head.frameCount / columns);
@@ -148,13 +146,12 @@ export function headLines(head: PromptHead): readonly PromptLine[] {
 		),
 		templateLine(EMPTY_LINE)
 	];
-}
+};
 
-export function promptTextOf(lines: readonly PromptLine[]): string {
-	return lines.map((line) => line.text).join(NEW_LINE);
-}
+export const promptTextOf = (lines: readonly PromptLine[]): string =>
+	lines.map((line) => line.text).join(NEW_LINE);
 
-function frameSideLines(frame: Frame): readonly PromptLine[] {
+const frameSideLines = (frame: Frame): readonly PromptLine[] => {
 	const side = frame.workingSide;
 	const carry = frame.carry;
 	const lines: PromptLine[] = [];
@@ -171,14 +168,12 @@ function frameSideLines(frame: Frame): readonly PromptLine[] {
 		);
 	}
 	return lines;
-}
+};
 
-function oracleLines(oracle: FrameOracle): readonly PromptLine[] {
-	return [
-		dataLine(oracleLineText(PREDICATE_INDENT, oracle.predicate)),
-		templateLine(MODEL_HEAD),
-		...oracle.model.map((line) => dataLine(oracleLineText(ORACLE_INDENT, line))),
-		templateLine(COUNTER_HEAD),
-		...oracle.counterModel.map((line) => dataLine(oracleLineText(ORACLE_INDENT, line)))
-	];
-}
+const oracleLines = (oracle: FrameOracle): readonly PromptLine[] => [
+	dataLine(oracleLineText(PREDICATE_INDENT, oracle.predicate)),
+	templateLine(MODEL_HEAD),
+	...oracle.model.map((line) => dataLine(oracleLineText(ORACLE_INDENT, line))),
+	templateLine(COUNTER_HEAD),
+	...oracle.counterModel.map((line) => dataLine(oracleLineText(ORACLE_INDENT, line)))
+];

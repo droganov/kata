@@ -36,8 +36,8 @@ const GEAR_PATTERNS = [
 	'блок'
 ];
 
-export function warmupBodyOnly(bank: Bank): Finding[] {
-	return bankRecords(bank).flatMap(({ exercise }) => {
+export const warmupBodyOnly = (bank: Bank): Finding[] =>
+	bankRecords(bank).flatMap(({ exercise }) => {
 		const matched = matchedPatterns(exercise.name, GEAR_PATTERNS);
 		return ruleCheck(
 			matched.length === 0,
@@ -46,20 +46,18 @@ export function warmupBodyOnly(bank: Bank): Finding[] {
 			`${exercise.name}: снаряд или опора ${matched.join(LIST_SEPARATOR)}`
 		);
 	});
-}
 
-export function warmupDoseFormat(bank: Bank): Finding[] {
-	return bankRecords(bank)
+export const warmupDoseFormat = (bank: Bank): Finding[] =>
+	bankRecords(bank)
 		.filter(({ exercise }) => !WARMUP_DOSE.test(exercise.dose))
 		.map(({ exercise }) => ({
 			message: `${exercise.name}: доза ${exercise.dose}`,
 			rule: RULE_DOSE,
 			subject: exerciseSubject(bank, exercise)
 		}));
-}
 
-export function warmupDynamicOnly(bank: Bank): Finding[] {
-	return bankRecords(bank).flatMap(({ exercise }) => {
+export const warmupDynamicOnly = (bank: Bank): Finding[] =>
+	bankRecords(bank).flatMap(({ exercise }) => {
 		const seconds = exercise.seconds ?? 0;
 		return ruleCheck(
 			seconds > 0 && seconds <= MAX_DYNAMIC_SECONDS,
@@ -68,9 +66,8 @@ export function warmupDynamicOnly(bank: Bank): Finding[] {
 			`${exercise.name}: seconds=${String(seconds)}`
 		);
 	});
-}
 
-export function warmupSessionTime(bank: Bank): Finding[] {
+export const warmupSessionTime = (bank: Bank): Finding[] => {
 	const budget = bank.session_budget_sec ?? 0;
 	const total = contoursOf(bank).reduce((sum, { contour }) => sum + contourSeconds(contour), 0);
 	return ruleCheck(
@@ -79,10 +76,10 @@ export function warmupSessionTime(bank: Bank): Finding[] {
 		bankSubject(bank),
 		`${String(Math.round(total))} с при бюджете ${String(budget)} с`
 	);
-}
+};
 
-export function warmupSpineSafety(bank: Bank): Finding[] {
-	return bankRecords(bank).flatMap(({ exercise }) => {
+export const warmupSpineSafety = (bank: Bank): Finding[] =>
+	bankRecords(bank).flatMap(({ exercise }) => {
 		const matched = matchedPatterns(exercise.name, SPINE_PATTERNS);
 		return ruleCheck(
 			matched.length === 0,
@@ -91,9 +88,8 @@ export function warmupSpineSafety(bank: Bank): Finding[] {
 			`${exercise.name}: запрещённый паттерн ${matched.join(LIST_SEPARATOR)}`
 		);
 	});
-}
 
-function contourSeconds(contour: Contour): number {
+const contourSeconds = (contour: Contour): number => {
 	const total = contour.exercises.reduce((sum, exercise) => sum + (exercise.seconds ?? 0), 0);
 	return ((contour.pick ?? 0) * total) / contour.exercises.length;
-}
+};

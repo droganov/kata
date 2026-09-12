@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { Program, Section, Slot } from './program.ts';
 
+import { PROGRAM_BASE } from '../../../test/program-base.ts';
 import {
 	hipPlanesOf,
 	pairingsOf,
@@ -29,7 +30,8 @@ const section: Section = {
 	slug: 'strength',
 	title: 'Силовой'
 };
-const full = {
+const full: Program = {
+	...PROGRAM_BASE,
 	hip_planes: ['flexion'],
 	outside_gym: {
 		walking: {
@@ -43,8 +45,8 @@ const full = {
 	schedule: { rotation_weeks: 2, session_budget_min: 70, sessions_per_week: 3 },
 	sections: [section],
 	volume_targets: { glutes: { max: 22, min: 12 } }
-} as unknown as Program;
-const bare = { schedule: full.schedule, sections: [section] } as unknown as Program;
+};
+const bare: Program = { ...PROGRAM_BASE, schedule: full.schedule, sections: [section] };
 
 describe('program', () => {
 	it('считает pick базы одним, а пула — заявленным', () => {
@@ -70,11 +72,12 @@ describe('program', () => {
 	});
 
 	it('считает недельные минуты ходьбы вне зала', () => {
-		const homeOnly = {
+		const homeOnly: Program = {
+			...PROGRAM_BASE,
 			outside_gym: { mobility_home: { days_per_week: 7, min_per_day: 10, name: 'Дома' } },
 			schedule: full.schedule,
 			sections: [section]
-		} as unknown as Program;
+		};
 		expect(walkingMinutesOf(full)).toBe(180);
 		expect(walkingMinutesOf(homeOnly)).toBe(0);
 		expect(walkingMinutesOf(bare)).toBe(0);

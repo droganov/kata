@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { Program, Section, Slot } from './program.ts';
 
+import { PROGRAM_BASE } from '../../../test/program-base.ts';
 import { programInvariants } from './program-invariants.ts';
 
 const KNOWN = new Set(['a', 'b']);
@@ -15,12 +16,12 @@ const sectionOf = (slots: readonly Slot[]): Section => ({
 	title: 'Силовой'
 });
 
-const programOf = (slots: readonly Slot[], pairing?: Program['pairing']): Program =>
-	({
-		sections: [sectionOf(slots)],
-		title: 'Программа',
-		...(pairing !== undefined && { pairing })
-	}) as unknown as Program;
+const programOf = (slots: readonly Slot[], pairing?: Program['pairing']): Program => ({
+	...PROGRAM_BASE,
+	sections: [sectionOf(slots)],
+	title: 'Программа',
+	...(pairing !== undefined && { pairing })
+});
 
 const rulesOf = (program: Program): string[] =>
 	programInvariants(program, KNOWN).map((finding) => finding.rule);

@@ -2,10 +2,16 @@ import { describe, expect, it, vi } from 'vitest';
 
 import type { Verdict } from '../domain/verdict.ts';
 
+import { uuidOfLabel } from '../../../test/uuid.ts';
 import { applyVerdicts } from './apply-verdicts.ts';
 
-const verdictOf = (hash: string, verdict: string, line = 'строка'): Verdict =>
-	({ hash, id: `id-${hash}`, line, oracle: 'o1', verdict }) as unknown as Verdict;
+const verdictOf = (hash: string, verdict: Verdict['verdict'], line = 'строка'): Verdict => ({
+	hash,
+	id: uuidOfLabel(`id-${hash}`),
+	line,
+	oracle: uuidOfLabel('o1'),
+	verdict
+});
 
 describe('applyVerdicts', () => {
 	it('сливает новые вердикты и сохраняет их', () => {

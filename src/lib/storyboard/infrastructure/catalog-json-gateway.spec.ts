@@ -38,7 +38,7 @@ writeFileSync(targetsFile, JSON.stringify(TARGETS), 'utf8');
 
 const subjects: string[] = [];
 const validator: SchemaValidator = {
-	assertValid: (schemaId, value, subject) => {
+	assertValid: (schemaId, _value, subject) => {
 		subjects.push(`${schemaId} ${subject}`);
 	}
 };

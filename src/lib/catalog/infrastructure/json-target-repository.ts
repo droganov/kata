@@ -12,16 +12,18 @@ export interface JsonTargetSource {
 	readonly validator: SchemaValidator;
 }
 
-export function createJsonTargetRepository(source: JsonTargetSource): TargetRepository {
-	return {
-		readAll: (): readonly Target[] =>
-			readJsonArray(source.file).map((item, at) => {
-				source.validator.assertValid(
-					TARGET_SCHEMA_ID,
-					item,
-					`${source.file}${ITEM_MARK}${String(at)}`
-				);
-				return item as Target;
-			})
-	};
-}
+const assertTarget: (
+	validator: SchemaValidator,
+	value: unknown,
+	subject: string
+) => asserts value is Target = (validator, value, subject) => {
+	validator.assertValid(TARGET_SCHEMA_ID, value, subject);
+};
+
+export const createJsonTargetRepository = (source: JsonTargetSource): TargetRepository => ({
+	readAll: (): readonly Target[] =>
+		readJsonArray(source.file).map((item, at) => {
+			assertTarget(source.validator, item, `${source.file}${ITEM_MARK}${String(at)}`);
+			return item;
+		})
+});

@@ -6,13 +6,9 @@ const CONTENT_HASH = 'sha1';
 const INPUT_ENCODING = 'utf8';
 const OUTPUT_ENCODING = 'hex';
 
-export function createCryptoHasher(): Hasher {
-	return createDigestHasher(CONTENT_HASH);
-}
+export const createCryptoHasher = (): Hasher => createDigestHasher(CONTENT_HASH);
 
-function createDigestHasher(algorithm: string): Hasher {
-	return {
-		digest: (text: string): string =>
-			createHash(algorithm).update(text, INPUT_ENCODING).digest(OUTPUT_ENCODING)
-	};
-}
+const createDigestHasher = (algorithm: string): Hasher => ({
+	digest: (text: string): string =>
+		createHash(algorithm).update(text, INPUT_ENCODING).digest(OUTPUT_ENCODING)
+});

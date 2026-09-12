@@ -69,11 +69,11 @@ const appendToGroups = (
 	return [...groups, { id: slot.id, slots: [outline], ...zone }];
 };
 
-export function sectionOutlinesOf(
+export const sectionOutlinesOf = (
 	program: Program,
 	contours: readonly ContourLocator[]
-): readonly SectionOutline[] {
-	return program.sections.map((section) => ({
+): readonly SectionOutline[] =>
+	program.sections.map((section) => ({
 		baseExerciseIds: section.slots
 			.filter((slot) => slot.kind === SLOT_KIND.base)
 			.flatMap((slot) => slot.exercises),
@@ -88,4 +88,3 @@ export function sectionOutlinesOf(
 		slug: section.slug,
 		title: section.title
 	}));
-}

@@ -12,7 +12,7 @@ export interface StoryboardUseCases {
 	renderPrompt: (exerciseId: string) => PromptView | undefined;
 }
 
-export function createStoryboard(): StoryboardUseCases {
+export const createStoryboard = (): StoryboardUseCases => {
 	const validator = createSchemaValidator(STORYBOARD_PATHS.schema);
 	const gateways = {
 		catalog: createCatalogJsonGateway({
@@ -26,4 +26,4 @@ export function createStoryboard(): StoryboardUseCases {
 		renderAllPrompts: () => renderAllPrompts(gateways),
 		renderPrompt: (exerciseId) => renderPrompt(gateways, exerciseId)
 	};
-}
+};

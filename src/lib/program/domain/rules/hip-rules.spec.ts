@@ -5,6 +5,7 @@ import type { ProgramPlan } from '../program-plan.ts';
 import type { HipPlane, Program, Section, SectionMode, Slot } from '../program.ts';
 import type { Session } from '../session.ts';
 
+import { PROGRAM_BASE } from '../../../../test/program-base.ts';
 import {
 	dynamicHipBeforeLoad,
 	hipPlanesCovered,
@@ -92,7 +93,8 @@ const planOf = (seed: PlanSeed = {}): ProgramPlan => {
 		seed.stretchBase === undefined
 			? []
 			: [{ exercises: seed.stretchBase, id: 'base', kind: 'base', label: 'База' }];
-	const program = {
+	const program: Program = {
+		...PROGRAM_BASE,
 		...(seed.hipPlanes !== undefined && { hip_planes: seed.hipPlanes }),
 		sections: [
 			sectionOf('dynamic', seed.beforeLoad ?? []),
@@ -100,7 +102,7 @@ const planOf = (seed: PlanSeed = {}): ProgramPlan => {
 			sectionOf('static_stretch', stretchSlots)
 		],
 		title: 'Программа'
-	} as unknown as Program;
+	};
 	return {
 		exercises: new Map((seed.seeds ?? []).map((one) => [one.id, exerciseOf(one)])),
 		hipMobilityExerciseIds: new Set(['hip']),

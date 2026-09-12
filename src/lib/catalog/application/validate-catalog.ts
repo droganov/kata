@@ -18,7 +18,7 @@ interface BankReport {
 	readonly title: string;
 }
 
-export function validateCatalog(repositories: CatalogRepositories): CatalogReport {
+export const validateCatalog = (repositories: CatalogRepositories): CatalogReport => {
 	const catalog = catalogOf(repositories);
 	const banks = catalog.banks.map((bank) => ({
 		exerciseCount: bankRecords(bank).length,
@@ -30,4 +30,4 @@ export function validateCatalog(repositories: CatalogRepositories): CatalogRepor
 		banks,
 		failureCount: banks.reduce((total, bank) => total + bank.findings.length, 0)
 	};
-}
+};

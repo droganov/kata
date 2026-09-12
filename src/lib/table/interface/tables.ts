@@ -13,7 +13,7 @@ export interface TableUseCases {
 	writeTables: () => WriteReport;
 }
 
-export function createTables(): TableUseCases {
+export const createTables = (): TableUseCases => {
 	const validator = createSchemaValidator(TABLE_PATHS.schema);
 	const gateways = {
 		catalog: createCatalogJsonGateway({
@@ -30,4 +30,4 @@ export function createTables(): TableUseCases {
 		validateTables: () => validateTables(gateways),
 		writeTables: () => writeTables(gateways)
 	};
-}
+};

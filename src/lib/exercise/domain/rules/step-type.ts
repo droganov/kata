@@ -39,13 +39,11 @@ const REPEATED_TYPES: ReadonlySet<StepType> = new Set([
 	STEP_TYPE.repeat
 ]);
 
-export function isWorkingType(type: StepType): boolean {
-	return REPEATED_TYPES.has(type);
-}
+export const isWorkingType = (type: StepType): boolean => REPEATED_TYPES.has(type);
 
-export function stepTypeOf(title: string): StepType {
+export const stepTypeOf = (title: string): StepType => {
 	const text = title.toLowerCase();
 	const matched = TYPE_PATTERNS.find(([pattern]) => pattern.test(text));
 	if (matched !== undefined) return matched[1];
 	return EXIT_VERB.test(text) && EXIT_OBJECT.test(text) ? STEP_TYPE.exit : STEP_TYPE.move;
-}
+};

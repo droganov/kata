@@ -4,6 +4,7 @@ import type { PlanExercise } from '../plan-exercise.ts';
 import type { ProgramPlan } from '../program-plan.ts';
 import type { Program, SectionMode } from '../program.ts';
 
+import { PROGRAM_BASE } from '../../../../test/program-base.ts';
 import { goalsChecked, sectionModeMatches } from './structure-rules.ts';
 
 const exerciseOf = (id: string, mode: SectionMode): PlanExercise => ({
@@ -17,21 +18,21 @@ const exerciseOf = (id: string, mode: SectionMode): PlanExercise => ({
 	targets: []
 });
 
-const programOf = (primary: readonly string[]): Program =>
-	({
-		goals: { primary, secondary: [] },
-		sections: [
-			{
-				bank: 'bank',
-				id: 'strength',
-				mode: 'loaded',
-				slots: [{ exercises: ['a'], id: 'base', kind: 'base', label: 'База' }],
-				slug: 'strength',
-				title: 'Силовой'
-			}
-		],
-		title: 'Программа'
-	}) as unknown as Program;
+const programOf = (primary: readonly string[]): Program => ({
+	...PROGRAM_BASE,
+	goals: { primary, secondary: [] },
+	sections: [
+		{
+			bank: 'bank',
+			id: 'strength',
+			mode: 'loaded',
+			slots: [{ exercises: ['a'], id: 'base', kind: 'base', label: 'База' }],
+			slug: 'strength',
+			title: 'Силовой'
+		}
+	],
+	title: 'Программа'
+});
 
 const planOf = (program: Program, exercise: PlanExercise): ProgramPlan => ({
 	exercises: new Map([[exercise.id, exercise]]),

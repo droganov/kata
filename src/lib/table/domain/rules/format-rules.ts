@@ -13,7 +13,7 @@ const CARRIAGE_RETURN = '\r';
 const NESTED = 'массив или вложенный объект';
 const PREVIEW_LENGTH = 60;
 
-export function fileNamesMatchTables(set: TableSet): Finding[] {
+export const fileNamesMatchTables = (set: TableSet): Finding[] => {
 	const declared: ReadonlySet<string> = new Set(TABLE_SCHEMAS.map((schema) => schema.name));
 	const present: ReadonlySet<string> = new Set(set.files.map((file) => file.name));
 	return [
@@ -30,10 +30,10 @@ export function fileNamesMatchTables(set: TableSet): Finding[] {
 			`файлы вне перечня таблиц: ${[...present.difference(declared)].join(LIST_SEPARATOR)}`
 		)
 	];
-}
+};
 
-export function keysMatchColumns(set: TableSet): Finding[] {
-	return TABLE_SCHEMAS.flatMap((schema) =>
+export const keysMatchColumns = (set: TableSet): Finding[] =>
+	TABLE_SCHEMAS.flatMap((schema) =>
 		rowsOf(set, schema.name).flatMap((row, at) => {
 			const columns: ReadonlySet<string> = new Set(schema.columns);
 			const keys: ReadonlySet<string> = new Set(Object.keys(row));
@@ -45,10 +45,9 @@ export function keysMatchColumns(set: TableSet): Finding[] {
 			);
 		})
 	);
-}
 
-export function linesAreTuples(set: TableSet): Finding[] {
-	return set.files.flatMap((file) =>
+export const linesAreTuples = (set: TableSet): Finding[] =>
+	set.files.flatMap((file) =>
 		file.lines.flatMap((line) => [
 			...ruleCheck(
 				isPlainObject(line.parsed),
@@ -64,14 +63,12 @@ export function linesAreTuples(set: TableSet): Finding[] {
 			)
 		])
 	);
-}
 
-export function primaryKeysIdentifyRows(set: TableSet): Finding[] {
-	return TABLE_SCHEMAS.flatMap((schema) => primaryKeyFindings(schema, set));
-}
+export const primaryKeysIdentifyRows = (set: TableSet): Finding[] =>
+	TABLE_SCHEMAS.flatMap((schema) => primaryKeyFindings(schema, set));
 
-export function valuesAreScalar(set: TableSet): Finding[] {
-	return TABLE_SCHEMAS.flatMap((schema) =>
+export const valuesAreScalar = (set: TableSet): Finding[] =>
+	TABLE_SCHEMAS.flatMap((schema) =>
 		rowsOf(set, schema.name).flatMap((row, at) =>
 			Object.entries(row)
 				.filter(([, value]) => !isScalar(value))
@@ -82,9 +79,8 @@ export function valuesAreScalar(set: TableSet): Finding[] {
 				}))
 		)
 	);
-}
 
-function primaryKeyFindings(schema: TableSchema, set: TableSet): Finding[] {
+const primaryKeyFindings = (schema: TableSchema, set: TableSet): Finding[] => {
 	if (fileOf(set, schema.name) === undefined) return [];
 	const seen = new Set<string>();
 	return rowsOf(set, schema.name).flatMap((row, at) => {
@@ -107,4 +103,4 @@ function primaryKeyFindings(schema: TableSchema, set: TableSet): Finding[] {
 			)
 		];
 	});
-}
+};

@@ -4,6 +4,7 @@ import type { PlanExercise } from '../plan-exercise.ts';
 import type { ProgramPlan } from '../program-plan.ts';
 import type { Program, Progression } from '../program.ts';
 
+import { PROGRAM_BASE } from '../../../../test/program-base.ts';
 import {
 	groupVolumeCorridor,
 	majorGroupFrequency,
@@ -42,7 +43,8 @@ const exerciseOf = (dose: string): PlanExercise => ({
 
 const planOf = (seed: PlanSeed = {}): ProgramPlan => {
 	const exercise = exerciseOf(seed.dose ?? '3×12');
-	const program = {
+	const program: Program = {
+		...PROGRAM_BASE,
 		progression: seed.progression ?? FULL_PROGRESSION,
 		sections: [
 			{
@@ -56,7 +58,7 @@ const planOf = (seed: PlanSeed = {}): ProgramPlan => {
 		],
 		title: 'Программа',
 		volume_targets: { glutes: { max: 22, min: 12 } }
-	} as unknown as Program;
+	};
 	return {
 		exercises: new Map([[exercise.id, exercise]]),
 		hipMobilityExerciseIds: new Set(),

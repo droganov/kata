@@ -111,6 +111,4 @@ const RULES_BY_BANK: Record<BankSlug, readonly BankRule[]> = {
 	]
 };
 
-export function rulesForBank(slug: BankSlug): readonly BankRule[] {
-	return RULES_BY_BANK[slug];
-}
+export const rulesForBank = (slug: BankSlug): readonly BankRule[] => RULES_BY_BANK[slug];

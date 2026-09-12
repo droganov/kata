@@ -5,6 +5,7 @@ import type { ProgramPlan } from '../program-plan.ts';
 import type { Program } from '../program.ts';
 import type { Session } from '../session.ts';
 
+import { PROGRAM_BASE } from '../../../../test/program-base.ts';
 import { aerobicWeeklyMinutes, staticStretchEverySession } from './secondary-rules.ts';
 
 const exerciseOf = (id: string): PlanExercise => ({
@@ -22,29 +23,29 @@ const programOf = (
 	warmupMinutes: number | undefined,
 	perWeek: number,
 	walkingMinutes: number | undefined
-): Program =>
-	({
-		...(walkingMinutes !== undefined && {
-			outside_gym: {
-				walking: {
-					intensity: 'moderate',
-					min_per_session: walkingMinutes,
-					name: 'Ходьба',
-					sessions_per_week: 4
-				}
+): Program => ({
+	...PROGRAM_BASE,
+	...(walkingMinutes !== undefined && {
+		outside_gym: {
+			walking: {
+				intensity: 'moderate',
+				min_per_session: walkingMinutes,
+				name: 'Ходьба',
+				sessions_per_week: 4
 			}
-		}),
-		schedule: { rotation_weeks: 2, session_budget_min: 70, sessions_per_week: perWeek },
-		timing: {
-			hold_rest_sec: 10,
-			rest_sec_accessory: 60,
-			rest_sec_strength: 70,
-			transition_sec: 45,
-			work_sec_per_set: 45,
-			...(warmupMinutes !== undefined && { warmup_general_min: warmupMinutes })
-		},
-		title: 'Программа'
-	}) as unknown as Program;
+		}
+	}),
+	schedule: { rotation_weeks: 2, session_budget_min: 70, sessions_per_week: perWeek },
+	timing: {
+		hold_rest_sec: 10,
+		rest_sec_accessory: 60,
+		rest_sec_strength: 70,
+		transition_sec: 45,
+		work_sec_per_set: 45,
+		...(warmupMinutes !== undefined && { warmup_general_min: warmupMinutes })
+	},
+	title: 'Программа'
+});
 
 const sessionOf = (count: number): Session => ({
 	index: 1,
@@ -56,7 +57,7 @@ const sessionOf = (count: number): Session => ({
 			section: 'stretch',
 			slots: [
 				{
-					exercises: Array.from({ length: count }, (unused, at) =>
+					exercises: Array.from({ length: count }, (_unused, at) =>
 						exerciseOf(`st${String(at)}`)
 					),
 					kind: 'pool',

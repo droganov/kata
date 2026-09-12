@@ -16,7 +16,7 @@ const ACTIVE_SUBSET_MESSAGE = 'active шага вне targets упражнени
 const STEP_MARK = 'шаг ';
 const SINGLE_MAIN = 1;
 
-export function exerciseInvariants(exercise: Exercise): readonly Issue[] {
+export const exerciseInvariants = (exercise: Exercise): readonly Issue[] => {
 	const mainIds = mainEquipmentIdsOf(exercise);
 	return [
 		...issueCheck(hasUniqueIds(exercise), IDS_RULE, DUPLICATE_IDS_MESSAGE),
@@ -38,9 +38,9 @@ export function exerciseInvariants(exercise: Exercise): readonly Issue[] {
 		),
 		...activeSubsetIssues(exercise)
 	];
-}
+};
 
-function activeSubsetIssues(exercise: Exercise): readonly Issue[] {
+const activeSubsetIssues = (exercise: Exercise): readonly Issue[] => {
 	const targetIds = targetIdsOf(exercise);
 	return exercise.procedure.steps.flatMap((step, index) =>
 		issueCheck(
@@ -49,17 +49,18 @@ function activeSubsetIssues(exercise: Exercise): readonly Issue[] {
 			`${STEP_MARK}${String(index + 1)}: ${ACTIVE_SUBSET_MESSAGE}${step.title}`
 		)
 	);
-}
+};
 
-function hasUniqueIds(exercise: Exercise): boolean {
+const hasUniqueIds = (exercise: Exercise): boolean => {
 	const ids = [
 		exercise.id,
 		exercise.procedure.id,
 		...exercise.procedure.steps.flatMap((step) => stepIdsOf(step))
 	];
 	return new Set(ids).size === ids.length;
-}
+};
 
-function stepIdsOf(step: Step): readonly string[] {
-	return [step.id, ...step.oracles.map((oracle) => oracle.id)];
-}
+const stepIdsOf = (step: Step): readonly string[] => [
+	step.id,
+	...step.oracles.map((oracle) => oracle.id)
+];

@@ -15,16 +15,22 @@ export interface JsonBankSource {
 	readonly validator: SchemaValidator;
 }
 
-export function createJsonBankRepository(source: JsonBankSource): BankRepository {
-	return {
-		readAll: (): readonly Bank[] =>
-			readdirSync(source.directory)
-				.filter((name) => name.endsWith(JSON_SUFFIX))
-				.toSorted((first, second) => first.localeCompare(second))
-				.map((name) => {
-					const parsed = readJsonFile(path.join(source.directory, name));
-					source.validator.assertValid(BANK_SCHEMA_ID, parsed, name);
-					return parsed as Bank;
-				})
-	};
-}
+const assertBank: (
+	validator: SchemaValidator,
+	value: unknown,
+	subject: string
+) => asserts value is Bank = (validator, value, subject) => {
+	validator.assertValid(BANK_SCHEMA_ID, value, subject);
+};
+
+export const createJsonBankRepository = (source: JsonBankSource): BankRepository => ({
+	readAll: (): readonly Bank[] =>
+		readdirSync(source.directory)
+			.filter((name) => name.endsWith(JSON_SUFFIX))
+			.toSorted((first, second) => first.localeCompare(second))
+			.map((name) => {
+				const parsed = readJsonFile(path.join(source.directory, name));
+				assertBank(source.validator, parsed, name);
+				return parsed;
+			})
+});

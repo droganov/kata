@@ -48,27 +48,25 @@ export interface PlanTarget {
 
 type TargetRole = (typeof TARGET_ROLE)[keyof typeof TARGET_ROLE];
 
-export function groupWeightsOf(exercise: PlanExercise): ReadonlyMap<string, number> {
+export const groupWeightsOf = (exercise: PlanExercise): ReadonlyMap<string, number> => {
 	const weights = new Map<string, number>();
 	for (const target of exercise.targets) {
 		const weight = ROLE_WEIGHT[target.role];
 		weights.set(target.group, Math.max(weights.get(target.group) ?? STABILIZER_WEIGHT, weight));
 	}
 	return weights;
-}
+};
 
-export function hasPrimaryGroup(exercise: PlanExercise, group: string): boolean {
-	return exercise.targets.some(
+export const hasPrimaryGroup = (exercise: PlanExercise, group: string): boolean =>
+	exercise.targets.some(
 		(target) => target.group === group && target.role === TARGET_ROLE.primary
 	);
-}
 
-export function planExercisesOf(
+export const planExercisesOf = (
 	ids: readonly string[],
 	exercises: PlanExercises
-): readonly PlanExercise[] {
-	return ids.flatMap((id) => {
+): readonly PlanExercise[] =>
+	ids.flatMap((id) => {
 		const found = exercises.get(id);
 		return found === undefined ? [] : [found];
 	});
-}

@@ -3,37 +3,37 @@ import { describe, expect, it } from 'vitest';
 import type { ExerciseView } from '../../exercise/application/exercise-views.ts';
 import type { StoryboardGateways } from './storyboard-gateways.ts';
 
+import { uuidOfLabel } from '../../../test/uuid.ts';
 import { renderAllPrompts } from './render-all-prompts.ts';
 
-const exerciseOf = (id: string, slug: string, name: string): ExerciseView =>
-	({
-		constraints: { axial: false, free_weight: false, lumbar_ext: false, lumbar_flex: false },
-		dose: '3×30с',
-		equipment: [{ id: 'eq-mat', role: 'main' }],
-		id,
-		mode: 'isometric',
-		name,
-		procedure: {
-			id: 'pr-1',
-			steps: [
-				{
-					active: ['tg-abs'],
-					id: 'st-1',
-					oracles: [
-						{
-							counterModel: ['Провисание таза'],
-							id: 'or-1',
-							model: ['Ширина хвата по плечам'],
-							predicate: 'Ладони под плечами'
-						}
-					],
-					title: 'Принять упор лёжа'
-				}
-			]
-		},
-		slug,
-		targets: [{ id: 'tg-abs', role: 'primary' }]
-	}) as unknown as ExerciseView;
+const exerciseOf = (id: string, slug: string, name: string): ExerciseView => ({
+	constraints: { axial: false, free_weight: false, lumbar_ext: false, lumbar_flex: false },
+	dose: '3×30с',
+	equipment: [{ id: uuidOfLabel('eq-mat'), role: 'main' }],
+	id,
+	mode: 'isometric',
+	name,
+	procedure: {
+		id: uuidOfLabel('pr-1'),
+		steps: [
+			{
+				active: [uuidOfLabel('tg-abs')],
+				id: uuidOfLabel('st-1'),
+				oracles: [
+					{
+						counterModel: ['Провисание таза'],
+						id: uuidOfLabel('or-1'),
+						model: ['Ширина хвата по плечам'],
+						predicate: 'Ладони под плечами'
+					}
+				],
+				title: 'Принять упор лёжа'
+			}
+		]
+	},
+	slug,
+	targets: [{ id: uuidOfLabel('tg-abs'), role: 'primary' }]
+});
 
 const EXERCISES: readonly ExerciseView[] = [
 	exerciseOf('ex-plank', 'plank_forearms', 'Планка'),
@@ -43,11 +43,17 @@ const EXERCISES: readonly ExerciseView[] = [
 const GATEWAYS: StoryboardGateways = {
 	catalog: {
 		readEquipment: () => [
-			{ canonEn: 'Exercise mat', id: 'eq-mat', kind: 'tool', name: 'Коврик', slug: 'mat' }
+			{
+				canonEn: 'Exercise mat',
+				id: uuidOfLabel('eq-mat'),
+				kind: 'tool',
+				name: 'Коврик',
+				slug: 'mat'
+			}
 		],
 		readTargets: () => [
 			{
-				id: 'tg-abs',
+				id: uuidOfLabel('tg-abs'),
 				kind: 'muscle',
 				latin: 'Rectus abdominis',
 				name: 'Прямая мышца живота',
