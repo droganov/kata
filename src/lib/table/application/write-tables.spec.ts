@@ -30,7 +30,12 @@ describe('writeTables', () => {
 			'step_target',
 			'oracle',
 			'oracle_line',
-			'verdict'
+			'verdict',
+			'program',
+			'block',
+			'block_pin_group',
+			'block_pin_target',
+			'block_draw'
 		]);
 		expect(report.rowCount).toBe(
 			report.files.reduce((total, file) => total + file.rowCount, 0)

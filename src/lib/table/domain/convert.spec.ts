@@ -199,3 +199,51 @@ describe('источники', () => {
 		expect(() => tablesOf({ ...sourceCatalog(), references: [] })).toThrow('neck_roll');
 	});
 });
+
+describe('программы', () => {
+	const program = {
+		contraindications: {
+			axialLoad: true,
+			freeWeightKgMax: 10,
+			lumbarExtension: true,
+			lumbarFlexion: true
+		},
+		id: 'program-1',
+		person: 'person-1',
+		sessionBudgetMin: 70,
+		sessionsPerWeek: 3
+	};
+	const declared = {
+		'program-1': {
+			blocks: [
+				{
+					modality: 'loaded',
+					name: 'Силовой',
+					pinnedGroups: [{ pick: 1, slug: 'back' }],
+					pinnedTargets: [
+						{ pick: 1, slug: 'cervical_spine' },
+						{ pick: 1, slug: 'neck_flexors' }
+					]
+				}
+			],
+			slug: 'pins_and_draw',
+			title: 'Закрепления и добор'
+		}
+	};
+
+	it('закрепляют мишени словаря и каталога и группы мышц по их строкам', () => {
+		const withProgram = tablesOf({ ...sourceCatalog(), programs: [program] }, declared);
+		expect(withProgram.program.map((row) => row.id)).toEqual(['program-1']);
+		expect(withProgram.block_pin_target.map((row) => row.target_id)).toEqual([
+			'01a0889d-3845-7b73-adc5-6b00a88f5523',
+			'catalog-target-neck-flexors'
+		]);
+		expect(withProgram.block_pin_group.map((row) => row.muscle_group_id)).toEqual([
+			'group-back'
+		]);
+	});
+
+	it('по умолчанию берут объявленные Блоки и бросают на чужой программе', () => {
+		expect(() => tablesOf({ ...sourceCatalog(), programs: [program] })).toThrow('program-1');
+	});
+});

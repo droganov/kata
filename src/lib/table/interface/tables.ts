@@ -19,6 +19,7 @@ export const createTables = (): TableUseCases => {
 		catalog: createCatalogJsonGateway({
 			equipmentFile: TABLE_PATHS.equipment,
 			modalityDirectory: TABLE_PATHS.modalities,
+			programsFile: TABLE_PATHS.programs,
 			referencesFile: TABLE_PATHS.references,
 			targetsFile: TABLE_PATHS.targets,
 			validator,

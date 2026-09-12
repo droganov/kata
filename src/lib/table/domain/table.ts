@@ -1,6 +1,10 @@
 const UNIT_SEPARATOR = '\u{1F}';
 
 export const TABLE_NAME = {
+	block: 'block',
+	block_draw: 'block_draw',
+	block_pin_group: 'block_pin_group',
+	block_pin_target: 'block_pin_target',
 	equipment: 'equipment',
 	exercise: 'exercise',
 	exercise_equipment: 'exercise_equipment',
@@ -9,6 +13,7 @@ export const TABLE_NAME = {
 	muscle_group: 'muscle_group',
 	oracle: 'oracle',
 	oracle_line: 'oracle_line',
+	program: 'program',
 	step: 'step',
 	step_target: 'step_target',
 	target: 'target',
@@ -145,6 +150,58 @@ export const TABLE_SCHEMAS: readonly TableSchema[] = [
 		name: TABLE_NAME.verdict,
 		primaryKey: ['id'],
 		unique: [['line_id']]
+	},
+	{
+		columns: [
+			'id',
+			'person_id',
+			'slug',
+			'title',
+			'sessions_per_week',
+			'session_budget_min',
+			'no_axial_load',
+			'no_lumbar_flexion',
+			'no_lumbar_extension',
+			'free_weight_kg_max'
+		],
+		foreignKeys: [],
+		name: TABLE_NAME.program,
+		primaryKey: ['id'],
+		unique: [['person_id', 'slug']]
+	},
+	{
+		columns: ['id', 'program_id', 'ord', 'name', 'modality'],
+		foreignKeys: [{ column: 'program_id', references: 'id', table: TABLE_NAME.program }],
+		name: TABLE_NAME.block,
+		primaryKey: ['id'],
+		unique: [['program_id', 'ord']]
+	},
+	{
+		columns: ['block_id', 'muscle_group_id', 'ord', 'pick'],
+		foreignKeys: [
+			{ column: 'block_id', references: 'id', table: TABLE_NAME.block },
+			{ column: 'muscle_group_id', references: 'id', table: TABLE_NAME.muscle_group }
+		],
+		name: TABLE_NAME.block_pin_group,
+		primaryKey: ['block_id', 'muscle_group_id'],
+		unique: []
+	},
+	{
+		columns: ['block_id', 'target_id', 'ord', 'pick'],
+		foreignKeys: [
+			{ column: 'block_id', references: 'id', table: TABLE_NAME.block },
+			{ column: 'target_id', references: 'id', table: TABLE_NAME.target }
+		],
+		name: TABLE_NAME.block_pin_target,
+		primaryKey: ['block_id', 'target_id'],
+		unique: []
+	},
+	{
+		columns: ['block_id', 'level', 'count', 'pick_each'],
+		foreignKeys: [{ column: 'block_id', references: 'id', table: TABLE_NAME.block }],
+		name: TABLE_NAME.block_draw,
+		primaryKey: ['block_id'],
+		unique: []
 	}
 ];
 

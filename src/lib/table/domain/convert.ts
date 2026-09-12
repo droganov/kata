@@ -1,7 +1,10 @@
+import type { SourceProgramBlocks } from './program-blocks.ts';
 import type { SourceCatalog, SourceExercise, SourcePlacement } from './source-catalog.ts';
 import type { Row, Tables } from './table.ts';
 
 import { procedureTablesOf } from './procedure.ts';
+import { PROGRAM_BLOCKS } from './program-blocks.ts';
+import { programTablesOf } from './program.ts';
 import { sourcePlacements, sourceRecords } from './source-catalog.ts';
 import {
 	CATALOG_TARGETS,
@@ -27,7 +30,10 @@ interface NamingContext {
 	readonly groupIdBySlug: ReadonlyMap<string, string>;
 }
 
-export const tablesOf = (catalog: SourceCatalog): Tables => {
+export const tablesOf = (
+	catalog: SourceCatalog,
+	declared: Readonly<Record<string, SourceProgramBlocks>> = PROGRAM_BLOCKS
+): Tables => {
 	const groups = muscleGroupRows(catalog);
 	const groupIdBySlug = new Map(groups.map((group) => [String(group.slug), String(group.id)]));
 	const dictionary = dictionaryTargetRows(catalog, groupIdBySlug);
@@ -37,7 +43,16 @@ export const tablesOf = (catalog: SourceCatalog): Tables => {
 	};
 	const catalogued = cataloguedRows(catalog, context);
 	const procedure = procedureTablesOf(catalog);
+	const targets = [...dictionary, ...catalogued.targets];
+	const program = programTablesOf(catalog.programs, declared, {
+		groupIdBySlug,
+		targetIdBySlug: new Map(targets.map((row) => [String(row.slug), String(row.id)]))
+	});
 	return {
+		block: program.block,
+		block_draw: program.block_draw,
+		block_pin_group: program.block_pin_group,
+		block_pin_target: program.block_pin_target,
 		equipment: equipmentRows(catalog),
 		exercise: catalogued.exercises,
 		exercise_equipment: exerciseEquipmentRows(catalog),
@@ -46,9 +61,10 @@ export const tablesOf = (catalog: SourceCatalog): Tables => {
 		muscle_group: groups,
 		oracle: procedure.oracle,
 		oracle_line: procedure.oracle_line,
+		program: program.program,
 		step: procedure.step,
 		step_target: procedure.step_target,
-		target: [...dictionary, ...catalogued.targets],
+		target: targets,
 		verdict: procedure.verdict
 	};
 };

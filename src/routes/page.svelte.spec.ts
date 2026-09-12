@@ -3,7 +3,11 @@ import { expect, it } from 'vitest';
 
 import Page from './+page.svelte';
 
-it('стартовая страница', () => {
-	render(Page);
-	expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Training');
+it('показывает Программы ссылками на их Занятие', () => {
+	render(Page, { data: { programs: [{ id: 'program-1', title: 'Закрепления и добор' }] } });
+	expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Программы');
+	expect(screen.getByRole('link', { name: 'Закрепления и добор' })).toHaveAttribute(
+		'href',
+		'/programs/program-1'
+	);
 });

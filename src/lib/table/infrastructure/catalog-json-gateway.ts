@@ -9,6 +9,7 @@ import type {
 	SourceEquipment,
 	SourceExercise,
 	SourceFile,
+	SourceProgram,
 	SourceReference,
 	SourceStep,
 	SourceTarget,
@@ -22,6 +23,7 @@ import { readJsonArray, readJsonFile } from './json-file.ts';
 
 const BANK_SCHEMA_ID = 'bank.schema.json';
 const EQUIPMENT_SCHEMA_ID = 'equipment.schema.json';
+const PROGRAM_SCHEMA_ID = 'program.schema.json';
 const SOURCE_SCHEMA_ID = 'source.schema.json';
 const TARGET_SCHEMA_ID = 'target.schema.json';
 const VERDICT_SCHEMA_ID = 'verdict.schema.json';
@@ -33,6 +35,7 @@ const FILE_ORDER: readonly string[] = ['warmup', 'strength', 'calisthenics', 'st
 export interface CatalogJsonSource {
 	readonly equipmentFile: string;
 	readonly modalityDirectory: string;
+	readonly programsFile: string;
 	readonly referencesFile: string;
 	readonly targetsFile: string;
 	readonly validator: SchemaValidator;
@@ -100,6 +103,21 @@ interface CatalogFileZone {
 
 type CatalogTarget = ReturnType<TargetRepository['readAll']>[number];
 
+interface ProgramFile {
+	readonly contraindications: {
+		readonly axial_load: boolean;
+		readonly free_weight_kg_max: number;
+		readonly loaded_lumbar_extension: boolean;
+		readonly loaded_lumbar_flexion: boolean;
+	};
+	readonly id: string;
+	readonly schedule: {
+		readonly session_budget_min: number;
+		readonly sessions_per_week: number;
+	};
+	readonly user: string;
+}
+
 interface ReferenceFile {
 	readonly id: string;
 	readonly note?: string;
@@ -139,6 +157,14 @@ const assertCatalogTarget: (
 	validator.assertValid(TARGET_SCHEMA_ID, value, subject);
 };
 
+const assertProgramFile: (
+	validator: SchemaValidator,
+	value: unknown,
+	subject: string
+) => asserts value is ProgramFile = (validator, value, subject) => {
+	validator.assertValid(PROGRAM_SCHEMA_ID, value, subject);
+};
+
 const assertReferenceFile: (
 	validator: SchemaValidator,
 	value: unknown,
@@ -159,6 +185,13 @@ const equipmentItems = (source: CatalogJsonSource): readonly CatalogEquipment[] 
 	readJsonArray(source.equipmentFile).map((item, at) => {
 		const subject = `${source.equipmentFile}${ITEM_MARK}${String(at)}`;
 		assertCatalogEquipment(source.validator, item, subject);
+		return item;
+	});
+
+const programItems = (source: CatalogJsonSource): readonly ProgramFile[] =>
+	readJsonArray(source.programsFile).map((item, at) => {
+		const subject = `${source.programsFile}${ITEM_MARK}${String(at)}`;
+		assertProgramFile(source.validator, item, subject);
 		return item;
 	});
 
@@ -187,6 +220,7 @@ export const createCatalogJsonGateway = (source: CatalogJsonSource): CatalogGate
 	readSourceCatalog: (): SourceCatalog => ({
 		equipment: equipmentOf(source),
 		files: filesOf(source),
+		programs: programsOf(source),
 		references: referencesOf(source),
 		targets: targetsOf(source),
 		verdicts: verdictsOf(source)
@@ -252,6 +286,20 @@ const filesOf = (source: CatalogJsonSource): readonly SourceFile[] =>
 			return fileOf(parsed);
 		})
 		.toSorted((first, second) => rank(first.slug) - rank(second.slug));
+
+const programsOf = (source: CatalogJsonSource): readonly SourceProgram[] =>
+	programItems(source).map((program) => ({
+		contraindications: {
+			axialLoad: program.contraindications.axial_load,
+			freeWeightKgMax: program.contraindications.free_weight_kg_max,
+			lumbarExtension: program.contraindications.loaded_lumbar_extension,
+			lumbarFlexion: program.contraindications.loaded_lumbar_flexion
+		},
+		id: program.id,
+		person: program.user,
+		sessionBudgetMin: program.schedule.session_budget_min,
+		sessionsPerWeek: program.schedule.sessions_per_week
+	}));
 
 const rank = (slug: string): number => FILE_ORDER.indexOf(slug);
 

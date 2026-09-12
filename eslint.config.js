@@ -34,7 +34,7 @@ const TEST_NAME_PATTERN = /\.test\.[cm]?[jt]sx?$/;
 const CONFIG_FILES = ['*.config.{js,ts}', 'eslint.config.js'];
 const SVELTEKIT_EXPORT_NAMES = '^(ssr|csr|prerender|trailingSlash|load|actions|entries|config)$';
 
-const CAPSULES = ['program', 'exercise', 'catalog', 'storyboard', 'table'];
+const CAPSULES = ['program', 'exercise', 'catalog', 'session', 'storyboard', 'table'];
 const LAYERS = ['domain', 'application', 'infrastructure', 'interface'];
 const SHARED_KERNEL_MAX_FILES = 8;
 const group = (names) => `(${names.join('|')})`;
@@ -270,6 +270,20 @@ const DOMAIN_PUBLIC_API = {
 		'sectionOutlinesOf',
 		'sessionsOf'
 	],
+	session: [
+		'Block',
+		'BlockDraw',
+		'BlockPin',
+		'Catalog',
+		'DrawLevel',
+		'Exercise',
+		'Program',
+		'Session',
+		'SessionItem',
+		'blocksInOrder',
+		'isDrawLevel',
+		'sessionOf'
+	],
 	storyboard: ['Prompt', 'PromptCatalog', 'promptOf'],
 	table: [
 		'Finding',
@@ -278,6 +292,7 @@ const DOMAIN_PUBLIC_API = {
 		'SourceExercise',
 		'SourceFile',
 		'SourceLink',
+		'SourceProgram',
 		'SourceReference',
 		'SourceStep',
 		'SourceTarget',
@@ -538,7 +553,10 @@ export default defineConfig(
 				{ 'src/**/!(+*).{ts,js,svelte,css}': 'KEBAB_CASE' },
 				{ ignoreMiddleExtensions: true }
 			],
-			'check-file/folder-naming-convention': ['error', { 'src/**/': 'KEBAB_CASE' }],
+			'check-file/folder-naming-convention': [
+				'error',
+				{ 'src/!(routes)/**/': 'KEBAB_CASE', 'src/routes/**/': 'NEXT_JS_APP_ROUTER_CASE' }
+			],
 			'check-file/no-index': 'error',
 
 			'boundaries/dependencies': [

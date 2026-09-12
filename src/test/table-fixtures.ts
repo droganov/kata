@@ -198,6 +198,7 @@ export const sourceCatalog = (): SourceCatalog => ({
 		{ canonEn: 'Band', id: BAND_EQUIPMENT, kind: 'tool', name: 'Резина', slug: 'band' }
 	],
 	files: [WARMUP, STRENGTH],
+	programs: [],
 	references: EXERCISE_SLUGS.map((slug) => ({
 		id: `source-${slug}`,
 		title: `Источник ${slug}`

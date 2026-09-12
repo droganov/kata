@@ -1,6 +1,7 @@
 export interface SourceCatalog {
 	readonly equipment: readonly SourceEquipment[];
 	readonly files: readonly SourceFile[];
+	readonly programs: readonly SourceProgram[];
 	readonly references: readonly SourceReference[];
 	readonly targets: readonly SourceTarget[];
 	readonly verdicts: readonly SourceVerdict[];
@@ -49,6 +50,14 @@ export interface SourcePlacement {
 	readonly catalogTarget: SourceCatalogTarget;
 	readonly file: SourceFile;
 	readonly group: SourceGroup;
+}
+
+export interface SourceProgram {
+	readonly contraindications: SourceContraindications;
+	readonly id: string;
+	readonly person: string;
+	readonly sessionBudgetMin: number;
+	readonly sessionsPerWeek: number;
 }
 
 export interface SourceRecord extends SourcePlacement {
@@ -105,6 +114,13 @@ interface SourceConstraints {
 	readonly kgMax?: number;
 	readonly lumbarExt: boolean;
 	readonly lumbarFlex: boolean;
+}
+
+interface SourceContraindications {
+	readonly axialLoad: boolean;
+	readonly freeWeightKgMax: number;
+	readonly lumbarExtension: boolean;
+	readonly lumbarFlexion: boolean;
 }
 
 interface SourceGroup {

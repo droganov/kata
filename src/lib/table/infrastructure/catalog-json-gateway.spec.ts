@@ -13,6 +13,7 @@ const REASONED_VERDICT = '01a0889d-3855-7add-9814-7cd71dc7b3f5';
 const catalog = createCatalogJsonGateway({
 	equipmentFile: TABLE_PATHS.equipment,
 	modalityDirectory: TABLE_PATHS.modalities,
+	programsFile: TABLE_PATHS.programs,
 	referencesFile: TABLE_PATHS.references,
 	targetsFile: TABLE_PATHS.targets,
 	validator: createSchemaValidator(TABLE_PATHS.schema),
@@ -63,6 +64,25 @@ describe('createCatalogJsonGateway на боевых данных', () => {
 	});
 });
 
+describe('программы', () => {
+	it('читает владельца, расписание и противопоказания', () => {
+		expect(catalog.programs).toEqual([
+			{
+				contraindications: {
+					axialLoad: true,
+					freeWeightKgMax: 10,
+					lumbarExtension: true,
+					lumbarFlexion: true
+				},
+				id: '01a0889d-8ae8-7c8a-b964-0ead5f668a5a',
+				person: '01a0889d-8ae9-7ccd-b01b-9dc927862f2c',
+				sessionBudgetMin: 70,
+				sessionsPerWeek: 3
+			}
+		]);
+	});
+});
+
 describe('адрес источника', () => {
 	it('переносится, когда он есть в данных', () => {
 		const directory = mkdtempSync(path.join(tmpdir(), 'table-references-'));
@@ -83,6 +103,7 @@ describe('адрес источника', () => {
 		const withUrl = createCatalogJsonGateway({
 			equipmentFile: TABLE_PATHS.equipment,
 			modalityDirectory: TABLE_PATHS.modalities,
+			programsFile: TABLE_PATHS.programs,
 			referencesFile: file,
 			targetsFile: TABLE_PATHS.targets,
 			validator: createSchemaValidator(TABLE_PATHS.schema),
@@ -127,6 +148,7 @@ describe('причина вердикта', () => {
 		const withReason = createCatalogJsonGateway({
 			equipmentFile: TABLE_PATHS.equipment,
 			modalityDirectory: TABLE_PATHS.modalities,
+			programsFile: TABLE_PATHS.programs,
 			referencesFile: TABLE_PATHS.references,
 			targetsFile: TABLE_PATHS.targets,
 			validator: createSchemaValidator(TABLE_PATHS.schema),

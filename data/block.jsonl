@@ -1,0 +1,5 @@
+{"id":"5edb5671-c954-79ed-916e-cf99906deb35","program_id":"01a0889d-8ae8-7c8a-b964-0ead5f668a5a","ord":1,"name":"Разогрев","modality":"cardio"}
+{"id":"1e207e63-a4f9-72bf-99a1-ff5bb8ce9ed7","program_id":"01a0889d-8ae8-7c8a-b964-0ead5f668a5a","ord":2,"name":"Разминка","modality":"dynamic"}
+{"id":"4031e224-b065-72c8-8581-d58c7b7ccd50","program_id":"01a0889d-8ae8-7c8a-b964-0ead5f668a5a","ord":3,"name":"Силовой","modality":"loaded"}
+{"id":"8d47060d-ec3a-7d19-827e-94753853ca01","program_id":"01a0889d-8ae8-7c8a-b964-0ead5f668a5a","ord":4,"name":"Изометрия","modality":"isometric"}
+{"id":"69cbfb5a-9eed-79de-8500-95f240a1c296","program_id":"01a0889d-8ae8-7c8a-b964-0ead5f668a5a","ord":5,"name":"Растяжка","modality":"static_stretch"}
