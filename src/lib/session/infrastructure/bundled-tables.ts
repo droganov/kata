@@ -12,6 +12,7 @@ const TABLE_FILES = import.meta.glob<string>(
 	[
 		'/data/block.jsonl',
 		'/data/block_draw.jsonl',
+		'/data/block_pair.jsonl',
 		'/data/block_pin_group.jsonl',
 		'/data/block_pin_target.jsonl',
 		'/data/equipment.jsonl',

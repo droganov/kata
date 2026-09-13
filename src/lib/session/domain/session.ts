@@ -1,6 +1,7 @@
 export interface Session {
 	readonly items: readonly SessionItem[];
 	readonly program: string;
+	readonly seed: number;
 }
 
 export interface SessionItem {

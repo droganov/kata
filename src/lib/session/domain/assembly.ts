@@ -1,101 +1,161 @@
 import type { Catalog, Exercise, MuscleGroup, Target } from './catalog.ts';
-import type { Block, BlockPin, Program } from './program.ts';
+import type { Block, Contraindications, Program } from './program.ts';
+import type { Random } from './random.ts';
 import type { Session, SessionItem } from './session.ts';
 
 import { blocksInOrder, byOrd, DRAW_LEVEL } from './program.ts';
+import { randomOf, sampled } from './random.ts';
 
 const FIRST_ORD = 1;
+const TARGETS_PER_GROUP = 1;
+const PAIR_ROWS_PER_GROUP = 1;
+const PAIR_PICK = 1;
+const LOADED_MODALITY = 'loaded';
 
-interface BlockCatalog {
+interface Assembly {
 	readonly exercises: readonly Exercise[];
+	readonly groups: readonly MuscleGroup[];
+	readonly loadedGroups: Set<string>;
+	readonly random: Random;
+	readonly taken: Set<string>;
 	readonly targets: readonly Target[];
 }
 
 type BlockItem = Omit<SessionItem, 'ord'>;
 
-interface TargetPick {
-	readonly count: number;
-	readonly target: string;
-}
-
-export const sessionOf = (program: Program, catalog: Catalog): Session => ({
-	items: blocksInOrder(program)
-		.flatMap((block) => blockItems(block, catalog))
-		.map((draft, at) => ({ ...draft, ord: at + FIRST_ORD })),
-	program: program.id
-});
-
-const blockItems = (block: Block, catalog: Catalog): readonly BlockItem[] => {
-	const blockCatalog = blockCatalogOf(block, catalog);
-	return targetPicks(block, blockCatalog, catalog.muscleGroups).flatMap((pick) =>
-		blockCatalog.exercises
-			.filter((exercise) => exercise.catalogTarget === pick.target)
-			.slice(0, pick.count)
-			.map((exercise) => ({
-				block: block.id,
-				dose: exercise.dose,
-				exercise: exercise.id,
-				target: pick.target
-			}))
-	);
-};
-
-const bySlug = (first: { readonly slug: string }, second: { readonly slug: string }): number =>
-	first.slug.localeCompare(second.slug);
-
-const drawnPicks = (
-	block: Block,
-	blockCatalog: BlockCatalog,
-	groups: readonly MuscleGroup[]
-): readonly TargetPick[] => {
-	const { draw } = block;
-	if (draw === undefined) return [];
-	const pinnedGroups = new Set<string | undefined>(block.pinnedGroups.map((pin) => pin.id));
-	if (draw.level === DRAW_LEVEL.muscle_group)
-		return groups
-			.filter((group) => !pinnedGroups.has(group.id))
-			.toSorted(byOrd)
-			.flatMap((group) => groupTargetPicks(group.id, draw.pickEach, blockCatalog))
-			.slice(0, draw.count);
-	const pinnedTargets = new Set(block.pinnedTargets.map((pin) => pin.id));
-	return blockCatalog.targets
-		.filter((target) => !pinnedTargets.has(target.id) && !pinnedGroups.has(target.muscleGroup))
-		.slice(0, draw.count)
-		.map((target) => ({ count: draw.pickEach, target: target.id }));
-};
-
-const groupTargetPicks = (
-	group: string,
-	count: number,
-	blockCatalog: BlockCatalog
-): readonly TargetPick[] =>
-	blockCatalog.targets
-		.filter((target) => target.muscleGroup === group)
-		.slice(0, 1)
-		.map((target) => ({ count, target: target.id }));
-
-const pinPicks = (pins: readonly BlockPin[]): readonly TargetPick[] =>
-	pins.toSorted(byOrd).map((pin) => ({ count: pin.pick, target: pin.id }));
-
-const blockCatalogOf = (block: Block, catalog: Catalog): BlockCatalog => {
-	const exercises = catalog.exercises
-		.filter((exercise) => exercise.modality === block.modality)
-		.toSorted(bySlug);
-	const stocked = new Set(exercises.map((exercise) => exercise.catalogTarget));
+export const sessionOf = (program: Program, catalog: Catalog, seed: number): Session => {
+	const assembly = assemblyOf(program, catalog, seed);
 	return {
-		exercises,
-		targets: catalog.targets.filter((target) => stocked.has(target.id)).toSorted(bySlug)
+		items: blocksInOrder(program)
+			.flatMap((block) => blockItems(block, assembly))
+			.map((item, at) => ({ ...item, ord: at + FIRST_ORD })),
+		program: program.id,
+		seed
 	};
 };
 
-const targetPicks = (
+const assemblyOf = (program: Program, catalog: Catalog, seed: number): Assembly => ({
+	exercises: catalog.exercises.filter((exercise) =>
+		isPermitted(exercise, program.contraindications)
+	),
+	groups: catalog.muscleGroups.toSorted(byOrd),
+	loadedGroups: new Set(),
+	random: randomOf(seed),
+	taken: new Set(),
+	targets: catalog.targets
+});
+
+const availableOf = (block: Block, target: string, assembly: Assembly): readonly Exercise[] =>
+	assembly.exercises.filter(
+		(exercise) =>
+			exercise.modality === block.modality &&
+			exercise.catalogTarget === target &&
+			!assembly.taken.has(exercise.id)
+	);
+
+const blockItems = (block: Block, assembly: Assembly): readonly BlockItem[] => {
+	const items = [
+		...block.pinnedTargets
+			.toSorted(byOrd)
+			.flatMap((pin) => targetItems(block, pin.id, pin.pick, assembly)),
+		...block.pinnedGroups
+			.toSorted(byOrd)
+			.flatMap((pin) => groupItems(block, pin.id, pin.pick, assembly)),
+		...drawnItems(block, assembly),
+		...pairedItems(block, assembly)
+	];
+	if (block.modality === LOADED_MODALITY) markLoaded(items, assembly);
+	return items;
+};
+
+const drawnItems = (block: Block, assembly: Assembly): readonly BlockItem[] => {
+	const { draw } = block;
+	if (draw === undefined) return [];
+	const pinnedTargets = new Set(block.pinnedTargets.map((pin) => pin.id));
+	const pinnedGroups = new Set<string | undefined>(block.pinnedGroups.map((pin) => pin.id));
+	if (draw.level === DRAW_LEVEL.muscle_group) {
+		const groupsOfPinnedTargets = new Set(
+			assembly.targets
+				.filter((target) => pinnedTargets.has(target.id))
+				.map((target) => target.muscleGroup)
+		);
+		return sampled(
+			assembly.groups.filter(
+				(group) =>
+					!pinnedGroups.has(group.id) &&
+					!groupsOfPinnedTargets.has(group.id) &&
+					groupTargets(block, group.id, assembly).length > 0
+			),
+			draw.count,
+			assembly.random
+		).flatMap((group) => groupItems(block, group.id, draw.pickEach, assembly));
+	}
+	return sampled(
+		assembly.targets.filter(
+			(target) =>
+				!pinnedTargets.has(target.id) &&
+				!pinnedGroups.has(target.muscleGroup) &&
+				isStocked(block, target.id, assembly)
+		),
+		draw.count,
+		assembly.random
+	).flatMap((target) => targetItems(block, target.id, draw.pickEach, assembly));
+};
+
+const groupItems = (
 	block: Block,
-	blockCatalog: BlockCatalog,
-	groups: readonly MuscleGroup[]
-): readonly TargetPick[] => [
-	...pinPicks(block.pinnedTargets),
-	...block.pinnedGroups
-		.toSorted(byOrd)
-		.flatMap((pin) => groupTargetPicks(pin.id, pin.pick, blockCatalog)),
-	...drawnPicks(block, blockCatalog, groups)
-];
+	group: string,
+	count: number,
+	assembly: Assembly
+): readonly BlockItem[] =>
+	sampled(groupTargets(block, group, assembly), TARGETS_PER_GROUP, assembly.random).flatMap(
+		(target) => targetItems(block, target.id, count, assembly)
+	);
+
+const groupTargets = (block: Block, group: string, assembly: Assembly): readonly Target[] =>
+	assembly.targets.filter(
+		(target) => target.muscleGroup === group && isStocked(block, target.id, assembly)
+	);
+
+const isOverFreeWeight = (exercise: Exercise, freeWeightKgMax: number | undefined): boolean =>
+	exercise.freeWeight &&
+	freeWeightKgMax !== undefined &&
+	(exercise.kgMax ?? Infinity) > freeWeightKgMax;
+
+const isPermitted = (exercise: Exercise, limits: Contraindications): boolean =>
+	!(limits.noAxialLoad && exercise.axial) &&
+	!(limits.noLumbarFlexion && exercise.lumbarFlex) &&
+	!(limits.noLumbarExtension && exercise.lumbarExt) &&
+	!isOverFreeWeight(exercise, limits.freeWeightKgMax);
+
+const isStocked = (block: Block, target: string, assembly: Assembly): boolean =>
+	availableOf(block, target, assembly).length > 0;
+
+const markLoaded = (items: readonly BlockItem[], assembly: Assembly): void => {
+	const loadedTargets = new Set(items.map((item) => item.target));
+	for (const target of assembly.targets)
+		if (target.muscleGroup !== undefined && loadedTargets.has(target.id))
+			assembly.loadedGroups.add(target.muscleGroup);
+};
+
+const pairedItems = (block: Block, assembly: Assembly): readonly BlockItem[] =>
+	[...assembly.loadedGroups].flatMap((group) =>
+		sampled(
+			block.pairs.filter(
+				(pair) => pair.whenGroup === group && isStocked(block, pair.thenTarget, assembly)
+			),
+			PAIR_ROWS_PER_GROUP,
+			assembly.random
+		).flatMap((pair) => targetItems(block, pair.thenTarget, PAIR_PICK, assembly))
+	);
+
+const targetItems = (
+	block: Block,
+	target: string,
+	count: number,
+	assembly: Assembly
+): readonly BlockItem[] =>
+	sampled(availableOf(block, target, assembly), count, assembly.random).map((exercise) => {
+		assembly.taken.add(exercise.id);
+		return { block: block.id, dose: exercise.dose, exercise: exercise.id, target };
+	});

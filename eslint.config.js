@@ -273,8 +273,10 @@ const DOMAIN_PUBLIC_API = {
 	session: [
 		'Block',
 		'BlockDraw',
+		'BlockPair',
 		'BlockPin',
 		'Catalog',
+		'Contraindications',
 		'DetailEntry',
 		'DetailOracle',
 		'DetailStep',

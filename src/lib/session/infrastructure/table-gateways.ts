@@ -1,7 +1,15 @@
 import type { SessionGateways } from '../application/session-gateways.ts';
 import type { Catalog } from '../domain/catalog.ts';
 import type { DetailOracle, DetailStep, ExerciseDetail } from '../domain/exercise-detail.ts';
-import type { Block, BlockDraw, BlockPin, DrawLevel, Program } from '../domain/program.ts';
+import type {
+	Block,
+	BlockDraw,
+	BlockPair,
+	BlockPin,
+	Contraindications,
+	DrawLevel,
+	Program
+} from '../domain/program.ts';
 import type { TableRow, TableRows } from './bundled-tables.ts';
 
 import { isDrawLevel } from '../domain/program.ts';
@@ -9,15 +17,18 @@ import { isDrawLevel } from '../domain/program.ts';
 const NO_TABLE = 'таблицы нет: ';
 const NOT_TEXT = 'в столбце нет строки: ';
 const NOT_NUMBER = 'в столбце нет числа: ';
+const NOT_FLAG = 'в столбце нет булева значения: ';
 const NOT_LEVEL = 'уровень добора вне перечня: ';
 const MODEL_SIDE = 'model';
 const COUNTER_SIDE = 'counter';
+const BOOLEAN_KIND = 'boolean';
 const NUMBER_KIND = 'number';
 const STRING_KIND = 'string';
 
 const TABLE = {
 	block: 'block',
 	block_draw: 'block_draw',
+	block_pair: 'block_pair',
 	block_pin_group: 'block_pin_group',
 	block_pin_target: 'block_pin_target',
 	equipment: 'equipment',
@@ -34,17 +45,26 @@ const TABLE = {
 } as const;
 
 const COLUMN = {
+	axial: 'axial',
 	block_id: 'block_id',
 	catalog_target_id: 'catalog_target_id',
 	count: 'count',
 	dose: 'dose',
 	equipment_id: 'equipment_id',
 	exercise_id: 'exercise_id',
+	free_weight: 'free_weight',
+	free_weight_kg_max: 'free_weight_kg_max',
 	id: 'id',
+	kg_max: 'kg_max',
 	level: 'level',
+	lumbar_ext: 'lumbar_ext',
+	lumbar_flex: 'lumbar_flex',
 	modality: 'modality',
 	muscle_group_id: 'muscle_group_id',
 	name: 'name',
+	no_axial_load: 'no_axial_load',
+	no_lumbar_extension: 'no_lumbar_extension',
+	no_lumbar_flexion: 'no_lumbar_flexion',
 	note: 'note',
 	oracle_id: 'oracle_id',
 	ord: 'ord',
@@ -58,7 +78,9 @@ const COLUMN = {
 	step_id: 'step_id',
 	target_id: 'target_id',
 	text: 'text',
-	title: 'title'
+	then_target_id: 'then_target_id',
+	title: 'title',
+	when_group_id: 'when_group_id'
 } as const;
 
 export const createTableGateways = (tables: TableRows): SessionGateways => {
@@ -81,20 +103,29 @@ const blockOf = (tables: TableRows, row: TableRow): Block => {
 		modality: textOf(row, COLUMN.modality),
 		name: textOf(row, COLUMN.name),
 		ord: numberOf(row, COLUMN.ord),
+		pairs: pairsOf(tables, id),
 		pinnedGroups: pinsOf(tables, TABLE.block_pin_group, COLUMN.muscle_group_id, id),
 		pinnedTargets: pinsOf(tables, TABLE.block_pin_target, COLUMN.target_id, id)
 	};
 };
 
 const catalogOf = (tables: TableRows): Catalog => ({
-	exercises: rowsOf(tables, TABLE.exercise).map((row) => ({
-		catalogTarget: textOf(row, COLUMN.catalog_target_id),
-		dose: textOf(row, COLUMN.dose),
-		id: textOf(row, COLUMN.id),
-		modality: textOf(row, COLUMN.modality),
-		name: textOf(row, COLUMN.name),
-		slug: textOf(row, COLUMN.slug)
-	})),
+	exercises: rowsOf(tables, TABLE.exercise).map((row) => {
+		const kgMax = optionalNumberOf(row, COLUMN.kg_max);
+		return {
+			axial: hasFlag(row, COLUMN.axial),
+			catalogTarget: textOf(row, COLUMN.catalog_target_id),
+			dose: textOf(row, COLUMN.dose),
+			freeWeight: hasFlag(row, COLUMN.free_weight),
+			id: textOf(row, COLUMN.id),
+			...(kgMax !== undefined && { kgMax }),
+			lumbarExt: hasFlag(row, COLUMN.lumbar_ext),
+			lumbarFlex: hasFlag(row, COLUMN.lumbar_flex),
+			modality: textOf(row, COLUMN.modality),
+			name: textOf(row, COLUMN.name),
+			slug: textOf(row, COLUMN.slug)
+		};
+	}),
 	muscleGroups: rowsOf(tables, TABLE.muscle_group).map((row) => ({
 		id: textOf(row, COLUMN.id),
 		ord: numberOf(row, COLUMN.ord)
@@ -109,6 +140,16 @@ const catalogOf = (tables: TableRows): Catalog => ({
 		};
 	})
 });
+
+const contraindicationsOf = (row: TableRow): Contraindications => {
+	const freeWeightKgMax = optionalNumberOf(row, COLUMN.free_weight_kg_max);
+	return {
+		...(freeWeightKgMax !== undefined && { freeWeightKgMax }),
+		noAxialLoad: hasFlag(row, COLUMN.no_axial_load),
+		noLumbarExtension: hasFlag(row, COLUMN.no_lumbar_extension),
+		noLumbarFlexion: hasFlag(row, COLUMN.no_lumbar_flexion)
+	};
+};
 
 const detailsOf = (tables: TableRows): ReadonlyMap<string, ExerciseDetail> => {
 	const equipmentNames = namesOf(tables, TABLE.equipment);
@@ -172,6 +213,12 @@ const drawOf = (tables: TableRows, block: string): BlockDraw | undefined =>
 			pickEach: numberOf(row, COLUMN.pick_each)
 		}))[0];
 
+const hasFlag = (row: TableRow, column: string): boolean => {
+	const value = row[column];
+	if (!isFlag(value)) throw new TypeError(NOT_FLAG + column);
+	return value;
+};
+
 const groupedBy = (
 	tables: TableRows,
 	table: string,
@@ -187,6 +234,8 @@ const groupedBy = (
 
 const inOrder = (rows: readonly TableRow[]): readonly TableRow[] =>
 	rows.toSorted((first, second) => numberOf(first, COLUMN.ord) - numberOf(second, COLUMN.ord));
+
+const isFlag = (value: unknown): value is boolean => typeof value === BOOLEAN_KIND;
 
 const isNumber = (value: unknown): value is number => typeof value === NUMBER_KIND;
 
@@ -209,6 +258,17 @@ const numberOf = (row: TableRow, column: string): number => {
 	return value;
 };
 
+const optionalNumberOf = (row: TableRow, column: string): number | undefined =>
+	row[column] === null ? undefined : numberOf(row, column);
+
+const pairsOf = (tables: TableRows, block: string): readonly BlockPair[] =>
+	rowsOf(tables, TABLE.block_pair)
+		.filter((row) => textOf(row, COLUMN.block_id) === block)
+		.map((row) => ({
+			thenTarget: textOf(row, COLUMN.then_target_id),
+			whenGroup: textOf(row, COLUMN.when_group_id)
+		}));
+
 const pinsOf = (
 	tables: TableRows,
 	table: string,
@@ -230,6 +290,7 @@ const programsOf = (tables: TableRows): readonly Program[] =>
 			blocks: rowsOf(tables, TABLE.block)
 				.filter((block) => textOf(block, COLUMN.program_id) === id)
 				.map((block) => blockOf(tables, block)),
+			contraindications: contraindicationsOf(row),
 			id,
 			title: textOf(row, COLUMN.title)
 		};

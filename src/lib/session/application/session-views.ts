@@ -17,6 +17,7 @@ export interface ProgramCardView {
 
 export interface SessionView {
 	readonly blocks: readonly SessionBlockView[];
+	readonly seed: number;
 	readonly title: string;
 }
 
@@ -67,6 +68,7 @@ export const sessionViewOf = (
 				.map((item) => itemViewOf(item, exercises, details)),
 			name: block.name
 		})),
+		seed: session.seed,
 		title: program.title
 	};
 };

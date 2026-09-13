@@ -8,6 +8,7 @@ export interface Block {
 	readonly modality: string;
 	readonly name: string;
 	readonly ord: number;
+	readonly pairs: readonly BlockPair[];
 	readonly pinnedGroups: readonly BlockPin[];
 	readonly pinnedTargets: readonly BlockPin[];
 }
@@ -18,16 +19,29 @@ export interface BlockDraw {
 	readonly pickEach: number;
 }
 
+export interface BlockPair {
+	readonly thenTarget: string;
+	readonly whenGroup: string;
+}
+
 export interface BlockPin {
 	readonly id: string;
 	readonly ord: number;
 	readonly pick: number;
 }
 
+export interface Contraindications {
+	readonly freeWeightKgMax?: number;
+	readonly noAxialLoad: boolean;
+	readonly noLumbarExtension: boolean;
+	readonly noLumbarFlexion: boolean;
+}
+
 export type DrawLevel = (typeof DRAW_LEVEL)[keyof typeof DRAW_LEVEL];
 
 export interface Program {
 	readonly blocks: readonly Block[];
+	readonly contraindications: Contraindications;
 	readonly id: string;
 	readonly title: string;
 }

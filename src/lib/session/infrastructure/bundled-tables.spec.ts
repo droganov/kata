@@ -22,6 +22,7 @@ describe('BUNDLED_TABLES', () => {
 		).toEqual([
 			'block',
 			'block_draw',
+			'block_pair',
 			'block_pin_group',
 			'block_pin_target',
 			'equipment',

@@ -1,10 +1,60 @@
 import { describe, expect, it } from 'vitest';
 
+import type { Session } from '../domain/session.ts';
+
 import { CATALOG, DETAILS, PROGRAM } from '../../../test/session-fixtures.ts';
-import { sessionOf } from '../domain/assembly.ts';
 import { programCardOf, sessionViewOf } from './session-views.ts';
 
-const session = sessionOf(PROGRAM, CATALOG);
+const SEED = 7;
+
+const session: Session = {
+	items: [
+		{
+			block: 'block-cardio',
+			dose: '5 мин',
+			exercise: 'ex-bike',
+			ord: 1,
+			target: 'target-cardio'
+		},
+		{
+			block: 'block-warmup',
+			dose: '2×10',
+			exercise: 'ex-neck-roll',
+			ord: 2,
+			target: 'target-cervical'
+		},
+		{
+			block: 'block-warmup',
+			dose: '2×8',
+			exercise: 'ex-neck-tilt',
+			ord: 3,
+			target: 'target-cervical'
+		},
+		{
+			block: 'block-strength',
+			dose: '3×15',
+			exercise: 'ex-bridge',
+			ord: 4,
+			target: 'target-glutes'
+		},
+		{
+			block: 'block-strength',
+			dose: '3×10',
+			exercise: 'ex-press',
+			ord: 5,
+			target: 'target-chest'
+		},
+		{
+			block: 'block-strength',
+			dose: '3×12',
+			exercise: 'ex-row',
+			ord: 6,
+			target: 'target-rhomboids'
+		}
+	],
+	program: 'program-1',
+	seed: SEED
+};
 const view = sessionViewOf(PROGRAM, CATALOG, session, DETAILS);
 
 describe('sessionViewOf', () => {
@@ -13,8 +63,13 @@ describe('sessionViewOf', () => {
 		expect(view.blocks.map((block) => [block.name, block.items.length])).toEqual([
 			['Разогрев', 1],
 			['Разминка', 2],
-			['Силовой', 3]
+			['Силовой', 3],
+			['Растяжка', 0]
 		]);
+	});
+
+	it('несёт зерно Занятия', () => {
+		expect(view.seed).toBe(SEED);
 	});
 
 	it('несёт название и Дозу каждого Упражнения', () => {
@@ -57,7 +112,8 @@ describe('sessionViewOf', () => {
 	it('бросает, когда позиция ссылается на Упражнение вне каталога', () => {
 		const lost = {
 			items: [{ block: 'block-warmup', dose: '1×1', exercise: 'lost', ord: 1, target: 't' }],
-			program: 'program-1'
+			program: 'program-1',
+			seed: SEED
 		};
 		expect(() => sessionViewOf(PROGRAM, CATALOG, lost, DETAILS)).toThrow('lost');
 	});

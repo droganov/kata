@@ -3,6 +3,7 @@ import type { ProgramCardView, SessionView } from '../application/session-views.
 import { assembleSession } from '../application/assemble-session.ts';
 import { listPrograms } from '../application/list-programs.ts';
 import { BUNDLED_TABLES } from '../infrastructure/bundled-tables.ts';
+import { cryptoSeed } from '../infrastructure/crypto-seed.ts';
 import { createTableGateways } from '../infrastructure/table-gateways.ts';
 
 export interface SessionUseCases {
@@ -12,7 +13,7 @@ export interface SessionUseCases {
 
 const GATEWAYS = createTableGateways(BUNDLED_TABLES);
 
-export const createSession = (): SessionUseCases => ({
-	assembleSession: (programId) => assembleSession(GATEWAYS, programId),
+export const createSession = (nextSeed: () => number = cryptoSeed): SessionUseCases => ({
+	assembleSession: (programId) => assembleSession(GATEWAYS, programId, nextSeed()),
 	listPrograms: () => listPrograms(GATEWAYS)
 });

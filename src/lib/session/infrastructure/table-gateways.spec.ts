@@ -11,23 +11,36 @@ const TABLES: Record<string, readonly TableRow[]> = {
 		{ id: 'b-alien', modality: 'loaded', name: 'Чужой', ord: 1, program_id: 'p2' }
 	],
 	block_draw: [{ block_id: 'b-strength', count: 2, level: 'muscle_group', pick_each: 1 }],
+	block_pair: [
+		{ block_id: 'b-strength', then_target_id: 't-cervical', when_group_id: 'g-glutes' }
+	],
 	block_pin_group: [{ block_id: 'b-strength', muscle_group_id: 'g-glutes', ord: 1, pick: 1 }],
 	block_pin_target: [{ block_id: 'b-warmup', ord: 1, pick: 4, target_id: 't-cervical' }],
 	equipment: [{ id: 'q-body', name: 'Тело' }],
 	exercise: [
 		{
+			axial: false,
 			catalog_target_id: 't-cervical',
 			dose: '2×10',
+			free_weight: false,
 			id: 'e1',
+			kg_max: null,
+			lumbar_ext: false,
+			lumbar_flex: false,
 			modality: 'dynamic',
 			name: 'Круги головой',
 			note: 'медленно',
 			slug: 'neck_roll'
 		},
 		{
+			axial: true,
 			catalog_target_id: 't-cardio',
 			dose: '5 мин',
+			free_weight: true,
 			id: 'e2',
+			kg_max: 16,
+			lumbar_ext: true,
+			lumbar_flex: true,
 			modality: 'cardio',
 			name: 'Велотренажёр',
 			note: null,
@@ -45,7 +58,17 @@ const TABLES: Record<string, readonly TableRow[]> = {
 		{ id: 'l2', oracle_id: 'o1', ord: 2, side: 'counter', text: 'рывок' },
 		{ id: 'l1', oracle_id: 'o1', ord: 1, side: 'model', text: 'плавно' }
 	],
-	program: [{ id: 'p1', slug: 'pins_and_draw', title: 'Закрепления и добор' }],
+	program: [
+		{
+			free_weight_kg_max: 10,
+			id: 'p1',
+			no_axial_load: true,
+			no_lumbar_extension: false,
+			no_lumbar_flexion: true,
+			slug: 'pins_and_draw',
+			title: 'Закрепления и добор'
+		}
+	],
 	step: [
 		{ exercise_id: 'e1', id: 's2', ord: 2, title: 'Возврат' },
 		{ exercise_id: 'e1', id: 's3', ord: 3, title: 'Пауза' },
@@ -73,6 +96,8 @@ const TABLES: Record<string, readonly TableRow[]> = {
 	]
 };
 
+const [PROGRAM_ROW] = TABLES.program ?? [];
+
 const gatewaysOf = (
 	tables: Record<string, readonly TableRow[]>
 ): ReturnType<typeof createTableGateways> => createTableGateways(new Map(Object.entries(tables)));
@@ -84,17 +109,26 @@ describe('createTableGateways', () => {
 		expect(gateways.catalog.readCatalog()).toEqual({
 			exercises: [
 				{
+					axial: false,
 					catalogTarget: 't-cervical',
 					dose: '2×10',
+					freeWeight: false,
 					id: 'e1',
+					lumbarExt: false,
+					lumbarFlex: false,
 					modality: 'dynamic',
 					name: 'Круги головой',
 					slug: 'neck_roll'
 				},
 				{
+					axial: true,
 					catalogTarget: 't-cardio',
 					dose: '5 мин',
+					freeWeight: true,
 					id: 'e2',
+					kgMax: 16,
+					lumbarExt: true,
+					lumbarFlex: true,
 					modality: 'cardio',
 					name: 'Велотренажёр',
 					slug: 'bike'
@@ -142,7 +176,7 @@ describe('createTableGateways', () => {
 		expect(details.get('e2')).toEqual({ equipment: [], steps: [], targets: [] });
 	});
 
-	it('собирает Программу с её Блоками, Закреплениями и добором', () => {
+	it('собирает Программу с её Блоками, Закреплениями, добором, парами и противопоказаниями', () => {
 		expect(gateways.programs.readPrograms()).toEqual([
 			{
 				blocks: [
@@ -151,6 +185,7 @@ describe('createTableGateways', () => {
 						modality: 'dynamic',
 						name: 'Разминка',
 						ord: 1,
+						pairs: [],
 						pinnedGroups: [],
 						pinnedTargets: [{ id: 't-cervical', ord: 1, pick: 4 }]
 					},
@@ -160,14 +195,33 @@ describe('createTableGateways', () => {
 						modality: 'loaded',
 						name: 'Силовой',
 						ord: 2,
+						pairs: [{ thenTarget: 't-cervical', whenGroup: 'g-glutes' }],
 						pinnedGroups: [{ id: 'g-glutes', ord: 1, pick: 1 }],
 						pinnedTargets: []
 					}
 				],
+				contraindications: {
+					freeWeightKgMax: 10,
+					noAxialLoad: true,
+					noLumbarExtension: false,
+					noLumbarFlexion: true
+				},
 				id: 'p1',
 				title: 'Закрепления и добор'
 			}
 		]);
+	});
+
+	it('не ставит потолок свободного веса, когда Программа его не задаёт', () => {
+		const unlimited = gatewaysOf({
+			...TABLES,
+			program: [{ ...PROGRAM_ROW, free_weight_kg_max: null }]
+		});
+		expect(unlimited.programs.readPrograms()[0]?.contraindications).toEqual({
+			noAxialLoad: true,
+			noLumbarExtension: false,
+			noLumbarFlexion: true
+		});
 	});
 
 	it('читает таблицы один раз и держит результат в памяти', () => {
@@ -191,6 +245,12 @@ describe('createTableGateways', () => {
 		expect(() => gatewaysOf({ ...TABLES, muscle_group: [{ id: 'g', ord: '1' }] })).toThrow(
 			'ord'
 		);
+	});
+
+	it('бросает, когда во флаговом столбце не булево значение', () => {
+		expect(() =>
+			gatewaysOf({ ...TABLES, program: [{ ...PROGRAM_ROW, no_axial_load: 'да' }] })
+		).toThrow('no_axial_load');
 	});
 
 	it('бросает на уровне добора вне перечня', () => {
