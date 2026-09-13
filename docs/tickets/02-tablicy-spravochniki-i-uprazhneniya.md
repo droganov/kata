@@ -4,7 +4,7 @@
 
 **Blocked by:** Нет, можно начинать сразу
 
-**Status:** done
+**Status:** closed
 
 - [x] Конвертер читает `warmup.json`, `strength.json`, `calisthenics.json`, `stretch.json` и пишет таблицы в jsonl
 - [x] Один файл на таблицу, одна строка на кортеж, ключи совпадают с именами столбцов

@@ -4,7 +4,7 @@
 
 Модель описана как схема Postgres. Пока базы нет, каждая таблица хранится файлом `data/<table>.jsonl`: одна строка это один кортеж, ключи это имена столбцов, значения только скалярные. Ни вложенных объектов, ни массивов. Переезд на Postgres это `COPY` из этих файлов, без преобразования формы.
 
-Термины по `CONTEXT.md`. 45 таблиц и одно представление.
+Термины по `CONTEXT.md`. 46 таблиц.
 
 ## Что даёт нормализация
 
@@ -443,20 +443,20 @@ create table session_item (
 
 ### История
 
-История это не таблица, а запрос.
+История хранит только выполненные Упражнения. Закрытое Занятие не хранится: при Финализации его выполненные Упражнения записываются в Историю, а строки `session` и `session_item` удаляются. Решение: [ADR-0011](../adr/0011-active-session-in-session-storage-history-keeps-only-done.md).
 
 ```sql
-create view history as
-select s.person_id, i.exercise_id, s.ended_at
-from session_item i
-join session s on s.id = i.session_id
-where s.ended_at is not null
-  and s.ended_at > now() - interval '21 days';
+create table history (
+  person_id   uuid not null references person(id) on delete cascade,
+  exercise_id uuid not null references exercise(id),
+  done_at     timestamptz not null,   -- момент закрытия Занятия
+  primary key (person_id, exercise_id, done_at)
+);
 ```
 
-В историю попадают все Упражнения закрытого Занятия, и выполненные, и пропущенные. Человек их видел, значит показывать их снова рано.
+Пропущенное и отклонённое в Историю не попадает. Записи старше трёх недель удаляются при записи.
 
-Сборка занятия получает на вход `person_id` и результат этого запроса.
+Сборка занятия получает на вход `person_id` и Историю за 21 день.
 
 ## Проверка нормальных форм
 
@@ -482,12 +482,12 @@ where s.ended_at is not null
 
 | Файл | Что с ним |
 |---|---|
-| `data/plan.json` | удаляется после переноса чисел в `program`, `program_timing`, `program_volume`, `block*` |
-| `static/data/days.jsonl` | удаляется, занятия теперь собираются, а не пекутся заранее |
-| `static/data/exercises.jsonl` | удаляется, его содержимое расходится по `exercise`, `exercise_target`, `exercise_equipment`, `step`, `oracle` |
-| `tools/build_data.py` | заменяется разовым конвертером из четырёх каталогов в таблицы, после конвертации удаляется |
-| `data/procedures.json`, `data/links.json`, `data/dose_by_key.json` | входят в конвертер как источники, затем удаляются |
-| критики в `tools/` | перенацеливаются на таблицы, правила сохраняются |
+| `data/plan.json` | удалён после переноса чисел в `program`, `program_timing`, `program_volume`, `block*` |
+| `static/data/days.jsonl` | удалён, занятия теперь собираются, а не пекутся заранее |
+| `static/data/exercises.jsonl` | удалён, его содержимое расходится по `exercise`, `exercise_target`, `exercise_equipment`, `step`, `oracle` |
+| `tools/build_data.py` | заменён конвертером из каталогов `data/banks/` в таблицы и удалён; конвертер уходит вместе с исходниками |
+| `data/procedures.json`, `data/links.json`, `data/dose_by_key.json` | перенесены в таблицы и удалены |
+| критики в `tools/` | переписаны на TypeScript, запускаются через `make data` |
 
 ## Перенос прототипа без потерь
 
@@ -594,4 +594,3 @@ create table prototype_target (
 - Суставы разминки приписаны к группам мышц: лопатки к Трапеции, локоть и запястье к Рукам, голеностоп к Икрам, тазобедренный и коленный к Бёдрам. Приписка сделана при проектировании, её надо подтвердить.
 - Перечисления сделаны типами Postgres. Альтернатива это таблицы-справочники, тогда добавление значения это данные, а не изменение схемы.
 - Блок Изометрии набирает режим `isometric`, поэтому семьдесят три упражнения режима `calisthenic` пока не достаются ни одному блоку.
-- Расхождение с планом хранения истории: здесь она выводится из занятий, а не хранится отдельным перечнем идентификаторов. Разбирается в тикете про историю.

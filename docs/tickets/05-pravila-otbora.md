@@ -23,7 +23,7 @@
 
 Interpretations taken during implementation:
 
-- `block_pair`: for each Muscle group loaded today (items of blocks with modality `loaded` assembled earlier), one row is drawn at random among that group's rows and gives one Exercise. Follows «для каждой нагруженной Группы мышц берётся строка» in `docs/intake/session-assembly.md`; on real tables Растяжка holds 5 to 7 items. The prototype slot had `pick 1` for the whole slot, so confirm if one extra stretch per Session was meant instead.
+- `block_pair`: for each Muscle group loaded today (items of blocks with modality `loaded` assembled earlier), one row is drawn at random among that group's rows and gives one Exercise. Follows «для каждой нагруженной Группы мышц берётся строка» in `docs/intake/session-assembly.md`; on real tables Растяжка holds 5 to 7 items.
 - An Exercise with `free_weight` and null `kg_max` counts as over the ceiling; a null `free_weight_kg_max` on the Program means no ceiling. Real tables have no such Exercise today.
 - A Muscle group draw skips groups that hold a pinned Target, just as a Target draw skips Targets of pinned Muscle groups.
 - Selection is uniform; History weights belong to ticket 10. The seed is a uint32 drawn from `crypto` by the interface and carried on `Session` and `SessionView`.

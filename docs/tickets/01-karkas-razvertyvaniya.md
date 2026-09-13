@@ -4,7 +4,7 @@
 
 **Blocked by:** Нет, можно начинать сразу
 
-**Status:** ready-for-agent
+**Status:** ready-for-human
 
 - [x] `adapter-static` заменён на `@deno/svelte-adapter`, официальный от команды Deno
 - [x] `ssr = false` сохранён: приложение остаётся клиентским
