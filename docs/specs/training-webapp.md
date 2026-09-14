@@ -88,12 +88,12 @@ Status: ready-for-agent
 
 **Прохождение**
 
-41. Как человек в зале, я вижу одно упражнение за раз, чтобы не отвлекаться.
-42. Как человек у тренажёра, я вижу название и дозу, чтобы знать, что делать.
-43. Как человек, не знающий упражнения, я открываю процедуру по шагам, чтобы разобраться.
-44. Как человек, я отмечаю упражнение выполненным и перехожу к следующему.
-45. Как человек, я отмечаю упражнение пропущенным и перехожу к следующему.
-46. Как человек, я вижу, где я в занятии и сколько осталось.
+41. As a person in the gym, I see one Exercise at a time, so I am not distracted.
+42. As a person in the middle of a set, I see the Exercise name, the Dose in large type and the Exercise note, and nothing else expanded, so I know what to do at a glance.
+43. As a person who does not know the Exercise, I open the Procedure step by step, each step revealing its Oracles, and above the steps I open the Equipment and the Targets grouped by target role, so I can work it out.
+44. As a person, I mark the Exercise done with the wide «Выполнено» button and move to the next unmarked session item.
+45. As a person, I mark the Exercise skipped with the narrow «Пропущено» button and move to the next unmarked session item.
+46. As a person, I see where I am in the Session and how much is left: the current Block with my number inside it, and a line of all Blocks of the Session with their marked counts, rather than one Session-wide number.
 47. Как человек, потерявший связь в подвале, я продолжаю занятие, потому что оно уже загружено.
 48. Как человек без связи, я вижу постоянный индикатор и счётчик неотправленных отметок, чтобы понимать, что происходит.
 49. Как человек, у которого связь вернулась, я вижу, что отметки ушли, без всяких действий с моей стороны.
@@ -184,6 +184,16 @@ w = max(d / 21, 0.02)
 
 **Манифест:** восемь полей и четыре файла иконок. Иконка `maskable` объявляется дополнительной записью: если это единственное значение `purpose`, iOS не увидит иконку вовсе.
 
+**Session screen.** Decided on a prototype over a real Session in ticket 07; the prototype stays on branch `prototype/07-ekran-prohozhdeniya`, variant A.
+
+- One Exercise at a time. At first glance: the Exercise name, the Dose in large type and the Exercise note. Nothing else is expanded.
+- Place in the Session: the current Block name with the session item's number inside that Block, «3 из 4», and under it a line of all Blocks of the Session, each with its marked count out of its session items. There is no single Session-wide number: a Session holds about thirty session items, and «18 из 30» in the middle of a set reads as noise.
+- Procedure: the step titles as a list, each step a disclosure that opens all its Oracles. An Oracle shows its observable claim, its compatible observations as a plain list, and its refuting observations as a dimmer list under the label «неправильно». The step's active Targets are not shown.
+- Equipment and Targets live next to the Procedure: one disclosure above the steps. Equipment shows its name and its role in Russian, главное or вспомогательное. Targets are grouped by target role under Первичные, Вторичные and Стабилизаторы, names comma-separated inside a group. Role codes never reach the screen.
+- Marking: two buttons fixed to the bottom of the screen, «Пропущено» narrow and outlined, «Выполнено» about twice as wide. A mark moves the screen to the next unmarked session item. A marked session item carries an outlined badge «выполнено» or «пропущено».
+- The screen is monochrome: marks and Oracle observations are never coloured green or red.
+- No Exercise images in phase 1: story 58 stays in phase 2.
+
 **Прототип удаляется.** `data/plan.json`, `static/data/days.jsonl`, `static/data/exercises.jsonl` и `tools/build_data.py` уже удалены, `procedures.json`, `links.json` и `dose_by_key.json` перенесены в таблицы и удалены, критики переписаны на TypeScript. Исходные каталоги в `data/banks/` и словари в `data/*.json` остаются входом разового конвертера и уходят вместе с кодом, который их читает.
 
 ## Testing Decisions
@@ -241,7 +251,7 @@ w = max(d / 21, 0.02)
 
 ## Further Notes
 
-**Открытый вопрос, единственный.** Экран прохождения упражнения не спроектирован. Каждое упражнение несёт процедуру из шагов, каждый шаг несёт оракулы с наблюдаемым утверждением и двумя списками наблюдений. У жима ногами только на настройке два оракула по пять и три строки. Показать это целиком, пока человек стоит у тренажёра, невозможно. Решать словами, что резать, бессмысленно: нужен грубый прототип. Пользовательские истории с 41 по 43 описывают намерение, но не форму.
+**The Session screen question is settled.** It was the only open question of this document. Ticket 07 answered it with a prototype on real data, including leg press, whose first step carries an Oracle with five compatible and three refuting observations. The answer is **Session screen** under Implementation Decisions, and stories 41 to 46 now carry its form. One point stays open in the map's Not yet specified: whether a person can go back to an earlier session item.
 
 **Решения, которые трудно отменить,** записаны в `docs/adr/`.
 

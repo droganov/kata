@@ -81,8 +81,10 @@ Labels: `wayfinder:map`
 
 - [Сборка PRD и SRS](issues/12-sborka-prd-srs.md): спека собрана, лежит в [docs/specs/training-webapp.md](../../docs/specs/training-webapp.md) и помечена `ready-for-agent`. Пятьдесят девять пользовательских историй, границы фазы 1 таблицей, два шва для тестов: сборка Занятия и интерфейс Хранилища. Форма экрана прохождения осталась единственным открытым вопросом внутри документа. Документы проработки переехали в `docs/intake/`, спеки в `docs/specs/`.
 
-- Спека разбита на шестнадцать вертикальных срезов, они лежат в [docs/tickets/](../../docs/tickets/). Каждый режет полную дорожку через все слои и проверяется сам по себе. Единственная пробка это форма экрана прохождения: она выпущена тикетом-прототипом 07 и блокирует четыре следующих.
+- Спека разбита на шестнадцать вертикальных срезов, они лежат в [docs/tickets/](../../docs/tickets/). Каждый режет полную дорожку через все слои и проверяется сам по себе. Единственная пробка это форма экрана прохождения: она выпущена тикетом-прототипом 07 и блокирует четыре следующих. Resolved on 2026-09-14, see the Session screen entry below.
 - Выравнивание после сетапа методологии, 2026-09-13. Решения, которые трудно отменить, записаны в [docs/adr/](../../docs/adr/), ADR-0001…0011. В Историю идут только выполненные Упражнения, закрытые Занятия не хранятся. Критики прототипа переписаны на TypeScript. У кардио-упражнений есть дом: Мишень вида `system`, Блок Разогрев. Словарь дополнен терминами сборки и прохождения. Тикеты перетриажены.
+
+- [Session screen](issues/11-ekran-prohozhdeniya.md), 2026-09-14: settled by ticket 07 on a prototype over a real Session. One Exercise at a time with name, Dose and note at first glance; the Procedure as step disclosures with their Oracles; Equipment and Targets by target role above the steps; «Выполнено» wider than «Пропущено», a mark moves to the next unmarked session item; monochrome; place counted inside the Block with a line of all Blocks. No images in phase 1. Recorded in the spec under **Session screen**, prototype on branch `prototype/07-ekran-prohozhdeniya`.
 
 ## Not yet specified
 
@@ -93,6 +95,8 @@ Labels: `wayfinder:map`
 - **Перечисления: типы Postgres или таблицы-справочники**. Сейчас типы. Со справочниками добавление значения это данные, а не миграция схемы.
 - **Упражнения режима `calisthenic` без Блока**. Изометрия набирает режим `isometric`, поэтому семьдесят три динамических упражнения режима `calisthenic` не достаются ни одному Блоку.
 - **Отправка почты**. Интерфейс объявляет выпуск кода, но почтовая служба не выбрана. Нужна к фазе 2.
+
+- **Going back to an earlier session item.** The Session screen only moves forward: a mark opens the next unmarked session item. Whether a person can open an earlier session item and change its mark is not decided.
 
 ## Out of scope
 

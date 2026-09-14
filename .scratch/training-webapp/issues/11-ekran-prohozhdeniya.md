@@ -1,7 +1,7 @@
 # Экран прохождения упражнения
 
 Type: prototype
-Status: open
+Status: resolved
 Blocked by: 01
 
 ## Question
@@ -23,3 +23,9 @@ Blocked by: 01
 Вопрос не решён разговором и не может быть: нужен прототип на настоящих данных. Он выпущен отдельным тикетом реализации: [docs/tickets/07-prototip-ekrana-prohozhdeniya.md](../../../docs/tickets/07-prototip-ekrana-prohozhdeniya.md).
 
 Тикет блокирует прохождение Занятия, а через него жизненный цикл, пересборку и работу без сети. Это единственная настоящая пробка в плане реализации.
+
+## Answer
+
+Settled on 2026-09-14 by ticket 07 on a prototype over a real Session; variant A won, the prototype stays on branch `prototype/07-ekran-prohozhdeniya`. Name, Dose and note at first glance; the Procedure as step disclosures with their Oracles; Equipment and Targets by target role above the steps; «Выполнено» wider than «Пропущено», and a mark moves to the next unmarked session item; monochrome; place counted inside the Block with a line of all Blocks; no images in phase 1. Going back to an earlier session item is not decided and sits in the map's Not yet specified.
+
+The full decision is in [the spec](../../../docs/specs/training-webapp.md), Implementation Decisions, **Session screen**.
