@@ -3,7 +3,7 @@ import { expect, it } from 'vitest';
 
 import Page from './+page.svelte';
 
-const DATA = {
+const VIEW = {
 	blocks: [
 		{ id: 'b-cardio', items: [], name: 'Разогрев' },
 		{
@@ -31,12 +31,14 @@ const DATA = {
 						targets: 'Шея — primary'
 					},
 					dose: '2×10',
+					exercise: 'ex-neck-roll',
 					name: 'Круги головой',
 					ord: 1
 				},
 				{
 					detail: { equipment: '', steps: [], targets: '' },
 					dose: '40с × 2',
+					exercise: 'ex-neck-tilt',
 					name: 'Наклоны головы',
 					ord: 2
 				}
@@ -44,12 +46,14 @@ const DATA = {
 			name: 'Разминка'
 		}
 	],
+	program: 'program-1',
 	seed: 7,
 	title: 'Закрепления и добор'
 };
 
 it('показывает Занятие по Блокам с названием и Дозой каждого Упражнения', () => {
-	render(Page, { data: DATA });
+	render(Page, { data: { isHistoryWarningDue: false, view: VIEW } });
+	expect(screen.queryByRole('alert')).not.toBeInTheDocument();
 	expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Закрепления и добор');
 	expect(
 		screen.getAllByRole('heading', { level: 2 }).map((heading) => heading.textContent)
@@ -60,7 +64,7 @@ it('показывает Занятие по Блокам с названием 
 });
 
 it('раскрывает Упражнение процедурой с оракулами, оборудованием, Мишенями и заметкой', () => {
-	render(Page, { data: DATA });
+	render(Page, { data: { isHistoryWarningDue: false, view: VIEW } });
 	expect(screen.getByText('Оборудование: Тело — main')).toBeInTheDocument();
 	expect(screen.getByText('Мишени: Шея — primary')).toBeInTheDocument();
 	expect(screen.getByText('Заметка: медленно')).toBeInTheDocument();
@@ -69,4 +73,9 @@ it('раскрывает Упражнение процедурой с ораку
 	expect(screen.getByText('плавно')).toBeInTheDocument();
 	expect(screen.getByText('рывок')).toBeInTheDocument();
 	expect(screen.getByText('Процедуры нет')).toBeInTheDocument();
+});
+
+it('один раз предупреждает, что История не сохраняется', () => {
+	render(Page, { data: { isHistoryWarningDue: true, view: VIEW } });
+	expect(screen.getByRole('alert')).toHaveTextContent('История не сохраняется');
 });

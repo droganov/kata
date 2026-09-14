@@ -68,6 +68,7 @@ const COLUMN = {
 	note: 'note',
 	oracle_id: 'oracle_id',
 	ord: 'ord',
+	person_id: 'person_id',
 	pick: 'pick',
 	pick_each: 'pick_each',
 	predicate: 'predicate',
@@ -287,6 +288,7 @@ const programsOf = (tables: TableRows): readonly Program[] =>
 	rowsOf(tables, TABLE.program).map((row) => {
 		const id = textOf(row, COLUMN.id);
 		return {
+			account: textOf(row, COLUMN.person_id),
 			blocks: rowsOf(tables, TABLE.block)
 				.filter((block) => textOf(block, COLUMN.program_id) === id)
 				.map((block) => blockOf(tables, block)),

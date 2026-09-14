@@ -16,3 +16,7 @@
 - [ ] Пропущенные Упражнения в Историю не попадают
 - [ ] Финализация идемпотентна
 - [ ] Просроченное за окном три недели чистится при записи
+
+## Comments
+
+Note from ticket 06, 2026-09-14: the Store's `closeSession` is already idempotent (closing a closed Session does nothing and raises no error), as the spec's Testing Decisions require. The intake's example error «Занятие уже закрыто» therefore does not apply to finalization. `store-interface.md` records this exception.

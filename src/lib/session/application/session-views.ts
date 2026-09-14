@@ -11,12 +11,14 @@ const ROLE_SEPARATOR = ' — ';
 const LIST_SEPARATOR = ' · ';
 
 export interface ProgramCardView {
+	readonly account: string;
 	readonly id: string;
 	readonly title: string;
 }
 
 export interface SessionView {
 	readonly blocks: readonly SessionBlockView[];
+	readonly program: string;
 	readonly seed: number;
 	readonly title: string;
 }
@@ -44,11 +46,13 @@ interface SessionBlockView {
 interface SessionItemView {
 	readonly detail: ExerciseDetailView;
 	readonly dose: string;
+	readonly exercise: string;
 	readonly name: string;
 	readonly ord: number;
 }
 
 export const programCardOf = (program: Program): ProgramCardView => ({
+	account: program.account,
 	id: program.id,
 	title: program.title
 });
@@ -68,6 +72,7 @@ export const sessionViewOf = (
 				.map((item) => itemViewOf(item, exercises, details)),
 			name: block.name
 		})),
+		program: program.id,
 		seed: session.seed,
 		title: program.title
 	};
@@ -97,5 +102,11 @@ const itemViewOf = (
 	if (exercise === undefined) throw new Error(NO_EXERCISE + item.exercise);
 	const detail = details.get(item.exercise);
 	if (detail === undefined) throw new Error(NO_DETAIL + item.exercise);
-	return { detail: detailViewOf(detail), dose: item.dose, name: exercise.name, ord: item.ord };
+	return {
+		detail: detailViewOf(detail),
+		dose: item.dose,
+		exercise: item.exercise,
+		name: exercise.name,
+		ord: item.ord
+	};
 };

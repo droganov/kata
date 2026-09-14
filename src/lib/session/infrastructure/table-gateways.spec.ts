@@ -65,6 +65,7 @@ const TABLES: Record<string, readonly TableRow[]> = {
 			no_axial_load: true,
 			no_lumbar_extension: false,
 			no_lumbar_flexion: true,
+			person_id: 'person-1',
 			slug: 'pins_and_draw',
 			title: 'Закрепления и добор'
 		}
@@ -179,6 +180,7 @@ describe('createTableGateways', () => {
 	it('собирает Программу с её Блоками, Закреплениями, добором, парами и противопоказаниями', () => {
 		expect(gateways.programs.readPrograms()).toEqual([
 			{
+				account: 'person-1',
 				blocks: [
 					{
 						id: 'b-warmup',

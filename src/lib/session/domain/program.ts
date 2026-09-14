@@ -40,6 +40,7 @@ export interface Contraindications {
 export type DrawLevel = (typeof DRAW_LEVEL)[keyof typeof DRAW_LEVEL];
 
 export interface Program {
+	readonly account: string;
 	readonly blocks: readonly Block[];
 	readonly contraindications: Contraindications;
 	readonly id: string;

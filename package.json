@@ -47,6 +47,7 @@
 		"eslint-plugin-sonarjs": "^4.2.0",
 		"eslint-plugin-svelte": "^3.19.0",
 		"eslint-plugin-unicorn": "^74.0.0",
+		"fake-indexeddb": "^6.2.5",
 		"globals": "^17.6.0",
 		"happy-dom": "^20.14.3",
 		"html-validate": "^11.15.0",

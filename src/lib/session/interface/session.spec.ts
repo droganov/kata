@@ -9,8 +9,18 @@ const session = createSession(() => SEED);
 describe('createSession на боевых таблицах', () => {
 	it('перечисляет Программы', () => {
 		expect(session.listPrograms()).toEqual([
-			{ id: PROGRAM_ID, title: 'Программа: БАЗА + ПУЛ' }
+			{
+				account: '01a0889d-8ae9-7ccd-b01b-9dc927862f2c',
+				id: PROGRAM_ID,
+				title: 'Программа: БАЗА + ПУЛ'
+			}
 		]);
+	});
+
+	it('находит Программу с её Аккаунтом', () => {
+		expect(session.findProgram(PROGRAM_ID).account).toBe(
+			'01a0889d-8ae9-7ccd-b01b-9dc927862f2c'
+		);
 	});
 
 	it('собирает Занятие, разбитое на пять Блоков', () => {

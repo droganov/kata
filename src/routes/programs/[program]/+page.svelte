@@ -1,14 +1,20 @@
 <script lang="ts">
-	import type { SessionView } from '../../../lib/session/application/session-views.ts';
+	import type { BrowserSession } from '../../../lib/session/interface/browser-session.ts';
 
-	let { data }: { data: SessionView } = $props();
+	let { data }: { data: BrowserSession } = $props();
 </script>
 
-<svelte:head><title>{data.title}</title></svelte:head>
+<svelte:head><title>{data.view.title}</title></svelte:head>
 
 <main class="mx-auto max-w-xl space-y-6 p-4">
-	<h1 class="text-2xl font-bold">{data.title}</h1>
-	{#each data.blocks as block (block.id)}
+	<h1 class="text-2xl font-bold">{data.view.title}</h1>
+	{#if data.isHistoryWarningDue}
+		<p class="alert alert-warning" role="alert">
+			История не сохраняется: браузер не даёт хранить данные. Выполненные Упражнения не будут
+			учитываться, и повторы станут чаще.
+		</p>
+	{/if}
+	{#each data.view.blocks as block (block.id)}
 		<section class="space-y-2">
 			<h2 class="text-lg font-semibold">{block.name}</h2>
 			{#if block.items.length === 0}

@@ -1,6 +1,9 @@
+import type { ProgramCardView } from '../lib/session/application/session-views.ts';
 import type { Catalog, Exercise } from '../lib/session/domain/catalog.ts';
 import type { ExerciseDetail } from '../lib/session/domain/exercise-detail.ts';
 import type { BlockPair, Program } from '../lib/session/domain/program.ts';
+
+import { SESSION_VIEW } from './store-contract.ts';
 
 type Limits = Partial<
 	Pick<Exercise, 'axial' | 'freeWeight' | 'kgMax' | 'lumbarExt' | 'lumbarFlex'>
@@ -115,6 +118,7 @@ export const STRETCH_PAIRS: readonly BlockPair[] = [
 ];
 
 export const PROGRAM: Program = {
+	account: 'person-1',
 	blocks: [
 		{
 			draw: { count: 2, level: 'muscle_group', pickEach: 1 },
@@ -205,3 +209,12 @@ export const GATEWAYS = {
 	details: { readDetails: () => DETAILS },
 	programs: { readPrograms: () => [PROGRAM] }
 };
+
+export const PROGRAM_CARD: ProgramCardView = {
+	account: 'person-a',
+	id: 'program-1',
+	title: 'Закрепления и добор'
+};
+
+export const serveSessionView = (): Promise<Response> =>
+	Promise.resolve(Response.json(SESSION_VIEW));

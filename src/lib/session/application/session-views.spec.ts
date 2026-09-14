@@ -68,6 +68,15 @@ describe('sessionViewOf', () => {
 		]);
 	});
 
+	it('несёт Программу Занятия и Упражнение каждой Позиции', () => {
+		expect(view.program).toBe('program-1');
+		expect(view.blocks[2]?.items.map((item) => item.exercise)).toEqual([
+			'ex-bridge',
+			'ex-press',
+			'ex-row'
+		]);
+	});
+
 	it('несёт зерно Занятия', () => {
 		expect(view.seed).toBe(SEED);
 	});
@@ -125,6 +134,10 @@ describe('sessionViewOf', () => {
 
 describe('programCardOf', () => {
 	it('показывает Программу идентификатором и названием', () => {
-		expect(programCardOf(PROGRAM)).toEqual({ id: 'program-1', title: 'Закрепления и добор' });
+		expect(programCardOf(PROGRAM)).toEqual({
+			account: 'person-1',
+			id: 'program-1',
+			title: 'Закрепления и добор'
+		});
 	});
 });
