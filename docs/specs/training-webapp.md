@@ -93,7 +93,7 @@ Status: ready-for-agent
 43. As a person who does not know the Exercise, I open the Procedure step by step, each step revealing its Oracles, and above the steps I open the Equipment and the Targets grouped by target role, so I can work it out.
 44. As a person, I mark the Exercise done with the wide «Выполнено» button and move to the next unmarked session item.
 45. As a person, I mark the Exercise skipped with the narrow «Пропущено» button and move to the next unmarked session item.
-46. As a person, I see where I am in the Session and how much is left: the current Block with my number inside it, and a line of all Blocks of the Session with their marked counts, rather than one Session-wide number.
+46. As a person, I see where I am in the Session and how much is left: the current Block with my number inside it, and a line of all Blocks of the Session with their marked counts, rather than one Session-wide number, and I open any Block in that line to go back to an earlier session item and change its mark.
 47. Как человек, потерявший связь в подвале, я продолжаю занятие, потому что оно уже загружено.
 48. Как человек без связи, я вижу постоянный индикатор и счётчик неотправленных отметок, чтобы понимать, что происходит.
 49. Как человек, у которого связь вернулась, я вижу, что отметки ушли, без всяких действий с моей стороны.
@@ -191,6 +191,7 @@ w = max(d / 21, 0.02)
 - Procedure: the step titles as a list, each step a disclosure that opens all its Oracles. An Oracle shows its observable claim, its compatible observations as a plain list, and its refuting observations as a dimmer list under the label «неправильно». The step's active Targets are not shown.
 - Equipment and Targets live next to the Procedure: one disclosure above the steps. Equipment shows its name and its role in Russian, главное or вспомогательное. Targets are grouped by target role under Первичные, Вторичные and Стабилизаторы, names comma-separated inside a group. Role codes never reach the screen.
 - Marking: two buttons fixed to the bottom of the screen, «Пропущено» narrow and outlined, «Выполнено» about twice as wide. A mark moves the screen to the next unmarked session item. A marked session item carries an outlined badge «выполнено» or «пропущено».
+- Going back: the arrows ‹ › beside the count step to the neighbouring session item across Block borders, and tapping a Block in the line opens that Block's session items with their Dose or their mark, so any earlier session item can be reopened. A new mark on a marked session item replaces the old one, as the Store already has it. Every session item marked closes the Session, so going back happens before the last mark.
 - The screen is monochrome: marks and Oracle observations are never coloured green or red.
 - No Exercise images in phase 1: story 58 stays in phase 2.
 
@@ -251,7 +252,7 @@ w = max(d / 21, 0.02)
 
 ## Further Notes
 
-**The Session screen question is settled.** It was the only open question of this document. Ticket 07 answered it with a prototype on real data, including leg press, whose first step carries an Oracle with five compatible and three refuting observations. The answer is **Session screen** under Implementation Decisions, and stories 41 to 46 now carry its form. One point stays open in the map's Not yet specified: whether a person can go back to an earlier session item.
+**The Session screen question is settled.** It was the only open question of this document. Ticket 07 answered it with a prototype on real data, including leg press, whose first step carries an Oracle with five compatible and three refuting observations. The answer is **Session screen** under Implementation Decisions, and stories 41 to 46 now carry its form. Going back to an earlier session item is part of the form: arrows to the neighbour, the line of Blocks to anything further.
 
 **Решения, которые трудно отменить,** записаны в `docs/adr/`.
 

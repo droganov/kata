@@ -26,6 +26,6 @@ Blocked by: 01
 
 ## Answer
 
-Settled on 2026-09-14 by ticket 07 on a prototype over a real Session; variant A won, the prototype stays on branch `prototype/07-ekran-prohozhdeniya`. Name, Dose and note at first glance; the Procedure as step disclosures with their Oracles; Equipment and Targets by target role above the steps; «Выполнено» wider than «Пропущено», and a mark moves to the next unmarked session item; monochrome; place counted inside the Block with a line of all Blocks; no images in phase 1. Going back to an earlier session item is not decided and sits in the map's Not yet specified.
+Settled on 2026-09-14 by ticket 07 on a prototype over a real Session; variant A won, the prototype stays on branch `prototype/07-ekran-prohozhdeniya`. Name, Dose and note at first glance; the Procedure as step disclosures with their Oracles; Equipment and Targets by target role above the steps; «Выполнено» wider than «Пропущено», and a mark moves to the next unmarked session item; monochrome; place counted inside the Block with a line of all Blocks; no images in phase 1. Going back to an earlier session item, decided 2026-09-16: the arrows ‹ › beside the count step to the neighbouring session item, and tapping a Block in the line opens that Block's session items; a new mark replaces the old one.
 
 The full decision is in [the spec](../../../docs/specs/training-webapp.md), Implementation Decisions, **Session screen**.
