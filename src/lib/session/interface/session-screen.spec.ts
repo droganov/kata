@@ -16,6 +16,7 @@ const STARTED: BrowserSession = {
 	isHistoryWarningDue: false,
 	session: {
 		account: 'person-a',
+		markedAt: SESSION_START.toISOString(),
 		marks: [{ ord: 1, status: 'done' }],
 		openedAt: SESSION_START.toISOString(),
 		view: SESSION_VIEW

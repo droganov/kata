@@ -68,6 +68,7 @@ const isString = (value: unknown): boolean => typeof value === STRING_KIND;
 const isActiveSession = (value: unknown): value is ActiveSession =>
 	isRecord(value) &&
 	typeof value.account === STRING_KIND &&
+	typeof value.markedAt === STRING_KIND &&
 	Array.isArray(value.marks) &&
 	typeof value.openedAt === STRING_KIND &&
 	isSessionView(value.view);

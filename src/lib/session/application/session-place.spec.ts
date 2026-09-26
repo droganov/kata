@@ -7,6 +7,7 @@ import { nextAfterMark, openedItemOf, placeOf, resumeAt } from './session-place.
 
 const sessionWith = (...marks: readonly SessionMark[]): ActiveSession => ({
 	account: 'person-a',
+	markedAt: SESSION_START.toISOString(),
 	marks,
 	openedAt: SESSION_START.toISOString(),
 	view: SESSION_VIEW

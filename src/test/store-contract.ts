@@ -16,7 +16,12 @@ export const SESSION_START = new Date('2026-09-14T08:00:00.000Z');
 const ACCOUNT = 'person-a';
 const OTHER_ACCOUNT = 'person-b';
 const WINDOW_DAYS = 21;
+const LONG_AGO_DAYS = 365;
 const DAY_MS = 86_400_000;
+const HOUR_MS = 3_600_000;
+
+const hoursAfterStart = (hours: number): Date =>
+	new Date(SESSION_START.getTime() + hours * HOUR_MS);
 
 const daysAfterStart = (days: number): Date => new Date(SESSION_START.getTime() + days * DAY_MS);
 
@@ -58,6 +63,7 @@ export const describeStoreContract = (name: string, createStore: StoreFactory): 
 			const opened = await store.openSession(ACCOUNT, SESSION_VIEW);
 			expect(opened).toEqual({
 				account: ACCOUNT,
+				markedAt: SESSION_START.toISOString(),
 				marks: [],
 				openedAt: SESSION_START.toISOString(),
 				view: SESSION_VIEW
@@ -89,6 +95,29 @@ export const describeStoreContract = (name: string, createStore: StoreFactory): 
 			expect(await store.activeSession(ACCOUNT)).toEqual(marked);
 		});
 
+		it('пишет время Отметки, чтение Активных занятий его не двигает', async () => {
+			let now = SESSION_START;
+			const store = createStore(() => now);
+			await store.openSession(ACCOUNT, SESSION_VIEW);
+			now = hoursAfterStart(1);
+			await store.markExercise(ACCOUNT, { ord: 1, status: 'done' });
+			now = hoursAfterStart(3);
+			await store.activeSession(ACCOUNT);
+			await store.activeSessions();
+			const active = await store.activeSession(ACCOUNT);
+			expect(active?.markedAt).toBe(hoursAfterStart(1).toISOString());
+		});
+
+		it('отдаёт все Активные занятия устройства', async () => {
+			const store = createStore(() => SESSION_START);
+			expect(await store.activeSessions()).toEqual([]);
+			await store.openSession(ACCOUNT, SESSION_VIEW);
+			await store.openSession(OTHER_ACCOUNT, SESSION_VIEW);
+			await store.closeSession(ACCOUNT);
+			const active = await store.activeSessions();
+			expect(active.map((session) => session.account)).toEqual([OTHER_ACCOUNT]);
+		});
+
 		it('на Отметку без Активного занятия отвечает предметной ошибкой', async () => {
 			const store = createStore(() => SESSION_START);
 			await expect(store.markExercise(ACCOUNT, { ord: 1, status: 'done' })).rejects.toThrow(
@@ -115,7 +144,7 @@ export const describeStoreContract = (name: string, createStore: StoreFactory): 
 			expect(await store.isHistoryAvailable()).toBe(true);
 		});
 
-		it('при закрытии пишет в Историю только выполненное и снимает Активное занятие', async () => {
+		it('при закрытии пишет в Историю только выполненное со временем последней Отметки и снимает Активное занятие', async () => {
 			let now = SESSION_START;
 			const store = createStore(() => now);
 			await store.openSession(ACCOUNT, SESSION_VIEW);
@@ -125,7 +154,7 @@ export const describeStoreContract = (name: string, createStore: StoreFactory): 
 			await store.closeSession(ACCOUNT);
 			expect(await store.activeSession(ACCOUNT)).toBeUndefined();
 			expect(await store.recentExercises(ACCOUNT, WINDOW_DAYS)).toEqual([
-				{ doneAt: daysAfterStart(1).toISOString(), exercise: 'ex-neck-roll' }
+				{ doneAt: SESSION_START.toISOString(), exercise: 'ex-neck-roll' }
 			]);
 		});
 
@@ -151,6 +180,21 @@ export const describeStoreContract = (name: string, createStore: StoreFactory): 
 			expect(await store.recentExercises(ACCOUNT, WINDOW_DAYS)).toHaveLength(1);
 			now = daysAfterStart(WINDOW_DAYS + 1);
 			expect(await store.recentExercises(ACCOUNT, WINDOW_DAYS)).toEqual([]);
+		});
+
+		it('при записи в Историю чистит выполненное раньше окна', async () => {
+			let now = SESSION_START;
+			const store = createStore(() => now);
+			await store.openSession(ACCOUNT, SESSION_VIEW);
+			await store.markExercise(ACCOUNT, { ord: 1, status: 'done' });
+			await store.closeSession(ACCOUNT);
+			now = daysAfterStart(WINDOW_DAYS + 1);
+			await store.openSession(ACCOUNT, SESSION_VIEW);
+			await store.markExercise(ACCOUNT, { ord: 2, status: 'done' });
+			await store.closeSession(ACCOUNT);
+			expect(await store.recentExercises(ACCOUNT, LONG_AGO_DAYS)).toEqual([
+				{ doneAt: daysAfterStart(WINDOW_DAYS + 1).toISOString(), exercise: 'ex-bridge' }
+			]);
 		});
 
 		it('не смешивает данные разных Аккаунтов', async () => {

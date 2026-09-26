@@ -20,6 +20,7 @@ const ITEM = { detail: DETAIL, dose: '2Ã—10', exercise: 'ex-neck-roll', name: 'Ð
 
 const SESSION = {
 	account: 'person-a',
+	markedAt: '2026-09-14T08:10:00.000Z',
 	marks: [{ ord: 1, status: 'done' }],
 	openedAt: '2026-09-14T08:00:00.000Z',
 	view: {
@@ -53,6 +54,7 @@ describe('activeSessionOf', () => {
 		'null',
 		'[]',
 		JSON.stringify({ ...SESSION, account: 1 }),
+		JSON.stringify({ ...SESSION, markedAt: undefined }),
 		JSON.stringify({ ...SESSION, marks: {} }),
 		JSON.stringify({ ...SESSION, openedAt: 1 }),
 		JSON.stringify({ ...SESSION, view: null }),

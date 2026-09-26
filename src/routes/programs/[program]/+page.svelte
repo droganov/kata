@@ -6,7 +6,10 @@
 
 	import { nextAfterMark, placeOf } from '../../../lib/session/application/session-place.ts';
 	import { MARK_STATUS } from '../../../lib/session/application/store.ts';
-	import { markBrowserSession } from '../../../lib/session/interface/browser-session.ts';
+	import {
+		cancelBrowserSession,
+		markBrowserSession
+	} from '../../../lib/session/interface/browser-session.ts';
 	import {
 		closeDisclosure,
 		disclosureKeyOf,
@@ -17,6 +20,9 @@
 	let { data }: { data: SessionScreen } = $props();
 
 	const EQUIPMENT_DISCLOSURE = 'equipment';
+	const PROGRAM_LIST_PATH = '/';
+	const PROGRAM_PATH = '/programs/';
+	const FINISHED_PATH = '/finished';
 	const MARK_NAMES = {
 		[MARK_STATUS.done]: 'выполнено',
 		[MARK_STATUS.skipped]: 'пропущено'
@@ -28,7 +34,15 @@
 
 	const mark = async (ord: number, status: SessionMark['status']): Promise<void> => {
 		const marked = await markBrowserSession(session.account, { ord, status });
-		await goto(sessionItemAddress(nextAfterMark(marked, ord)), { invalidateAll: true });
+		if (marked.isFinalized) await goto(PROGRAM_PATH + session.view.program + FINISHED_PATH);
+		else
+			await goto(sessionItemAddress(nextAfterMark(marked.session, ord)), {
+				invalidateAll: true
+			});
+	};
+	const cancel = async (): Promise<void> => {
+		await cancelBrowserSession(session.account);
+		await goto(PROGRAM_LIST_PATH);
 	};
 	const blockAddress = (ord: number, block: string): string =>
 		block === data.openedBlock ? sessionItemAddress(ord) : sessionItemAddress(ord, block);
@@ -195,6 +209,10 @@
 				</details>
 			{/each}
 		</section>
+
+		<button class="btn self-center btn-ghost btn-sm" onclick={cancel} type="button"
+			>Отменить Занятие</button
+		>
 
 		<footer class="fixed inset-x-0 bottom-0 border-t border-base-300 bg-base-100 p-4">
 			<div class="mx-auto grid max-w-xl grid-cols-2 gap-3">

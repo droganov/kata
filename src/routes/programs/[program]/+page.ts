@@ -13,12 +13,15 @@ const TEMPORARY_REDIRECT = 307;
 export const load = async ({
 	data,
 	fetch,
+	parent,
 	url
 }: {
 	readonly data: { readonly program: ProgramCardView };
 	readonly fetch: Fetch;
+	readonly parent: () => Promise<unknown>;
 	readonly url: URL;
 }): Promise<SessionScreen> => {
+	await parent();
 	const started = await startBrowserSession(data.program, fetch);
 	if (started.session.view.program !== data.program.id)
 		redirect(TEMPORARY_REDIRECT, PROGRAMS_PATH + started.session.view.program);

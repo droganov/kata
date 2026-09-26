@@ -28,7 +28,7 @@ describe('startBrowserSession', () => {
 		await startBrowserSession(PROGRAM_CARD, serveSessionView);
 		const marked = await markBrowserSession(PROGRAM_CARD.account, { ord: 2, status: 'done' });
 		const reloaded = await startBrowserSession(PROGRAM_CARD, serveSessionView);
-		expect(marked.marks).toEqual([{ ord: 2, status: 'done' }]);
+		expect(marked.session.marks).toEqual([{ ord: 2, status: 'done' }]);
 		expect(reloaded.session.marks).toEqual([{ ord: 2, status: 'done' }]);
 	});
 

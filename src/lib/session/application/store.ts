@@ -7,10 +7,13 @@ const NO_ACTIVE_SESSION_NAME = 'NoActiveSessionError';
 const NO_SESSION_ITEM = 'Позиции нет в Активном занятии: ';
 const NO_SESSION_ITEM_NAME = 'NoSessionItemError';
 
+export const HISTORY_DAYS = 21;
+
 export const MARK_STATUS = { done: 'done', skipped: 'skipped' } as const;
 
 export interface ActiveSession {
 	readonly account: string;
+	readonly markedAt: string;
 	readonly marks: readonly SessionMark[];
 	readonly openedAt: string;
 	readonly view: SessionView;
@@ -28,6 +31,7 @@ export interface SessionMark {
 
 export interface Store {
 	activeSession: (account: string) => Promise<ActiveSession | undefined>;
+	activeSessions: () => Promise<readonly ActiveSession[]>;
 	closeSession: (account: string) => Promise<void>;
 	isHistoryAvailable: () => Promise<boolean>;
 	markExercise: (account: string, mark: SessionMark) => Promise<ActiveSession>;

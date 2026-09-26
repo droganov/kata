@@ -5,6 +5,7 @@ import {
 	ActiveSessionExistsError,
 	doneExercisesOf,
 	hasSessionItem,
+	HISTORY_DAYS,
 	NoActiveSessionError,
 	NoSessionItemError
 } from '../application/store.ts';
@@ -47,6 +48,7 @@ export const createBrowserStore = (deps: BrowserStoreDeps): Store => {
 			return;
 		}
 	};
+	const daysBack = (days: number): number => deps.now().getTime() - days * DAY_MS;
 	const readActive = (account: string): ActiveSession | undefined =>
 		activeSessionOf(deps.storage.getItem(activeSessionKey(account)));
 	const writeActive = (session: ActiveSession): ActiveSession => {
@@ -55,7 +57,8 @@ export const createBrowserStore = (deps: BrowserStoreDeps): Store => {
 	};
 	const openSession = (account: string, view: SessionView): ActiveSession => {
 		if (readActive(account) !== undefined) throw new ActiveSessionExistsError(account);
-		return writeActive({ account, marks: [], openedAt: deps.now().toISOString(), view });
+		const openedAt = deps.now().toISOString();
+		return writeActive({ account, markedAt: openedAt, marks: [], openedAt, view });
 	};
 	const markExercise = (account: string, mark: SessionMark): ActiveSession => {
 		const session = readActive(account);
@@ -63,6 +66,7 @@ export const createBrowserStore = (deps: BrowserStoreDeps): Store => {
 		if (!hasSessionItem(session, mark.ord)) throw new NoSessionItemError(mark.ord);
 		return writeActive({
 			...session,
+			markedAt: deps.now().toISOString(),
 			marks: [...session.marks.filter((kept) => kept.ord !== mark.ord), mark].toSorted(
 				(first, second) => first.ord - second.ord
 			)
@@ -72,20 +76,29 @@ export const createBrowserStore = (deps: BrowserStoreDeps): Store => {
 		const session = readActive(account);
 		if (session === undefined) return;
 		deps.storage.removeItem(activeSessionKey(account));
-		const doneAt = deps.now().toISOString();
-		const performed = doneExercisesOf(session).map((exercise) => ({ doneAt, exercise }));
-		await withHistory((opened) => appendPerformed(opened, account, performed));
+		const performed = doneExercisesOf(session).map((exercise) => ({
+			doneAt: session.markedAt,
+			exercise
+		}));
+		await withHistory((opened) =>
+			appendPerformed(opened, account, performed, daysBack(HISTORY_DAYS))
+		);
 	};
 	const recentExercises = async (
 		account: string,
 		days: number
 	): Promise<readonly Performed[]> => {
-		const since = deps.now().getTime() - days * DAY_MS;
 		const performed = await withHistory((opened) => readPerformed(opened, account));
-		return (performed ?? []).filter((entry) => Date.parse(entry.doneAt) >= since);
+		return performedSince(performed ?? [], daysBack(days));
 	};
+	const activeSessions = (): readonly ActiveSession[] =>
+		storedKeysOf(deps.storage)
+			.filter((key) => key.startsWith(ACTIVE_SESSION_KEY))
+			.map((key) => activeSessionOf(deps.storage.getItem(key)))
+			.filter((session) => session !== undefined);
 	return {
 		activeSession: (account) => Promise.try(() => readActive(account)),
+		activeSessions: () => Promise.try(activeSessions),
 		closeSession,
 		isHistoryAvailable: async () => (await historyDatabase()) !== null,
 		markExercise: (account, mark) => Promise.try(() => markExercise(account, mark)),
@@ -99,13 +112,15 @@ const activeSessionKey = (account: string): string => ACTIVE_SESSION_KEY + accou
 const appendPerformed = async (
 	database: IDBDatabase,
 	account: string,
-	performed: readonly Performed[]
+	performed: readonly Performed[],
+	keptSince: number
 ): Promise<void> => {
 	const transaction = database.transaction(HISTORY_STORE, READ_WRITE);
 	const history = transaction.objectStore(HISTORY_STORE);
 	const request = history.get(account);
 	request.addEventListener(SUCCESS_EVENT, () => {
-		history.put([...performedOf(request.result), ...performed], account);
+		const kept = performedSince(performedOf(request.result), keptSince);
+		history.put([...kept, ...performed], account);
 	});
 	await settled(transaction);
 };
@@ -139,6 +154,9 @@ const openRequest = (factory: IDBFactory): Promise<IDBDatabase | null> =>
 		request.addEventListener(ERROR_EVENT, finish);
 	});
 
+const performedSince = (performed: readonly Performed[], since: number): readonly Performed[] =>
+	performed.filter((entry) => Date.parse(entry.doneAt) >= since);
+
 const readPerformed = async (
 	database: IDBDatabase,
 	account: string
@@ -148,6 +166,11 @@ const readPerformed = async (
 	await settled(transaction);
 	return performedOf(request.result);
 };
+
+const storedKeysOf = (storage: Storage): readonly string[] =>
+	Array.from({ length: storage.length }, (_, index) => storage.key(index)).filter(
+		(key) => key !== null
+	);
 
 const settled = (transaction: IDBTransaction): Promise<void> =>
 	new Promise((resolve, reject) => {

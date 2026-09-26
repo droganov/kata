@@ -245,6 +245,20 @@ describe('экран прохождения Занятия', () => {
 		expect(hrefOf(/Разминка/v)).toBe('?item=2');
 	});
 
+	it('последняя Отметка завершает Занятие и ведёт на экран завершения', async () => {
+		renderAt(await openedWith({ ord: 1, status: 'done' }, { ord: 2, status: 'skipped' }));
+		await fireEvent.click(screen.getByRole('button', { name: 'Выполнено' }));
+		expect(await store().activeSession(ACCOUNT)).toBeUndefined();
+		expect(goto).toHaveBeenCalledWith('/programs/program-1/finished');
+	});
+
+	it('отмена закрывает Занятие и возвращает к списку Программ', async () => {
+		renderAt(await openedWith({ ord: 1, status: 'done' }));
+		await fireEvent.click(screen.getByRole('button', { name: 'Отменить Занятие' }));
+		expect(await store().activeSession(ACCOUNT)).toBeUndefined();
+		expect(goto).toHaveBeenCalledWith('/');
+	});
+
 	it('без Позиций говорит, что Упражнений нет', async () => {
 		renderAt(await store().openSession(ACCOUNT, { ...VIEW, blocks: [] }));
 		expect(screen.getByText('Упражнений нет')).toBeInTheDocument();
