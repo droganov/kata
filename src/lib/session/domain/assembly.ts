@@ -1,8 +1,10 @@
 import type { Catalog, Exercise, MuscleGroup, Target } from './catalog.ts';
+import type { NoveltyWeight } from './novelty.ts';
 import type { Block, Contraindications, Program } from './program.ts';
 import type { Random } from './random.ts';
 import type { Session, SessionItem } from './session.ts';
 
+import { WITHOUT_HISTORY } from './novelty.ts';
 import { blocksInOrder, byOrd, DRAW_LEVEL } from './program.ts';
 import { randomOf, sampled } from './random.ts';
 
@@ -16,6 +18,7 @@ interface Assembly {
 	readonly exercises: readonly Exercise[];
 	readonly groups: readonly MuscleGroup[];
 	readonly loadedGroups: Set<string>;
+	readonly novelty: NoveltyWeight;
 	readonly random: Random;
 	readonly taken: Set<string>;
 	readonly targets: readonly Target[];
@@ -23,8 +26,13 @@ interface Assembly {
 
 type BlockItem = Omit<SessionItem, 'ord'>;
 
-export const sessionOf = (program: Program, catalog: Catalog, seed: number): Session => {
-	const assembly = assemblyOf(program, catalog, seed);
+export const sessionOf = (
+	program: Program,
+	catalog: Catalog,
+	seed: number,
+	novelty: NoveltyWeight = WITHOUT_HISTORY
+): Session => {
+	const assembly = assemblyOf(program, catalog, seed, novelty);
 	return {
 		items: blocksInOrder(program)
 			.flatMap((block) => blockItems(block, assembly))
@@ -34,12 +42,18 @@ export const sessionOf = (program: Program, catalog: Catalog, seed: number): Ses
 	};
 };
 
-const assemblyOf = (program: Program, catalog: Catalog, seed: number): Assembly => ({
+const assemblyOf = (
+	program: Program,
+	catalog: Catalog,
+	seed: number,
+	novelty: NoveltyWeight
+): Assembly => ({
 	exercises: catalog.exercises.filter((exercise) =>
 		isPermitted(exercise, program.contraindications)
 	),
 	groups: catalog.muscleGroups.toSorted(byOrd),
 	loadedGroups: new Set(),
+	novelty,
 	random: randomOf(seed),
 	taken: new Set(),
 	targets: catalog.targets
@@ -87,7 +101,8 @@ const drawnItems = (block: Block, assembly: Assembly): readonly BlockItem[] => {
 					groupTargets(block, group.id, assembly).length > 0
 			),
 			draw.count,
-			assembly.random
+			assembly.random,
+			(group) => groupWeight(block, group.id, assembly)
 		).flatMap((group) => groupItems(block, group.id, draw.pickEach, assembly));
 	}
 	return sampled(
@@ -98,7 +113,8 @@ const drawnItems = (block: Block, assembly: Assembly): readonly BlockItem[] => {
 				isStocked(block, target.id, assembly)
 		),
 		draw.count,
-		assembly.random
+		assembly.random,
+		(target) => targetWeight(block, target.id, assembly)
 	).flatMap((target) => targetItems(block, target.id, draw.pickEach, assembly));
 };
 
@@ -108,8 +124,15 @@ const groupItems = (
 	count: number,
 	assembly: Assembly
 ): readonly BlockItem[] =>
-	sampled(groupTargets(block, group, assembly), TARGETS_PER_GROUP, assembly.random).flatMap(
-		(target) => targetItems(block, target.id, count, assembly)
+	sampled(groupTargets(block, group, assembly), TARGETS_PER_GROUP, assembly.random, (target) =>
+		targetWeight(block, target.id, assembly)
+	).flatMap((target) => targetItems(block, target.id, count, assembly));
+
+const groupWeight = (block: Block, group: string, assembly: Assembly): number =>
+	Math.min(
+		...assembly.targets
+			.filter((target) => target.muscleGroup === group)
+			.map((target) => targetWeight(block, target.id, assembly))
 	);
 
 const groupTargets = (block: Block, group: string, assembly: Assembly): readonly Target[] =>
@@ -145,7 +168,8 @@ const pairedItems = (block: Block, assembly: Assembly): readonly BlockItem[] =>
 				(pair) => pair.whenGroup === group && isStocked(block, pair.thenTarget, assembly)
 			),
 			PAIR_ROWS_PER_GROUP,
-			assembly.random
+			assembly.random,
+			(pair) => targetWeight(block, pair.thenTarget, assembly)
 		).flatMap((pair) => targetItems(block, pair.thenTarget, PAIR_PICK, assembly))
 	);
 
@@ -155,7 +179,19 @@ const targetItems = (
 	count: number,
 	assembly: Assembly
 ): readonly BlockItem[] =>
-	sampled(availableOf(block, target, assembly), count, assembly.random).map((exercise) => {
+	sampled(availableOf(block, target, assembly), count, assembly.random, (exercise) =>
+		assembly.novelty(exercise.id)
+	).map((exercise) => {
 		assembly.taken.add(exercise.id);
 		return { block: block.id, dose: exercise.dose, exercise: exercise.id, target };
 	});
+
+const targetWeight = (block: Block, target: string, assembly: Assembly): number =>
+	Math.min(
+		...assembly.exercises
+			.filter(
+				(exercise) =>
+					exercise.modality === block.modality && exercise.catalogTarget === target
+			)
+			.map((exercise) => assembly.novelty(exercise.id))
+	);

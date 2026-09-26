@@ -17,6 +17,9 @@ export const activeSessionOf = (text: null | string): ActiveSession | undefined 
 	return isActiveSession(parsed) ? parsed : undefined;
 };
 
+export const historyOf = (body: unknown): readonly Performed[] =>
+	isRecord(body) ? performedOf(body.history) : [];
+
 export const performedOf = (value: unknown): readonly Performed[] =>
 	Array.isArray(value) ? value.filter((entry): entry is Performed => isPerformed(entry)) : [];
 

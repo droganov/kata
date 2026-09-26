@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { activeSessionOf, performedOf } from './session-records.ts';
+import { activeSessionOf, historyOf, performedOf } from './session-records.ts';
 
 const DETAIL = {
 	equipment: [{ name: 'Тело', role: 'главное' }],
@@ -103,4 +103,19 @@ describe('performedOf', () => {
 			])
 		).toEqual([{ doneAt: '2026-09-14T08:00:00.000Z', exercise: 'ex-press' }]);
 	});
+});
+
+describe('historyOf', () => {
+	const history = [{ doneAt: '2026-09-25T09:00:00.000Z', exercise: 'ex-press' }];
+
+	it('читает Историю из тела запроса и отбрасывает то, что Историей не является', () => {
+		expect(historyOf({ history: [...history, { exercise: 7 }, 'ex-press'] })).toEqual(history);
+	});
+
+	it.each([undefined, null, [history], { title: 'Закрепления и добор' }])(
+		'без Истории в теле запроса отдаёт пусто: %s',
+		(body) => {
+			expect(historyOf(body)).toEqual([]);
+		}
+	);
 });

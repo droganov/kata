@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import type { Performed } from './novelty.ts';
 import type { Block, Program } from './program.ts';
 import type { Session, SessionItem } from './session.ts';
 
@@ -12,10 +13,14 @@ import {
 import { BUNDLED_TABLES } from '../infrastructure/bundled-tables.ts';
 import { createTableGateways } from '../infrastructure/table-gateways.ts';
 import { sessionOf } from './assembly.ts';
+import { noveltyOf } from './novelty.ts';
 
 const SEEDS = Array.from({ length: 200 }, (_item, at) => at);
 const SEED = 7;
 const PINNED_GROUPS = ['group-glutes', 'group-chest'];
+const MANY_SEEDS = Array.from({ length: 2000 }, (_item, at) => at);
+const NOW = new Date('2026-09-26T09:00:00Z');
+const YESTERDAY = '2026-09-25T09:00:00Z';
 
 const byText = (first: string, second: string): number => first.localeCompare(second);
 
@@ -304,6 +309,111 @@ describe('sessionOf: Растяжка под нагрузку дня', () => {
 	});
 });
 
+const shareOf = (program: Program, history: readonly Performed[], exercise: string): number =>
+	MANY_SEEDS.filter((seed) =>
+		sessionOf(program, CATALOG, seed, noveltyOf(history, NOW)).items.some(
+			(item) => item.exercise === exercise
+		)
+	).length / MANY_SEEDS.length;
+
+describe('sessionOf: вес новизны', () => {
+	const chestOnly = withBlocks(
+		loadedBlock({ pinnedGroups: [{ id: 'group-chest', ord: 1, pick: 1 }] })
+	);
+
+	it('выполненное вчера выпадает существенно реже нового, но выпадает', () => {
+		const share = shareOf(chestOnly, [{ doneAt: YESTERDAY, exercise: 'ex-press' }], 'ex-press');
+		expect(share).toBeLessThan(0.1);
+		expect(share).toBeGreaterThan(0);
+	});
+
+	it.each([
+		['сегодня', '2026-09-26T09:00:00Z', 0.02 / 1.02],
+		['вчера', YESTERDAY, 1 / 22],
+		['десять с половиной дней назад', '2026-09-15T21:00:00Z', 1 / 3],
+		['двадцать один день назад', '2026-09-05T09:00:00Z', 1 / 2],
+		['сорок дней назад', '2026-08-17T09:00:00Z', 1 / 2]
+	])('весит выполненное %s как max(d / 21, 0.02)', (_case, doneAt, expected) => {
+		const share = shareOf(chestOnly, [{ doneAt, exercise: 'ex-press' }], 'ex-press');
+		expect(Math.abs(share - expected)).toBeLessThan(0.03);
+	});
+
+	it('считает вес по самому свежему выполнению Упражнения', () => {
+		const history = [
+			{ doneAt: '2026-09-05T09:00:00Z', exercise: 'ex-press' },
+			{ doneAt: YESTERDAY, exercise: 'ex-press' },
+			{ doneAt: '2026-09-12T09:00:00Z', exercise: 'ex-press' }
+		];
+		expect(shareOf(chestOnly, history, 'ex-press')).toBeLessThan(0.1);
+	});
+
+	it('выполненное сегодня остаётся достижимым: вес не падает ниже 0.02', () => {
+		const share = shareOf(
+			chestOnly,
+			[{ doneAt: NOW.toISOString(), exercise: 'ex-press' }],
+			'ex-press'
+		);
+		expect(share).toBeGreaterThan(0.01);
+		expect(share).toBeLessThan(0.03);
+	});
+
+	it('Упражнению, которого нет в Истории, даёт полный вес', () => {
+		const history = [{ doneAt: '2026-09-15T21:00:00Z', exercise: 'ex-fly' }];
+		const share = shareOf(chestOnly, history, 'ex-press');
+		expect(Math.abs(share - 2 / 3)).toBeLessThan(0.03);
+	});
+
+	it('Мишень внутри Группы мышц весит по самому свежему своему Упражнению', () => {
+		const glutes = withBlocks(
+			loadedBlock({ pinnedGroups: [{ id: 'group-glutes', ord: 1, pick: 1 }] })
+		);
+		const history = [{ doneAt: YESTERDAY, exercise: 'ex-bridge' }];
+		expect(shareOf(glutes, history, 'ex-bridge')).toBeLessThan(0.1);
+		expect(shareOf(glutes, history, 'ex-abduction')).toBeGreaterThan(0.9);
+	});
+
+	it('добираемая Группа мышц весит по самому свежему своему Упражнению, а не в среднем', () => {
+		const drawOne = withBlocks(
+			loadedBlock({ draw: { count: 1, level: 'muscle_group', pickEach: 1 } })
+		);
+		const history = [{ doneAt: YESTERDAY, exercise: 'ex-leg-press' }];
+		const legs = MANY_SEEDS.filter((seed) =>
+			sessionOf(drawOne, CATALOG, seed, noveltyOf(history, NOW)).items.some(
+				(item) => groupOf(item.target) === 'group-legs'
+			)
+		).length;
+		expect(legs / MANY_SEEDS.length).toBeLessThan(0.05);
+		expect(legs).toBeGreaterThan(0);
+	});
+
+	it('не учитывает выполненное в другом Режиме той же Мишени', () => {
+		const strength = withBlocks(blockOf('block-strength'));
+		const history = [{ doneAt: YESTERDAY, exercise: 'ex-pigeon' }];
+		for (const seed of SEEDS)
+			expect(sessionOf(strength, CATALOG, seed, noveltyOf(history, NOW))).toEqual(
+				sessionOf(strength, CATALOG, seed)
+			);
+	});
+
+	it('Закреплённое попадает в Занятие всегда, даже когда История покрывает весь каталог', () => {
+		const everything = CATALOG.exercises.map((exercise) => ({
+			doneAt: NOW.toISOString(),
+			exercise: exercise.id
+		}));
+		for (const seed of SEEDS) {
+			const session = sessionOf(PROGRAM, CATALOG, seed, noveltyOf(everything, NOW));
+			const strength = itemsOf(session, 'block-strength').map((item) => groupOf(item.target));
+			expect(strength).toEqual(expect.arrayContaining(PINNED_GROUPS));
+			expect(itemsOf(session, 'block-stretch').map((item) => groupOf(item.target))).toContain(
+				'group-glutes'
+			);
+			expect(new Set(session.items.map((item) => item.block))).toEqual(
+				new Set(PROGRAM.blocks.map((block) => block.id))
+			);
+		}
+	});
+});
+
 describe('sessionOf: Доза', () => {
 	it('снимает Дозу с Упражнения', () => {
 		for (const item of sessionOf(PROGRAM, CATALOG, SEED).items)
@@ -338,6 +448,34 @@ describe('sessionOf на боевых таблицах', () => {
 					expect.arrayContaining(block.pinnedGroups.map((pin) => pin.id))
 				);
 			}
+	});
+
+	it('при Истории, покрывающей весь каталог, Мишень «шейный отдел» отдаёт все четыре Упражнения', () => {
+		const everything = noveltyOf(
+			catalog.exercises.map((exercise) => ({
+				doneAt: NOW.toISOString(),
+				exercise: exercise.id
+			})),
+			NOW
+		);
+		const cervical = catalog.targets.find((target) => target.slug === 'cervical_spine')!;
+		const cervicalExercises = catalog.exercises
+			.filter((exercise) => exercise.catalogTarget === cervical.id)
+			.map((exercise) => exercise.id)
+			.toSorted(byText);
+		expect(cervicalExercises).toHaveLength(4);
+		for (const seed of SEEDS.slice(0, 50)) {
+			const session = sessionOf(program!, catalog, seed, everything);
+			expect(
+				itemsOf(session, warmup.id)
+					.filter((item) => item.target === cervical.id)
+					.map((item) => item.exercise)
+					.toSorted(byText)
+			).toEqual(cervicalExercises);
+			expect(new Set(session.items.map((item) => item.block))).toEqual(
+				new Set(program!.blocks.map((block) => block.id))
+			);
+		}
 	});
 
 	it('не повторяет Упражнение внутри Занятия', () => {

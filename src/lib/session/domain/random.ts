@@ -17,15 +17,25 @@ export const randomOf = (seed: number): Random => {
 	};
 };
 
+const weightedAt = (weights: readonly number[], share: number): number => {
+	const point = share * weights.reduce((total, weight) => total + weight, 0);
+	let reached = 0;
+	return weights.slice(0, -1).filter((weight) => (reached += weight) <= point).length;
+};
+
 export const sampled = <Item>(
 	items: readonly Item[],
 	count: number,
-	random: Random
+	random: Random,
+	weightOf: (item: Item) => number
 ): readonly Item[] => {
 	const rest = [...items];
 	const picked: Item[] = [];
 	while (picked.length < count && rest.length > 0) {
-		const at = Math.floor(random() * rest.length);
+		const at = weightedAt(
+			rest.map((item) => weightOf(item)),
+			random()
+		);
 		picked.push(...rest.splice(at, 1));
 	}
 	return picked;

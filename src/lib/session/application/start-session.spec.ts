@@ -24,6 +24,24 @@ describe('startSession', () => {
 		expect(assemble).toHaveBeenCalledOnce();
 	});
 
+	it('подаёт на сборку Историю Аккаунта', async () => {
+		const store = storeWith(new IDBFactory());
+		await store.openSession(PROGRAM_CARD.account, SESSION_VIEW);
+		await store.markExercise(PROGRAM_CARD.account, { ord: 1, status: 'done' });
+		await store.closeSession(PROGRAM_CARD.account);
+		const assemble = vi.fn(() => Promise.resolve(SESSION_VIEW));
+		await startSession(store, PROGRAM_CARD, assemble);
+		expect(assemble).toHaveBeenCalledWith([
+			{ doneAt: SESSION_START.toISOString(), exercise: 'ex-neck-roll' }
+		]);
+	});
+
+	it('без IndexedDB собирает с пустой Историей', async () => {
+		const assemble = vi.fn(() => Promise.resolve(SESSION_VIEW));
+		await startSession(storeWith(undefined), PROGRAM_CARD, assemble);
+		expect(assemble).toHaveBeenCalledWith([]);
+	});
+
 	it('с Активным занятием возвращает к нему и не собирает новое', async () => {
 		const store = storeWith(new IDBFactory());
 		await store.openSession(PROGRAM_CARD.account, SESSION_VIEW);

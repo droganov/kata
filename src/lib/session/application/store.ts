@@ -1,4 +1,8 @@
+import type { Performed } from '../domain/novelty.ts';
 import type { SessionView } from './session-views.ts';
+
+export { HISTORY_DAYS } from '../domain/novelty.ts';
+export type { Performed } from '../domain/novelty.ts';
 
 const ACTIVE_SESSION_EXISTS = 'Активное занятие у Аккаунта уже есть: ';
 const ACTIVE_SESSION_EXISTS_NAME = 'ActiveSessionExistsError';
@@ -6,8 +10,6 @@ const NO_ACTIVE_SESSION = 'Активного занятия у Аккаунта
 const NO_ACTIVE_SESSION_NAME = 'NoActiveSessionError';
 const NO_SESSION_ITEM = 'Позиции нет в Активном занятии: ';
 const NO_SESSION_ITEM_NAME = 'NoSessionItemError';
-
-export const HISTORY_DAYS = 21;
 
 export const MARK_STATUS = { done: 'done', skipped: 'skipped' } as const;
 
@@ -17,11 +19,6 @@ export interface ActiveSession {
 	readonly marks: readonly SessionMark[];
 	readonly openedAt: string;
 	readonly view: SessionView;
-}
-
-export interface Performed {
-	readonly doneAt: string;
-	readonly exercise: string;
 }
 
 export interface SessionMark {

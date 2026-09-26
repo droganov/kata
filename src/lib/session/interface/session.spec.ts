@@ -1,9 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
+import type { Performed } from '../application/store.ts';
+
 import { createSession } from './session.ts';
 
 const PROGRAM_ID = '01a0889d-8ae8-7c8a-b964-0ead5f668a5a';
 const SEED = 7;
+const NO_HISTORY: readonly Performed[] = [];
 const session = createSession(() => SEED);
 
 describe('createSession на боевых таблицах', () => {
@@ -24,7 +27,7 @@ describe('createSession на боевых таблицах', () => {
 	});
 
 	it('собирает Занятие, разбитое на пять Блоков', () => {
-		const view = session.assembleSession(PROGRAM_ID);
+		const view = session.assembleSession(PROGRAM_ID, NO_HISTORY);
 		const sizes = view.blocks.map((block) => [block.name, block.items.length] as const);
 		expect(sizes.slice(0, 4)).toEqual([
 			['Разогрев', 1],
@@ -37,18 +40,20 @@ describe('createSession на боевых таблицах', () => {
 	});
 
 	it('на одном зерне собирает одно Занятие, без зерна берёт случайное', () => {
-		expect(createSession(() => SEED).assembleSession(PROGRAM_ID)).toEqual(
-			session.assembleSession(PROGRAM_ID)
+		expect(createSession(() => SEED).assembleSession(PROGRAM_ID, NO_HISTORY)).toEqual(
+			session.assembleSession(PROGRAM_ID, NO_HISTORY)
 		);
-		expect(createSession().assembleSession(PROGRAM_ID).blocks).toHaveLength(5);
+		expect(createSession().assembleSession(PROGRAM_ID, NO_HISTORY).blocks).toHaveLength(5);
 	});
 
 	it('отдаёт зерно вместе с Занятием', () => {
-		expect(session.assembleSession(PROGRAM_ID).seed).toBe(SEED);
+		expect(session.assembleSession(PROGRAM_ID, NO_HISTORY).seed).toBe(SEED);
 	});
 
 	it('даёт каждому Упражнению название и Дозу', () => {
-		const items = session.assembleSession(PROGRAM_ID).blocks.flatMap((block) => block.items);
+		const items = session
+			.assembleSession(PROGRAM_ID, NO_HISTORY)
+			.blocks.flatMap((block) => block.items);
 		for (const item of items) {
 			expect(item.name).not.toBe('');
 			expect(item.dose).not.toBe('');
@@ -56,7 +61,9 @@ describe('createSession на боевых таблицах', () => {
 	});
 
 	it('раскрывает каждое Упражнение Занятия процедурой и Мишенями', () => {
-		const items = session.assembleSession(PROGRAM_ID).blocks.flatMap((block) => block.items);
+		const items = session
+			.assembleSession(PROGRAM_ID, NO_HISTORY)
+			.blocks.flatMap((block) => block.items);
 		for (const item of items) {
 			expect(item.detail.steps.length).toBeGreaterThan(0);
 			expect(item.detail.targets).not.toBe('');

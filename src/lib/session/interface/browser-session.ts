@@ -27,8 +27,8 @@ export const startBrowserSession = async (
 	program: ProgramCardView,
 	fetcher: Fetch
 ): Promise<BrowserSession> => {
-	const started = await startSession(browserStore(), program, () =>
-		fetchSessionView(fetcher, program.id)
+	const started = await startSession(browserStore(), program, (history) =>
+		fetchSessionView(fetcher, program.id, history)
 	);
 	const isHistoryWarningDue =
 		!started.isHistoryAvailable && sessionStorage.getItem(HISTORY_WARNING_KEY) === null;
