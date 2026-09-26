@@ -324,6 +324,7 @@ describe('экран прохождения Занятия', () => {
 
 	it('без Позиций говорит, что Упражнений нет', async () => {
 		renderAt(await store().openSession(ACCOUNT, { ...VIEW, blocks: [] }));
+		expect(hrefOf('На главную')).toBe('/');
 		expect(screen.getByText('Упражнений нет')).toBeInTheDocument();
 		expect(screen.queryByRole('button', { name: 'Выполнено' })).not.toBeInTheDocument();
 	});

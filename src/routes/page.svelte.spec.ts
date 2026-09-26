@@ -29,30 +29,41 @@ beforeEach(() => {
 });
 
 describe('список Программ', () => {
-	it('показывает Программы ссылками на их Занятие', () => {
-		render(Page, { data: { programs: PROGRAMS, redrawable: [] } });
+	it('показывает Программы карточками, без Занятия предлагает начать', () => {
+		render(Page, { data: { programs: PROGRAMS, sessions: [] } });
 		expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Программы');
-		expect(screen.getByRole('link', { name: 'Закрепления и добор' })).toHaveAttribute(
+		expect(screen.getByRole('heading', { name: 'Закрепления и добор' })).toBeInTheDocument();
+		expect(screen.getAllByRole('link', { name: 'Начать Занятие' })[0]).toHaveAttribute(
 			'href',
 			'/programs/program-1'
 		);
-		expect(
-			screen.queryByRole('button', { name: 'Пересобрать Занятие' })
-		).not.toBeInTheDocument();
+		expect(screen.queryByRole('button', { name: 'Пересобрать' })).not.toBeInTheDocument();
 	});
 
-	it('пересобирает Активное занятие Программы и ведёт в него', async () => {
+	it('у идущего Занятия показывает ход, продолжает и пересобирает его', async () => {
 		const fresh: SessionView = { ...SESSION_VIEW, seed: 8 };
 		vi.stubGlobal('fetch', () => Promise.resolve(Response.json(fresh)));
 		const session = await store.openSession(ACCOUNT, SESSION_VIEW);
-		render(Page, { data: { programs: PROGRAMS, redrawable: [session] } });
-		const buttons = screen.getAllByRole('button', { name: 'Пересобрать Занятие' });
-		expect(buttons).toHaveLength(1);
-		await fireEvent.click(buttons[0]!);
+		render(Page, { data: { programs: PROGRAMS, sessions: [session] } });
+		expect(screen.getByText('Занятие идёт · отмечено 0 из 3')).toBeInTheDocument();
+		expect(screen.getByRole('link', { name: 'Продолжить' })).toHaveAttribute(
+			'href',
+			'/programs/program-1'
+		);
+		expect(screen.getAllByRole('link', { name: 'Начать Занятие' })).toHaveLength(1);
+		await fireEvent.click(screen.getByRole('button', { name: 'Пересобрать' }));
 		await vi.waitFor(() => {
 			expect(goto).toHaveBeenCalledWith('/programs/program-1', { invalidateAll: true });
 		});
 		const redrawn = await store.activeSession(ACCOUNT);
 		expect(redrawn?.view.seed).toBe(8);
+	});
+
+	it('не пересобирает Занятие, в котором уже есть Отметка', async () => {
+		await store.openSession(ACCOUNT, SESSION_VIEW);
+		const marked = await store.markExercise(ACCOUNT, { ord: 1, status: 'done' });
+		render(Page, { data: { programs: PROGRAMS, sessions: [marked] } });
+		expect(screen.getByText('Занятие идёт · отмечено 1 из 3')).toBeInTheDocument();
+		expect(screen.queryByRole('button', { name: 'Пересобрать' })).not.toBeInTheDocument();
 	});
 });

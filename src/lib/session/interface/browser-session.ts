@@ -6,7 +6,7 @@ import type { RedrawLevel } from '../domain/redraw.ts';
 import type { Fetch } from '../infrastructure/session-endpoint.ts';
 
 import {
-	redrawableSessions,
+	activeSessionsOf,
 	redrawActiveSession,
 	redrawSessionItem
 } from '../application/redraw-session.ts';
@@ -15,6 +15,7 @@ import { startSession } from '../application/start-session.ts';
 import { createBrowserStore } from '../infrastructure/browser-store.ts';
 import { fetchRedrawnItem, fetchSessionView } from '../infrastructure/session-endpoint.ts';
 
+export { isSessionRedrawable } from '../application/redraw-session.ts';
 export type { SessionMark } from '../application/store.ts';
 export { REDRAW_LEVEL } from '../domain/redraw.ts';
 export type { RedrawLevel } from '../domain/redraw.ts';
@@ -66,9 +67,9 @@ export const redrawBrowserSession = (
 		fetchSessionView(fetcher, session.view.program, history)
 	);
 
-export const redrawableBrowserSessions = (
+export const activeBrowserSessions = (
 	programs: readonly ProgramCardView[]
-): Promise<readonly ActiveSession[]> => redrawableSessions(browserStore(), programs);
+): Promise<readonly ActiveSession[]> => activeSessionsOf(browserStore(), programs);
 
 export const cancelBrowserSession = (account: string): Promise<void> =>
 	browserStore().closeSession(account);

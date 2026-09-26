@@ -40,18 +40,17 @@ export const redrawActiveSession = async (
 	return store.redrawSession(account, await assemble(history));
 };
 
-export const redrawableSessions = async (
+export const isSessionRedrawable = (session: ActiveSession): boolean => session.marks.length === 0;
+
+export const activeSessionsOf = async (
 	store: Store,
 	programs: readonly ProgramCardView[]
 ): Promise<readonly ActiveSession[]> => {
 	const active = await store.activeSessions();
-	return active.filter(
-		(session) =>
-			session.marks.length === 0 &&
-			programs.some(
-				(program) =>
-					program.account === session.account && program.id === session.view.program
-			)
+	return active.filter((session) =>
+		programs.some(
+			(program) => program.account === session.account && program.id === session.view.program
+		)
 	);
 };
 

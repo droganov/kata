@@ -10,11 +10,11 @@ describe('load / в браузере', () => {
 		vi.unstubAllGlobals();
 	});
 
-	it('отдаёт Программы и их Активные занятия, которые можно пересобрать', async () => {
+	it('отдаёт Программы и их Активные занятия', async () => {
 		vi.stubGlobal('sessionStorage', memoryStorage());
 		const programs = [PROGRAM_CARD];
-		expect(await load({ data: { programs } })).toEqual({ programs, redrawable: [] });
+		expect(await load({ data: { programs } })).toEqual({ programs, sessions: [] });
 		const { session } = await startBrowserSession(PROGRAM_CARD, serveSessionView);
-		expect(await load({ data: { programs } })).toEqual({ programs, redrawable: [session] });
+		expect(await load({ data: { programs } })).toEqual({ programs, sessions: [session] });
 	});
 });

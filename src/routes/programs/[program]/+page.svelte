@@ -79,15 +79,30 @@
 			учитываться, и повторы станут чаще.
 		</p>
 	{/if}
-	<nav>
-		<a class="btn btn-ghost btn-sm" href={PROGRAM_LIST_PATH}>На главную</a>
-	</nav>
 	{#if place === undefined}
 		<p class="opacity-60">Упражнений нет</p>
+		<a class="btn self-start btn-ghost btn-sm" href={PROGRAM_LIST_PATH}>На главную</a>
 	{:else}
 		{@const item = place.item}
 		<header class="space-y-2">
 			<div class="flex items-center gap-2">
+				<a
+					class="btn -ml-2 btn-square btn-ghost btn-sm"
+					aria-label="На главную"
+					href={PROGRAM_LIST_PATH}
+				>
+					<svg
+						class="size-5"
+						aria-hidden="true"
+						fill="none"
+						stroke="currentColor"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						viewBox="0 0 24 24"
+						><path d="M3 10.5 12 3l9 7.5" /><path d="M5 9.5V21h5v-6h4v6h5V9.5" /></svg
+					>
+				</a>
 				<span class="grow text-lg font-semibold">{place.inBlock.name}</span>
 				{#if place.previous === undefined}
 					<span class="btn btn-disabled btn-square btn-ghost btn-sm" aria-hidden="true"
