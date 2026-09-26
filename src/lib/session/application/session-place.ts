@@ -1,6 +1,8 @@
 import type { SessionView } from './session-views.ts';
 import type { ActiveSession, SessionMark } from './store.ts';
 
+import { hasSessionItem } from './store.ts';
+
 export interface PlaceInSession {
 	readonly blocks: readonly BlockMarks[];
 	readonly inBlock: BlockPlace;
@@ -34,6 +36,12 @@ type MarkStatus = SessionMark['status'];
 type SessionBlockView = SessionView['blocks'][number];
 
 type SessionItemView = SessionBlockView['items'][number];
+
+export const openedItemOf = (
+	session: ActiveSession,
+	requested: number | undefined
+): number | undefined =>
+	requested !== undefined && hasSessionItem(session, requested) ? requested : resumeAt(session);
 
 export const resumeAt = (session: ActiveSession): number | undefined => {
 	const items = itemsOf(session.view);

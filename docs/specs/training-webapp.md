@@ -89,7 +89,7 @@ Status: ready-for-agent
 **Прохождение**
 
 41. As a person in the gym, I see one Exercise at a time, so I am not distracted.
-42. As a person in the middle of a set, I see the Exercise name, the Dose in large type and the Exercise note, and nothing else expanded, so I know what to do at a glance.
+42. As a person in the middle of a set, I see the Exercise name as the largest text, the Dose under it and the Exercise note, and nothing else expanded, so I know what to do at a glance.
 43. As a person who does not know the Exercise, I open the Procedure step by step, each step revealing its Oracles, and above the steps I open the Equipment and the Targets grouped by target role, so I can work it out.
 44. As a person, I mark the Exercise done with the wide «Выполнено» button and move to the next unmarked session item.
 45. As a person, I mark the Exercise skipped with the narrow «Пропущено» button and move to the next unmarked session item.
@@ -186,12 +186,14 @@ w = max(d / 21, 0.02)
 
 **Session screen.** Decided on a prototype over a real Session in ticket 07; the prototype stays on branch `prototype/07-ekran-prohozhdeniya`, variant A.
 
-- One Exercise at a time. At first glance: the Exercise name, the Dose in large type and the Exercise note. Nothing else is expanded.
+- One Exercise at a time. At first glance: the Exercise name as the largest text on the screen, the Dose under it in smaller type, and the Exercise note. Nothing else is expanded. The accent was moved from the Dose to the name on 2026-09-26, after the first run on real data: a Dose like «по 6 в каждую сторону» is a phrase, not a number, and outweighed the name.
 - Place in the Session: the current Block name with the session item's number inside that Block, «3 из 4», and under it a line of all Blocks of the Session, each with its marked count out of its session items. There is no single Session-wide number: a Session holds about thirty session items, and «18 из 30» in the middle of a set reads as noise.
 - Procedure: the step titles as a list, each step a disclosure that opens all its Oracles. An Oracle shows its observable claim, its compatible observations as a plain list, and its refuting observations as a dimmer list under the label «неправильно». The step's active Targets are not shown.
 - Equipment and Targets live next to the Procedure: one disclosure above the steps. Equipment shows its name and its role in Russian, главное or вспомогательное. Targets are grouped by target role under Первичные, Вторичные and Стабилизаторы, names comma-separated inside a group. Role codes never reach the screen.
 - Marking: two buttons fixed to the bottom of the screen, «Пропущено» narrow and outlined, «Выполнено» about twice as wide. A mark moves the screen to the next unmarked session item. A marked session item carries an outlined badge «выполнено» or «пропущено».
 - Going back: the arrows ‹ › beside the count step to the neighbouring session item across Block borders, and tapping a Block in the line opens that Block's session items with their Dose or their mark, so any earlier session item can be reopened. A new mark on a marked session item replaces the old one, as the Store already has it. Every session item marked closes the Session, so going back happens before the last mark.
+- Navigation lives in the URL: `?item=<ord>` names the open session item and `&block=<block id>` the Block opened in the line; the arrows, the line of Blocks and its session items are links, and a mark writes to the Store and then navigates to the next unmarked session item. The screen keeps no local state. Without `item` the screen opens the first unmarked session item. Keys and ids in the URL and in storage are Latin, never Russian.
+- Every disclosure remembers whether it is open in `sessionStorage`, under its own key `training:disclosure:<seed>:<ord>:<element>`, where the element is `equipment` or the step id. Decided on 2026-09-26 after the first run on real data.
 - The screen is monochrome: marks and Oracle observations are never coloured green or red.
 - No Exercise images in phase 1: story 58 stays in phase 2.
 

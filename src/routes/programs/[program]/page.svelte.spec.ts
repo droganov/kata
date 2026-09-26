@@ -1,11 +1,15 @@
-import { fireEvent, render, screen, within } from '@testing-library/svelte';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { goto } from '$app/navigation';
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/svelte';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type { SessionView } from '../../../lib/session/application/session-views.ts';
 import type { ActiveSession, SessionMark, Store } from '../../../lib/session/application/store.ts';
 
 import { createBrowserStore } from '../../../lib/session/infrastructure/browser-store.ts';
+import { sessionScreenOf } from '../../../lib/session/interface/session-screen.ts';
 import Page from './+page.svelte';
+
+vi.mock('$app/navigation', () => ({ goto: vi.fn() }));
 
 const ACCOUNT = 'person-a';
 
@@ -94,8 +98,10 @@ const openedWith = async (...marks: readonly SessionMark[]): Promise<ActiveSessi
 	return session;
 };
 
-const renderWith = (session: ActiveSession, isHistoryWarningDue = false): void => {
-	render(Page, { data: { isHistoryWarningDue, session } });
+const renderAt = (session: ActiveSession, address = '', isHistoryWarningDue = false): void => {
+	render(Page, {
+		data: sessionScreenOf({ isHistoryWarningDue, session }, new URLSearchParams(address))
+	});
 };
 
 const storedMarks = async (): Promise<ActiveSession['marks'] | undefined> => {
@@ -105,13 +111,17 @@ const storedMarks = async (): Promise<ActiveSession['marks'] | undefined> => {
 
 const exerciseName = (): null | string => screen.getByRole('heading', { level: 1 }).textContent;
 
+const hrefOf = (name: RegExp | string): null | string =>
+	screen.getByRole('link', { name }).getAttribute('href');
+
 beforeEach(() => {
 	sessionStorage.clear();
+	vi.mocked(goto).mockClear();
 });
 
 describe('экран прохождения Занятия', () => {
 	it('показывает одно Упражнение: название, Дозу и заметку', async () => {
-		renderWith(await openedWith());
+		renderAt(await openedWith());
 		expect(exerciseName()).toBe('Круги головой');
 		expect(screen.getByText('2×10')).toBeInTheDocument();
 		expect(screen.getByText('медленно')).toBeInTheDocument();
@@ -120,7 +130,7 @@ describe('экран прохождения Занятия', () => {
 	});
 
 	it('прячет оборудование и Мишени с ролями по-русски в раскрытие над шагами', async () => {
-		renderWith(await openedWith());
+		renderAt(await openedWith());
 		const disclosure = screen.getByText('Оборудование и Мишени').closest('details');
 		expect(disclosure).not.toHaveAttribute('open');
 		const inside = within(disclosure!);
@@ -134,7 +144,7 @@ describe('экран прохождения Занятия', () => {
 	});
 
 	it('раскрывает каждый шаг процедуры его оракулами', async () => {
-		renderWith(await openedWith());
+		renderAt(await openedWith());
 		const step = screen.getByText('1. Наклон').closest('details');
 		expect(step).not.toHaveAttribute('open');
 		const inside = within(step!);
@@ -144,84 +154,105 @@ describe('экран прохождения Занятия', () => {
 		expect(inside.getByText('рывок')).toBeInTheDocument();
 	});
 
+	it('помнит раскрытия во вкладке и открывает их снова', async () => {
+		const session = await openedWith();
+		renderAt(session);
+		for (const title of ['Оборудование и Мишени', '1. Наклон']) {
+			const details = screen.getByText(title).closest('details')!;
+			details.open = true;
+			await fireEvent(details, new Event('toggle'));
+		}
+		cleanup();
+		renderAt(session);
+		expect(screen.getByText('Оборудование и Мишени').closest('details')).toHaveAttribute(
+			'open'
+		);
+		const step = screen.getByText('1. Наклон').closest('details')!;
+		expect(step).toHaveAttribute('open');
+		step.open = false;
+		await fireEvent(step, new Event('toggle'));
+		cleanup();
+		renderAt(session);
+		expect(screen.getByText('1. Наклон').closest('details')).not.toHaveAttribute('open');
+	});
+
 	it('показывает место внутри Блока и строку всех Блоков с отмеченным', async () => {
-		renderWith(await openedWith());
+		renderAt(await openedWith());
 		expect(screen.getByText('1 из 2')).toBeInTheDocument();
 		const line = screen.getByRole('list', { name: 'Блоки Занятия' });
 		expect(
 			within(line)
-				.getAllByRole('button')
-				.map((button) => button.textContent.replaceAll(/\s+/gv, ' ').trim())
-		).toEqual(['Разогрев 0/0', 'Разминка 0/2', 'Силовой 0/1']);
+				.getAllByRole('link')
+				.map((link) => [
+					link.textContent.replaceAll(/\s+/gv, ' ').trim(),
+					link.getAttribute('href')
+				])
+		).toEqual([
+			['Разогрев 0/0', '?item=1&block=b-cardio'],
+			['Разминка 0/2', '?item=1&block=b-warmup'],
+			['Силовой 0/1', '?item=1&block=b-strength']
+		]);
 	});
 
-	it('Отметка «выполнено» переводит к следующему Упражнению и сохраняется', async () => {
-		renderWith(await openedWith());
+	it('Отметка «выполнено» сохраняется и ведёт к следующему Упражнению', async () => {
+		renderAt(await openedWith());
 		await fireEvent.click(screen.getByRole('button', { name: 'Выполнено' }));
-		expect(exerciseName()).toBe('Наклоны головы');
-		expect(screen.getByText('2 из 2')).toBeInTheDocument();
-		expect(screen.getByRole('button', { name: /Разминка/v })).toHaveTextContent('1/2');
 		expect(await storedMarks()).toEqual([{ ord: 1, status: 'done' }]);
+		expect(goto).toHaveBeenCalledWith('?item=2', { invalidateAll: true });
 	});
 
-	it('Отметка «пропущено» переводит к следующему Упражнению через границу Блока', async () => {
-		renderWith(await openedWith({ ord: 1, status: 'done' }));
+	it('Отметка «пропущено» ведёт к следующему Упражнению через границу Блока', async () => {
+		renderAt(await openedWith({ ord: 1, status: 'done' }));
 		await fireEvent.click(screen.getByRole('button', { name: 'Пропущено' }));
-		expect(exerciseName()).toBe('Ягодичный мост');
-		expect(screen.getByText('1 из 1')).toBeInTheDocument();
 		expect(await storedMarks()).toEqual([
 			{ ord: 1, status: 'done' },
 			{ ord: 2, status: 'skipped' }
 		]);
+		expect(goto).toHaveBeenCalledWith('?item=3', { invalidateAll: true });
 	});
 
-	it('после перезагрузки открывает первое неотмеченное Упражнение', async () => {
-		renderWith(await openedWith({ ord: 1, status: 'done' }, { ord: 2, status: 'skipped' }));
-		expect(exerciseName()).toBe('Ягодичный мост');
-		expect(screen.getByRole('button', { name: /Разминка/v })).toHaveTextContent('2/2');
-	});
-
-	it('стрелками возвращается к отмеченному Упражнению и меняет его Отметку', async () => {
-		renderWith(await openedWith({ ord: 1, status: 'done' }));
-		expect(screen.getByRole('button', { name: 'Следующая Позиция' })).not.toBeDisabled();
-		await fireEvent.click(screen.getByRole('button', { name: 'Предыдущая Позиция' }));
+	it('открывает Позицию из адреса с её Отметкой и меняет Отметку', async () => {
+		renderAt(await openedWith({ ord: 1, status: 'done' }), '?item=1');
 		expect(exerciseName()).toBe('Круги головой');
 		expect(screen.getByText('выполнено', { selector: '.badge' })).toBeInTheDocument();
-		expect(screen.getByRole('button', { name: 'Предыдущая Позиция' })).toBeDisabled();
 		await fireEvent.click(screen.getByRole('button', { name: 'Пропущено' }));
-		expect(exerciseName()).toBe('Наклоны головы');
 		expect(await storedMarks()).toEqual([{ ord: 1, status: 'skipped' }]);
+		expect(goto).toHaveBeenCalledWith('?item=2', { invalidateAll: true });
 	});
 
-	it('стрелкой вперёд переходит к соседней Позиции через границу Блока', async () => {
-		renderWith(await openedWith({ ord: 1, status: 'done' }));
-		await fireEvent.click(screen.getByRole('button', { name: 'Следующая Позиция' }));
-		expect(exerciseName()).toBe('Ягодичный мост');
-		expect(screen.getByRole('button', { name: 'Следующая Позиция' })).toBeDisabled();
+	it('стрелки ведут адресом к соседним Позициям через границы Блоков', async () => {
+		const session = await openedWith();
+		renderAt(session, '?item=2');
+		expect([hrefOf('Предыдущая Позиция'), hrefOf('Следующая Позиция')]).toEqual([
+			'?item=1',
+			'?item=3'
+		]);
+		cleanup();
+		renderAt(session, '?item=3');
+		expect(screen.queryByRole('link', { name: 'Следующая Позиция' })).not.toBeInTheDocument();
+		expect(screen.getByText('1 из 1')).toBeInTheDocument();
+	});
+
+	it('открытый адресом Блок показывает Позиции с Дозой или Отметкой и ведёт к ним', async () => {
+		renderAt(await openedWith({ ord: 1, status: 'done' }), '?item=2&block=b-warmup');
+		const sessionItems = screen.getByRole('list', { name: 'Позиции Блока Разминка' });
+		expect(within(sessionItems).getByText('выполнено')).toBeInTheDocument();
+		expect(within(sessionItems).getByText('40с × 2')).toBeInTheDocument();
+		expect(within(sessionItems).getByRole('link', { name: /Круги головой/v })).toHaveAttribute(
+			'href',
+			'?item=1'
+		);
+		expect(hrefOf(/Разминка/v)).toBe('?item=2');
 	});
 
 	it('без Позиций говорит, что Упражнений нет', async () => {
-		const empty = await store().openSession(ACCOUNT, { ...VIEW, blocks: [] });
-		renderWith(empty);
+		renderAt(await store().openSession(ACCOUNT, { ...VIEW, blocks: [] }));
 		expect(screen.getByText('Упражнений нет')).toBeInTheDocument();
 		expect(screen.queryByRole('button', { name: 'Выполнено' })).not.toBeInTheDocument();
 	});
 
-	it('открывает Блок из строки и из него любую его Позицию с Дозой или Отметкой', async () => {
-		renderWith(await openedWith({ ord: 1, status: 'done' }));
-		await fireEvent.click(screen.getByRole('button', { name: /Разминка/v }));
-		const sessionItems = screen.getByRole('list', { name: 'Позиции Блока Разминка' });
-		expect(within(sessionItems).getByText('выполнено')).toBeInTheDocument();
-		expect(within(sessionItems).getByText('40с × 2')).toBeInTheDocument();
-		await fireEvent.click(within(sessionItems).getByRole('button', { name: /Круги головой/v }));
-		expect(exerciseName()).toBe('Круги головой');
-		expect(
-			screen.queryByRole('list', { name: 'Позиции Блока Разминка' })
-		).not.toBeInTheDocument();
-	});
-
 	it('один раз предупреждает, что История не сохраняется', async () => {
-		renderWith(await openedWith(), true);
+		renderAt(await openedWith(), '', true);
 		expect(screen.getByRole('alert')).toHaveTextContent('История не сохраняется');
 	});
 });

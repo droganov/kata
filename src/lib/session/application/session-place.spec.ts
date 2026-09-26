@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import type { ActiveSession, SessionMark } from './store.ts';
 
 import { SESSION_START, SESSION_VIEW } from '../../../test/store-contract.ts';
-import { nextAfterMark, placeOf, resumeAt } from './session-place.ts';
+import { nextAfterMark, openedItemOf, placeOf, resumeAt } from './session-place.ts';
 
 const sessionWith = (...marks: readonly SessionMark[]): ActiveSession => ({
 	account: 'person-a',
@@ -112,5 +112,19 @@ describe('placeOf', () => {
 
 	it('ничего не показывает для Позиции вне Занятия', () => {
 		expect(placeOf(sessionWith(), 99)).toBeUndefined();
+	});
+});
+
+describe('openedItemOf', () => {
+	it('открывает Позицию, названную адресом', () => {
+		expect(openedItemOf(sessionWith({ ord: 1, status: 'done' }), 1)).toBe(1);
+	});
+
+	it('без Позиции в адресе открывает первую неотмеченную', () => {
+		expect(openedItemOf(sessionWith({ ord: 1, status: 'done' }), undefined)).toBe(2);
+	});
+
+	it('открывает первую неотмеченную, когда адрес называет Позицию вне Занятия', () => {
+		expect(openedItemOf(sessionWith(), 99)).toBe(1);
 	});
 });

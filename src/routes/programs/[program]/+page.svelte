@@ -1,42 +1,46 @@
 <script lang="ts">
-	import type {
-		BrowserSession,
-		SessionMark
-	} from '../../../lib/session/interface/browser-session.ts';
+	import { goto } from '$app/navigation';
 
-	import {
-		nextAfterMark,
-		placeOf,
-		resumeAt
-	} from '../../../lib/session/application/session-place.ts';
+	import type { SessionMark } from '../../../lib/session/interface/browser-session.ts';
+	import type { SessionScreen } from '../../../lib/session/interface/session-screen.ts';
+
+	import { nextAfterMark, placeOf } from '../../../lib/session/application/session-place.ts';
 	import { MARK_STATUS } from '../../../lib/session/application/store.ts';
 	import { markBrowserSession } from '../../../lib/session/interface/browser-session.ts';
+	import {
+		closeDisclosure,
+		disclosureKeyOf,
+		openDisclosure,
+		sessionItemAddress
+	} from '../../../lib/session/interface/session-screen.ts';
 
-	let { data }: { data: BrowserSession } = $props();
+	let { data }: { data: SessionScreen } = $props();
 
+	const EQUIPMENT_DISCLOSURE = 'equipment';
 	const MARK_NAMES = {
 		[MARK_STATUS.done]: 'выполнено',
 		[MARK_STATUS.skipped]: 'пропущено'
 	} as const;
 
-	let session = $derived(data.session);
-	let current = $derived(resumeAt(data.session));
-	let openedBlock: string | undefined = $state();
-
-	const place = $derived(current === undefined ? undefined : placeOf(session, current));
-	const shownBlock = $derived(place?.blocks.find((block) => block.id === openedBlock));
+	const session = $derived(data.session);
+	const place = $derived(data.current === undefined ? undefined : placeOf(session, data.current));
+	const shownBlock = $derived(place?.blocks.find((block) => block.id === data.openedBlock));
 
 	const mark = async (ord: number, status: SessionMark['status']): Promise<void> => {
-		session = await markBrowserSession(session.account, { ord, status });
-		current = nextAfterMark(session, ord);
+		const marked = await markBrowserSession(session.account, { ord, status });
+		await goto(sessionItemAddress(nextAfterMark(marked, ord)), { invalidateAll: true });
 	};
-	const open = (ord: number | undefined): void => {
-		current = ord;
-		openedBlock = undefined;
-	};
-	const toggle = (block: string): void => {
-		openedBlock = openedBlock === block ? undefined : block;
-	};
+	const blockAddress = (ord: number, block: string): string =>
+		block === data.openedBlock ? sessionItemAddress(ord) : sessionItemAddress(ord, block);
+	const isDisclosureOpen = (ord: number, element: string): boolean =>
+		data.openDisclosures.includes(disclosureKeyOf(session, ord, element));
+	const rememberDisclosure =
+		(ord: number, element: string) =>
+		(event: Event & { currentTarget: HTMLDetailsElement }): void => {
+			const key = disclosureKeyOf(session, ord, element);
+			if (event.currentTarget.open) openDisclosure(key);
+			else closeDisclosure(key);
+		};
 </script>
 
 <svelte:head><title>{session.view.title}</title></svelte:head>
@@ -55,38 +59,45 @@
 		<header class="space-y-2">
 			<div class="flex items-center gap-2">
 				<span class="grow text-lg font-semibold">{place.inBlock.name}</span>
-				<button
-					class="btn btn-square btn-ghost btn-sm"
-					aria-label="Предыдущая Позиция"
-					disabled={place.previous === undefined}
-					onclick={() => open(place.previous)}
-					type="button">‹</button
-				>
+				{#if place.previous === undefined}
+					<span class="btn btn-disabled btn-square btn-ghost btn-sm" aria-hidden="true"
+						>‹</span
+					>
+				{:else}
+					<a
+						class="btn btn-square btn-ghost btn-sm"
+						aria-label="Предыдущая Позиция"
+						href={sessionItemAddress(place.previous)}>‹</a
+					>
+				{/if}
 				<span class="tabular-nums opacity-70"
 					>{place.inBlock.number} из {place.inBlock.size}</span
 				>
-				<button
-					class="btn btn-square btn-ghost btn-sm"
-					aria-label="Следующая Позиция"
-					disabled={place.next === undefined}
-					onclick={() => open(place.next)}
-					type="button">›</button
-				>
+				{#if place.next === undefined}
+					<span class="btn btn-disabled btn-square btn-ghost btn-sm" aria-hidden="true"
+						>›</span
+					>
+				{:else}
+					<a
+						class="btn btn-square btn-ghost btn-sm"
+						aria-label="Следующая Позиция"
+						href={sessionItemAddress(place.next)}>›</a
+					>
+				{/if}
 			</div>
 			<ol class="flex flex-wrap gap-x-3 gap-y-1 text-xs" aria-label="Блоки Занятия">
 				{#each place.blocks as block (block.id)}
 					<li>
-						<button
+						<a
 							class="underline-offset-2"
 							class:font-semibold={block.id === place.inBlock.block}
 							class:opacity-50={block.id !== place.inBlock.block}
-							class:underline={block.id === openedBlock}
-							onclick={() => toggle(block.id)}
-							type="button"
+							class:underline={block.id === data.openedBlock}
+							href={blockAddress(item.ord, block.id)}
 						>
 							{block.name}
 							<span class="tabular-nums">{block.marked}/{block.items.length}</span>
-						</button>
+						</a>
 					</li>
 				{/each}
 			</ol>
@@ -97,11 +108,10 @@
 				>
 					{#each shownBlock.items as sessionItem (sessionItem.ord)}
 						<li>
-							<button
-								class="flex w-full items-baseline justify-between gap-3 py-2 text-left"
-								class:font-semibold={sessionItem.ord === current}
-								onclick={() => open(sessionItem.ord)}
-								type="button"
+							<a
+								class="flex w-full items-baseline justify-between gap-3 py-2"
+								class:font-semibold={sessionItem.ord === item.ord}
+								href={sessionItemAddress(sessionItem.ord)}
 							>
 								<span>{sessionItem.name}</span>
 								<span class="whitespace-nowrap opacity-60">
@@ -109,7 +119,7 @@
 										? sessionItem.dose
 										: MARK_NAMES[sessionItem.mark]}
 								</span>
-							</button>
+							</a>
 						</li>
 					{/each}
 				</ol>
@@ -120,15 +130,19 @@
 			{#if place.mark !== undefined}
 				<span class="badge badge-outline">{MARK_NAMES[place.mark]}</span>
 			{/if}
-			<h1 class="text-3xl leading-tight font-bold">{item.name}</h1>
-			<p class="text-5xl font-black tabular-nums">{item.dose}</p>
+			<h1 class="text-4xl leading-tight font-bold">{item.name}</h1>
+			<p class="text-2xl font-semibold tabular-nums opacity-80">{item.dose}</p>
 			{#if item.detail.note !== undefined}
 				<p class="pt-2 text-base">{item.detail.note}</p>
 			{/if}
 		</section>
 
 		<section class="space-y-2">
-			<details class="collapse-arrow collapse bg-base-200">
+			<details
+				class="collapse-arrow collapse bg-base-200"
+				ontoggle={rememberDisclosure(item.ord, EQUIPMENT_DISCLOSURE)}
+				open={isDisclosureOpen(item.ord, EQUIPMENT_DISCLOSURE)}
+			>
 				<summary class="collapse-title min-h-0 py-3 font-medium"
 					>Оборудование и Мишени</summary
 				>
@@ -152,7 +166,11 @@
 				Процедура · шагов {item.detail.steps.length}
 			</h2>
 			{#each item.detail.steps as step, stepIndex (step.id)}
-				<details class="collapse-arrow collapse bg-base-200">
+				<details
+					class="collapse-arrow collapse bg-base-200"
+					ontoggle={rememberDisclosure(item.ord, step.id)}
+					open={isDisclosureOpen(item.ord, step.id)}
+				>
 					<summary class="collapse-title min-h-0 py-3 font-medium"
 						>{stepIndex + 1}. {step.title}</summary
 					>

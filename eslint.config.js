@@ -508,6 +508,7 @@ export default defineConfig(
 		settings: {
 			'boundaries/elements': ELEMENTS,
 			'boundaries/files': FILE_CATEGORIES,
+			'boundaries/flag-as-external': { customSourcePatterns: ['$app/**'] },
 			'boundaries/ignore': CONFIG_FILES,
 			'import-x/resolver': { typescript: { project: './tsconfig.json' } },
 			'import/resolver': { typescript: { project: './tsconfig.json' } }
