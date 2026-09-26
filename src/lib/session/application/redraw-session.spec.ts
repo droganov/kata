@@ -8,7 +8,7 @@ import type { Performed, Store } from './store.ts';
 import { memoryStorage } from '../../../test/memory-storage.ts';
 import { SESSION_START, SESSION_VIEW } from '../../../test/store-contract.ts';
 import { createBrowserStore } from '../infrastructure/browser-store.ts';
-import { redrawActiveSession, redrawSessionItem } from './redraw-session.ts';
+import { redrawableSessions, redrawActiveSession, redrawSessionItem } from './redraw-session.ts';
 import { NoActiveSessionError, NoSessionItemError } from './store.ts';
 
 const ACCOUNT = 'person-a';
@@ -142,5 +142,20 @@ describe('redrawActiveSession', () => {
 		expect(redrawn.view.seed).toBe(8);
 		expect(redrawn.rejected).toEqual({ exercises: [], targets: [] });
 		expect(itemAt(redrawn.view, 3)?.drawNo).toBe(3);
+	});
+});
+
+describe('redrawableSessions', () => {
+	it('отдаёт Активные занятия Программ без Отметок', async () => {
+		const store = storeOf();
+		const opened = await store.openSession(ACCOUNT, SESSION_VIEW);
+		await store.openSession('person-b', SESSION_VIEW);
+		const programs = [
+			{ account: ACCOUNT, id: 'program-1', title: 'Закрепления и добор' },
+			{ account: ACCOUNT, id: 'program-2', title: 'Другая' }
+		];
+		expect(await redrawableSessions(store, programs)).toEqual([opened]);
+		await store.markExercise(ACCOUNT, { ord: 1, status: 'skipped' });
+		expect(await redrawableSessions(store, programs)).toEqual([]);
 	});
 });

@@ -13,7 +13,6 @@
 		cancelBrowserSession,
 		markBrowserSession,
 		REDRAW_LEVEL,
-		redrawBrowserSession,
 		redrawBrowserSessionItem
 	} from '../../../lib/session/interface/browser-session.ts';
 	import {
@@ -54,10 +53,6 @@
 		if (redrawn.isRedrawn) await goto(sessionItemAddress(ord), { invalidateAll: true });
 		else unredrawable = ord;
 	};
-	const redrawSession = async (): Promise<void> => {
-		await redrawBrowserSession(session, fetch);
-		await goto(PROGRAM_PATH + session.view.program, { invalidateAll: true });
-	};
 	const cancel = async (): Promise<void> => {
 		await cancelBrowserSession(session.account);
 		await goto(PROGRAM_LIST_PATH);
@@ -84,6 +79,9 @@
 			учитываться, и повторы станут чаще.
 		</p>
 	{/if}
+	<nav>
+		<a class="btn btn-ghost btn-sm" href={PROGRAM_LIST_PATH}>На главную</a>
+	</nav>
 	{#if place === undefined}
 		<p class="opacity-60">Упражнений нет</p>
 	{:else}
@@ -253,16 +251,9 @@
 			{/each}
 		</section>
 
-		<div class="flex justify-center gap-2">
-			{#if session.marks.length === 0}
-				<button class="btn btn-ghost btn-sm" onclick={redrawSession} type="button"
-					>Пересобрать Занятие</button
-				>
-			{/if}
-			<button class="btn btn-ghost btn-sm" onclick={cancel} type="button"
-				>Отменить Занятие</button
-			>
-		</div>
+		<button class="btn self-center btn-ghost btn-sm" onclick={cancel} type="button"
+			>Отменить Занятие</button
+		>
 
 		<footer class="fixed inset-x-0 bottom-0 border-t border-base-300 bg-base-100 p-4">
 			<div class="mx-auto grid max-w-xl grid-cols-2 gap-3">

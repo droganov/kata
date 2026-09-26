@@ -1,5 +1,5 @@
 import type { Redraw, RedrawLevel, Rejected, SessionItemRef } from '../domain/redraw.ts';
-import type { SessionItemView, SessionView } from './session-views.ts';
+import type { ProgramCardView, SessionItemView, SessionView } from './session-views.ts';
 import type { ActiveSession, Performed, Store } from './store.ts';
 
 import { REDRAW_LEVEL } from '../domain/redraw.ts';
@@ -38,6 +38,21 @@ export const redrawActiveSession = async (
 ): Promise<ActiveSession> => {
 	const history = await store.recentExercises(account, HISTORY_DAYS);
 	return store.redrawSession(account, await assemble(history));
+};
+
+export const redrawableSessions = async (
+	store: Store,
+	programs: readonly ProgramCardView[]
+): Promise<readonly ActiveSession[]> => {
+	const active = await store.activeSessions();
+	return active.filter(
+		(session) =>
+			session.marks.length === 0 &&
+			programs.some(
+				(program) =>
+					program.account === session.account && program.id === session.view.program
+			)
+	);
 };
 
 const sessionItemRefsOf = (view: SessionView): readonly SessionItemRef[] =>

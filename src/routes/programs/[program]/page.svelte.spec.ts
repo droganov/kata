@@ -314,20 +314,12 @@ describe('экран прохождения Занятия', () => {
 		expect(screen.queryByRole('button', { name: 'Другая Мишень' })).not.toBeInTheDocument();
 	});
 
-	it('пересобирает всё Занятие, пока в нём нет Отметок', async () => {
-		vi.stubGlobal('fetch', () => Promise.resolve(Response.json({ ...VIEW, seed: 8 })));
+	it('не пересобирает всё Занятие, а ведёт на главную', async () => {
 		renderAt(await openedWith());
-		await fireEvent.click(screen.getByRole('button', { name: 'Пересобрать Занятие' }));
-		await vi.waitFor(() => {
-			expect(goto).toHaveBeenCalledWith('/programs/program-1', { invalidateAll: true });
-		});
-		const redrawn = await store().activeSession(ACCOUNT);
-		expect(redrawn?.view.seed).toBe(8);
-		cleanup();
-		renderAt(await store().markExercise(ACCOUNT, { ord: 1, status: 'done' }));
 		expect(
 			screen.queryByRole('button', { name: 'Пересобрать Занятие' })
 		).not.toBeInTheDocument();
+		expect(hrefOf('На главную')).toBe('/');
 	});
 
 	it('без Позиций говорит, что Упражнений нет', async () => {
