@@ -197,15 +197,15 @@
 		</section>
 
 		<footer class="fixed inset-x-0 bottom-0 border-t border-base-300 bg-base-100 p-4">
-			<div class="mx-auto flex max-w-xl gap-3">
+			<div class="mx-auto grid max-w-xl grid-cols-2 gap-3">
 				<button
-					class="btn flex-1 btn-outline btn-lg"
+					class="btn btn-outline btn-lg"
 					class:btn-active={place.mark === MARK_STATUS.skipped}
 					onclick={() => mark(item.ord, MARK_STATUS.skipped)}
 					type="button">Пропущено</button
 				>
 				<button
-					class="btn flex-2 btn-neutral btn-lg"
+					class="btn btn-neutral btn-lg"
 					class:btn-active={place.mark === MARK_STATUS.done}
 					onclick={() => mark(item.ord, MARK_STATUS.done)}
 					type="button">Выполнено</button

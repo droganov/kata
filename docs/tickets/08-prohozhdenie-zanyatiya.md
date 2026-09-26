@@ -19,7 +19,7 @@
 
 Interpretations taken during implementation, 2026-09-26:
 
-- The Session screen is variant A of the prototype from ticket 07, built on the live Active session: name, Dose and note at first glance, one disclosure «Оборудование и Мишени» above the Procedure steps, each step a disclosure with its Oracles, «Пропущено» and «Выполнено» fixed to the bottom, arrows ‹ › and the tappable line of Blocks for going back.
+- The Session screen is variant A of the prototype from ticket 07, built on the live Active session: name, Dose and note at first glance, one disclosure «Оборудование и Мишени» above the Procedure steps, each step a disclosure with its Oracles, «Пропущено» and «Выполнено» fixed to the bottom in a 50/50 grid, arrows ‹ › and the tappable line of Blocks for going back.
 - Roles leave the server already in Russian: Equipment carries главное or вспомогательное, Targets arrive grouped under Первичные, Вторичные and Стабилизаторы. A role code the view does not know throws a domain error instead of reaching the screen. The step's active Targets are no longer sent.
 - Only the session items' own Procedures, Oracles, Equipment, Targets and notes are in the Session view, as before; a test now pins that a foreign Exercise's detail never enters it.
 - A mark goes through the Store (`markExercise`) into `sessionStorage`, then the screen navigates to the next unmarked session item. The open session item and the opened Block live in the URL (`?item=<ord>&block=<block id>`); the page holds no local state, and `load` rereads the Active session on every navigation. Without `item` the first unmarked session item opens.

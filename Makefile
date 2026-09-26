@@ -15,6 +15,7 @@ serve: build
 	deno run -A .deno-deploy/server.ts
 
 icons:
+	magick -background none static/favicon.svg -define icon:auto-resize=32,16 static/favicon.ico
 	magick -background none static/favicon.svg -resize 192x192 -depth 8 -strip static/icons/icon-192.png
 	magick -background none static/favicon.svg -resize 512x512 -depth 8 -strip static/icons/icon-512.png
 	magick -background none static/favicon.svg -resize 384x384 -background '$(ICON_BG)' -gravity center -extent 512x512 -flatten -alpha off -depth 8 -strip static/icons/icon-maskable-512.png
