@@ -16,7 +16,7 @@ export const load = async ({
 	readonly fetch: Fetch;
 }): Promise<BrowserSession> => {
 	const started = await startBrowserSession(data.program, fetch);
-	if (started.view.program !== data.program.id)
-		redirect(TEMPORARY_REDIRECT, PROGRAMS_PATH + started.view.program);
+	if (started.session.view.program !== data.program.id)
+		redirect(TEMPORARY_REDIRECT, PROGRAMS_PATH + started.session.view.program);
 	return started;
 };

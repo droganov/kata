@@ -13,7 +13,7 @@ describe('load /programs/[program] в браузере', () => {
 	it('открывает Занятие выбранной Программы', async () => {
 		vi.stubGlobal('sessionStorage', memoryStorage());
 		const started = await load({ data: { program: PROGRAM_CARD }, fetch: serveSessionView });
-		expect(started.view).toEqual(SESSION_VIEW);
+		expect(started.session.view).toEqual(SESSION_VIEW);
 	});
 
 	it('уводит в Программу Активного занятия, когда оно начато в другой', async () => {

@@ -7,7 +7,7 @@ const NO_ACTIVE_SESSION_NAME = 'NoActiveSessionError';
 const NO_SESSION_ITEM = 'Позиции нет в Активном занятии: ';
 const NO_SESSION_ITEM_NAME = 'NoSessionItemError';
 
-const MARK_STATUS = { done: 'done', skipped: 'skipped' } as const;
+export const MARK_STATUS = { done: 'done', skipped: 'skipped' } as const;
 
 export interface ActiveSession {
 	readonly account: string;

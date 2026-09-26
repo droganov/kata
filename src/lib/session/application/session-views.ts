@@ -7,8 +7,19 @@ import { blocksInOrder } from '../domain/program.ts';
 
 const NO_EXERCISE = 'Упражнения нет в каталоге: ';
 const NO_DETAIL = 'У Упражнения нет процедуры в таблицах: ';
-const ROLE_SEPARATOR = ' — ';
-const LIST_SEPARATOR = ' · ';
+const NAME_SEPARATOR = ', ';
+const UNKNOWN_ROLE = 'Неизвестный код роли: ';
+
+const EQUIPMENT_ROLES: Readonly<Record<string, string>> = {
+	auxiliary: 'вспомогательное',
+	main: 'главное'
+};
+
+const TARGET_ROLES: Readonly<Record<string, string>> = {
+	primary: 'Первичные',
+	secondary: 'Вторичные',
+	stabilizer: 'Стабилизаторы'
+};
 
 export interface ProgramCardView {
 	readonly account: string;
@@ -24,17 +35,21 @@ export interface SessionView {
 }
 
 interface DetailStepView {
-	readonly active: string;
 	readonly id: string;
 	readonly oracles: ExerciseDetail['steps'][number]['oracles'];
 	readonly title: string;
 }
 
+interface EquipmentView {
+	readonly name: string;
+	readonly role: string;
+}
+
 interface ExerciseDetailView {
-	readonly equipment: string;
+	readonly equipment: readonly EquipmentView[];
 	readonly note?: string;
 	readonly steps: readonly DetailStepView[];
-	readonly targets: string;
+	readonly targets: readonly TargetRoleView[];
 }
 
 interface SessionBlockView {
@@ -49,6 +64,11 @@ interface SessionItemView {
 	readonly exercise: string;
 	readonly name: string;
 	readonly ord: number;
+}
+
+interface TargetRoleView {
+	readonly names: string;
+	readonly role: string;
 }
 
 export const programCardOf = (program: Program): ProgramCardView => ({
@@ -79,19 +99,31 @@ export const sessionViewOf = (
 };
 
 const detailViewOf = (detail: ExerciseDetail): ExerciseDetailView => ({
-	equipment: entriesOf(detail.equipment),
-	...(detail.note !== undefined && { note: detail.note }),
-	steps: detail.steps.map((step) => ({
-		active: step.active.join(LIST_SEPARATOR),
-		id: step.id,
-		oracles: step.oracles,
-		title: step.title
+	equipment: detail.equipment.map((entry) => ({
+		name: entry.name,
+		role: roleNameOf(EQUIPMENT_ROLES, entry)
 	})),
-	targets: entriesOf(detail.targets)
+	...(detail.note !== undefined && { note: detail.note }),
+	steps: detail.steps.map((step) => ({ id: step.id, oracles: step.oracles, title: step.title })),
+	targets: targetRolesOf(detail.targets)
 });
 
-const entriesOf = (entries: readonly DetailEntry[]): string =>
-	entries.map((entry) => `${entry.name}${ROLE_SEPARATOR}${entry.role}`).join(LIST_SEPARATOR);
+const roleNameOf = (roles: Readonly<Record<string, string>>, entry: DetailEntry): string => {
+	const name = roles[entry.role];
+	if (name === undefined) throw new Error(UNKNOWN_ROLE + entry.role);
+	return name;
+};
+
+const targetRolesOf = (targets: readonly DetailEntry[]): readonly TargetRoleView[] => {
+	const named = targets.map((target) => ({
+		name: target.name,
+		role: roleNameOf(TARGET_ROLES, target)
+	}));
+	return Object.values(TARGET_ROLES).flatMap((role) => {
+		const names = named.filter((target) => target.role === role).map((target) => target.name);
+		return names.length === 0 ? [] : [{ names: names.join(NAME_SEPARATOR), role }];
+	});
+};
 
 const itemViewOf = (
 	item: SessionItem,

@@ -21,7 +21,11 @@ const DAY_MS = 86_400_000;
 const daysAfterStart = (days: number): Date => new Date(SESSION_START.getTime() + days * DAY_MS);
 
 const itemOf = (ord: number, exercise: string): SessionView['blocks'][number]['items'][number] => ({
-	detail: { equipment: 'Тело — main', steps: [], targets: 'Ягодичные — primary' },
+	detail: {
+		equipment: [{ name: 'Тело', role: 'главное' }],
+		steps: [],
+		targets: [{ names: 'Ягодичные', role: 'Первичные' }]
+	},
 	dose: '3×12',
 	exercise,
 	name: exercise,

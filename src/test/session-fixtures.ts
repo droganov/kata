@@ -182,7 +182,10 @@ export const DETAILS: ReadonlyMap<string, ExerciseDetail> = new Map(
 		exercise.id,
 		exercise.id === 'ex-neck-roll'
 			? {
-					...PLAIN_DETAIL,
+					equipment: [
+						{ name: 'Коврик', role: 'main' },
+						{ name: 'Стена', role: 'auxiliary' }
+					],
 					note: 'медленно',
 					steps: [
 						{
@@ -198,6 +201,11 @@ export const DETAILS: ReadonlyMap<string, ExerciseDetail> = new Map(
 							],
 							title: 'Наклон'
 						}
+					],
+					targets: [
+						{ name: 'Трапеция', role: 'stabilizer' },
+						{ name: 'Шея', role: 'primary' },
+						{ name: 'Лестничные', role: 'primary' }
 					]
 				}
 			: PLAIN_DETAIL

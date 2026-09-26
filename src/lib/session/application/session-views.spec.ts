@@ -88,13 +88,15 @@ describe('sessionViewOf', () => {
 		]);
 	});
 
-	it('раскрывает Упражнение: оборудование и Мишени с ролями, заметку и процедуру с оракулами', () => {
+	it('раскрывает Упражнение: оборудование и Мишени с ролями по-русски, заметку и процедуру с оракулами', () => {
 		expect(view.blocks[1]?.items[0]?.detail).toEqual({
-			equipment: 'Тело — main',
+			equipment: [
+				{ name: 'Коврик', role: 'главное' },
+				{ name: 'Стена', role: 'вспомогательное' }
+			],
 			note: 'медленно',
 			steps: [
 				{
-					active: 'Шея · Трапеция',
 					id: 'step-1',
 					oracles: [
 						{
@@ -107,15 +109,53 @@ describe('sessionViewOf', () => {
 					title: 'Наклон'
 				}
 			],
-			targets: 'Шея — primary'
+			targets: [
+				{ names: 'Шея, Лестничные', role: 'Первичные' },
+				{ names: 'Трапеция', role: 'Стабилизаторы' }
+			]
 		});
 		expect(view.blocks[1]?.items[1]?.detail.note).toBeUndefined();
+	});
+
+	it('не несёт коды ролей и пустые группы Мишеней', () => {
+		expect(view.blocks[1]?.items[1]?.detail).toEqual({
+			equipment: [{ name: 'Тело', role: 'главное' }],
+			steps: [],
+			targets: [{ names: 'Шея', role: 'Первичные' }]
+		});
 	});
 
 	it('отдаёт только Упражнения Занятия, а не весь каталог', () => {
 		const shown = view.blocks.flatMap((block) => block.items.map((item) => item.name));
 		expect(shown).toHaveLength(6);
 		expect(shown).not.toContain('Голубь');
+	});
+
+	it('не отдаёт процедуру, оракулы, оборудование, Мишени и заметку Упражнений вне Занятия', () => {
+		const foreign = {
+			equipment: [{ name: 'Чужой коврик', role: 'main' }],
+			note: 'чужая заметка',
+			steps: [
+				{
+					active: [],
+					id: 'step-foreign',
+					oracles: [
+						{
+							counterModel: ['чужое неправильно'],
+							id: 'oracle-foreign',
+							model: ['чужое правильно'],
+							predicate: 'Чужой оракул'
+						}
+					],
+					title: 'Чужой шаг'
+				}
+			],
+			targets: [{ name: 'Чужая мишень', role: 'primary' }]
+		};
+		const sent = JSON.stringify(
+			sessionViewOf(PROGRAM, CATALOG, session, new Map([...DETAILS, ['ex-pigeon', foreign]]))
+		);
+		expect(sent).not.toMatch(/Чуж|чуж/v);
 	});
 
 	it('бросает, когда позиция ссылается на Упражнение вне каталога', () => {
@@ -125,6 +165,25 @@ describe('sessionViewOf', () => {
 			seed: SEED
 		};
 		expect(() => sessionViewOf(PROGRAM, CATALOG, lost, DETAILS)).toThrow('lost');
+	});
+
+	it('бросает, когда роль оборудования неизвестна, а не показывает её код', () => {
+		const odd = new Map([
+			...DETAILS,
+			['ex-bike', { equipment: [{ name: 'Тело', role: 'odd' }], steps: [], targets: [] }]
+		]);
+		expect(() => sessionViewOf(PROGRAM, CATALOG, session, odd)).toThrow('odd');
+	});
+
+	it('бросает, когда роль Мишени неизвестна, а не теряет Мишень', () => {
+		const odd = new Map([
+			...DETAILS,
+			[
+				'ex-bike',
+				{ equipment: [], steps: [], targets: [{ name: 'Шея', role: 'odd-target' }] }
+			]
+		]);
+		expect(() => sessionViewOf(PROGRAM, CATALOG, session, odd)).toThrow('odd-target');
 	});
 
 	it('бросает, когда у Упражнения нет процедуры в таблицах', () => {

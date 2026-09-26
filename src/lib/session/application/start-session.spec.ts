@@ -18,7 +18,8 @@ describe('startSession', () => {
 		const assemble = vi.fn(() => Promise.resolve(SESSION_VIEW));
 		const started = await startSession(store, PROGRAM_CARD, assemble);
 		const active = await store.activeSession(PROGRAM_CARD.account);
-		expect(started).toEqual({ isHistoryAvailable: true, view: SESSION_VIEW });
+		expect(started.isHistoryAvailable).toBe(true);
+		expect(started.session.view).toEqual(SESSION_VIEW);
 		expect(active?.view).toEqual(SESSION_VIEW);
 		expect(assemble).toHaveBeenCalledOnce();
 	});
@@ -28,7 +29,7 @@ describe('startSession', () => {
 		await store.openSession(PROGRAM_CARD.account, SESSION_VIEW);
 		const assemble = vi.fn(() => Promise.resolve({ ...SESSION_VIEW, seed: 8 }));
 		const started = await startSession(store, PROGRAM_CARD, assemble);
-		expect(started.view).toEqual(SESSION_VIEW);
+		expect(started.session.view).toEqual(SESSION_VIEW);
 		expect(assemble).not.toHaveBeenCalled();
 	});
 
