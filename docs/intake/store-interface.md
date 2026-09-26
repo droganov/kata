@@ -99,8 +99,11 @@ interface Store {
   /** Ставит Отметку Позиции: выполнено или пропущено. Повторная Отметка заменяет прежнюю. Пишет время Отметки, от него считаются два часа до Истечения. */
   markExercise(account: Id, mark: SessionMark): Promise<ActiveSession>;
 
-  /** Заменяет позиции после пересборки. Увеличивает счётчик сборок. */
-  redrawn(account: Id, items: SessionItem[]): Promise<void>;
+  /** Заменяет одну неотмеченную Позицию после пересборки Упражнения или Мишени. Увеличивает её счётчик сборок, копит отклонённое. */
+  redrawItem(account: Id, item: SessionItem, rejected: Rejected): Promise<ActiveSession>;
+
+  /** Заменяет всё Занятие, пока в нём нет Отметок. Сбрасывает отклонённое, счётчик сборок каждой Позиции растёт. */
+  redrawSession(account: Id, view: SessionView): Promise<ActiveSession>;
 
   /** Финализация: выполненное уходит в Историю, выполненное раньше окна три недели из неё вычищается, Активное занятие снимается. Повтор ничего не делает. */
   closeSession(account: Id): Promise<void>;

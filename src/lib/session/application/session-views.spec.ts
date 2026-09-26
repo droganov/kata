@@ -77,6 +77,17 @@ describe('sessionViewOf', () => {
 		]);
 	});
 
+	it('несёт Мишень Позиции, первую сборку и то, можно ли пересобрать Мишень', () => {
+		expect(
+			view.blocks[2]?.items.map((item) => [item.target, item.drawNo, item.isTargetRedrawable])
+		).toEqual([
+			['target-glutes', 1, true],
+			['target-chest', 1, false],
+			['target-rhomboids', 1, true]
+		]);
+		expect(view.blocks[0]?.items[0]?.isTargetRedrawable).toBe(false);
+	});
+
 	it('несёт зерно Занятия', () => {
 		expect(view.seed).toBe(SEED);
 	});

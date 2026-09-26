@@ -4,7 +4,13 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { memoryStorage } from '../../../test/memory-storage.ts';
 import { PROGRAM_CARD, serveSessionView } from '../../../test/session-fixtures.ts';
 import { SESSION_VIEW } from '../../../test/store-contract.ts';
-import { markBrowserSession, startBrowserSession } from './browser-session.ts';
+import {
+	markBrowserSession,
+	REDRAW_LEVEL,
+	redrawBrowserSession,
+	redrawBrowserSessionItem,
+	startBrowserSession
+} from './browser-session.ts';
 
 describe('startBrowserSession', () => {
 	afterEach(() => {
@@ -75,5 +81,42 @@ describe('startBrowserSession', () => {
 		const first = await startBrowserSession(PROGRAM_CARD, serveSessionView);
 		const again = await startBrowserSession(PROGRAM_CARD, serveSessionView);
 		expect([first.isHistoryWarningDue, again.isHistoryWarningDue]).toEqual([true, false]);
+	});
+});
+
+describe('пересборка в браузере', () => {
+	afterEach(() => {
+		vi.unstubAllGlobals();
+	});
+
+	it('пересобирает Позицию через сервер и хранит замену в Активном занятии', async () => {
+		vi.stubGlobal('sessionStorage', memoryStorage());
+		vi.stubGlobal('indexedDB', new IDBFactory());
+		const { session } = await startBrowserSession(PROGRAM_CARD, serveSessionView);
+		const replacement = { ...SESSION_VIEW.blocks[1]!.items[1]!, exercise: 'ex-fly' };
+		const asked: string[] = [];
+		const redrawn = await redrawBrowserSessionItem(
+			session,
+			REDRAW_LEVEL.exercise,
+			3,
+			(input) => {
+				asked.push(input);
+				return Promise.resolve(Response.json(replacement));
+			}
+		);
+		expect(asked).toEqual(['/programs/program-1/session/redraw']);
+		expect(redrawn.isRedrawn).toBe(true);
+		const reloaded = await startBrowserSession(PROGRAM_CARD, serveSessionView);
+		expect(reloaded.session.view.blocks[1]?.items[1]).toEqual({ ...replacement, drawNo: 2 });
+	});
+
+	it('пересобирает всё Занятие через сервер', async () => {
+		vi.stubGlobal('sessionStorage', memoryStorage());
+		vi.stubGlobal('indexedDB', new IDBFactory());
+		const { session } = await startBrowserSession(PROGRAM_CARD, serveSessionView);
+		const redrawn = await redrawBrowserSession(session, () =>
+			Promise.resolve(Response.json({ ...SESSION_VIEW, seed: 8 }))
+		);
+		expect(redrawn.view.seed).toBe(8);
 	});
 });

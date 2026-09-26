@@ -1,12 +1,14 @@
-import type { Catalog, Exercise } from '../domain/catalog.ts';
+import type { Catalog } from '../domain/catalog.ts';
 import type { DetailEntry, ExerciseDetail } from '../domain/exercise-detail.ts';
 import type { Program } from '../domain/program.ts';
 import type { Session, SessionItem } from '../domain/session.ts';
 
 import { blocksInOrder } from '../domain/program.ts';
+import { isTargetRedrawable } from '../domain/redraw.ts';
 
 const NO_EXERCISE = 'Упражнения нет в каталоге: ';
 const NO_DETAIL = 'У Упражнения нет процедуры в таблицах: ';
+const FIRST_DRAW = 1;
 const NAME_SEPARATOR = ', ';
 const UNKNOWN_ROLE = 'Неизвестный код роли: ';
 
@@ -25,6 +27,17 @@ export interface ProgramCardView {
 	readonly account: string;
 	readonly id: string;
 	readonly title: string;
+}
+
+export interface SessionItemView {
+	readonly detail: ExerciseDetailView;
+	readonly dose: string;
+	readonly drawNo: number;
+	readonly exercise: string;
+	readonly isTargetRedrawable: boolean;
+	readonly name: string;
+	readonly ord: number;
+	readonly target: string;
 }
 
 export interface SessionView {
@@ -58,14 +71,6 @@ interface SessionBlockView {
 	readonly name: string;
 }
 
-interface SessionItemView {
-	readonly detail: ExerciseDetailView;
-	readonly dose: string;
-	readonly exercise: string;
-	readonly name: string;
-	readonly ord: number;
-}
-
 interface TargetRoleView {
 	readonly names: string;
 	readonly role: string;
@@ -83,13 +88,12 @@ export const sessionViewOf = (
 	session: Session,
 	details: ReadonlyMap<string, ExerciseDetail>
 ): SessionView => {
-	const exercises = new Map(catalog.exercises.map((exercise) => [exercise.id, exercise]));
 	return {
 		blocks: blocksInOrder(program).map((block) => ({
 			id: block.id,
 			items: session.items
 				.filter((item) => item.block === block.id)
-				.map((item) => itemViewOf(item, exercises, details)),
+				.map((item) => sessionItemViewOf(program, catalog, item, details)),
 			name: block.name
 		})),
 		program: program.id,
@@ -125,20 +129,24 @@ const targetRolesOf = (targets: readonly DetailEntry[]): readonly TargetRoleView
 	});
 };
 
-const itemViewOf = (
+export const sessionItemViewOf = (
+	program: Program,
+	catalog: Catalog,
 	item: SessionItem,
-	exercises: ReadonlyMap<string, Exercise>,
 	details: ReadonlyMap<string, ExerciseDetail>
 ): SessionItemView => {
-	const exercise = exercises.get(item.exercise);
+	const exercise = catalog.exercises.find((candidate) => candidate.id === item.exercise);
 	if (exercise === undefined) throw new Error(NO_EXERCISE + item.exercise);
 	const detail = details.get(item.exercise);
 	if (detail === undefined) throw new Error(NO_DETAIL + item.exercise);
 	return {
 		detail: detailViewOf(detail),
 		dose: item.dose,
+		drawNo: FIRST_DRAW,
 		exercise: item.exercise,
+		isTargetRedrawable: isTargetRedrawable(program, catalog, item.block, item.target),
 		name: exercise.name,
-		ord: item.ord
+		ord: item.ord,
+		target: item.target
 	};
 };

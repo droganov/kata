@@ -19,6 +19,7 @@ const STARTED: BrowserSession = {
 		markedAt: SESSION_START.toISOString(),
 		marks: [{ ord: 1, status: 'done' }],
 		openedAt: SESSION_START.toISOString(),
+		rejected: { exercises: [], targets: [] },
 		view: SESSION_VIEW
 	}
 };

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import type { Performed } from '../application/store.ts';
+import type { Redraw } from '../domain/redraw.ts';
 
 import { createSession } from './session.ts';
 
@@ -68,5 +69,37 @@ describe('createSession на боевых таблицах', () => {
 			expect(item.detail.steps.length).toBeGreaterThan(0);
 			expect(item.detail.targets).not.toBe('');
 		}
+	});
+});
+
+describe('createSession: пересборка на боевых таблицах', () => {
+	const view = session.assembleSession(PROGRAM_ID, NO_HISTORY);
+	const items = view.blocks.flatMap((block) =>
+		block.items.map((item) => ({
+			block: block.id,
+			exercise: item.exercise,
+			ord: item.ord,
+			target: item.target
+		}))
+	);
+	const strength = view.blocks[2]!.items[0]!;
+	const redrawOf = (level: 'exercise' | 'target'): Redraw => ({
+		items,
+		level,
+		ord: strength.ord,
+		rejected: { exercises: [], targets: [] }
+	});
+
+	it('пересобирает Упражнение Силового Блока внутри той же Мишени', () => {
+		const redrawn = session.redrawSessionItemView(PROGRAM_ID, NO_HISTORY, redrawOf('exercise'));
+		expect(redrawn?.target).toBe(strength.target);
+		expect(redrawn?.exercise).not.toBe(strength.exercise);
+		expect(items.map((item) => item.exercise)).not.toContain(redrawn?.exercise);
+	});
+
+	it('пересобирает Мишень Силового Блока', () => {
+		expect(strength.isTargetRedrawable).toBe(true);
+		const redrawn = session.redrawSessionItemView(PROGRAM_ID, NO_HISTORY, redrawOf('target'));
+		expect(redrawn?.target).not.toBe(strength.target);
 	});
 });

@@ -5,6 +5,7 @@ import type { Store } from '../lib/session/application/store.ts';
 
 import {
 	ActiveSessionExistsError,
+	MarkedSessionItemError,
 	NoActiveSessionError,
 	NoSessionItemError
 } from '../lib/session/application/store.ts';
@@ -19,6 +20,7 @@ const WINDOW_DAYS = 21;
 const LONG_AGO_DAYS = 365;
 const DAY_MS = 86_400_000;
 const HOUR_MS = 3_600_000;
+const NOTHING_REJECTED = { exercises: [], targets: [] };
 
 const hoursAfterStart = (hours: number): Date =>
 	new Date(SESSION_START.getTime() + hours * HOUR_MS);
@@ -32,9 +34,12 @@ const itemOf = (ord: number, exercise: string): SessionView['blocks'][number]['i
 		targets: [{ names: 'Ягодичные', role: 'Первичные' }]
 	},
 	dose: '3×12',
+	drawNo: 1,
 	exercise,
+	isTargetRedrawable: true,
 	name: exercise,
-	ord
+	ord,
+	target: `target-${exercise}`
 });
 
 export const SESSION_VIEW: SessionView = {
@@ -66,6 +71,7 @@ export const describeStoreContract = (name: string, createStore: StoreFactory): 
 				markedAt: SESSION_START.toISOString(),
 				marks: [],
 				openedAt: SESSION_START.toISOString(),
+				rejected: { exercises: [], targets: [] },
 				view: SESSION_VIEW
 			});
 			expect(await store.activeSession(ACCOUNT)).toEqual(opened);
@@ -137,6 +143,123 @@ export const describeStoreContract = (name: string, createStore: StoreFactory): 
 			await expect(store.markExercise(ACCOUNT, { ord: 9, status: 'done' })).rejects.toThrow(
 				'Позиции нет в Активном занятии'
 			);
+		});
+
+		it('пересобирает Позицию: заменяет её, растит счётчик сборок и копит отклонённое', async () => {
+			const store = createStore(() => SESSION_START);
+			await store.openSession(ACCOUNT, SESSION_VIEW);
+			await store.markExercise(ACCOUNT, { ord: 1, status: 'done' });
+			await store.redrawItem(ACCOUNT, itemOf(3, 'ex-fly'), {
+				exercises: ['ex-press'],
+				targets: []
+			});
+			const redrawn = await store.redrawItem(ACCOUNT, itemOf(3, 'ex-dip'), {
+				exercises: ['ex-fly', 'ex-press'],
+				targets: ['target-ex-fly']
+			});
+			expect(redrawn.view.blocks[1]?.items).toEqual([
+				itemOf(2, 'ex-bridge'),
+				{ ...itemOf(3, 'ex-dip'), drawNo: 3 }
+			]);
+			expect(redrawn.rejected).toEqual({
+				exercises: ['ex-press', 'ex-fly'],
+				targets: ['target-ex-fly']
+			});
+			expect(redrawn.marks).toEqual([{ ord: 1, status: 'done' }]);
+			expect(redrawn.markedAt).toBe(SESSION_START.toISOString());
+			expect(await store.activeSession(ACCOUNT)).toEqual(redrawn);
+		});
+
+		it('не пересобирает отмеченную Позицию, выполненную или пропущенную', async () => {
+			const store = createStore(() => SESSION_START);
+			await store.openSession(ACCOUNT, SESSION_VIEW);
+			await store.markExercise(ACCOUNT, { ord: 1, status: 'done' });
+			await store.markExercise(ACCOUNT, { ord: 2, status: 'skipped' });
+			for (const ord of [1, 2]) {
+				const redraw = store.redrawItem(ACCOUNT, itemOf(ord, 'ex-fly'), NOTHING_REJECTED);
+				await expect(redraw).rejects.toThrow(MarkedSessionItemError);
+				await expect(redraw).rejects.toThrow('Позиция уже отмечена');
+			}
+			const kept = await store.activeSession(ACCOUNT);
+			expect(kept?.view).toEqual(SESSION_VIEW);
+		});
+
+		it('на пересборку Позиции без Активного занятия или без такой Позиции отвечает предметной ошибкой', async () => {
+			const store = createStore(() => SESSION_START);
+			await expect(
+				store.redrawItem(ACCOUNT, itemOf(1, 'ex-fly'), NOTHING_REJECTED)
+			).rejects.toThrow(NoActiveSessionError);
+			await store.openSession(ACCOUNT, SESSION_VIEW);
+			await expect(
+				store.redrawItem(ACCOUNT, itemOf(9, 'ex-fly'), NOTHING_REJECTED)
+			).rejects.toThrow(NoSessionItemError);
+		});
+
+		it('пересобирает всё Занятие: сбрасывает отклонённое и растит счётчик сборок каждой Позиции', async () => {
+			const store = createStore(() => SESSION_START);
+			const opened = await store.openSession(ACCOUNT, SESSION_VIEW);
+			await store.redrawItem(ACCOUNT, itemOf(3, 'ex-fly'), {
+				exercises: ['ex-press'],
+				targets: []
+			});
+			const fresh: SessionView = {
+				...SESSION_VIEW,
+				blocks: [
+					{
+						id: 'block-strength',
+						items: [
+							itemOf(1, 'ex-press'),
+							itemOf(2, 'ex-row'),
+							itemOf(3, 'ex-row'),
+							itemOf(4, 'ex-dip')
+						],
+						name: 'Силовой'
+					}
+				],
+				seed: 8
+			};
+			const redrawn = await store.redrawSession(ACCOUNT, fresh);
+			expect(redrawn.view.seed).toBe(8);
+			expect(
+				redrawn.view.blocks[0]?.items.map((item) => [item.exercise, item.drawNo])
+			).toEqual([
+				['ex-press', 2],
+				['ex-row', 2],
+				['ex-row', 3],
+				['ex-dip', 1]
+			]);
+			expect(redrawn.rejected).toEqual(NOTHING_REJECTED);
+			expect(redrawn.openedAt).toBe(opened.openedAt);
+			expect(await store.activeSession(ACCOUNT)).toEqual(redrawn);
+		});
+
+		it('не пересобирает всё Занятие, когда в нём есть Отметка, и без Активного занятия', async () => {
+			const store = createStore(() => SESSION_START);
+			await expect(store.redrawSession(ACCOUNT, SESSION_VIEW)).rejects.toThrow(
+				NoActiveSessionError
+			);
+			await store.openSession(ACCOUNT, SESSION_VIEW);
+			await store.markExercise(ACCOUNT, { ord: 3, status: 'skipped' });
+			await expect(store.redrawSession(ACCOUNT, SESSION_VIEW)).rejects.toThrow(
+				MarkedSessionItemError
+			);
+		});
+
+		it('не пишет отклонённое в Историю', async () => {
+			const store = createStore(() => SESSION_START);
+			await store.openSession(ACCOUNT, SESSION_VIEW);
+			await store.redrawItem(ACCOUNT, itemOf(2, 'ex-fly'), {
+				exercises: ['ex-bridge'],
+				targets: []
+			});
+			for (const ord of [1, 2, 3]) await store.markExercise(ACCOUNT, { ord, status: 'done' });
+			await store.closeSession(ACCOUNT);
+			const history = await store.recentExercises(ACCOUNT, WINDOW_DAYS);
+			expect(history.map((entry) => entry.exercise)).toEqual([
+				'ex-neck-roll',
+				'ex-fly',
+				'ex-press'
+			]);
 		});
 
 		it('держит Историю доступной', async () => {

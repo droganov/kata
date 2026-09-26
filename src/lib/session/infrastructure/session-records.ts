@@ -1,9 +1,14 @@
-import type { SessionView } from '../application/session-views.ts';
-import type { ActiveSession, Performed } from '../application/store.ts';
+import type { SessionItemView, SessionView } from '../application/session-views.ts';
+import type { ActiveSession, Performed, Rejected } from '../application/store.ts';
+import type { Redraw, SessionItemRef } from '../domain/redraw.ts';
+
+import { isRedrawLevel } from '../domain/redraw.ts';
 
 const OBJECT_KIND = 'object';
 const NUMBER_KIND = 'number';
 const STRING_KIND = 'string';
+const BOOLEAN_KIND = 'boolean';
+const ITEM_REF_FIELDS = ['block', 'exercise', 'target'];
 const EQUIPMENT_FIELDS = ['name', 'role'];
 const TARGET_FIELDS = ['names', 'role'];
 const STEP_FIELDS = ['id', 'title'];
@@ -23,6 +28,12 @@ export const historyOf = (body: unknown): readonly Performed[] =>
 export const performedOf = (value: unknown): readonly Performed[] =>
 	Array.isArray(value) ? value.filter((entry): entry is Performed => isPerformed(entry)) : [];
 
+export const redrawOf = (body: unknown): Redraw | undefined => {
+	if (!isRecord(body)) return;
+	const { redraw } = body;
+	return isRedraw(redraw) ? redraw : undefined;
+};
+
 export const isSessionView = (value: unknown): value is SessionView =>
 	isRecord(value) &&
 	isListOf(value.blocks, isSessionBlock) &&
@@ -33,16 +44,19 @@ export const isSessionView = (value: unknown): value is SessionView =>
 const isSessionBlock = (value: unknown): boolean =>
 	isRecord(value) &&
 	typeof value.id === STRING_KIND &&
-	isListOf(value.items, isSessionItem) &&
+	isListOf(value.items, isSessionItemView) &&
 	typeof value.name === STRING_KIND;
 
-const isSessionItem = (value: unknown): boolean =>
+export const isSessionItemView = (value: unknown): value is SessionItemView =>
 	isRecord(value) &&
 	isExerciseDetail(value.detail) &&
 	typeof value.dose === STRING_KIND &&
+	typeof value.drawNo === NUMBER_KIND &&
 	typeof value.exercise === STRING_KIND &&
+	typeof value.isTargetRedrawable === BOOLEAN_KIND &&
 	typeof value.name === STRING_KIND &&
-	typeof value.ord === NUMBER_KIND;
+	typeof value.ord === NUMBER_KIND &&
+	typeof value.target === STRING_KIND;
 
 const isExerciseDetail = (value: unknown): boolean =>
 	isRecord(value) &&
@@ -74,6 +88,7 @@ const isActiveSession = (value: unknown): value is ActiveSession =>
 	typeof value.markedAt === STRING_KIND &&
 	Array.isArray(value.marks) &&
 	typeof value.openedAt === STRING_KIND &&
+	isRejected(value.rejected) &&
 	isSessionView(value.view);
 
 const isPerformed = (value: unknown): value is Performed =>
@@ -89,3 +104,16 @@ const parsedOf = (text: string): unknown => {
 		return text;
 	}
 };
+
+const isSessionItemRef = (value: unknown): value is SessionItemRef =>
+	hasStrings(value, ITEM_REF_FIELDS) && isRecord(value) && typeof value.ord === NUMBER_KIND;
+
+const isRedraw = (value: unknown): value is Redraw =>
+	isRecord(value) &&
+	isListOf(value.items, isSessionItemRef) &&
+	isRedrawLevel(value.level) &&
+	typeof value.ord === NUMBER_KIND &&
+	isRejected(value.rejected);
+
+const isRejected = (value: unknown): value is Rejected =>
+	isRecord(value) && isListOf(value.exercises, isString) && isListOf(value.targets, isString);

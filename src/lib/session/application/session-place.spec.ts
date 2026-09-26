@@ -10,6 +10,7 @@ const sessionWith = (...marks: readonly SessionMark[]): ActiveSession => ({
 	markedAt: SESSION_START.toISOString(),
 	marks,
 	openedAt: SESSION_START.toISOString(),
+	rejected: { exercises: [], targets: [] },
 	view: SESSION_VIEW
 });
 

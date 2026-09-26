@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import type { Performed } from './store.ts';
 
 import { GATEWAYS } from '../../../test/session-fixtures.ts';
-import { assembleSession } from './assemble-session.ts';
+import { assembleSession, redrawSessionItemView } from './assemble-session.ts';
 
 const SEED = 7;
 const SEEDS = Array.from({ length: 500 }, (_item, at) => at);
@@ -51,5 +51,46 @@ describe('assembleSession', () => {
 		expect(() => assembleSession(GATEWAYS, 'missing', SEED, NO_HISTORY, NOW)).toThrow(
 			'missing'
 		);
+	});
+});
+
+describe('redrawSessionItemView', () => {
+	const redraw = {
+		items: [
+			{ block: 'block-strength', exercise: 'ex-bridge', ord: 4, target: 'target-glutes' },
+			{ block: 'block-strength', exercise: 'ex-press', ord: 5, target: 'target-chest' }
+		],
+		level: 'exercise',
+		ord: 5,
+		rejected: { exercises: [], targets: [] }
+	} as const;
+
+	it('пересобирает Позицию Программы и отдаёт её с процедурой Упражнения', () => {
+		expect(
+			redrawSessionItemView(GATEWAYS, 'program-1', redraw, SEED, NO_HISTORY, NOW)
+		).toMatchObject({
+			detail: { equipment: [{ name: 'Тело', role: 'главное' }] },
+			dose: '3×12',
+			drawNo: 1,
+			exercise: 'ex-fly',
+			isTargetRedrawable: false,
+			name: 'Сведение в тренажёре',
+			ord: 5,
+			target: 'target-chest'
+		});
+	});
+
+	it('ничего не отдаёт, когда замены нет', () => {
+		const rejected = { exercises: ['ex-fly'], targets: [] };
+		expect(
+			redrawSessionItemView(
+				GATEWAYS,
+				'program-1',
+				{ ...redraw, rejected },
+				SEED,
+				NO_HISTORY,
+				NOW
+			)
+		).toBeUndefined();
 	});
 });

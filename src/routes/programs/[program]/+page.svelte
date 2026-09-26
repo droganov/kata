@@ -1,14 +1,20 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 
-	import type { SessionMark } from '../../../lib/session/interface/browser-session.ts';
+	import type {
+		RedrawLevel,
+		SessionMark
+	} from '../../../lib/session/interface/browser-session.ts';
 	import type { SessionScreen } from '../../../lib/session/interface/session-screen.ts';
 
 	import { nextAfterMark, placeOf } from '../../../lib/session/application/session-place.ts';
 	import { MARK_STATUS } from '../../../lib/session/application/store.ts';
 	import {
 		cancelBrowserSession,
-		markBrowserSession
+		markBrowserSession,
+		REDRAW_LEVEL,
+		redrawBrowserSession,
+		redrawBrowserSessionItem
 	} from '../../../lib/session/interface/browser-session.ts';
 	import {
 		closeDisclosure,
@@ -23,12 +29,14 @@
 	const PROGRAM_LIST_PATH = '/';
 	const PROGRAM_PATH = '/programs/';
 	const FINISHED_PATH = '/finished';
+	const FIRST_DRAW = 1;
 	const MARK_NAMES = {
 		[MARK_STATUS.done]: 'выполнено',
 		[MARK_STATUS.skipped]: 'пропущено'
 	} as const;
 
 	const session = $derived(data.session);
+	let unredrawable = $state<number | undefined>();
 	const place = $derived(data.current === undefined ? undefined : placeOf(session, data.current));
 	const shownBlock = $derived(place?.blocks.find((block) => block.id === data.openedBlock));
 
@@ -39,6 +47,16 @@
 			await goto(sessionItemAddress(nextAfterMark(marked.session, ord)), {
 				invalidateAll: true
 			});
+	};
+	const redraw = async (ord: number, level: RedrawLevel): Promise<void> => {
+		unredrawable = undefined;
+		const redrawn = await redrawBrowserSessionItem(session, level, ord, fetch);
+		if (redrawn.isRedrawn) await goto(sessionItemAddress(ord), { invalidateAll: true });
+		else unredrawable = ord;
+	};
+	const redrawSession = async (): Promise<void> => {
+		await redrawBrowserSession(session, fetch);
+		await goto(PROGRAM_PATH + session.view.program, { invalidateAll: true });
 	};
 	const cancel = async (): Promise<void> => {
 		await cancelBrowserSession(session.account);
@@ -151,6 +169,31 @@
 			{/if}
 		</section>
 
+		<section class="flex flex-wrap items-center gap-2" aria-label="Пересборка">
+			{#if place.mark === undefined}
+				<button
+					class="btn btn-outline btn-sm"
+					onclick={() => redraw(item.ord, REDRAW_LEVEL.exercise)}
+					type="button">Другое Упражнение</button
+				>
+				{#if item.isTargetRedrawable}
+					<button
+						class="btn btn-outline btn-sm"
+						onclick={() => redraw(item.ord, REDRAW_LEVEL.target)}
+						type="button">Другая Мишень</button
+					>
+				{/if}
+			{/if}
+			{#if item.drawNo > FIRST_DRAW}
+				<span class="text-sm opacity-60">Отказов: {item.drawNo - FIRST_DRAW}</span>
+			{/if}
+		</section>
+		{#if unredrawable === item.ord}
+			<p class="text-sm opacity-70" role="status">
+				Замены нет: всё подходящее уже в Занятии или отклонено.
+			</p>
+		{/if}
+
 		<section class="space-y-2">
 			<details
 				class="collapse-arrow collapse bg-base-200"
@@ -210,9 +253,16 @@
 			{/each}
 		</section>
 
-		<button class="btn self-center btn-ghost btn-sm" onclick={cancel} type="button"
-			>Отменить Занятие</button
-		>
+		<div class="flex justify-center gap-2">
+			{#if session.marks.length === 0}
+				<button class="btn btn-ghost btn-sm" onclick={redrawSession} type="button"
+					>Пересобрать Занятие</button
+				>
+			{/if}
+			<button class="btn btn-ghost btn-sm" onclick={cancel} type="button"
+				>Отменить Занятие</button
+			>
+		</div>
 
 		<footer class="fixed inset-x-0 bottom-0 border-t border-base-300 bg-base-100 p-4">
 			<div class="mx-auto grid max-w-xl grid-cols-2 gap-3">

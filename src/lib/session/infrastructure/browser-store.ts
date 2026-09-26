@@ -1,11 +1,19 @@
-import type { SessionView } from '../application/session-views.ts';
-import type { ActiveSession, Performed, SessionMark, Store } from '../application/store.ts';
+import type { SessionItemView, SessionView } from '../application/session-views.ts';
+import type {
+	ActiveSession,
+	Performed,
+	Rejected,
+	SessionMark,
+	Store
+} from '../application/store.ts';
 
 import {
 	ActiveSessionExistsError,
 	doneExercisesOf,
 	hasSessionItem,
 	HISTORY_DAYS,
+	isSessionItemMarked,
+	MarkedSessionItemError,
 	NoActiveSessionError,
 	NoSessionItemError
 } from '../application/store.ts';
@@ -25,6 +33,8 @@ const VERSION_CHANGE_EVENT = 'versionchange';
 const COMPLETE_EVENT = 'complete';
 const ABORT_EVENT = 'abort';
 const DAY_MS = 86_400_000;
+const FIRST_DRAW = 1;
+const NOTHING_REJECTED: Rejected = { exercises: [], targets: [] };
 
 export interface BrowserStoreDeps {
 	readonly indexedDB: IDBFactory | undefined;
@@ -58,7 +68,14 @@ export const createBrowserStore = (deps: BrowserStoreDeps): Store => {
 	const openSession = (account: string, view: SessionView): ActiveSession => {
 		if (readActive(account) !== undefined) throw new ActiveSessionExistsError(account);
 		const openedAt = deps.now().toISOString();
-		return writeActive({ account, markedAt: openedAt, marks: [], openedAt, view });
+		return writeActive({
+			account,
+			markedAt: openedAt,
+			marks: [],
+			openedAt,
+			rejected: NOTHING_REJECTED,
+			view
+		});
 	};
 	const markExercise = (account: string, mark: SessionMark): ActiveSession => {
 		const session = readActive(account);
@@ -70,6 +87,45 @@ export const createBrowserStore = (deps: BrowserStoreDeps): Store => {
 			marks: [...session.marks.filter((kept) => kept.ord !== mark.ord), mark].toSorted(
 				(first, second) => first.ord - second.ord
 			)
+		});
+	};
+	const redrawItem = (
+		account: string,
+		item: SessionItemView,
+		rejected: Rejected
+	): ActiveSession => {
+		const session = readActive(account);
+		if (session === undefined) throw new NoActiveSessionError(account);
+		if (!hasSessionItem(session, item.ord)) throw new NoSessionItemError(item.ord);
+		if (isSessionItemMarked(session, item.ord)) throw new MarkedSessionItemError(item.ord);
+		return writeActive({
+			...session,
+			rejected: {
+				exercises: [...new Set([...session.rejected.exercises, ...rejected.exercises])],
+				targets: [...new Set([...session.rejected.targets, ...rejected.targets])]
+			},
+			view: withRedrawn(session.view, (drawn) =>
+				drawn.ord === item.ord ? { ...item, drawNo: drawn.drawNo + 1 } : drawn
+			)
+		});
+	};
+	const redrawSession = (account: string, view: SessionView): ActiveSession => {
+		const session = readActive(account);
+		if (session === undefined) throw new NoActiveSessionError(account);
+		const [marked] = session.marks;
+		if (marked !== undefined) throw new MarkedSessionItemError(marked.ord);
+		const draws = new Map(
+			session.view.blocks.flatMap((block) =>
+				block.items.map((item) => [item.ord, item.drawNo])
+			)
+		);
+		return writeActive({
+			...session,
+			rejected: NOTHING_REJECTED,
+			view: withRedrawn(view, (item) => ({
+				...item,
+				drawNo: (draws.get(item.ord) ?? 0) + FIRST_DRAW
+			}))
 		});
 	};
 	const closeSession = async (account: string): Promise<void> => {
@@ -103,7 +159,10 @@ export const createBrowserStore = (deps: BrowserStoreDeps): Store => {
 		isHistoryAvailable: async () => (await historyDatabase()) !== null,
 		markExercise: (account, mark) => Promise.try(() => markExercise(account, mark)),
 		openSession: (account, view) => Promise.try(() => openSession(account, view)),
-		recentExercises
+		recentExercises,
+		redrawItem: (account, item, rejected) =>
+			Promise.try(() => redrawItem(account, item, rejected)),
+		redrawSession: (account, view) => Promise.try(() => redrawSession(account, view))
 	};
 };
 
@@ -181,3 +240,14 @@ const settled = (transaction: IDBTransaction): Promise<void> =>
 			reject(new Error(HISTORY_ABORTED));
 		});
 	});
+
+const withRedrawn = (
+	view: SessionView,
+	redraw: (item: SessionItemView) => SessionItemView
+): SessionView => ({
+	...view,
+	blocks: view.blocks.map((block) => ({
+		...block,
+		items: block.items.map((item) => redraw(item))
+	}))
+});

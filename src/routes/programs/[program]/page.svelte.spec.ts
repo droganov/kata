@@ -52,16 +52,22 @@ const VIEW: SessionView = {
 						]
 					},
 					dose: '2×10',
+					drawNo: 1,
 					exercise: 'ex-neck-roll',
+					isTargetRedrawable: false,
 					name: 'Круги головой',
-					ord: 1
+					ord: 1,
+					target: 'target-cervical'
 				},
 				{
 					detail: PLAIN_DETAIL,
 					dose: '40с × 2',
+					drawNo: 1,
 					exercise: 'ex-neck-tilt',
+					isTargetRedrawable: false,
 					name: 'Наклоны головы',
-					ord: 2
+					ord: 2,
+					target: 'target-cervical'
 				}
 			],
 			name: 'Разминка'
@@ -72,9 +78,12 @@ const VIEW: SessionView = {
 				{
 					detail: PLAIN_DETAIL,
 					dose: '3×15',
+					drawNo: 1,
 					exercise: 'ex-bridge',
+					isTargetRedrawable: true,
 					name: 'Ягодичный мост',
-					ord: 3
+					ord: 3,
+					target: 'target-glutes'
 				}
 			],
 			name: 'Силовой'
@@ -116,6 +125,7 @@ const hrefOf = (name: RegExp | string): null | string =>
 
 beforeEach(() => {
 	sessionStorage.clear();
+	vi.unstubAllGlobals();
 	vi.mocked(goto).mockClear();
 });
 
@@ -257,6 +267,67 @@ describe('экран прохождения Занятия', () => {
 		await fireEvent.click(screen.getByRole('button', { name: 'Отменить Занятие' }));
 		expect(await store().activeSession(ACCOUNT)).toBeUndefined();
 		expect(goto).toHaveBeenCalledWith('/');
+	});
+
+	it('неотмеченную Позицию пересобирает на уровне Упражнения и остаётся на ней', async () => {
+		const replacement = {
+			...VIEW.blocks[2]!.items[0]!,
+			exercise: 'ex-hip-thrust',
+			name: 'Тяга бедром'
+		};
+		const asked: Request[] = [];
+		vi.stubGlobal('fetch', (_input: string, init?: RequestInit) => {
+			asked.push(new Request('http://localhost/', init));
+			return Promise.resolve(Response.json(replacement));
+		});
+		renderAt(await openedWith(), '?item=3');
+		expect(screen.queryByText(/Отказов/v)).not.toBeInTheDocument();
+		await fireEvent.click(screen.getByRole('button', { name: 'Другое Упражнение' }));
+		await vi.waitFor(() => {
+			expect(goto).toHaveBeenCalledWith('?item=3', { invalidateAll: true });
+		});
+		expect(await asked[0]!.json()).toMatchObject({ redraw: { level: 'exercise', ord: 3 } });
+		const active = await store().activeSession(ACCOUNT);
+		cleanup();
+		renderAt(active!, '?item=3');
+		expect(exerciseName()).toBe('Тяга бедром');
+		expect(screen.getByText('Отказов: 1')).toBeInTheDocument();
+	});
+
+	it('пересобирает Мишень, где это возможно, и говорит, когда замены нет', async () => {
+		vi.stubGlobal('fetch', () => Promise.resolve(new Response(null, { status: 409 })));
+		const session = await openedWith();
+		renderAt(session);
+		expect(screen.queryByRole('button', { name: 'Другая Мишень' })).not.toBeInTheDocument();
+		cleanup();
+		renderAt(session, '?item=3');
+		expect(screen.queryByRole('status')).not.toBeInTheDocument();
+		await fireEvent.click(screen.getByRole('button', { name: 'Другая Мишень' }));
+		expect(await screen.findByRole('status')).toHaveTextContent('Замены нет');
+		expect(goto).not.toHaveBeenCalled();
+		expect(exerciseName()).toBe('Ягодичный мост');
+	});
+
+	it('отмеченную Позицию не пересобирает', async () => {
+		renderAt(await openedWith({ ord: 3, status: 'skipped' }), '?item=3');
+		expect(screen.queryByRole('button', { name: 'Другое Упражнение' })).not.toBeInTheDocument();
+		expect(screen.queryByRole('button', { name: 'Другая Мишень' })).not.toBeInTheDocument();
+	});
+
+	it('пересобирает всё Занятие, пока в нём нет Отметок', async () => {
+		vi.stubGlobal('fetch', () => Promise.resolve(Response.json({ ...VIEW, seed: 8 })));
+		renderAt(await openedWith());
+		await fireEvent.click(screen.getByRole('button', { name: 'Пересобрать Занятие' }));
+		await vi.waitFor(() => {
+			expect(goto).toHaveBeenCalledWith('/programs/program-1', { invalidateAll: true });
+		});
+		const redrawn = await store().activeSession(ACCOUNT);
+		expect(redrawn?.view.seed).toBe(8);
+		cleanup();
+		renderAt(await store().markExercise(ACCOUNT, { ord: 1, status: 'done' }));
+		expect(
+			screen.queryByRole('button', { name: 'Пересобрать Занятие' })
+		).not.toBeInTheDocument();
 	});
 
 	it('без Позиций говорит, что Упражнений нет', async () => {

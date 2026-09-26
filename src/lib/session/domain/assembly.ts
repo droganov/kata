@@ -14,7 +14,7 @@ const PAIR_ROWS_PER_GROUP = 1;
 const PAIR_PICK = 1;
 const LOADED_MODALITY = 'loaded';
 
-interface Assembly {
+export interface Assembly {
 	readonly exercises: readonly Exercise[];
 	readonly groups: readonly MuscleGroup[];
 	readonly loadedGroups: Set<string>;
@@ -42,11 +42,12 @@ export const sessionOf = (
 	};
 };
 
-const assemblyOf = (
+export const assemblyOf = (
 	program: Program,
 	catalog: Catalog,
 	seed: number,
-	novelty: NoveltyWeight
+	novelty: NoveltyWeight,
+	taken: Iterable<string> = []
 ): Assembly => ({
 	exercises: catalog.exercises.filter((exercise) =>
 		isPermitted(exercise, program.contraindications)
@@ -55,7 +56,7 @@ const assemblyOf = (
 	loadedGroups: new Set(),
 	novelty,
 	random: randomOf(seed),
-	taken: new Set(),
+	taken: new Set(taken),
 	targets: catalog.targets
 });
 
@@ -135,7 +136,7 @@ const groupWeight = (block: Block, group: string, assembly: Assembly): number =>
 			.map((target) => targetWeight(block, target.id, assembly))
 	);
 
-const groupTargets = (block: Block, group: string, assembly: Assembly): readonly Target[] =>
+export const groupTargets = (block: Block, group: string, assembly: Assembly): readonly Target[] =>
 	assembly.targets.filter(
 		(target) => target.muscleGroup === group && isStocked(block, target.id, assembly)
 	);
@@ -173,7 +174,7 @@ const pairedItems = (block: Block, assembly: Assembly): readonly BlockItem[] =>
 		).flatMap((pair) => targetItems(block, pair.thenTarget, PAIR_PICK, assembly))
 	);
 
-const targetItems = (
+export const targetItems = (
 	block: Block,
 	target: string,
 	count: number,
@@ -186,7 +187,7 @@ const targetItems = (
 		return { block: block.id, dose: exercise.dose, exercise: exercise.id, target };
 	});
 
-const targetWeight = (block: Block, target: string, assembly: Assembly): number =>
+export const targetWeight = (block: Block, target: string, assembly: Assembly): number =>
 	Math.min(
 		...assembly.exercises
 			.filter(
