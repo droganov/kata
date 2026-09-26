@@ -91,7 +91,12 @@ describe('createSession: пересборка на боевых таблицах
 	});
 
 	it('пересобирает Упражнение Силового Блока внутри той же Мишени', () => {
-		const redrawn = session.redrawSessionItemView(PROGRAM_ID, NO_HISTORY, redrawOf('exercise'));
+		expect(strength.isExerciseRedrawable).toBe(true);
+		const redrawn = session.redrawSessionItemView(
+			PROGRAM_ID,
+			NO_HISTORY,
+			redrawOf('exercise')
+		)?.item;
 		expect(redrawn?.target).toBe(strength.target);
 		expect(redrawn?.exercise).not.toBe(strength.exercise);
 		expect(items.map((item) => item.exercise)).not.toContain(redrawn?.exercise);
@@ -99,7 +104,11 @@ describe('createSession: пересборка на боевых таблицах
 
 	it('пересобирает Мишень Силового Блока', () => {
 		expect(strength.isTargetRedrawable).toBe(true);
-		const redrawn = session.redrawSessionItemView(PROGRAM_ID, NO_HISTORY, redrawOf('target'));
+		const redrawn = session.redrawSessionItemView(
+			PROGRAM_ID,
+			NO_HISTORY,
+			redrawOf('target')
+		)?.item;
 		expect(redrawn?.target).not.toBe(strength.target);
 	});
 });

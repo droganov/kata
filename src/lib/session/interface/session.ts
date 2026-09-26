@@ -1,8 +1,4 @@
-import type {
-	ProgramCardView,
-	SessionItemView,
-	SessionView
-} from '../application/session-views.ts';
+import type { ProgramCardView, Redrawn, SessionView } from '../application/session-views.ts';
 import type { Performed } from '../application/store.ts';
 import type { Redraw } from '../domain/redraw.ts';
 
@@ -24,7 +20,7 @@ export interface SessionUseCases {
 		programId: string,
 		history: readonly Performed[],
 		redraw: Redraw
-	) => SessionItemView | undefined;
+	) => Redrawn | undefined;
 }
 
 const GATEWAYS = createTableGateways(BUNDLED_TABLES);

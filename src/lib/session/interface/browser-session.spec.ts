@@ -101,7 +101,13 @@ describe('пересборка в браузере', () => {
 			3,
 			(input) => {
 				asked.push(input);
-				return Promise.resolve(Response.json(replacement));
+				return Promise.resolve(
+					Response.json({
+						item: replacement,
+						options: [],
+						rejected: { exercises: [], targets: [] }
+					})
+				);
 			}
 		);
 		expect(asked).toEqual(['/programs/program-1/session/redraw']);

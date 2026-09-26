@@ -4,7 +4,7 @@ import type { NoveltyWeight } from './novelty.ts';
 import type { Block, Program } from './program.ts';
 import type { SessionItem } from './session.ts';
 
-import { assemblyOf, groupTargets, targetItems, targetWeight } from './assembly.ts';
+import { assemblyOf, groupTargets, isStocked, targetItems, targetWeight } from './assembly.ts';
 import { WITHOUT_HISTORY } from './novelty.ts';
 import { sampled } from './random.ts';
 
@@ -24,12 +24,32 @@ export interface Redraw {
 
 export type RedrawLevel = (typeof REDRAW_LEVEL)[keyof typeof REDRAW_LEVEL];
 
+export interface RedrawOptions {
+	readonly isExerciseRedrawable: boolean;
+	readonly isTargetRedrawable: boolean;
+	readonly ord: number;
+}
+
 export interface Rejected {
 	readonly exercises: readonly string[];
 	readonly targets: readonly string[];
 }
 
 export type SessionItemRef = Omit<SessionItem, 'dose'>;
+
+export const NOTHING_REJECTED: Rejected = { exercises: [], targets: [] };
+
+export const rejectedAfter = (redraw: Redraw): Rejected => {
+	const item = redraw.items.find((candidate) => candidate.ord === redraw.ord);
+	if (item === undefined) return redraw.rejected;
+	return {
+		exercises: [...new Set([...redraw.rejected.exercises, item.exercise])],
+		targets:
+			redraw.level === REDRAW_LEVEL.target
+				? [...new Set([...redraw.rejected.targets, item.target])]
+				: redraw.rejected.targets
+	};
+};
 
 export const isRedrawLevel = (value: unknown): value is RedrawLevel => REDRAW_LEVELS.has(value);
 
@@ -50,22 +70,37 @@ export const redrawnItem = (
 	const target =
 		redraw.level === REDRAW_LEVEL.exercise
 			? item.target
-			: otherTargetOf(catalog, block, item, redraw, assembly);
+			: sampled(
+					targetChoicesOf(catalog, block, item, redraw.items, redraw.rejected, assembly),
+					ONE_ITEM,
+					assembly.random,
+					(candidate) => targetWeight(block, candidate.id, assembly)
+				)[0]?.id;
 	if (target === undefined) return;
 	const [drawn] = targetItems(block, target, ONE_ITEM, assembly);
 	return drawn && { ...drawn, ord: item.ord };
 };
 
-export const isTargetRedrawable = (
+export const redrawOptionsOf = (
 	program: Program,
 	catalog: Catalog,
-	blockId: string,
-	target: string
-): boolean => {
-	const block = program.blocks.find((candidate) => candidate.id === blockId);
-	if (block === undefined) return false;
-	const assembly = assemblyOf(program, catalog, ANY_SEED, WITHOUT_HISTORY);
-	return alternativesOf(catalog, block, target, assembly, [target]).length > 0;
+	items: readonly SessionItemRef[],
+	rejected: Rejected
+): readonly RedrawOptions[] => {
+	const assembly = assemblyOf(program, catalog, ANY_SEED, WITHOUT_HISTORY, [
+		...items.map((item) => item.exercise),
+		...rejected.exercises
+	]);
+	return items.map((item) => {
+		const block = program.blocks.find((candidate) => candidate.id === item.block);
+		return {
+			isExerciseRedrawable: block !== undefined && isStocked(block, item.target, assembly),
+			isTargetRedrawable:
+				block !== undefined &&
+				targetChoicesOf(catalog, block, item, items, rejected, assembly).length > 0,
+			ord: item.ord
+		};
+	});
 };
 
 const alternativesOf = (
@@ -83,24 +118,17 @@ const alternativesOf = (
 	);
 };
 
-const otherTargetOf = (
+const targetChoicesOf = (
 	catalog: Catalog,
 	block: Block,
 	item: SessionItemRef,
-	redraw: Redraw,
+	items: readonly SessionItemRef[],
+	rejected: Rejected,
 	assembly: Assembly
-): string | undefined => {
-	const inBlock = redraw.items
-		.filter((candidate) => candidate.block === block.id)
-		.map((candidate) => candidate.target);
-	const [target] = sampled(
-		alternativesOf(catalog, block, item.target, assembly, [
-			...inBlock,
-			...redraw.rejected.targets
-		]),
-		ONE_ITEM,
-		assembly.random,
-		(candidate) => targetWeight(block, candidate.id, assembly)
-	);
-	return target?.id;
-};
+): readonly Target[] =>
+	alternativesOf(catalog, block, item.target, assembly, [
+		...items
+			.filter((candidate) => candidate.block === block.id)
+			.map((candidate) => candidate.target),
+		...rejected.targets
+	]);

@@ -1,8 +1,7 @@
-import type { Redraw, RedrawLevel, Rejected, SessionItemRef } from '../domain/redraw.ts';
-import type { ProgramCardView, SessionItemView, SessionView } from './session-views.ts';
+import type { Redraw, RedrawLevel, SessionItemRef } from '../domain/redraw.ts';
+import type { ProgramCardView, Redrawn, SessionView } from './session-views.ts';
 import type { ActiveSession, Performed, Store } from './store.ts';
 
-import { REDRAW_LEVEL } from '../domain/redraw.ts';
 import { HISTORY_DAYS, NoActiveSessionError, NoSessionItemError } from './store.ts';
 
 export interface RedrawnSession {
@@ -15,20 +14,16 @@ export const redrawSessionItem = async (
 	account: string,
 	level: RedrawLevel,
 	ord: number,
-	redrawn: (history: readonly Performed[], redraw: Redraw) => Promise<SessionItemView | undefined>
+	redrawn: (history: readonly Performed[], redraw: Redraw) => Promise<Redrawn | undefined>
 ): Promise<RedrawnSession> => {
 	const session = await store.activeSession(account);
 	if (session === undefined) throw new NoActiveSessionError(account);
 	const items = sessionItemRefsOf(session.view);
-	const item = items.find((candidate) => candidate.ord === ord);
-	if (item === undefined) throw new NoSessionItemError(ord);
+	if (items.every((candidate) => candidate.ord !== ord)) throw new NoSessionItemError(ord);
 	const history = await store.recentExercises(account, HISTORY_DAYS);
 	const replacement = await redrawn(history, { items, level, ord, rejected: session.rejected });
 	if (replacement === undefined) return { isRedrawn: false, session };
-	return {
-		isRedrawn: true,
-		session: await store.redrawItem(account, replacement, rejectedBy(item, level))
-	};
+	return { isRedrawn: true, session: await store.redrawItem(account, replacement) };
 };
 
 export const redrawActiveSession = async (
@@ -63,8 +58,3 @@ const sessionItemRefsOf = (view: SessionView): readonly SessionItemRef[] =>
 			target: item.target
 		}))
 	);
-
-const rejectedBy = (item: SessionItemRef, level: RedrawLevel): Rejected => ({
-	exercises: [item.exercise],
-	targets: level === REDRAW_LEVEL.target ? [item.target] : []
-});

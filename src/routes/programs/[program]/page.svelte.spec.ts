@@ -54,6 +54,7 @@ const VIEW: SessionView = {
 					dose: '2×10',
 					drawNo: 1,
 					exercise: 'ex-neck-roll',
+					isExerciseRedrawable: false,
 					isTargetRedrawable: false,
 					name: 'Круги головой',
 					ord: 1,
@@ -64,6 +65,7 @@ const VIEW: SessionView = {
 					dose: '40с × 2',
 					drawNo: 1,
 					exercise: 'ex-neck-tilt',
+					isExerciseRedrawable: false,
 					isTargetRedrawable: false,
 					name: 'Наклоны головы',
 					ord: 2,
@@ -80,6 +82,7 @@ const VIEW: SessionView = {
 					dose: '3×15',
 					drawNo: 1,
 					exercise: 'ex-bridge',
+					isExerciseRedrawable: true,
 					isTargetRedrawable: true,
 					name: 'Ягодичный мост',
 					ord: 3,
@@ -280,18 +283,11 @@ describe('экран прохождения Занятия', () => {
 		expect(goto).toHaveBeenCalledWith('/programs/program-1/finished');
 	});
 
-	it('отмена закрывает Занятие и возвращает к списку Программ', async () => {
-		renderAt(await openedWith({ ord: 1, status: 'done' }));
-		await fireEvent.click(screen.getByRole('button', { name: 'Отменить Занятие' }));
-		expect(await store().activeSession(ACCOUNT)).toBeUndefined();
-		expect(goto).toHaveBeenCalledWith('/');
-	});
-
 	it('неотмеченную Позицию пересобирает на уровне Упражнения и остаётся на ней', async () => {
 		const replacement = {
-			...VIEW.blocks[2]!.items[0]!,
-			exercise: 'ex-hip-thrust',
-			name: 'Тяга бедром'
+			item: { ...VIEW.blocks[2]!.items[0]!, exercise: 'ex-hip-thrust', name: 'Тяга бедром' },
+			options: [],
+			rejected: { exercises: ['ex-bridge'], targets: [] }
 		};
 		const asked: Request[] = [];
 		vi.stubGlobal('fetch', (_input: string, init?: RequestInit) => {
@@ -299,7 +295,8 @@ describe('экран прохождения Занятия', () => {
 			return Promise.resolve(Response.json(replacement));
 		});
 		renderAt(await openedWith(), '?item=3');
-		await fireEvent.click(screen.getByRole('button', { name: 'Другое Упражнение' }));
+		await fireEvent.click(screen.getByRole('button', { name: 'Заменить' }));
+		await fireEvent.click(screen.getByRole('button', { name: /Другое Упражнение/v }));
 		await vi.waitFor(() => {
 			expect(goto).toHaveBeenCalledWith('?item=3', { invalidateAll: true });
 		});
@@ -311,15 +308,17 @@ describe('экран прохождения Занятия', () => {
 		expect(active?.view.blocks[2]?.items[0]?.drawNo).toBe(2);
 	});
 
-	it('пересобирает Мишень, где это возможно, и говорит, когда замены нет', async () => {
+	it('предлагает замену, только где она есть, и говорит, когда сервер замены не нашёл', async () => {
 		vi.stubGlobal('fetch', () => Promise.resolve(new Response(null, { status: 409 })));
 		const session = await openedWith();
 		renderAt(session);
-		expect(screen.queryByRole('button', { name: 'Другая Мишень' })).not.toBeInTheDocument();
+		expect(screen.queryByRole('button', { name: 'Заменить' })).not.toBeInTheDocument();
 		cleanup();
 		renderAt(session, '?item=3');
 		expect(screen.queryByRole('status')).not.toBeInTheDocument();
-		await fireEvent.click(screen.getByRole('button', { name: 'Другая Мишень' }));
+		await fireEvent.click(screen.getByRole('button', { name: 'Заменить' }));
+		expect(screen.queryByRole('button', { name: /Другое Упражнение/v })).toBeInTheDocument();
+		await fireEvent.click(screen.getByRole('button', { name: /Другая Мишень/v }));
 		expect(await screen.findByRole('status')).toHaveTextContent('Замены нет');
 		expect(goto).not.toHaveBeenCalled();
 		expect(exerciseName()).toBe('Ягодичный мост');
@@ -327,15 +326,15 @@ describe('экран прохождения Занятия', () => {
 
 	it('отмеченную Позицию не пересобирает', async () => {
 		renderAt(await openedWith({ ord: 3, status: 'skipped' }), '?item=3');
-		expect(screen.queryByRole('button', { name: 'Другое Упражнение' })).not.toBeInTheDocument();
-		expect(screen.queryByRole('button', { name: 'Другая Мишень' })).not.toBeInTheDocument();
+		expect(screen.queryByRole('button', { name: 'Заменить' })).not.toBeInTheDocument();
 	});
 
-	it('не пересобирает всё Занятие, а ведёт на главную', async () => {
+	it('не пересобирает и не отменяет всё Занятие, а ведёт на главную', async () => {
 		renderAt(await openedWith());
 		expect(
 			screen.queryByRole('button', { name: 'Пересобрать Занятие' })
 		).not.toBeInTheDocument();
+		expect(screen.queryByRole('button', { name: 'Отменить Занятие' })).not.toBeInTheDocument();
 		expect(hrefOf('На главную')).toBe('/');
 	});
 

@@ -2,11 +2,11 @@ import { describe, expect, it } from 'vitest';
 
 import type { Catalog } from './catalog.ts';
 import type { Block, Program } from './program.ts';
-import type { Redraw, SessionItemRef } from './redraw.ts';
+import type { Redraw, Rejected, SessionItemRef } from './redraw.ts';
 
 import { CATALOG, PROGRAM } from '../../../test/session-fixtures.ts';
 import { noveltyOf } from './novelty.ts';
-import { isTargetRedrawable, REDRAW_LEVEL, redrawnItem } from './redraw.ts';
+import { REDRAW_LEVEL, redrawnItem, redrawOptionsOf, rejectedAfter } from './redraw.ts';
 
 const SEED = 7;
 const SEEDS = Array.from({ length: 200 }, (_item, at) => at);
@@ -37,6 +37,18 @@ const redrawOf = (
 	rejected: NOTHING_REJECTED,
 	...overrides
 });
+
+const optionsOf = (
+	rejected: Rejected = NOTHING_REJECTED
+): readonly (readonly [number, boolean, boolean])[] =>
+	redrawOptionsOf(PROGRAM, CATALOG, ITEMS, rejected).map((options) => [
+		options.ord,
+		options.isExerciseRedrawable,
+		options.isTargetRedrawable
+	]);
+
+const isRedrawnAt = (level: Redraw['level'], ord: number): boolean =>
+	redrawnItem(PROGRAM, CATALOG, redrawOf(level, ord), SEED) !== undefined;
 
 const groupOf = (target: string | undefined): string | undefined =>
 	CATALOG.targets.find((row) => row.id === target)?.muscleGroup;
@@ -169,23 +181,58 @@ describe('redrawnItem: Мишень', () => {
 	});
 });
 
-describe('isTargetRedrawable', () => {
-	it('разрешает пересборку Мишени, когда в её Группе мышц есть другая Мишень Режима Блока', () => {
-		expect(isTargetRedrawable(PROGRAM, CATALOG, 'block-strength', 'target-glutes')).toBe(true);
-		expect(isTargetRedrawable(PROGRAM, CATALOG, 'block-strength', 'target-lats')).toBe(true);
+describe('redrawOptionsOf', () => {
+	it('заранее знает, есть ли Позиции замена на уровне Упражнения и на уровне Мишени', () => {
+		expect(optionsOf()).toEqual([
+			[1, false, false],
+			[2, false, false],
+			[3, false, false],
+			[4, false, true],
+			[5, true, false],
+			[6, false, false],
+			[7, false, false],
+			[8, false, false]
+		]);
 	});
 
-	it('запрещает её, когда другой Мишени нет, Мишень вне Групп мышц или Закреплена', () => {
-		expect(isTargetRedrawable(PROGRAM, CATALOG, 'block-strength', 'target-chest')).toBe(false);
-		expect(isTargetRedrawable(PROGRAM, CATALOG, 'block-stretch', 'target-glutes')).toBe(false);
-		expect(isTargetRedrawable(PROGRAM, CATALOG, 'block-cardio', 'target-cardio')).toBe(false);
-		expect(isTargetRedrawable(PROGRAM, CATALOG, 'block-unknown', 'target-lats')).toBe(false);
-		const pinnedLats = withBlock({
-			...PROGRAM.blocks.find((block) => block.id === 'block-strength')!,
-			pinnedTargets: [{ id: 'target-lats', ord: 1, pick: 1 }]
-		});
-		expect(isTargetRedrawable(pinnedLats, CATALOG, 'block-strength', 'target-lats')).toBe(
+	it('учитывает отклонённое', () => {
+		expect(optionsOf({ exercises: ['ex-fly'], targets: ['target-glute-med'] })).toContainEqual([
+			5,
+			false,
 			false
-		);
+		]);
+		expect(optionsOf({ exercises: [], targets: ['target-glute-med'] })[3]).toEqual([
+			4,
+			false,
+			false
+		]);
+	});
+
+	it('согласована с пересборкой: где замены нет, пересборка ничего не даёт, где есть, даёт', () => {
+		for (const options of redrawOptionsOf(PROGRAM, CATALOG, ITEMS, NOTHING_REJECTED)) {
+			expect([
+				isRedrawnAt(REDRAW_LEVEL.exercise, options.ord),
+				isRedrawnAt(REDRAW_LEVEL.target, options.ord)
+			]).toEqual([options.isExerciseRedrawable, options.isTargetRedrawable]);
+		}
+	});
+
+	it('без Блока в Программе замены нет', () => {
+		const foreign = [{ ...ITEMS[4]!, block: 'block-unknown' }];
+		expect(redrawOptionsOf(PROGRAM, CATALOG, foreign, NOTHING_REJECTED)).toEqual([
+			{ isExerciseRedrawable: false, isTargetRedrawable: false, ord: 5 }
+		]);
+	});
+});
+
+describe('rejectedAfter', () => {
+	it('Упражнение отклоняет Упражнение, Мишень отклоняет и Мишень, без повторов', () => {
+		const rejected = { exercises: ['ex-press'], targets: [] };
+		expect(rejectedAfter(redrawOf(REDRAW_LEVEL.exercise, 5, { rejected }))).toEqual(rejected);
+		expect(rejectedAfter(redrawOf(REDRAW_LEVEL.target, 4, { rejected }))).toEqual({
+			exercises: ['ex-press', 'ex-bridge'],
+			targets: ['target-glutes']
+		});
+		expect(rejectedAfter(redrawOf(REDRAW_LEVEL.target, 99, { rejected }))).toBe(rejected);
 	});
 });

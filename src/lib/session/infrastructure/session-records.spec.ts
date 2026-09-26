@@ -1,12 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import {
-	activeSessionOf,
-	historyOf,
-	isSessionItemView,
-	performedOf,
-	redrawOf
-} from './session-records.ts';
+import { activeSessionOf, historyOf, isRedrawn, performedOf, redrawOf } from './session-records.ts';
 
 const DETAIL = {
 	equipment: [{ name: 'Тело', role: 'главное' }],
@@ -27,6 +21,7 @@ const ITEM = {
 	dose: '2×10',
 	drawNo: 1,
 	exercise: 'ex-neck-roll',
+	isExerciseRedrawable: false,
 	isTargetRedrawable: false,
 	name: 'Круги',
 	ord: 1,
@@ -91,6 +86,7 @@ describe('activeSessionOf', () => {
 		withItem({ ...ITEM, dose: 2 }),
 		withItem({ ...ITEM, drawNo: '1' }),
 		withItem({ ...ITEM, isTargetRedrawable: 'no' }),
+		withItem({ ...ITEM, isExerciseRedrawable: 'no' }),
 		withItem({ ...ITEM, target: undefined }),
 		JSON.stringify({ ...SESSION, rejected: undefined }),
 		JSON.stringify({ ...SESSION, rejected: { exercises: [1], targets: [] } }),
@@ -149,10 +145,21 @@ describe('historyOf', () => {
 	);
 });
 
-describe('isSessionItemView', () => {
-	it('узнаёт Позицию Занятия и не узнаёт испорченную', () => {
-		expect(isSessionItemView(ITEM)).toBe(true);
-		expect(isSessionItemView({ ...ITEM, target: 1 })).toBe(false);
+describe('isRedrawn', () => {
+	it('узнаёт ответ пересборки и не узнаёт испорченный', () => {
+		const options = [{ isExerciseRedrawable: true, isTargetRedrawable: false, ord: 1 }];
+		const redrawn = { item: ITEM, options, rejected: REDRAW.rejected };
+		expect(isRedrawn(redrawn)).toBe(true);
+		expect(isRedrawn({ ...redrawn, item: { ...ITEM, target: 1 } })).toBe(false);
+		expect(isRedrawn({ ...redrawn, options: [{ ...options[0], ord: '1' }] })).toBe(false);
+		expect(isRedrawn({ ...redrawn, options: [{ ...options[0], isTargetRedrawable: 1 }] })).toBe(
+			false
+		);
+		expect(
+			isRedrawn({ ...redrawn, options: [{ ...options[0], isExerciseRedrawable: 1 }] })
+		).toBe(false);
+		expect(isRedrawn({ ...redrawn, rejected: null })).toBe(false);
+		expect(isRedrawn(null)).toBe(false);
 	});
 });
 

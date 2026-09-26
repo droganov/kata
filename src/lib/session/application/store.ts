@@ -1,6 +1,6 @@
 import type { Performed } from '../domain/novelty.ts';
 import type { Rejected } from '../domain/redraw.ts';
-import type { SessionItemView, SessionView } from './session-views.ts';
+import type { Redrawn, SessionView } from './session-views.ts';
 
 export { HISTORY_DAYS } from '../domain/novelty.ts';
 export type { Performed } from '../domain/novelty.ts';
@@ -39,11 +39,7 @@ export interface Store {
 	markExercise: (account: string, mark: SessionMark) => Promise<ActiveSession>;
 	openSession: (account: string, view: SessionView) => Promise<ActiveSession>;
 	recentExercises: (account: string, days: number) => Promise<readonly Performed[]>;
-	redrawItem: (
-		account: string,
-		item: SessionItemView,
-		rejected: Rejected
-	) => Promise<ActiveSession>;
+	redrawItem: (account: string, redrawn: Redrawn) => Promise<ActiveSession>;
 	redrawSession: (account: string, view: SessionView) => Promise<ActiveSession>;
 }
 

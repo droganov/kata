@@ -1,6 +1,6 @@
-import type { SessionItemView, SessionView } from '../application/session-views.ts';
+import type { Redrawn, SessionItemView, SessionView } from '../application/session-views.ts';
 import type { ActiveSession, Performed, Rejected } from '../application/store.ts';
-import type { Redraw, SessionItemRef } from '../domain/redraw.ts';
+import type { Redraw, RedrawOptions, SessionItemRef } from '../domain/redraw.ts';
 
 import { isRedrawLevel } from '../domain/redraw.ts';
 
@@ -34,6 +34,12 @@ export const redrawOf = (body: unknown): Redraw | undefined => {
 	return isRedraw(redraw) ? redraw : undefined;
 };
 
+export const isRedrawn = (value: unknown): value is Redrawn =>
+	isRecord(value) &&
+	isSessionItemView(value.item) &&
+	isListOf(value.options, isRedrawOptions) &&
+	isRejected(value.rejected);
+
 export const isSessionView = (value: unknown): value is SessionView =>
 	isRecord(value) &&
 	isListOf(value.blocks, isSessionBlock) &&
@@ -47,12 +53,13 @@ const isSessionBlock = (value: unknown): boolean =>
 	isListOf(value.items, isSessionItemView) &&
 	typeof value.name === STRING_KIND;
 
-export const isSessionItemView = (value: unknown): value is SessionItemView =>
+const isSessionItemView = (value: unknown): value is SessionItemView =>
 	isRecord(value) &&
 	isExerciseDetail(value.detail) &&
 	typeof value.dose === STRING_KIND &&
 	typeof value.drawNo === NUMBER_KIND &&
 	typeof value.exercise === STRING_KIND &&
+	typeof value.isExerciseRedrawable === BOOLEAN_KIND &&
 	typeof value.isTargetRedrawable === BOOLEAN_KIND &&
 	typeof value.name === STRING_KIND &&
 	typeof value.ord === NUMBER_KIND &&
@@ -117,3 +124,9 @@ const isRedraw = (value: unknown): value is Redraw =>
 
 const isRejected = (value: unknown): value is Rejected =>
 	isRecord(value) && isListOf(value.exercises, isString) && isListOf(value.targets, isString);
+
+const isRedrawOptions = (value: unknown): value is RedrawOptions =>
+	isRecord(value) &&
+	typeof value.isExerciseRedrawable === BOOLEAN_KIND &&
+	typeof value.isTargetRedrawable === BOOLEAN_KIND &&
+	typeof value.ord === NUMBER_KIND;

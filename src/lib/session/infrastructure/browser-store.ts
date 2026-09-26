@@ -1,11 +1,5 @@
-import type { SessionItemView, SessionView } from '../application/session-views.ts';
-import type {
-	ActiveSession,
-	Performed,
-	Rejected,
-	SessionMark,
-	Store
-} from '../application/store.ts';
+import type { Redrawn, SessionItemView, SessionView } from '../application/session-views.ts';
+import type { ActiveSession, Performed, SessionMark, Store } from '../application/store.ts';
 
 import {
 	ActiveSessionExistsError,
@@ -17,6 +11,7 @@ import {
 	NoActiveSessionError,
 	NoSessionItemError
 } from '../application/store.ts';
+import { NOTHING_REJECTED } from '../domain/redraw.ts';
 import { activeSessionOf, performedOf } from './session-records.ts';
 
 const ACTIVE_SESSION_KEY = 'training:active-session:';
@@ -34,7 +29,6 @@ const COMPLETE_EVENT = 'complete';
 const ABORT_EVENT = 'abort';
 const DAY_MS = 86_400_000;
 const FIRST_DRAW = 1;
-const NOTHING_REJECTED: Rejected = { exercises: [], targets: [] };
 
 export interface BrowserStoreDeps {
 	readonly indexedDB: IDBFactory | undefined;
@@ -89,24 +83,26 @@ export const createBrowserStore = (deps: BrowserStoreDeps): Store => {
 			)
 		});
 	};
-	const redrawItem = (
-		account: string,
-		item: SessionItemView,
-		rejected: Rejected
-	): ActiveSession => {
+	const redrawItem = (account: string, { item, options, rejected }: Redrawn): ActiveSession => {
 		const session = readActive(account);
 		if (session === undefined) throw new NoActiveSessionError(account);
 		if (!hasSessionItem(session, item.ord)) throw new NoSessionItemError(item.ord);
 		if (isSessionItemMarked(session, item.ord)) throw new MarkedSessionItemError(item.ord);
 		return writeActive({
 			...session,
-			rejected: {
-				exercises: [...new Set([...session.rejected.exercises, ...rejected.exercises])],
-				targets: [...new Set([...session.rejected.targets, ...rejected.targets])]
-			},
-			view: withRedrawn(session.view, (drawn) =>
-				drawn.ord === item.ord ? { ...item, drawNo: drawn.drawNo + 1 } : drawn
-			)
+			rejected,
+			view: withRedrawn(session.view, (drawn) => {
+				const redrawn =
+					drawn.ord === item.ord ? { ...item, drawNo: drawn.drawNo + 1 } : drawn;
+				const found = options.find((candidate) => candidate.ord === drawn.ord);
+				return found === undefined
+					? redrawn
+					: {
+							...redrawn,
+							isExerciseRedrawable: found.isExerciseRedrawable,
+							isTargetRedrawable: found.isTargetRedrawable
+						};
+			})
 		});
 	};
 	const redrawSession = (account: string, view: SessionView): ActiveSession => {
@@ -160,8 +156,7 @@ export const createBrowserStore = (deps: BrowserStoreDeps): Store => {
 		markExercise: (account, mark) => Promise.try(() => markExercise(account, mark)),
 		openSession: (account, view) => Promise.try(() => openSession(account, view)),
 		recentExercises,
-		redrawItem: (account, item, rejected) =>
-			Promise.try(() => redrawItem(account, item, rejected)),
+		redrawItem: (account, redrawn) => Promise.try(() => redrawItem(account, redrawn)),
 		redrawSession: (account, view) => Promise.try(() => redrawSession(account, view))
 	};
 };

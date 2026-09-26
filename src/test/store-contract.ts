@@ -1,7 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
-import type { SessionView } from '../lib/session/application/session-views.ts';
-import type { Store } from '../lib/session/application/store.ts';
+import type {
+	Redrawn,
+	SessionItemView,
+	SessionView
+} from '../lib/session/application/session-views.ts';
+import type { Rejected, Store } from '../lib/session/application/store.ts';
 
 import {
 	ActiveSessionExistsError,
@@ -20,14 +24,20 @@ const WINDOW_DAYS = 21;
 const LONG_AGO_DAYS = 365;
 const DAY_MS = 86_400_000;
 const HOUR_MS = 3_600_000;
-const NOTHING_REJECTED = { exercises: [], targets: [] };
+const NOTHING_REJECTED: Rejected = { exercises: [], targets: [] };
 
 const hoursAfterStart = (hours: number): Date =>
 	new Date(SESSION_START.getTime() + hours * HOUR_MS);
 
 const daysAfterStart = (days: number): Date => new Date(SESSION_START.getTime() + days * DAY_MS);
 
-const itemOf = (ord: number, exercise: string): SessionView['blocks'][number]['items'][number] => ({
+const redrawnOf = (
+	item: SessionItemView,
+	rejected: Rejected = NOTHING_REJECTED,
+	options: Redrawn['options'] = []
+): Redrawn => ({ item, options, rejected });
+
+const itemOf = (ord: number, exercise: string): SessionItemView => ({
 	detail: {
 		equipment: [{ name: 'Тело', role: 'главное' }],
 		steps: [],
@@ -36,6 +46,7 @@ const itemOf = (ord: number, exercise: string): SessionView['blocks'][number]['i
 	dose: '3×12',
 	drawNo: 1,
 	exercise,
+	isExerciseRedrawable: true,
 	isTargetRedrawable: true,
 	name: exercise,
 	ord,
@@ -145,26 +156,33 @@ export const describeStoreContract = (name: string, createStore: StoreFactory): 
 			);
 		});
 
-		it('пересобирает Позицию: заменяет её, растит счётчик сборок и копит отклонённое', async () => {
+		it('пересобирает Позицию: заменяет её, растит счётчик сборок, берёт отклонённое и варианты замены', async () => {
 			const store = createStore(() => SESSION_START);
 			await store.openSession(ACCOUNT, SESSION_VIEW);
 			await store.markExercise(ACCOUNT, { ord: 1, status: 'done' });
-			await store.redrawItem(ACCOUNT, itemOf(3, 'ex-fly'), {
-				exercises: ['ex-press'],
-				targets: []
-			});
-			const redrawn = await store.redrawItem(ACCOUNT, itemOf(3, 'ex-dip'), {
-				exercises: ['ex-fly', 'ex-press'],
-				targets: ['target-ex-fly']
-			});
+			await store.redrawItem(
+				ACCOUNT,
+				redrawnOf(itemOf(3, 'ex-fly'), { exercises: ['ex-press'], targets: [] })
+			);
+			const rejected = { exercises: ['ex-press', 'ex-fly'], targets: ['target-ex-fly'] };
+			const redrawn = await store.redrawItem(
+				ACCOUNT,
+				redrawnOf(itemOf(3, 'ex-dip'), rejected, [
+					{ isExerciseRedrawable: false, isTargetRedrawable: true, ord: 2 },
+					{ isExerciseRedrawable: false, isTargetRedrawable: false, ord: 3 }
+				])
+			);
 			expect(redrawn.view.blocks[1]?.items).toEqual([
-				itemOf(2, 'ex-bridge'),
-				{ ...itemOf(3, 'ex-dip'), drawNo: 3 }
+				{ ...itemOf(2, 'ex-bridge'), isExerciseRedrawable: false },
+				{
+					...itemOf(3, 'ex-dip'),
+					drawNo: 3,
+					isExerciseRedrawable: false,
+					isTargetRedrawable: false
+				}
 			]);
-			expect(redrawn.rejected).toEqual({
-				exercises: ['ex-press', 'ex-fly'],
-				targets: ['target-ex-fly']
-			});
+			expect(redrawn.view.blocks[0]?.items).toEqual([itemOf(1, 'ex-neck-roll')]);
+			expect(redrawn.rejected).toEqual(rejected);
 			expect(redrawn.marks).toEqual([{ ord: 1, status: 'done' }]);
 			expect(redrawn.markedAt).toBe(SESSION_START.toISOString());
 			expect(await store.activeSession(ACCOUNT)).toEqual(redrawn);
@@ -176,7 +194,7 @@ export const describeStoreContract = (name: string, createStore: StoreFactory): 
 			await store.markExercise(ACCOUNT, { ord: 1, status: 'done' });
 			await store.markExercise(ACCOUNT, { ord: 2, status: 'skipped' });
 			for (const ord of [1, 2]) {
-				const redraw = store.redrawItem(ACCOUNT, itemOf(ord, 'ex-fly'), NOTHING_REJECTED);
+				const redraw = store.redrawItem(ACCOUNT, redrawnOf(itemOf(ord, 'ex-fly')));
 				await expect(redraw).rejects.toThrow(MarkedSessionItemError);
 				await expect(redraw).rejects.toThrow('Позиция уже отмечена');
 			}
@@ -186,22 +204,23 @@ export const describeStoreContract = (name: string, createStore: StoreFactory): 
 
 		it('на пересборку Позиции без Активного занятия или без такой Позиции отвечает предметной ошибкой', async () => {
 			const store = createStore(() => SESSION_START);
-			await expect(
-				store.redrawItem(ACCOUNT, itemOf(1, 'ex-fly'), NOTHING_REJECTED)
-			).rejects.toThrow(NoActiveSessionError);
+			const withoutSession = store.redrawItem(ACCOUNT, redrawnOf(itemOf(1, 'ex-fly')));
+			await expect(withoutSession).rejects.toThrow(NoActiveSessionError);
 			await store.openSession(ACCOUNT, SESSION_VIEW);
-			await expect(
-				store.redrawItem(ACCOUNT, itemOf(9, 'ex-fly'), NOTHING_REJECTED)
-			).rejects.toThrow(NoSessionItemError);
+			const withoutItem = store.redrawItem(ACCOUNT, redrawnOf(itemOf(9, 'ex-fly')));
+			await expect(withoutItem).rejects.toThrow(NoSessionItemError);
 		});
 
 		it('пересобирает всё Занятие: сбрасывает отклонённое и растит счётчик сборок каждой Позиции', async () => {
 			const store = createStore(() => SESSION_START);
 			const opened = await store.openSession(ACCOUNT, SESSION_VIEW);
-			await store.redrawItem(ACCOUNT, itemOf(3, 'ex-fly'), {
-				exercises: ['ex-press'],
-				targets: []
-			});
+			await store.redrawItem(
+				ACCOUNT,
+				redrawnOf(itemOf(3, 'ex-fly'), {
+					exercises: ['ex-press'],
+					targets: []
+				})
+			);
 			const fresh: SessionView = {
 				...SESSION_VIEW,
 				blocks: [
@@ -248,10 +267,13 @@ export const describeStoreContract = (name: string, createStore: StoreFactory): 
 		it('не пишет отклонённое в Историю', async () => {
 			const store = createStore(() => SESSION_START);
 			await store.openSession(ACCOUNT, SESSION_VIEW);
-			await store.redrawItem(ACCOUNT, itemOf(2, 'ex-fly'), {
-				exercises: ['ex-bridge'],
-				targets: []
-			});
+			await store.redrawItem(
+				ACCOUNT,
+				redrawnOf(itemOf(2, 'ex-fly'), {
+					exercises: ['ex-bridge'],
+					targets: []
+				})
+			);
 			for (const ord of [1, 2, 3]) await store.markExercise(ACCOUNT, { ord, status: 'done' });
 			await store.closeSession(ACCOUNT);
 			const history = await store.recentExercises(ACCOUNT, WINDOW_DAYS);

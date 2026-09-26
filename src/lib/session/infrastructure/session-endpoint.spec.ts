@@ -11,7 +11,11 @@ const REDRAW = {
 	ord: 3,
 	rejected: { exercises: [], targets: [] }
 } as const;
-const ITEM = SESSION_VIEW.blocks[1]!.items[1]!;
+const REDRAWN = {
+	item: SESSION_VIEW.blocks[1]!.items[1]!,
+	options: [{ isExerciseRedrawable: false, isTargetRedrawable: true, ord: 3 }],
+	rejected: { exercises: ['ex-press'], targets: [] }
+};
 
 const nothingToRedraw = (): Promise<Response> =>
 	Promise.resolve(new Response(null, { status: 409 }));
@@ -45,9 +49,9 @@ describe('fetchRedrawnItem', () => {
 		const sent: Request[] = [];
 		const fetcher = (input: string, init?: RequestInit): Promise<Response> => {
 			sent.push(new Request('http://localhost' + input, init));
-			return Promise.resolve(Response.json(ITEM));
+			return Promise.resolve(Response.json(REDRAWN));
 		};
-		expect(await fetchRedrawnItem(fetcher, 'program 1', HISTORY, REDRAW)).toEqual(ITEM);
+		expect(await fetchRedrawnItem(fetcher, 'program 1', HISTORY, REDRAW)).toEqual(REDRAWN);
 		const [request] = sent;
 		expect(request?.url).toBe('http://localhost/programs/program%201/session/redraw');
 		expect(request?.method).toBe('POST');
@@ -63,7 +67,7 @@ describe('fetchRedrawnItem', () => {
 	});
 
 	it.each([
-		['сервер ответил ошибкой', () => Response.json(ITEM, { status: 500 })],
+		['сервер ответил ошибкой', () => Response.json(REDRAWN, { status: 500 })],
 		['сервер прислал не Позицию', () => Response.json({ name: 'Жим' })]
 	])('бросает, когда %s', async (_case, respond) => {
 		await expect(

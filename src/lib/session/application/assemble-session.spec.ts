@@ -65,18 +65,26 @@ describe('redrawSessionItemView', () => {
 		rejected: { exercises: [], targets: [] }
 	} as const;
 
-	it('пересобирает Позицию Программы и отдаёт её с процедурой Упражнения', () => {
+	it('пересобирает Позицию Программы и отдаёт её с процедурой, отклонённое и варианты замены после пересборки', () => {
 		expect(
 			redrawSessionItemView(GATEWAYS, 'program-1', redraw, SEED, NO_HISTORY, NOW)
 		).toMatchObject({
-			detail: { equipment: [{ name: 'Тело', role: 'главное' }] },
-			dose: '3×12',
-			drawNo: 1,
-			exercise: 'ex-fly',
-			isTargetRedrawable: false,
-			name: 'Сведение в тренажёре',
-			ord: 5,
-			target: 'target-chest'
+			item: {
+				detail: { equipment: [{ name: 'Тело', role: 'главное' }] },
+				dose: '3×12',
+				drawNo: 1,
+				exercise: 'ex-fly',
+				isExerciseRedrawable: false,
+				isTargetRedrawable: false,
+				name: 'Сведение в тренажёре',
+				ord: 5,
+				target: 'target-chest'
+			},
+			options: [
+				{ isExerciseRedrawable: false, isTargetRedrawable: true, ord: 4 },
+				{ isExerciseRedrawable: false, isTargetRedrawable: false, ord: 5 }
+			],
+			rejected: { exercises: ['ex-press'], targets: [] }
 		});
 	});
 

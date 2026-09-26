@@ -1,4 +1,4 @@
-import { goto } from '$app/navigation';
+import { goto, invalidateAll } from '$app/navigation';
 import { fireEvent, render, screen } from '@testing-library/svelte';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -8,7 +8,7 @@ import { createBrowserStore } from '../lib/session/infrastructure/browser-store.
 import { SESSION_VIEW } from '../test/store-contract.ts';
 import Page from './+page.svelte';
 
-vi.mock('$app/navigation', () => ({ goto: vi.fn() }));
+vi.mock('$app/navigation', () => ({ goto: vi.fn(), invalidateAll: vi.fn() }));
 
 const ACCOUNT = 'person-1';
 const PROGRAMS = [
@@ -26,6 +26,7 @@ beforeEach(() => {
 	sessionStorage.clear();
 	vi.unstubAllGlobals();
 	vi.mocked(goto).mockClear();
+	vi.mocked(invalidateAll).mockClear();
 });
 
 describe('список Программ', () => {
@@ -57,6 +58,16 @@ describe('список Программ', () => {
 		});
 		const redrawn = await store.activeSession(ACCOUNT);
 		expect(redrawn?.view.seed).toBe(8);
+	});
+
+	it('отменяет идущее Занятие и перечитывает список', async () => {
+		const session = await store.openSession(ACCOUNT, SESSION_VIEW);
+		render(Page, { data: { programs: PROGRAMS, sessions: [session] } });
+		await fireEvent.click(screen.getByRole('button', { name: 'Отменить Занятие' }));
+		await vi.waitFor(() => {
+			expect(invalidateAll).toHaveBeenCalled();
+		});
+		expect(await store.activeSession(ACCOUNT)).toBeUndefined();
 	});
 
 	it('не пересобирает Занятие, в котором уже есть Отметка', async () => {

@@ -10,7 +10,6 @@
 	import { nextAfterMark, placeOf } from '../../../lib/session/application/session-place.ts';
 	import { MARK_STATUS } from '../../../lib/session/application/store.ts';
 	import {
-		cancelBrowserSession,
 		markBrowserSession,
 		REDRAW_LEVEL,
 		redrawBrowserSessionItem
@@ -37,6 +36,7 @@
 
 	const session = $derived(data.session);
 	let unredrawable = $state<number | undefined>();
+	let replacingAt = $state<number | undefined>();
 	const place = $derived(data.current === undefined ? undefined : placeOf(session, data.current));
 	const shownBlock = $derived(
 		data.openedBlock === place?.inBlock.block
@@ -54,13 +54,10 @@
 	};
 	const redraw = async (ord: number, level: RedrawLevel): Promise<void> => {
 		unredrawable = undefined;
+		replacingAt = undefined;
 		const redrawn = await redrawBrowserSessionItem(session, level, ord, fetch);
 		if (redrawn.isRedrawn) await goto(sessionItemAddress(ord), { invalidateAll: true });
 		else unredrawable = ord;
-	};
-	const cancel = async (): Promise<void> => {
-		await cancelBrowserSession(session.account);
-		await goto(PROGRAM_LIST_PATH);
 	};
 	const toggleAddress = (ord: number, block: string): string =>
 		block === data.openedBlock ? sessionItemAddress(ord) : sessionItemAddress(ord, block);
@@ -77,20 +74,16 @@
 
 <svelte:head><title>{session.view.title}</title></svelte:head>
 
-<main class="mx-auto flex min-h-dvh max-w-xl flex-col gap-5 p-4 pb-32">
-	{#if data.isHistoryWarningDue}
-		<p class="alert alert-warning" role="alert">
-			История не сохраняется: браузер не даёт хранить данные. Выполненные Упражнения не будут
-			учитываться, и повторы станут чаще.
-		</p>
-	{/if}
-	{#if place === undefined}
+{#if place === undefined}
+	<main class="mx-auto flex min-h-dvh max-w-xl flex-col items-start gap-4 p-4">
 		<p class="opacity-60">Упражнений нет</p>
-		<a class="btn self-start btn-ghost btn-sm" href={PROGRAM_LIST_PATH}>На главную</a>
-	{:else}
-		{@const item = place.item}
-		<header class="space-y-2">
-			<div class="flex items-center gap-2">
+		<a class="btn btn-ghost btn-sm" href={PROGRAM_LIST_PATH}>На главную</a>
+	</main>
+{:else}
+	{@const item = place.item}
+	<header class="sticky top-0 z-10 border-b border-base-300 bg-base-100/95 backdrop-blur">
+		<div class="mx-auto max-w-xl space-y-2 px-4 pt-2 pb-3">
+			<div class="flex items-center gap-1">
 				<a
 					class="btn -ml-2 btn-square btn-ghost btn-sm"
 					aria-label="На главную"
@@ -108,7 +101,12 @@
 						><path d="M3 10.5 12 3l9 7.5" /><path d="M5 9.5V21h5v-6h4v6h5V9.5" /></svg
 					>
 				</a>
-				<span class="grow text-lg font-semibold">{place.inBlock.name}</span>
+				<p class="grow truncate">
+					<span class="font-semibold">{place.inBlock.name}</span>
+					<span class="text-sm tabular-nums opacity-60"
+						>{place.inBlock.number} из {place.inBlock.size}</span
+					>
+				</p>
 				{#if place.previous === undefined}
 					<span class="btn btn-disabled btn-square btn-ghost btn-sm" aria-hidden="true"
 						>‹</span
@@ -120,28 +118,25 @@
 						href={sessionItemAddress(place.previous)}>‹</a
 					>
 				{/if}
-				<span class="tabular-nums opacity-70"
-					>{place.inBlock.number} из {place.inBlock.size}</span
-				>
 				{#if place.next === undefined}
-					<span class="btn btn-disabled btn-square btn-ghost btn-sm" aria-hidden="true"
-						>›</span
+					<span
+						class="btn btn-disabled -mr-2 btn-square btn-ghost btn-sm"
+						aria-hidden="true">›</span
 					>
 				{:else}
 					<a
-						class="btn btn-square btn-ghost btn-sm"
+						class="btn -mr-2 btn-square btn-ghost btn-sm"
 						aria-label="Следующая Позиция"
 						href={sessionItemAddress(place.next)}>›</a
 					>
 				{/if}
 			</div>
-			<ol class="flex flex-wrap gap-x-3 gap-y-1 text-xs" aria-label="Блоки Занятия">
+			<ol class="-mx-4 flex gap-1.5 overflow-x-auto px-4 text-xs" aria-label="Блоки Занятия">
 				{#each place.blocks as block (block.id)}
-					<li>
+					<li class="shrink-0">
 						{#if block.id === place.inBlock.block}
 							<a
-								class="font-semibold underline-offset-2"
-								class:underline={shownBlock !== undefined}
+								class="badge gap-1 whitespace-nowrap badge-neutral"
 								aria-expanded={shownBlock !== undefined}
 								href={toggleAddress(item.ord, block.id)}
 							>
@@ -155,13 +150,16 @@
 								>
 							</a>
 						{:else if block.entry === undefined}
-							<span class="opacity-30">
+							<span class="badge gap-1 badge-ghost whitespace-nowrap opacity-40">
 								{block.name}
 								<span class="tabular-nums">{block.marked}/{block.items.length}</span
 								>
 							</span>
 						{:else}
-							<a class="opacity-50" href={sessionItemAddress(block.entry)}>
+							<a
+								class="badge gap-1 badge-ghost whitespace-nowrap"
+								href={sessionItemAddress(block.entry)}
+							>
 								{block.name}
 								<span class="tabular-nums">{block.marked}/{block.items.length}</span
 								>
@@ -172,7 +170,7 @@
 			</ol>
 			{#if shownBlock !== undefined}
 				<ol
-					class="divide-y divide-base-300 rounded-box bg-base-200 px-3 text-sm"
+					class="max-h-[50dvh] divide-y divide-base-300 overflow-y-auto rounded-box bg-base-200 px-3 text-sm"
 					aria-label="Позиции Блока {shownBlock.name}"
 				>
 					{#each shownBlock.items as sessionItem (sessionItem.ord)}
@@ -193,40 +191,89 @@
 					{/each}
 				</ol>
 			{/if}
-		</header>
+		</div>
+	</header>
 
-		<section class="space-y-1">
+	<main class="mx-auto flex max-w-xl flex-col gap-6 p-4 pb-32">
+		{#if data.isHistoryWarningDue}
+			<p class="alert alert-warning" role="alert">
+				История не сохраняется: браузер не даёт хранить данные. Выполненные Упражнения не
+				будут учитываться, и повторы станут чаще.
+			</p>
+		{/if}
+
+		<section class="space-y-2">
 			{#if place.mark !== undefined}
 				<span class="badge badge-outline">{MARK_NAMES[place.mark]}</span>
 			{/if}
 			<h1 class="text-4xl leading-tight font-bold">{item.name}</h1>
-			<p class="text-2xl font-semibold tabular-nums opacity-80">{item.dose}</p>
-			{#if item.detail.note !== undefined}
-				<p class="pt-2 text-base">{item.detail.note}</p>
-			{/if}
-		</section>
-
-		<section class="flex flex-wrap items-center gap-2" aria-label="Пересборка">
-			{#if place.mark === undefined}
-				<button
-					class="btn btn-outline btn-sm"
-					onclick={() => redraw(item.ord, REDRAW_LEVEL.exercise)}
-					type="button">Другое Упражнение</button
-				>
-				{#if item.isTargetRedrawable}
-					<button
-						class="btn btn-outline btn-sm"
-						onclick={() => redraw(item.ord, REDRAW_LEVEL.target)}
-						type="button">Другая Мишень</button
-					>
+			<div class="flex items-center justify-between gap-3">
+				<p class="text-2xl font-semibold tabular-nums opacity-80">{item.dose}</p>
+				{#if place.mark === undefined && (item.isExerciseRedrawable || item.isTargetRedrawable)}
+					<div class="relative">
+						<button
+							class="btn gap-1.5 btn-ghost btn-sm"
+							aria-expanded={replacingAt === item.ord}
+							onclick={() =>
+								(replacingAt = replacingAt === item.ord ? undefined : item.ord)}
+							type="button"
+						>
+							<svg
+								class="size-4"
+								aria-hidden="true"
+								fill="none"
+								stroke="currentColor"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								viewBox="0 0 24 24"><path d="M4 7h13l-3-3M20 17H7l3 3" /></svg
+							>
+							Заменить
+						</button>
+						{#if replacingAt === item.ord}
+							<ul
+								class="menu absolute right-0 z-20 mt-1 w-64 rounded-box bg-base-100 p-2 shadow-lg ring-1 ring-base-300"
+								aria-label="Замена"
+							>
+								{#if item.isExerciseRedrawable}
+									<li>
+										<button
+											class="flex flex-col items-start gap-0"
+											onclick={() => redraw(item.ord, REDRAW_LEVEL.exercise)}
+											type="button"
+										>
+											<span class="font-medium">Другое Упражнение</span>
+											<span class="text-xs opacity-60">та же Мишень</span>
+										</button>
+									</li>
+								{/if}
+								{#if item.isTargetRedrawable}
+									<li>
+										<button
+											class="flex flex-col items-start gap-0"
+											onclick={() => redraw(item.ord, REDRAW_LEVEL.target)}
+											type="button"
+										>
+											<span class="font-medium">Другая Мишень</span>
+											<span class="text-xs opacity-60">та же Группа мышц</span
+											>
+										</button>
+									</li>
+								{/if}
+							</ul>
+						{/if}
+					</div>
 				{/if}
+			</div>
+			{#if unredrawable === item.ord}
+				<p class="text-sm opacity-70" role="status">
+					Замены нет: всё подходящее уже в Занятии или отклонено.
+				</p>
+			{/if}
+			{#if item.detail.note !== undefined}
+				<p class="text-base">{item.detail.note}</p>
 			{/if}
 		</section>
-		{#if unredrawable === item.ord}
-			<p class="text-sm opacity-70" role="status">
-				Замены нет: всё подходящее уже в Занятии или отклонено.
-			</p>
-		{/if}
 
 		<section class="space-y-2">
 			<details
@@ -287,10 +334,6 @@
 			{/each}
 		</section>
 
-		<button class="btn self-center btn-ghost btn-sm" onclick={cancel} type="button"
-			>Отменить Занятие</button
-		>
-
 		<footer class="fixed inset-x-0 bottom-0 border-t border-base-300 bg-base-100 p-4">
 			<div class="mx-auto grid max-w-xl grid-cols-2 gap-3">
 				<button
@@ -307,5 +350,5 @@
 				>
 			</div>
 		</footer>
-	{/if}
-</main>
+	</main>
+{/if}

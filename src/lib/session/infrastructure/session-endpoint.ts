@@ -1,8 +1,8 @@
-import type { SessionItemView, SessionView } from '../application/session-views.ts';
+import type { Redrawn, SessionView } from '../application/session-views.ts';
 import type { Performed } from '../application/store.ts';
 import type { Redraw } from '../domain/redraw.ts';
 
-import { isSessionItemView, isSessionView } from './session-records.ts';
+import { isRedrawn, isSessionView } from './session-records.ts';
 
 const PROGRAMS_PATH = '/programs/';
 const SESSION_PATH = '/session';
@@ -36,7 +36,7 @@ export const fetchRedrawnItem = async (
 	programId: string,
 	history: readonly Performed[],
 	redraw: Redraw
-): Promise<SessionItemView | undefined> => {
+): Promise<Redrawn | undefined> => {
 	const response = await fetcher(sessionPathOf(programId) + REDRAW_PATH, {
 		body: JSON.stringify({ history, redraw }),
 		headers: JSON_HEADERS,
@@ -44,7 +44,7 @@ export const fetchRedrawnItem = async (
 	});
 	if (response.status === NOTHING_TO_REDRAW) return;
 	const body: unknown = response.ok ? await response.json() : undefined;
-	if (!isSessionItemView(body)) throw new Error(NOT_REDRAWN + programId);
+	if (!isRedrawn(body)) throw new Error(NOT_REDRAWN + programId);
 	return body;
 };
 

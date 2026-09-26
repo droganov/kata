@@ -35,7 +35,9 @@ describe('POST /programs/[program]/session/redraw', () => {
 			request: requestWith(redrawAt(strength.ord, 'exercise'))
 		});
 		expect(response.status).toBe(200);
-		expect(await response.json()).toMatchObject({ ord: strength.ord, target: strength.target });
+		expect(await response.json()).toMatchObject({
+			item: { ord: strength.ord, target: strength.target }
+		});
 	});
 
 	it('отвечает 409, когда замены нет', async () => {

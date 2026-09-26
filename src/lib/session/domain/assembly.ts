@@ -152,7 +152,7 @@ const isPermitted = (exercise: Exercise, limits: Contraindications): boolean =>
 	!(limits.noLumbarExtension && exercise.lumbarExt) &&
 	!isOverFreeWeight(exercise, limits.freeWeightKgMax);
 
-const isStocked = (block: Block, target: string, assembly: Assembly): boolean =>
+export const isStocked = (block: Block, target: string, assembly: Assembly): boolean =>
 	availableOf(block, target, assembly).length > 0;
 
 const markLoaded = (items: readonly BlockItem[], assembly: Assembly): void => {

@@ -1,10 +1,11 @@
 import type { Catalog } from '../domain/catalog.ts';
 import type { DetailEntry, ExerciseDetail } from '../domain/exercise-detail.ts';
 import type { Program } from '../domain/program.ts';
+import type { RedrawOptions, Rejected } from '../domain/redraw.ts';
 import type { Session, SessionItem } from '../domain/session.ts';
 
 import { blocksInOrder } from '../domain/program.ts';
-import { isTargetRedrawable } from '../domain/redraw.ts';
+import { NOTHING_REJECTED, redrawOptionsOf } from '../domain/redraw.ts';
 
 const NO_EXERCISE = 'Упражнения нет в каталоге: ';
 const NO_DETAIL = 'У Упражнения нет процедуры в таблицах: ';
@@ -29,11 +30,18 @@ export interface ProgramCardView {
 	readonly title: string;
 }
 
+export interface Redrawn {
+	readonly item: SessionItemView;
+	readonly options: readonly RedrawOptions[];
+	readonly rejected: Rejected;
+}
+
 export interface SessionItemView {
 	readonly detail: ExerciseDetailView;
 	readonly dose: string;
 	readonly drawNo: number;
 	readonly exercise: string;
+	readonly isExerciseRedrawable: boolean;
 	readonly isTargetRedrawable: boolean;
 	readonly name: string;
 	readonly ord: number;
@@ -88,12 +96,20 @@ export const sessionViewOf = (
 	session: Session,
 	details: ReadonlyMap<string, ExerciseDetail>
 ): SessionView => {
+	const options = redrawOptionsOf(program, catalog, session.items, NOTHING_REJECTED);
 	return {
 		blocks: blocksInOrder(program).map((block) => ({
 			id: block.id,
 			items: session.items
 				.filter((item) => item.block === block.id)
-				.map((item) => sessionItemViewOf(program, catalog, item, details)),
+				.map((item) =>
+					sessionItemViewOf(
+						catalog,
+						item,
+						details,
+						options.find((candidate) => candidate.ord === item.ord)
+					)
+				),
 			name: block.name
 		})),
 		program: program.id,
@@ -130,10 +146,10 @@ const targetRolesOf = (targets: readonly DetailEntry[]): readonly TargetRoleView
 };
 
 export const sessionItemViewOf = (
-	program: Program,
 	catalog: Catalog,
 	item: SessionItem,
-	details: ReadonlyMap<string, ExerciseDetail>
+	details: ReadonlyMap<string, ExerciseDetail>,
+	options: RedrawOptions | undefined
 ): SessionItemView => {
 	const exercise = catalog.exercises.find((candidate) => candidate.id === item.exercise);
 	if (exercise === undefined) throw new Error(NO_EXERCISE + item.exercise);
@@ -144,7 +160,8 @@ export const sessionItemViewOf = (
 		dose: item.dose,
 		drawNo: FIRST_DRAW,
 		exercise: item.exercise,
-		isTargetRedrawable: isTargetRedrawable(program, catalog, item.block, item.target),
+		isExerciseRedrawable: options?.isExerciseRedrawable === true,
+		isTargetRedrawable: options?.isTargetRedrawable === true,
 		name: exercise.name,
 		ord: item.ord,
 		target: item.target

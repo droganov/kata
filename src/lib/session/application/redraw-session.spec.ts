@@ -40,7 +40,7 @@ const withDoneBridge = async (store: Store): Promise<void> => {
 };
 
 describe('redrawSessionItem', () => {
-	it('посылает на пересборку Позиции Занятия, отклонённое и Историю, кладёт замену в Хранилище', async () => {
+	it('посылает на пересборку Позиции Занятия, отклонённое и Историю, кладёт ответ в Хранилище', async () => {
 		const store = storeOf();
 		await withDoneBridge(store);
 		const asked: { history: readonly Performed[]; redraw: Redraw }[] = [];
@@ -52,7 +52,11 @@ describe('redrawSessionItem', () => {
 			3,
 			(history, redraw) => {
 				asked.push({ history, redraw });
-				return Promise.resolve(replacement);
+				return Promise.resolve({
+					item: replacement,
+					options: [],
+					rejected: { exercises: ['ex-press'], targets: [] }
+				});
 			}
 		);
 		expect(asked).toEqual([
@@ -91,23 +95,6 @@ describe('redrawSessionItem', () => {
 		expect(await store.activeSession(ACCOUNT)).toEqual(redrawn.session);
 	});
 
-	it('пересобирая Мишень, отклоняет и Мишень, и Упражнение', async () => {
-		const store = storeOf();
-		await store.openSession(ACCOUNT, SESSION_VIEW);
-		const replacement = {
-			...itemAt(SESSION_VIEW, 2)!,
-			exercise: 'ex-abduction',
-			target: 'target-glute-med'
-		};
-		const redrawn = await redrawSessionItem(store, ACCOUNT, 'target', 2, () =>
-			Promise.resolve(replacement)
-		);
-		expect(redrawn.session.rejected).toEqual({
-			exercises: ['ex-bridge'],
-			targets: ['target-ex-bridge']
-		});
-	});
-
 	it('без замены оставляет Занятие как было', async () => {
 		const store = storeOf();
 		const opened = await store.openSession(ACCOUNT, SESSION_VIEW);
@@ -135,7 +122,11 @@ describe('redrawActiveSession', () => {
 		const store = storeOf();
 		await withDoneBridge(store);
 		await redrawSessionItem(store, ACCOUNT, 'exercise', 3, () =>
-			Promise.resolve({ ...itemAt(SESSION_VIEW, 3)!, exercise: 'ex-fly' })
+			Promise.resolve({
+				item: { ...itemAt(SESSION_VIEW, 3)!, exercise: 'ex-fly' },
+				options: [],
+				rejected: { exercises: ['ex-press'], targets: [] }
+			})
 		);
 		const asked: (readonly Performed[])[] = [];
 		const fresh = { ...SESSION_VIEW, seed: 8 };

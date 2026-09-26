@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 
 	import type { ActiveSession } from '../lib/session/application/store.ts';
 	import type { ProgramList } from './+page.ts';
 
 	import {
+		cancelBrowserSession,
 		isSessionRedrawable,
 		redrawBrowserSession
 	} from '../lib/session/interface/browser-session.ts';
@@ -17,6 +18,10 @@
 		data.sessions.find((session) => session.view.program === program);
 	const sizeOf = (session: ActiveSession): number =>
 		session.view.blocks.reduce((size, block) => size + block.items.length, 0);
+	const cancel = async (session: ActiveSession): Promise<void> => {
+		await cancelBrowserSession(session.account);
+		await invalidateAll();
+	};
 	const redraw = async (session: ActiveSession): Promise<void> => {
 		await redrawBrowserSession(session, fetch);
 		await goto(PROGRAM_PATH + session.view.program, { invalidateAll: true });
@@ -53,6 +58,11 @@
 								>
 							{/if}
 						</div>
+						<button
+							class="btn self-center btn-ghost btn-sm"
+							onclick={() => cancel(session)}
+							type="button">Отменить Занятие</button
+						>
 					{/if}
 				</div>
 			</li>
