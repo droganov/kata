@@ -198,10 +198,28 @@ describe('экран прохождения Занятия', () => {
 					link.getAttribute('href')
 				])
 		).toEqual([
-			['Разогрев 0/0', '?item=1&block=b-cardio'],
-			['Разминка 0/2', '?item=1&block=b-warmup'],
-			['Силовой 0/1', '?item=1&block=b-strength']
+			['Разминка 0/2 ▾', '?item=1&block=b-warmup'],
+			['Силовой 0/1', '?item=3']
 		]);
+	});
+
+	it('текущий Блок раскрывает свои Позиции, чужой Блок ведёт в себя и своих не раскрывает', async () => {
+		const session = await openedWith({ ord: 1, status: 'done' });
+		renderAt(session, '?item=3&block=b-warmup');
+		expect(
+			screen.queryByRole('list', { name: 'Позиции Блока Разминка' })
+		).not.toBeInTheDocument();
+		expect(hrefOf(/Разминка/v)).toBe('?item=2');
+		expect(hrefOf(/Силовой/v)).toBe('?item=3&block=b-strength');
+		cleanup();
+		renderAt(session, '?item=3&block=b-strength');
+		expect(screen.getByRole('list', { name: 'Позиции Блока Силовой' })).toBeInTheDocument();
+		expect(screen.getByRole('link', { name: /Силовой/v })).toHaveAttribute(
+			'aria-expanded',
+			'true'
+		);
+		expect(hrefOf(/Силовой/v)).toBe('?item=3');
+		expect(screen.getByText('Разогрев', { exact: false }).closest('a')).toBeNull();
 	});
 
 	it('Отметка «выполнено» сохраняется и ведёт к следующему Упражнению', async () => {
@@ -281,7 +299,6 @@ describe('экран прохождения Занятия', () => {
 			return Promise.resolve(Response.json(replacement));
 		});
 		renderAt(await openedWith(), '?item=3');
-		expect(screen.queryByText(/Отказов/v)).not.toBeInTheDocument();
 		await fireEvent.click(screen.getByRole('button', { name: 'Другое Упражнение' }));
 		await vi.waitFor(() => {
 			expect(goto).toHaveBeenCalledWith('?item=3', { invalidateAll: true });
@@ -291,7 +308,7 @@ describe('экран прохождения Занятия', () => {
 		cleanup();
 		renderAt(active!, '?item=3');
 		expect(exerciseName()).toBe('Тяга бедром');
-		expect(screen.getByText('Отказов: 1')).toBeInTheDocument();
+		expect(active?.view.blocks[2]?.items[0]?.drawNo).toBe(2);
 	});
 
 	it('пересобирает Мишень, где это возможно, и говорит, когда замены нет', async () => {

@@ -95,12 +95,14 @@ describe('placeOf', () => {
 		const marked = sessionWith({ ord: 1, status: 'done' }, { ord: 3, status: 'skipped' });
 		expect(placeOf(marked, 2)?.blocks).toEqual([
 			{
+				entry: 1,
 				id: 'block-warmup',
 				items: [{ dose: '3×12', mark: 'done', name: 'ex-neck-roll', ord: 1 }],
 				marked: 1,
 				name: 'Разминка'
 			},
 			{
+				entry: 2,
 				id: 'block-strength',
 				items: [
 					{ dose: '3×12', name: 'ex-bridge', ord: 2 },
@@ -110,6 +112,19 @@ describe('placeOf', () => {
 				name: 'Силовой'
 			}
 		]);
+	});
+
+	it('ведёт в Блок к его первой неотмеченной Позиции, в отмеченном целиком к первой, в пустом никуда', () => {
+		const marked = sessionWith({ ord: 2, status: 'done' });
+		expect(placeOf(marked, 1)?.blocks.map((block) => block.entry)).toEqual([1, 3]);
+		const empty = {
+			...marked,
+			view: {
+				...marked.view,
+				blocks: [...marked.view.blocks, { id: 'b-empty', items: [], name: 'Пусто' }]
+			}
+		};
+		expect(placeOf(empty, 1)?.blocks[2]?.entry).toBeUndefined();
 	});
 
 	it('ничего не показывает для Позиции вне Занятия', () => {

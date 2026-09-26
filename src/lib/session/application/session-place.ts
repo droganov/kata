@@ -12,6 +12,7 @@ export interface PlaceInSession {
 	readonly previous?: number;
 }
 interface BlockMarks {
+	readonly entry?: number;
 	readonly id: string;
 	readonly items: readonly MarkedSessionItem[];
 	readonly marked: number;
@@ -86,23 +87,32 @@ export const placeOf = (session: ActiveSession, ord: number): PlaceInSession | u
 	};
 };
 
+const entryOf = (
+	block: SessionBlockView,
+	marks: ReadonlyMap<number, MarkStatus>
+): number | undefined => (block.items.find((item) => !marks.has(item.ord)) ?? block.items[0])?.ord;
+
 const blockMarksOf = (
 	block: SessionBlockView,
 	marks: ReadonlyMap<number, MarkStatus>
-): BlockMarks => ({
-	id: block.id,
-	items: block.items.map((item) => {
-		const mark = marks.get(item.ord);
-		return {
-			dose: item.dose,
-			...(mark !== undefined && { mark }),
-			name: item.name,
-			ord: item.ord
-		};
-	}),
-	marked: block.items.filter((item) => marks.has(item.ord)).length,
-	name: block.name
-});
+): BlockMarks => {
+	const entry = entryOf(block, marks);
+	return {
+		...(entry !== undefined && { entry }),
+		id: block.id,
+		items: block.items.map((item) => {
+			const mark = marks.get(item.ord);
+			return {
+				dose: item.dose,
+				...(mark !== undefined && { mark }),
+				name: item.name,
+				ord: item.ord
+			};
+		}),
+		marked: block.items.filter((item) => marks.has(item.ord)).length,
+		name: block.name
+	};
+};
 
 const itemsOf = (view: SessionView): readonly SessionItemView[] =>
 	view.blocks.flatMap((block) => block.items);

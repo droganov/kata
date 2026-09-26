@@ -28,7 +28,8 @@
 	const PROGRAM_LIST_PATH = '/';
 	const PROGRAM_PATH = '/programs/';
 	const FINISHED_PATH = '/finished';
-	const FIRST_DRAW = 1;
+	const COLLAPSED_MARK = '▾';
+	const EXPANDED_MARK = '▴';
 	const MARK_NAMES = {
 		[MARK_STATUS.done]: 'выполнено',
 		[MARK_STATUS.skipped]: 'пропущено'
@@ -37,7 +38,11 @@
 	const session = $derived(data.session);
 	let unredrawable = $state<number | undefined>();
 	const place = $derived(data.current === undefined ? undefined : placeOf(session, data.current));
-	const shownBlock = $derived(place?.blocks.find((block) => block.id === data.openedBlock));
+	const shownBlock = $derived(
+		data.openedBlock === place?.inBlock.block
+			? place?.blocks.find((block) => block.id === data.openedBlock)
+			: undefined
+	);
 
 	const mark = async (ord: number, status: SessionMark['status']): Promise<void> => {
 		const marked = await markBrowserSession(session.account, { ord, status });
@@ -57,7 +62,7 @@
 		await cancelBrowserSession(session.account);
 		await goto(PROGRAM_LIST_PATH);
 	};
-	const blockAddress = (ord: number, block: string): string =>
+	const toggleAddress = (ord: number, block: string): string =>
 		block === data.openedBlock ? sessionItemAddress(ord) : sessionItemAddress(ord, block);
 	const isDisclosureOpen = (ord: number, element: string): boolean =>
 		data.openDisclosures.includes(disclosureKeyOf(session, ord, element));
@@ -133,16 +138,35 @@
 			<ol class="flex flex-wrap gap-x-3 gap-y-1 text-xs" aria-label="Блоки Занятия">
 				{#each place.blocks as block (block.id)}
 					<li>
-						<a
-							class="underline-offset-2"
-							class:font-semibold={block.id === place.inBlock.block}
-							class:opacity-50={block.id !== place.inBlock.block}
-							class:underline={block.id === data.openedBlock}
-							href={blockAddress(item.ord, block.id)}
-						>
-							{block.name}
-							<span class="tabular-nums">{block.marked}/{block.items.length}</span>
-						</a>
+						{#if block.id === place.inBlock.block}
+							<a
+								class="font-semibold underline-offset-2"
+								class:underline={shownBlock !== undefined}
+								aria-expanded={shownBlock !== undefined}
+								href={toggleAddress(item.ord, block.id)}
+							>
+								{block.name}
+								<span class="tabular-nums">{block.marked}/{block.items.length}</span
+								>
+								<span aria-hidden="true"
+									>{shownBlock === undefined
+										? COLLAPSED_MARK
+										: EXPANDED_MARK}</span
+								>
+							</a>
+						{:else if block.entry === undefined}
+							<span class="opacity-30">
+								{block.name}
+								<span class="tabular-nums">{block.marked}/{block.items.length}</span
+								>
+							</span>
+						{:else}
+							<a class="opacity-50" href={sessionItemAddress(block.entry)}>
+								{block.name}
+								<span class="tabular-nums">{block.marked}/{block.items.length}</span
+								>
+							</a>
+						{/if}
 					</li>
 				{/each}
 			</ol>
@@ -196,9 +220,6 @@
 						type="button">Другая Мишень</button
 					>
 				{/if}
-			{/if}
-			{#if item.drawNo > FIRST_DRAW}
-				<span class="text-sm opacity-60">Отказов: {item.drawNo - FIRST_DRAW}</span>
 			{/if}
 		</section>
 		{#if unredrawable === item.ord}
