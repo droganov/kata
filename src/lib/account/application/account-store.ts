@@ -28,10 +28,8 @@ export interface AccountStore {
 	keysOf: (account: string) => Promise<readonly Credential[]>;
 	knownAccounts: () => Promise<readonly DeviceAccount[]>;
 	registerAccount: (nickname: string, email: string) => Promise<Person>;
-	revokeOtherSessions: (account: string, keep: string) => Promise<void>;
-	revokeSession: (session: string) => Promise<void>;
-	sessionsOf: (account: string) => Promise<readonly AuthSession[]>;
 	signIn: (account: string, key: string, device: string) => Promise<AuthSession>;
+	signOut: (session: string) => Promise<void>;
 }
 
 export class AccountsUnavailableError extends Error {

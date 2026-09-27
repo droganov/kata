@@ -46,20 +46,10 @@ export const signInBrowser = async (
 	return authSession;
 };
 
-export const browserAuthSessions = (account: string): Promise<readonly AuthSession[]> =>
-	browserAccountStore().sessionsOf(account);
-
-export const revokeBrowserAuthSession = async (
-	signedIn: SignedIn,
-	authSession: string,
-	fetcher: Fetch
-): Promise<void> => {
-	await browserAccountStore().revokeSession(authSession);
-	if (authSession === signedIn.authSession.id) await forgetAuthSession(fetcher);
+export const signOutBrowser = async (signedIn: SignedIn, fetcher: Fetch): Promise<void> => {
+	await forgetAuthSession(fetcher);
+	await browserAccountStore().signOut(signedIn.authSession.id);
 };
-
-export const revokeOtherBrowserAuthSessions = (signedIn: SignedIn): Promise<void> =>
-	browserAccountStore().revokeOtherSessions(signedIn.account.id, signedIn.authSession.id);
 
 export const otherBrowserAccounts = (signedIn: SignedIn): Promise<readonly DeviceAccount[]> =>
 	otherDeviceAccounts(browserAccountStore(), signedIn);
@@ -89,7 +79,8 @@ const browserAccountStore = (): AccountStore =>
 	createIdbAccountStore({
 		indexedDB: typeof indexedDB === UNDEFINED_KIND ? undefined : indexedDB,
 		now: () => new Date(),
-		randomBytes
+		randomBytes,
+		storage: sessionStorage
 	});
 
 const randomBytes = (length: number): Uint8Array => crypto.getRandomValues(new Uint8Array(length));

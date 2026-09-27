@@ -5,7 +5,7 @@
 
 	import {
 		forgetBrowserAccount,
-		revokeBrowserAuthSession,
+		signOutBrowser,
 		switchBrowserAccount
 	} from '../lib/account/interface/browser-account.ts';
 
@@ -29,7 +29,7 @@
 		await invalidateAll();
 	};
 	const signInAnother = async (): Promise<void> => {
-		await revokeBrowserAuthSession(signedIn, signedIn.authSession.id, fetch);
+		await signOutBrowser(signedIn, fetch);
 		await invalidateAll();
 	};
 </script>

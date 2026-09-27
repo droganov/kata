@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import type { AccountStore } from './account-store.ts';
 
 import { NEW_KEY, SIGNED_UP_AT } from '../../../test/account-store-contract.ts';
+import { memoryStorage } from '../../../test/memory-storage.ts';
 import { InvalidEmailError, InvalidNicknameError } from '../domain/person.ts';
 import { createIdbAccountStore } from '../infrastructure/idb-account-store.ts';
 import { confirmAndSignIn, requestEmailCode, signedInOf } from './sign-in.ts';
@@ -14,7 +15,12 @@ const ANY_CODE = '123456';
 const randomBytes = (length: number): Uint8Array => crypto.getRandomValues(new Uint8Array(length));
 
 const storeOn = (indexedDB: IDBFactory | undefined): AccountStore =>
-	createIdbAccountStore({ indexedDB, now: () => SIGNED_UP_AT, randomBytes });
+	createIdbAccountStore({
+		indexedDB,
+		now: () => SIGNED_UP_AT,
+		randomBytes,
+		storage: memoryStorage()
+	});
 
 const newStore = (): AccountStore => storeOn(new IDBFactory());
 
@@ -79,7 +85,6 @@ describe('подтверждение кода и вход', () => {
 		const again = await requestEmailCode(store, 'Sergei', 'sergei@example.com');
 		await confirmAndSignIn(store, authenticator, again, ANY_CODE, 'Mac · Chrome');
 		expect(await store.keysOf(person.id)).toHaveLength(2);
-		expect(await store.sessionsOf(person.id)).toHaveLength(2);
 	});
 });
 
@@ -98,11 +103,11 @@ describe('текущий Сеанс', () => {
 		expect(await signedInOf(storeOn(undefined), null)).toBeUndefined();
 	});
 
-	it('погашенный или неизвестный Сеанс входом не считает', async () => {
+	it('закрытый или неизвестный Сеанс входом не считает', async () => {
 		const store = newStore();
 		const person = await requestEmailCode(store, 'Sergei', 'sergei@example.com');
 		const session = await confirmAndSignIn(store, authenticator, person, ANY_CODE, DEVICE);
-		await store.revokeSession(session?.id ?? '');
+		await store.signOut(session?.id ?? '');
 		expect(await signedInOf(store, session?.id ?? null)).toBeUndefined();
 		expect(await signedInOf(store, 'unknown')).toBeUndefined();
 	});

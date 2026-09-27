@@ -24,6 +24,6 @@ export const switchAccount = async (
 	if (key === undefined) return;
 	const authSession = await store.signIn(known.account, key.id, device);
 	await remember(authSession);
-	await store.revokeSession(signedIn.authSession.id);
+	await store.signOut(signedIn.authSession.id);
 	return authSession;
 };

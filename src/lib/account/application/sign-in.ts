@@ -6,7 +6,6 @@ import type {
 	Person
 } from './account-store.ts';
 
-import { isLive } from '../domain/auth-session.ts';
 import { emailOf, nicknameOf } from '../domain/person.ts';
 import { AccountsUnavailableError } from './account-store.ts';
 
@@ -71,7 +70,7 @@ const liveSignedIn = async (
 	authSession: string
 ): Promise<SignedIn | undefined> => {
 	const found = await store.authSession(authSession);
-	if (found === undefined || !isLive(found)) return;
+	if (found === undefined) return;
 	const account = await store.account(found.account);
 	return account === undefined ? undefined : { account, authSession: found };
 };

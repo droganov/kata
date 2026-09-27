@@ -11,8 +11,8 @@
 - [x] Аккаунт получает постоянный непрозрачный идентификатор на 64 байта
 - [x] Вход держится между запусками приложения
 - [x] Токен Сеанса лежит в куке, которую ставит сервер, а не скрипт
-- [x] Список Сеансов виден, любой гасится по отдельности
-- [x] Есть гашение всех Сеансов кроме текущего
+- ~~Список Сеансов виден, любой гасится по отдельности~~ moved to phase 2, see ADR-0012
+- ~~Есть гашение всех Сеансов кроме текущего~~ moved to phase 2, see ADR-0012
 - [x] При регистрации показано предупреждение, что аккаунт живёт в связке ключей
 - [x] Форма данных совпадает с настоящей: фаза 2 меняет начинку, а не переписывает экраны
 
@@ -28,3 +28,10 @@ Interpretations taken during implementation, 2026-09-27:
 - A registration on an email that already has an Account on this device attaches a new key to that Account instead of failing, as the second-device flow of the map describes.
 - Programs are listed to every Account; the active Session is keyed by the signed-in Account, not by the Program's owner. `ProgramCardView` lost its `account` field.
 - Revoking an Auth session on another device is only as real as phase 1 allows: the list shows what this device's store holds.
+
+Correction, 2026-09-27 ([ADR-0012](../adr/0012-temporary-data-lives-only-in-session-storage.md)):
+
+- The email code no longer lives in IndexedDB. The `email_code` table kept every used and expired code forever. The code now lives in `sessionStorage` under the Account's id and is removed on the first confirmation attempt.
+- Revocation is removed from phase 1. A revocation mark on this device cannot reach any other device, and only the server can revoke. `revokeSession`, `revokeOtherSessions`, `sessionsOf` and `revokedAt` are gone, and the Account screen shows only the nickname and email. Leaving the Account asks the server to drop the cookie, then deletes this device's Auth session row (`signOut`).
+- The Account database is at version 3. The upgrade drops `email_code` and deletes Auth session rows that carried a revocation mark.
+- The two checklist items on revoking Auth sessions move to phase 2, together with the server-side store.

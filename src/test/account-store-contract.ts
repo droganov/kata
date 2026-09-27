@@ -167,8 +167,7 @@ export const describeAccountStoreContract = (
 				createdAt: SIGNED_UP_AT.toISOString(),
 				deviceLabel: DEVICE,
 				key: key.id,
-				lastSeenAt: SIGNED_UP_AT.toISOString(),
-				revokedAt: null
+				lastSeenAt: SIGNED_UP_AT.toISOString()
 			});
 			expect(isUuid(session.id)).toBe(true);
 			expect(await store.authSession(session.id)).toEqual(session);
@@ -189,50 +188,18 @@ export const describeAccountStoreContract = (
 			);
 		});
 
-		it('показывает живые Сеансы Аккаунта от нового к старому, чужие не показывает', async () => {
-			let now = SIGNED_UP_AT;
-			const store = createStore(() => now);
-			const person = await store.registerAccount('Sergei', EMAIL);
-			const other = await store.registerAccount('Anna', OTHER_EMAIL);
-			const key = await store.attachKey(person.id, NEW_KEY);
-			const otherKey = await store.attachKey(other.id, { ...NEW_KEY, credentialId: 'babe' });
-			const phone = await store.signIn(person.id, key.id, DEVICE);
-			now = minutesAfterSignUp(1);
-			const laptop = await store.signIn(person.id, key.id, OTHER_DEVICE);
-			await store.signIn(other.id, otherKey.id, DEVICE);
-			expect(await store.sessionsOf(person.id)).toEqual([laptop, phone]);
-		});
-
-		it('гасит Сеанс по отдельности, повтор ничего не делает', async () => {
-			let now = SIGNED_UP_AT;
-			const store = createStore(() => now);
-			const person = await store.registerAccount('Sergei', EMAIL);
-			const key = await store.attachKey(person.id, NEW_KEY);
-			const phone = await store.signIn(person.id, key.id, DEVICE);
-			const laptop = await store.signIn(person.id, key.id, OTHER_DEVICE);
-			now = minutesAfterSignUp(3);
-			await store.revokeSession(phone.id);
-			await store.revokeSession(phone.id);
-			await store.revokeSession(UNKNOWN);
-			expect(await store.sessionsOf(person.id)).toEqual([laptop]);
-			expect(await store.authSession(phone.id)).toMatchObject({
-				revokedAt: now.toISOString()
-			});
-		});
-
-		it('гасит все Сеансы Аккаунта кроме текущего, чужие не трогает', async () => {
+		it('закрывает Сеанс на устройстве, прочие не трогает, повтор ничего не делает', async () => {
 			const store = createStore(() => SIGNED_UP_AT);
 			const person = await store.registerAccount('Sergei', EMAIL);
-			const other = await store.registerAccount('Anna', OTHER_EMAIL);
 			const key = await store.attachKey(person.id, NEW_KEY);
-			const otherKey = await store.attachKey(other.id, { ...NEW_KEY, credentialId: 'babe' });
-			const current = await store.signIn(person.id, key.id, DEVICE);
-			await store.signIn(person.id, key.id, OTHER_DEVICE);
-			await store.signIn(person.id, key.id, OTHER_DEVICE);
-			const foreign = await store.signIn(other.id, otherKey.id, DEVICE);
-			await store.revokeOtherSessions(person.id, current.id);
-			expect(await store.sessionsOf(person.id)).toEqual([current]);
-			expect(await store.sessionsOf(other.id)).toEqual([foreign]);
+			const phone = await store.signIn(person.id, key.id, DEVICE);
+			const laptop = await store.signIn(person.id, key.id, OTHER_DEVICE);
+			await store.signOut(phone.id);
+			await store.signOut(phone.id);
+			await store.signOut(UNKNOWN);
+			expect(await store.authSession(phone.id)).toBeUndefined();
+			expect(await store.authSession(laptop.id)).toEqual(laptop);
+			expect(await store.account(person.id)).toEqual(person);
 		});
 
 		it('без входов не знает ни одного Аккаунта устройства', async () => {

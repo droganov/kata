@@ -226,9 +226,7 @@ const DOMAIN_PUBLIC_API = {
 		'emailOf',
 		'expiryOf',
 		'isCodeUsable',
-		'isLive',
 		'lastSignedInFirst',
-		'newestFirst',
 		'nicknameOf'
 	],
 	catalog: [

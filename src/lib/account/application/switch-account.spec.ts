@@ -5,6 +5,7 @@ import type { AccountStore, Credential, DeviceAccount } from './account-store.ts
 import type { Authenticator, SignedIn } from './sign-in.ts';
 
 import { NEW_KEY, SIGNED_UP_AT } from '../../../test/account-store-contract.ts';
+import { memoryStorage } from '../../../test/memory-storage.ts';
 import { createIdbAccountStore } from '../infrastructure/idb-account-store.ts';
 import { confirmAndSignIn, requestEmailCode, signedInOf } from './sign-in.ts';
 import { otherDeviceAccounts, switchAccount } from './switch-account.ts';
@@ -15,7 +16,12 @@ const ANY_CODE = '123456';
 const randomBytes = (length: number): Uint8Array => crypto.getRandomValues(new Uint8Array(length));
 
 const newStore = (): AccountStore =>
-	createIdbAccountStore({ indexedDB: new IDBFactory(), now: () => SIGNED_UP_AT, randomBytes });
+	createIdbAccountStore({
+		indexedDB: new IDBFactory(),
+		now: () => SIGNED_UP_AT,
+		randomBytes,
+		storage: memoryStorage()
+	});
 
 const confirmingFirst: Authenticator = {
 	confirmKey: ([key]) => Promise.resolve(key),
@@ -69,7 +75,7 @@ describe('Аккаунты устройства', () => {
 });
 
 describe('переключение Аккаунта', () => {
-	it('подтверждает ключом из записи, ставит новый Сеанс и только потом гасит прежний', async () => {
+	it('подтверждает ключом из записи, ставит новый Сеанс и только потом закрывает прежний', async () => {
 		const store = newStore();
 		await signedInAs(store, 'Anna', 'anna@example.com');
 		const anna = await signedInAs(store, 'Anna', 'anna@example.com');
@@ -119,7 +125,7 @@ describe('переключение Аккаунта', () => {
 			)
 		).toBeUndefined();
 		expect(await signedInOf(store, sergei.authSession.id)).toEqual(sergei);
-		expect(await store.sessionsOf(anna.account.id)).toEqual([anna.authSession]);
+		expect(await store.authSession(anna.authSession.id)).toEqual(anna.authSession);
 	});
 
 	it('когда сервер не поставил куку, остаётся в текущем Сеансе', async () => {

@@ -5,20 +5,28 @@ import type { AccountStore } from '../application/account-store.ts';
 
 import {
 	describeAccountStoreContract,
+	NEW_KEY,
 	SIGNED_UP_AT
 } from '../../../test/account-store-contract.ts';
+import { memoryStorage } from '../../../test/memory-storage.ts';
 import { AccountsUnavailableError } from '../application/account-store.ts';
 import { createIdbAccountStore } from './idb-account-store.ts';
 
 const STORED_DATABASE = 'training-account';
-const FIRST_VERSION = 1;
-const NEWER_VERSION = 3;
+const LEGACY_VERSIONS = [1, 2];
+const DEVICE_ACCOUNTS_VERSION = 2;
+const NEWER_VERSION = 4;
 const EMAIL = 'sergei@example.com';
 
 const randomBytes = (length: number): Uint8Array => crypto.getRandomValues(new Uint8Array(length));
 
 const storeOn = (indexedDB: IDBFactory | undefined): AccountStore =>
-	createIdbAccountStore({ indexedDB, now: () => SIGNED_UP_AT, randomBytes });
+	createIdbAccountStore({
+		indexedDB,
+		now: () => SIGNED_UP_AT,
+		randomBytes,
+		storage: memoryStorage()
+	});
 
 const refuse = (): never => {
 	throw new DOMException('Доступ к IndexedDB запрещён', 'SecurityError');
@@ -52,10 +60,21 @@ const STORED_PERSON = {
 	nickname: 'Sergei'
 };
 
-const firstVersionFactory = async (): Promise<IDBFactory> => {
+const LIVE_SESSION = {
+	account: STORED_PERSON.id,
+	createdAt: '2026-09-27T08:01:00.000Z',
+	deviceLabel: 'iPhone · Safari',
+	id: '01a0e029-5400-7000-8000-00000000000a',
+	key: 'key-a',
+	lastSeenAt: '2026-09-27T08:01:00.000Z'
+};
+
+const REVOKED_SESSION = { ...LIVE_SESSION, id: '01a0e029-5400-7000-8000-00000000000b' };
+
+const legacyFactory = async (version: number): Promise<IDBFactory> => {
 	const factory = new IDBFactory();
 	await new Promise<void>((resolve) => {
-		const request = factory.open(STORED_DATABASE, FIRST_VERSION);
+		const request = factory.open(STORED_DATABASE, version);
 		request.addEventListener('upgradeneeded', () => {
 			request.result
 				.createObjectStore('person', { keyPath: 'id' })
@@ -64,10 +83,24 @@ const firstVersionFactory = async (): Promise<IDBFactory> => {
 				request.result
 					.createObjectStore(table, { keyPath: 'id' })
 					.createIndex('account', 'account');
+			if (version >= DEVICE_ACCOUNTS_VERSION)
+				request.result.createObjectStore('device_account', { keyPath: 'account' });
 		});
 		request.addEventListener('success', () => {
-			const transaction = request.result.transaction('person', 'readwrite');
+			const tables = ['person', 'email_code', 'auth_session'];
+			const transaction = request.result.transaction(tables, 'readwrite');
 			transaction.objectStore('person').add(STORED_PERSON);
+			transaction.objectStore('email_code').add({
+				account: STORED_PERSON.id,
+				codeHash: 'hash',
+				expiresAt: '2026-09-27T08:10:00.000Z',
+				id: 'code-a',
+				usedAt: '2026-09-27T08:01:00.000Z'
+			});
+			transaction.objectStore('auth_session').add({ ...LIVE_SESSION, revokedAt: null });
+			transaction
+				.objectStore('auth_session')
+				.add({ ...REVOKED_SESSION, revokedAt: '2026-09-27T09:00:00.000Z' });
 			transaction.addEventListener('complete', () => {
 				request.result.close();
 				resolve();
@@ -77,9 +110,72 @@ const firstVersionFactory = async (): Promise<IDBFactory> => {
 	return factory;
 };
 
+const tablesIn = (factory: IDBFactory): Promise<readonly string[]> =>
+	new Promise((resolve) => {
+		const request = factory.open(STORED_DATABASE);
+		request.addEventListener('success', () => {
+			const tables = [...request.result.objectStoreNames];
+			request.result.close();
+			resolve(tables);
+		});
+	});
+
 describeAccountStoreContract('Хранилище Аккаунтов в IndexedDB', (now) =>
-	createIdbAccountStore({ indexedDB: new IDBFactory(), now, randomBytes })
+	createIdbAccountStore({
+		indexedDB: new IDBFactory(),
+		now,
+		randomBytes,
+		storage: memoryStorage()
+	})
 );
+
+describe('Код подтверждения почты', () => {
+	it('живёт только в хранилище вкладки и уходит после подтверждения', async () => {
+		const storage = memoryStorage();
+		const factory = new IDBFactory();
+		const store = createIdbAccountStore({
+			indexedDB: factory,
+			now: () => SIGNED_UP_AT,
+			randomBytes,
+			storage
+		});
+		const person = await store.registerAccount('Sergei', EMAIL);
+		await store.issueEmailCode(person.id);
+		expect(storage).toHaveLength(1);
+		expect(await tablesIn(factory)).not.toContain('email_code');
+		expect(await store.confirmEmail(person.id, '000000')).toBe(true);
+		expect(storage).toHaveLength(0);
+	});
+
+	it('истёкший код уходит из хранилища вкладки при попытке', async () => {
+		let now = SIGNED_UP_AT;
+		const storage = memoryStorage();
+		const store = createIdbAccountStore({
+			indexedDB: new IDBFactory(),
+			now: () => now,
+			randomBytes,
+			storage
+		});
+		const person = await store.registerAccount('Sergei', EMAIL);
+		await store.issueEmailCode(person.id);
+		now = new Date(SIGNED_UP_AT.getTime() + 600_000);
+		expect(await store.confirmEmail(person.id, '000000')).toBe(false);
+		expect(storage).toHaveLength(0);
+	});
+
+	it('повреждённую запись кода за код не принимает', async () => {
+		const storage = memoryStorage();
+		const store = createIdbAccountStore({
+			indexedDB: new IDBFactory(),
+			now: () => SIGNED_UP_AT,
+			randomBytes,
+			storage
+		});
+		const person = await store.registerAccount('Sergei', EMAIL);
+		storage.setItem('training:email-code:' + person.id, '{');
+		expect(await store.confirmEmail(person.id, '000000')).toBe(false);
+	});
+});
 
 describe('Хранилище Аккаунтов при отказе устройства', () => {
 	afterEach(() => {
@@ -121,14 +217,26 @@ describe('Хранилище Аккаунтов при отказе устрой
 		vi.spyOn(IDBObjectStore.prototype, 'add').mockImplementation(() => {
 			throw new DOMException('Место на устройстве закончилось', 'QuotaExceededError');
 		});
-		await expect(store.issueEmailCode(person.id)).rejects.toThrow(AccountsUnavailableError);
+		await expect(store.attachKey(person.id, NEW_KEY)).rejects.toThrow(AccountsUnavailableError);
 	});
 
-	it('поднимает базу первой версии, Аккаунты остаются, список устройства пуст', async () => {
-		const store = storeOn(await firstVersionFactory());
-		expect(await store.account(STORED_PERSON.id)).toEqual(STORED_PERSON);
-		expect(await store.knownAccounts()).toEqual([]);
-	});
+	it.each(LEGACY_VERSIONS)(
+		'поднимает базу версии %i: Аккаунты и живые Сеансы остаются, коды и погашенные Сеансы уходят',
+		async (version) => {
+			const factory = await legacyFactory(version);
+			const store = storeOn(factory);
+			expect(await store.account(STORED_PERSON.id)).toEqual(STORED_PERSON);
+			expect(await store.authSession(LIVE_SESSION.id)).toEqual(LIVE_SESSION);
+			expect(await store.authSession(REVOKED_SESSION.id)).toBeUndefined();
+			expect(await store.knownAccounts()).toEqual([]);
+			expect(await tablesIn(factory)).toEqual([
+				'auth_session',
+				'credential',
+				'device_account',
+				'person'
+			]);
+		}
+	);
 
 	it('уступает базу новой версии приложения', async () => {
 		const factory = new IDBFactory();

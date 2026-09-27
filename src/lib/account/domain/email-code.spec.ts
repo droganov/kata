@@ -9,9 +9,7 @@ const ISSUED_AT = new Date('2026-09-27T08:00:00.000Z');
 const CODE: EmailCode = {
 	account: 'person-a',
 	codeHash: 'hash',
-	expiresAt: expiryOf(ISSUED_AT),
-	id: 'code-a',
-	usedAt: null
+	expiresAt: expiryOf(ISSUED_AT)
 };
 
 describe('код подтверждения почты', () => {
@@ -19,9 +17,5 @@ describe('код подтверждения почты', () => {
 		expect(CODE.expiresAt).toBe('2026-09-27T08:10:00.000Z');
 		expect(isCodeUsable(CODE, new Date('2026-09-27T08:09:59.999Z'))).toBe(true);
 		expect(isCodeUsable(CODE, new Date('2026-09-27T08:10:00.000Z'))).toBe(false);
-	});
-
-	it('использованный код не годен', () => {
-		expect(isCodeUsable({ ...CODE, usedAt: ISSUED_AT.toISOString() }, ISSUED_AT)).toBe(false);
 	});
 });

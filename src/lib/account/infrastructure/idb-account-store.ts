@@ -15,23 +15,25 @@ import {
 	UnknownAccountError,
 	UnknownKeyError
 } from '../application/account-store.ts';
-import { isLive, newestFirst } from '../domain/auth-session.ts';
 import { lastSignedInFirst } from '../domain/device-account.ts';
 import { expiryOf, isCodeUsable } from '../domain/email-code.ts';
 import { HANDLE_BYTES } from '../domain/person.ts';
 import {
+	emailCodeOf,
 	isAuthSession,
 	isCredential,
 	isDeviceAccount,
-	isEmailCode,
+	isLegacyAuthSession,
 	isPerson
 } from './account-records.ts';
 
 const DATABASE_NAME = 'training-account';
-const DATABASE_VERSION = 2;
+const DATABASE_VERSION = 3;
 const EMPTY_VERSION = 0;
+const DEVICE_ACCOUNTS_VERSION = 2;
+const EMAIL_CODE_KEY = 'training:email-code:';
 const PERSON = 'person';
-const EMAIL_CODE = 'email_code';
+const LEGACY_EMAIL_CODE = 'email_code';
 const CREDENTIAL = 'credential';
 const AUTH_SESSION = 'auth_session';
 const DEVICE_ACCOUNT = 'device_account';
@@ -56,16 +58,12 @@ export interface AccountStoreDeps {
 	readonly indexedDB: IDBFactory | undefined;
 	readonly now: () => Date;
 	readonly randomBytes: (length: number) => Uint8Array;
+	readonly storage: Storage;
 }
 
 type Outcome<Value> = () => Value;
 
-type Table =
-	| typeof AUTH_SESSION
-	| typeof CREDENTIAL
-	| typeof DEVICE_ACCOUNT
-	| typeof EMAIL_CODE
-	| typeof PERSON;
+type Table = typeof AUTH_SESSION | typeof CREDENTIAL | typeof DEVICE_ACCOUNT | typeof PERSON;
 
 type Work<Value> = (transaction: IDBTransaction) => Outcome<Value>;
 
@@ -103,15 +101,14 @@ export const createIdbAccountStore = (deps: AccountStoreDeps): AccountStore => {
 		return person;
 	};
 	const issueEmailCode = async (account: string): Promise<void> => {
+		if ((await readOne(PERSON, isPerson, byId(account))) === undefined)
+			throw new UnknownAccountError(account);
 		const code: EmailCode = {
 			account,
 			codeHash: await hashOf(codeOf(deps.randomBytes(CODE_DIGITS))),
-			expiresAt: expiryOf(deps.now()),
-			id: newId(),
-			usedAt: null
+			expiresAt: expiryOf(deps.now())
 		};
-		if (!(await run([PERSON, EMAIL_CODE], READ_WRITE, addForAccount(EMAIL_CODE, code))))
-			throw new UnknownAccountError(account);
+		deps.storage.setItem(emailCodeKey(account), JSON.stringify(code));
 	};
 	const attachKey = async (account: string, key: NewCredential): Promise<Credential> => {
 		const credential: Credential = {
@@ -133,29 +130,25 @@ export const createIdbAccountStore = (deps: AccountStoreDeps): AccountStore => {
 			deviceLabel: device,
 			id: newId(),
 			key,
-			lastSeenAt: now,
-			revokedAt: null
+			lastSeenAt: now
 		};
 		const tables = [PERSON, CREDENTIAL, AUTH_SESSION, DEVICE_ACCOUNT] as const;
 		if (!(await run(tables, READ_WRITE, addWithOwnKey(session))))
 			throw new UnknownKeyError(key);
 		return session;
 	};
-	const sessionsOf = async (account: string): Promise<readonly AuthSession[]> => {
-		const sessions = await run(
-			[AUTH_SESSION],
-			READ_ONLY,
-			readRows(AUTH_SESSION, isAuthSession, byAccount(account))
-		);
-		return newestFirst(sessions.filter((session) => isLive(session)));
-	};
 	return {
 		account: (account) => readOne(PERSON, isPerson, byId(account)),
 		accountByEmail: (email) => readOne(PERSON, isPerson, byEmail(email)),
 		attachKey,
 		authSession: (session) => readOne(AUTH_SESSION, isAuthSession, byId(session)),
-		confirmEmail: (account) =>
-			run([PERSON, EMAIL_CODE], READ_WRITE, confirmUsableCode(account, deps.now())),
+		confirmEmail: async (account) => {
+			const code = emailCodeOf(deps.storage.getItem(emailCodeKey(account)));
+			if (code === undefined) return false;
+			deps.storage.removeItem(emailCodeKey(account));
+			if (!isCodeUsable(code, deps.now())) return false;
+			return run([PERSON], READ_WRITE, markEmailVerified(account, moment()));
+		},
 		forgetAccount: async (account) => {
 			await run([DEVICE_ACCOUNT], READ_WRITE, deleteRow(DEVICE_ACCOUNT, account));
 		},
@@ -171,18 +164,10 @@ export const createIdbAccountStore = (deps: AccountStoreDeps): AccountStore => {
 				)
 			),
 		registerAccount,
-		revokeOtherSessions: async (account, keep) => {
-			await run(
-				[AUTH_SESSION],
-				READ_WRITE,
-				revokeWhere(byAccount(account), moment(), (session) => session.id !== keep)
-			);
-		},
-		revokeSession: async (session) => {
-			await run([AUTH_SESSION], READ_WRITE, revokeWhere(byId(session), moment(), isLive));
-		},
-		sessionsOf,
-		signIn
+		signIn,
+		signOut: async (session) => {
+			await run([AUTH_SESSION], READ_WRITE, deleteRow(AUTH_SESSION, session));
+		}
 	};
 };
 
@@ -274,48 +259,37 @@ const rememberOnDevice = (transaction: IDBTransaction, session: AuthSession): vo
 	});
 };
 
-const confirmUsableCode =
-	(account: string, now: Date): Work<boolean> =>
+const markEmailVerified =
+	(account: string, at: string): Work<boolean> =>
 	(transaction) => {
-		let isConfirmed = false;
-		const codes = byAccount(account)(transaction.objectStore(EMAIL_CODE));
-		codes.addEventListener(SUCCESS_EVENT, () => {
-			const usable = rowsIn(codes, isEmailCode).find((code) => isCodeUsable(code, now));
-			if (usable === undefined) return;
-			isConfirmed = true;
-			transaction.objectStore(EMAIL_CODE).put({ ...usable, usedAt: now.toISOString() });
-			markEmailVerified(transaction.objectStore(PERSON), account, now.toISOString());
+		const people = transaction.objectStore(PERSON);
+		const found = people.get(account);
+		let isVerified = false;
+		found.addEventListener(SUCCESS_EVENT, () => {
+			for (const person of rowsIn(found, isPerson)) {
+				people.put({ ...person, emailVerifiedAt: person.emailVerifiedAt ?? at });
+				isVerified = true;
+			}
 		});
-		return () => isConfirmed;
+		return () => isVerified;
 	};
 
-const markEmailVerified = (people: IDBObjectStore, account: string, at: string): void => {
-	const found = people.get(account);
+const dropRevokedSessions: Work<number> = (transaction) => {
+	const sessions = transaction.objectStore(AUTH_SESSION);
+	const found = sessions.getAll();
+	let dropped = 0;
 	found.addEventListener(SUCCESS_EVENT, () => {
-		for (const person of rowsIn(found, isPerson))
-			people.put({ ...person, emailVerifiedAt: person.emailVerifiedAt ?? at });
+		for (const { revokedAt, ...session } of rowsIn(found, isLegacyAuthSession))
+			if (revokedAt === null) sessions.put(session);
+			else {
+				sessions.delete(session.id);
+				dropped += 1;
+			}
 	});
+	return () => dropped;
 };
 
-const revokeWhere =
-	(
-		query: (records: IDBObjectStore) => IDBRequest,
-		at: string,
-		isRevoked: (session: AuthSession) => boolean
-	): Work<number> =>
-	(transaction) => {
-		const sessions = transaction.objectStore(AUTH_SESSION);
-		const found = query(sessions);
-		let revoked = 0;
-		found.addEventListener(SUCCESS_EVENT, () => {
-			for (const session of rowsIn(found, isAuthSession))
-				if (isLive(session) && isRevoked(session)) {
-					sessions.put({ ...session, revokedAt: at });
-					revoked += 1;
-				}
-		});
-		return () => revoked;
-	};
+const emailCodeKey = (account: string): string => EMAIL_CODE_KEY + account;
 
 const codeOf = (bytes: Uint8Array): string =>
 	[...bytes].map((byte) => String(byte % DECIMAL)).join('');
@@ -337,11 +311,14 @@ const openDatabase = async (factory: IDBFactory | undefined): Promise<IDBDatabas
 const openRequest = (factory: IDBFactory): Promise<IDBDatabase> =>
 	new Promise((resolve, reject) => {
 		const request = factory.open(DATABASE_NAME, DATABASE_VERSION);
+		let hasLegacyRows = false;
 		request.addEventListener(UPGRADE_EVENT, (event) => {
-			createTables(request.result, event.oldVersion);
+			hasLegacyRows = event.oldVersion !== EMPTY_VERSION;
+			upgradeTables(request.result, event.oldVersion);
 		});
 		request.addEventListener(SUCCESS_EVENT, () => {
-			resolve(closingOnVersionChange(request.result));
+			const database = closingOnVersionChange(request.result);
+			resolve(hasLegacyRows ? withoutLegacyRows(database) : database);
 		});
 		request.addEventListener(ERROR_EVENT, () => {
 			reject(new AccountsUnavailableError());
@@ -355,19 +332,33 @@ const closingOnVersionChange = (database: IDBDatabase): IDBDatabase => {
 	return database;
 };
 
-const createTables = (database: IDBDatabase, oldVersion: number): void => {
-	if (oldVersion === EMPTY_VERSION) createAccountTables(database);
-	database.createObjectStore(DEVICE_ACCOUNT, { keyPath: ACCOUNT_KEY });
+const withoutLegacyRows = async (database: IDBDatabase): Promise<IDBDatabase> => {
+	await transact(database, [AUTH_SESSION], READ_WRITE, dropRevokedSessions);
+	return database;
+};
+
+const upgradeTables = (database: IDBDatabase, oldVersion: number): void => {
+	if (oldVersion === EMPTY_VERSION) {
+		createAccountTables(database);
+		return;
+	}
+	if (oldVersion < DEVICE_ACCOUNTS_VERSION) createDeviceAccounts(database);
+	database.deleteObjectStore(LEGACY_EMAIL_CODE);
 };
 
 const createAccountTables = (database: IDBDatabase): void => {
 	database
 		.createObjectStore(PERSON, { keyPath: ID_KEY })
 		.createIndex(EMAIL_INDEX, EMAIL_INDEX, { unique: true });
-	for (const table of [EMAIL_CODE, CREDENTIAL, AUTH_SESSION])
+	for (const table of [CREDENTIAL, AUTH_SESSION])
 		database
 			.createObjectStore(table, { keyPath: ID_KEY })
 			.createIndex(ACCOUNT_INDEX, ACCOUNT_INDEX);
+	createDeviceAccounts(database);
+};
+
+const createDeviceAccounts = (database: IDBDatabase): void => {
+	database.createObjectStore(DEVICE_ACCOUNT, { keyPath: ACCOUNT_KEY });
 };
 
 const rowsIn = <Row>(

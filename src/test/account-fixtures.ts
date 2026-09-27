@@ -23,8 +23,7 @@ export const SIGNED_IN: SignedIn = {
 		deviceLabel: 'iPhone · Safari',
 		id: '01a0e029-5400-7000-8000-000000000001',
 		key: 'key-a',
-		lastSeenAt: '2026-09-27T08:01:00.000Z',
-		revokedAt: null
+		lastSeenAt: '2026-09-27T08:01:00.000Z'
 	}
 };
 

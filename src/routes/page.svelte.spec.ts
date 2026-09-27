@@ -119,7 +119,7 @@ describe('меню по аватару', () => {
 		).not.toBeInTheDocument();
 	});
 
-	it('переключается на другой Аккаунт по ключу и гасит Сеанс текущего', async () => {
+	it('переключается на другой Аккаунт по ключу и закрывает Сеанс текущего', async () => {
 		const anna = await signedInBrowserAs('Anna', 'anna@example.com');
 		const sergei = await signedInBrowserAs('Sergei', 'sergei@example.com');
 		const accounts = await otherBrowserAccounts(sergei);
@@ -164,7 +164,7 @@ describe('меню по аватару', () => {
 		expect(await signedInBrowserAccount(anna.authSession.id)).toBeDefined();
 	});
 
-	it('для входа в другой Аккаунт гасит текущий Сеанс', async () => {
+	it('для входа в другой Аккаунт выходит из текущего', async () => {
 		const sergei = await signedInBrowserAs('Sergei', 'sergei@example.com');
 		render(Page, {
 			data: { accounts: [], programs: PROGRAMS, sessions: [], signedIn: sergei }

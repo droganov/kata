@@ -1,16 +1,15 @@
 import { IDBFactory } from 'fake-indexeddb';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { memoryStorage } from '../../../test/memory-storage.ts';
 import {
 	browserAccount,
-	browserAuthSessions,
 	forgetBrowserAccount,
 	otherBrowserAccounts,
 	requestBrowserEmailCode,
-	revokeBrowserAuthSession,
-	revokeOtherBrowserAuthSessions,
 	signedInBrowserAccount,
 	signInBrowser,
+	signOutBrowser,
 	switchBrowserAccount
 } from './browser-account.ts';
 
@@ -30,6 +29,7 @@ describe('Вход в браузере', () => {
 	beforeEach(() => {
 		vi.stubGlobal('indexedDB', new IDBFactory());
 		vi.stubGlobal('navigator', { userAgent: IPHONE });
+		vi.stubGlobal('sessionStorage', memoryStorage());
 		serveCookie.mockClear();
 	});
 
@@ -61,33 +61,12 @@ describe('Вход в браузере', () => {
 		expect(serveCookie).not.toHaveBeenCalled();
 	});
 
-	it('гасит чужой Сеанс, не трогая куку текущего', async () => {
-		const current = await signedInWith();
-		const other = await signedInWith();
-		const signedIn = await signedInBrowserAccount(current);
-		serveCookie.mockClear();
-		await revokeBrowserAuthSession(signedIn!, other, serveCookie);
-		expect(await signedInBrowserAccount(other)).toBeUndefined();
-		expect(await signedInBrowserAccount(current)).toBeDefined();
-		expect(serveCookie).not.toHaveBeenCalled();
-	});
-
-	it('гасит текущий Сеанс и просит сервер забыть куку', async () => {
+	it('выходит: просит сервер забыть куку и закрывает Сеанс на устройстве', async () => {
 		const current = await signedInWith();
 		const signedIn = await signedInBrowserAccount(current);
-		await revokeBrowserAuthSession(signedIn!, current, serveCookie);
+		await signOutBrowser(signedIn!, serveCookie);
 		expect(await signedInBrowserAccount(current)).toBeUndefined();
 		expect(serveCookie).toHaveBeenLastCalledWith('/auth/session', { method: 'DELETE' });
-	});
-
-	it('гасит все Сеансы кроме текущего', async () => {
-		const current = await signedInWith();
-		await signedInWith();
-		await signedInWith();
-		const signedIn = await signedInBrowserAccount(current);
-		await revokeOtherBrowserAuthSessions(signedIn!);
-		const sessions = await browserAuthSessions(signedIn!.account.id);
-		expect(sessions.map((session) => session.id)).toEqual([current]);
 	});
 
 	it('переключается на другой Аккаунт устройства и просит сервер поставить его куку', async () => {
