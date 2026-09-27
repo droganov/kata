@@ -61,6 +61,10 @@ describe('домашний экран, где поставить можно', ()
 		expect(within(steps).queryByRole('button')).not.toBeInTheDocument();
 		const icon = within(steps).getByRole('img', { name: 'значок «Поделиться»' });
 		expect(icon.closest('li')).toHaveTextContent('Нажмите «Поделиться»');
+		expect(within(steps).getAllByRole('img', { name: 'значок «три точки»' })).toHaveLength(2);
+		expect(
+			within(steps).getByRole('img', { name: 'значок «На экран «Домой»»' }).closest('li')
+		).toHaveTextContent('Нажмите «На экран «Домой»»');
 		expect(screen.getByText('Нажмите три точки меню «Ещё»')).toBeInTheDocument();
 	});
 

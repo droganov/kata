@@ -17,7 +17,7 @@ export interface InstallScreen {
 }
 
 export interface InstallStep {
-	readonly icon?: 'share';
+	readonly icon?: StepIcon;
 	readonly text: string;
 }
 
@@ -31,9 +31,11 @@ type Localize = (phrases: readonly Phrase[]) => InstallInstruction;
 
 interface Phrase {
 	readonly en: string;
-	readonly icon?: 'share';
+	readonly icon?: StepIcon;
 	readonly ru: string;
 }
+
+type StepIcon = 'add-to-home' | 'more' | 'share';
 
 type StepsKind = 'steps';
 
@@ -68,7 +70,9 @@ const APP_DISPLAY_MODES = ['standalone', 'minimal-ui', 'window-controls-overlay'
 const IOS_APP_DISPLAY_MODE = 'fullscreen';
 const TRUSTED_WEB_ACTIVITY = 'android-app://';
 
-const SHARE_ICON = 'share';
+const SHARE_ICON: StepIcon = 'share';
+const MORE_ICON: StepIcon = 'more';
+const ADD_TO_HOME_ICON: StepIcon = 'add-to-home';
 const SHARE: Phrase = { en: 'Нажмите «Share»', icon: SHARE_ICON, ru: 'Нажмите «Поделиться»' };
 const SHARE_IN_ADDRESS_BAR: Phrase = {
 	en: 'Нажмите «Share» в адресной строке',
@@ -82,28 +86,32 @@ const SWIPE_TO_SHARE: Phrase = {
 };
 const ADD_TO_HOME: Phrase = {
 	en: 'Нажмите «Add to Home Screen»',
+	icon: ADD_TO_HOME_ICON,
 	ru: 'Нажмите «На экран «Домой»»'
 };
 const SWIPE_TO_ADD_TO_HOME: Phrase = {
 	en: 'Пролистайте вверх и нажмите «Add to Home Screen»',
+	icon: ADD_TO_HOME_ICON,
 	ru: 'Пролистайте вверх и нажмите «На экран «Домой»»'
 };
-const VIEW_MORE: Phrase = { en: 'Нажмите «View More»', ru: 'Нажмите «Ещё»' };
+const VIEW_MORE: Phrase = { en: 'Нажмите «View More»', icon: MORE_ICON, ru: 'Нажмите «Ещё»' };
 const MORE_DOTS: Phrase = {
 	en: 'Нажмите три точки меню «More»',
+	icon: MORE_ICON,
 	ru: 'Нажмите три точки меню «Ещё»'
 };
 const MENU_BOTTOM_RIGHT = 'Нажмите меню в правом нижнем углу';
 const same = (text: string): Phrase => ({ en: text, ru: text });
+const dots = (text: string): Phrase => ({ en: text, icon: MORE_ICON, ru: text });
 
 const IN_APP_STEPS: readonly Phrase[] = [
 	same('Это встроенный браузер другого приложения, отсюда поставить нельзя'),
-	same('Нажмите три точки в правом верхнем углу'),
+	dots('Нажмите три точки в правом верхнем углу'),
 	{ en: 'Нажмите «Open in external browser»', ru: 'Нажмите «Открыть во внешнем браузере»' }
 ];
 const IOS_SAFARI_STEPS: readonly Phrase[] = [SHARE, SWIPE_TO_ADD_TO_HOME];
 const IOS_26_SAFARI_STEPS: readonly Phrase[] = [
-	same('Нажмите три точки в правом нижнем углу'),
+	dots('Нажмите три точки в правом нижнем углу'),
 	SHARE,
 	MORE_DOTS,
 	ADD_TO_HOME

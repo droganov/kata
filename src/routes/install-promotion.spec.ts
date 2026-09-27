@@ -131,8 +131,19 @@ describe('как поставить приложение', () => {
 			'Нажмите «Поделиться»',
 			'Пролистайте вверх и нажмите «На экран «Домой»»'
 		]);
-		expect(installStepsOf(instruction)[0]?.icon).toBe('share');
-		expect(installStepsOf(instruction)[1]?.icon).toBeUndefined();
+		expect(installStepsOf(instruction).map((step) => step.icon)).toEqual([
+			'share',
+			'add-to-home'
+		]);
+	});
+
+	it('у каждого шага Safari 26 свой значок: три точки, «Поделиться», три точки, «На экран «Домой»»', () => {
+		expect(
+			installStepsOf(installInstructionOf(IPHONE_SAFARI_26, false)).map((step) => step.icon)
+		).toEqual(['more', 'share', 'more', 'add-to-home']);
+		expect(
+			installStepsOf(installInstructionOf(IPHONE_SAFARI_27, false))[0]?.icon
+		).toBeUndefined();
 	});
 
 	it('Safari 26 и 27 прячет «Поделиться» за разные меню', () => {
