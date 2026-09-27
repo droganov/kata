@@ -26,7 +26,7 @@ const START_PATH = '/?source=pwa';
 const SCOPE_PATH = '/';
 const DISPLAY_MODE: DisplayMode = 'standalone';
 const BACKGROUND_COLOR = '#ffffff';
-const THEME_COLOR = '#0d4c73';
+const THEME_COLOR = '#422ad5';
 const ICON_TYPE = 'image/png';
 const MASKABLE_PURPOSE: IconPurpose = 'maskable';
 const SIZE_192 = '192x192';

@@ -1,4 +1,4 @@
-ICON_BG := \#0d4c73
+ICON_BG := \#422ad5
 
 .PHONY: i d build serve icons preview types lint lint-css lint-html lint-fmt lint-dead fmt test cov tables data c check
 

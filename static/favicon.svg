@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Kato.one">
 	<title>Kato.one</title>
-	<rect width="512" height="512" rx="112" fill="#0d4c73"/>
-	<g fill="#f4f1ea">
+	<rect width="512" height="512" rx="112" fill="#422ad5"/>
+	<g fill="#e0e7ff">
 		<rect x="112" y="80" width="160" height="32"/>
 		<rect x="112" y="144" width="160" height="32"/>
 		<rect x="144" y="80" width="32" height="192"/>
@@ -13,5 +13,5 @@
 		<rect x="176" y="336" width="160" height="32"/>
 		<rect x="112" y="400" width="256" height="32"/>
 	</g>
-	<rect x="368" y="400" width="32" height="32" fill="#e0452b"/>
+	<rect x="368" y="400" width="32" height="32" fill="#f43098"/>
 </svg>

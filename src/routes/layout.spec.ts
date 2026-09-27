@@ -113,3 +113,11 @@ it('на домашнем экране iPhone приложение зовётс�
 	expect(APP_HTML).toContain('<meta name="apple-mobile-web-app-title" content="Kato.one" />');
 	expect(APP_HTML).toContain('<title>Kato.one</title>');
 });
+
+it('знак Kato.one нарисован цветами темы интерфейса: primary, primary-content и secondary', () => {
+	const logo = readFileSync('static/favicon.svg', 'utf8');
+	expect(logo).toContain('fill="#422ad5"');
+	expect(logo).toContain('fill="#e0e7ff"');
+	expect(logo).toContain('fill="#f43098"');
+	expect(APP_HTML).toContain('<meta name="theme-color" content="#422ad5" />');
+});
