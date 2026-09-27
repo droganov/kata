@@ -1,12 +1,34 @@
-import { render, screen } from '@testing-library/svelte';
+import { fireEvent, render, screen } from '@testing-library/svelte';
 import { createRawSnippet } from 'svelte';
-import { expect, it } from 'vitest';
+import { afterEach, expect, it, vi } from 'vitest';
 
-const HEADING = '<h1>Тренировка</h1>';
+import type * as InstallModule from './install.svelte.ts';
 
 import Layout from './+layout.svelte';
 
+const HEADING = '<h1>Вход</h1>';
+
+const browser = vi.hoisted(() => ({ isInstalled: true }));
+
+vi.mock('./install.svelte.ts', async (importOriginal) => {
+	const original = await importOriginal<typeof InstallModule>();
+	const { ANDROID_CHROME: androidChrome, fakeBrowser } =
+		await import('../test/install-browser.ts');
+	return {
+		...original,
+		get browserInstall() {
+			const fake = fakeBrowser(androidChrome);
+			if (browser.isInstalled) fake.setDisplayMode('standalone');
+			return original.createInstall(fake);
+		}
+	};
+});
+
 const children = createRawSnippet(() => ({ render: () => HEADING }));
+
+afterEach(() => {
+	browser.isInstalled = true;
+});
 
 it('раскладка рендерит детей', () => {
 	render(Layout, { children, data: { hasExpiredSession: false } });
@@ -17,4 +39,13 @@ it('раскладка рендерит детей', () => {
 it('сообщает, что Занятие закрылось само', () => {
 	render(Layout, { children, data: { hasExpiredSession: true } });
 	expect(screen.getByRole('status')).toHaveTextContent('Занятие закрылось само');
+});
+
+it('Вход идёт после домашнего экрана, а не до него', async () => {
+	browser.isInstalled = false;
+	render(Layout, { children, data: { hasExpiredSession: false } });
+	expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Training');
+	expect(screen.queryByRole('heading', { name: 'Вход' })).not.toBeInTheDocument();
+	await fireEvent.click(screen.getByRole('button', { name: 'Продолжить в браузере' }));
+	expect(screen.getByRole('heading', { name: 'Вход' })).toBeInTheDocument();
 });

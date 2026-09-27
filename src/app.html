@@ -10,6 +10,12 @@
 		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 		<link rel="manifest" href="/manifest" />
 		<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-180.png" />
+		<script>
+			addEventListener('beforeinstallprompt', (event) => {
+				event.preventDefault();
+				window.deferredInstallPrompt = event;
+			});
+		</script>
 		<title>Training</title>
 		%sveltekit.head%
 	</head>

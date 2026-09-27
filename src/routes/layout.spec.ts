@@ -86,6 +86,11 @@ it('по Сеансу из куки узнаёт Аккаунт и держит 
 	expect(layout.signedIn?.account.nickname).toBe('Sergei');
 });
 
+it('ловит beforeinstallprompt в разметке, раньше, чем загрузится приложение', () => {
+	expect(APP_HTML).toContain("addEventListener('beforeinstallprompt', (event) => {");
+	expect(APP_HTML).toContain('window.deferredInstallPrompt = event;');
+});
+
 it('иконки объявлены в разметке до запуска скриптов, и Safari и прочим есть что взять', () => {
 	expect(APP_HTML).toContain('<link rel="icon" href="/favicon.ico" sizes="32x32" />');
 	expect(APP_HTML).toContain('<link rel="icon" href="/favicon.svg" type="image/svg+xml" />');
