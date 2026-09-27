@@ -3,9 +3,20 @@
 
 	import HomeScreen from './home-screen.svelte';
 	import './layout.css';
+	import { followWorkerUpdates } from './worker-update.ts';
 
 	let { children, data }: { children: Snippet; data: { readonly hasExpiredSession: boolean } } =
 		$props();
+
+	$effect(() => {
+		followWorkerUpdates({
+			container: navigator.serviceWorker,
+			document,
+			reload: () => {
+				location.reload();
+			}
+		});
+	});
 </script>
 
 <HomeScreen>

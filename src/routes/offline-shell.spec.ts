@@ -6,12 +6,16 @@ import { NETWORK_DEADLINE_MS, serveOffline } from './offline-shell.ts';
 
 const ORIGIN = 'https://training.example';
 const VERSION = '42';
-const ASSETS = ['/_app/immutable/start.js', '/favicon.svg'];
+const BUILD = ['/_app/immutable/start.js'];
+const FILES = ['/favicon.svg'];
+const ASSETS = [...BUILD, ...FILES];
 
 interface Harness {
 	readonly caches: Map<string, Map<string, string>>;
+	readonly claim: ReturnType<typeof vi.fn<() => Promise<void>>>;
 	readonly fire: (type: string, event: Event) => void;
 	readonly network: ReturnType<typeof vi.fn<(request: Request) => Promise<Response>>>;
+	readonly skipWaiting: ReturnType<typeof vi.fn<() => Promise<void>>>;
 }
 
 const fakeCache = (entries: Map<string, string>): ShellCache => ({
@@ -43,8 +47,10 @@ const fakeCaches = (stores: Map<string, Map<string, string>>): ShellCaches => {
 	};
 };
 
-const harness = (): Harness => {
+const harness = (hasLifecycle = true): Harness => {
 	const caches = new Map<string, Map<string, string>>();
+	const claim = vi.fn(() => Promise.resolve());
+	const skipWaiting = vi.fn(() => Promise.resolve());
 	const listeners = new Map<string, (event: Event) => void>();
 	const network = vi.fn((request: Request) =>
 		Promise.resolve(new Response(`сеть ${new URL(request.url).pathname}`))
@@ -57,8 +63,15 @@ const harness = (): Harness => {
 		fetch: network,
 		location: { origin: ORIGIN }
 	};
-	serveOffline(worker, { assets: ASSETS, version: VERSION });
-	return { caches, fire: (type, event) => listeners.get(type)?.(event), network };
+	const scope = hasLifecycle ? { ...worker, clients: { claim }, skipWaiting } : worker;
+	serveOffline(scope, { build: BUILD, files: FILES, version: VERSION });
+	return {
+		caches,
+		claim,
+		fire: (type, event) => listeners.get(type)?.(event),
+		network,
+		skipWaiting
+	};
 };
 
 const extendable = (): { readonly done: () => Promise<unknown>; readonly event: Event } => {
@@ -123,16 +136,52 @@ describe('оболочка приложения без сети', () => {
 		expect(target.caches.keys().toArray()).toEqual(['training-data-42', 'чужой']);
 	});
 
-	it('сборку отдаёт из кэша, а чего в кэше нет, берёт из сети', async () => {
+	it('сборку с хешем в имени отдаёт из кэша, а чего в кэше нет, берёт из сети', async () => {
 		const target = harness();
 		const { done, event } = extendable();
 		target.fire('install', event);
 		await done();
 		offline(target);
-		expect(await textOf(fetched(target, ASSETS[0]!))).toBe(`закэшировано ${ASSETS[0]!}`);
-		target.caches.get('training-shell-42')!.delete('/favicon.svg');
+		expect(await textOf(fetched(target, BUILD[0]!))).toBe(`закэшировано ${BUILD[0]!}`);
+		target.caches.get('training-shell-42')!.delete(BUILD[0]!);
 		target.network.mockResolvedValue(new Response('из сети'));
-		expect(await textOf(fetched(target, '/favicon.svg'))).toBe('из сети');
+		expect(await textOf(fetched(target, BUILD[0]!))).toBe('из сети');
+	});
+
+	it('статику с постоянным адресом берёт из сети: новая иконка после деплоя видна сразу', async () => {
+		const target = harness();
+		const { done, event } = extendable();
+		target.fire('install', event);
+		await done();
+		target.network.mockResolvedValue(new Response('новая иконка'));
+		expect(await textOf(fetched(target, '/favicon.svg'))).toBe('новая иконка');
+		offline(target);
+		expect(await textOf(fetched(target, '/favicon.svg'))).toBe('новая иконка');
+	});
+
+	it('новая версия берёт управление сразу, не дожидаясь закрытия приложения', async () => {
+		const target = harness();
+		const install = extendable();
+		target.fire('install', install.event);
+		await install.done();
+		expect(target.skipWaiting).toHaveBeenCalledOnce();
+		const activate = extendable();
+		target.fire('activate', activate.event);
+		await activate.done();
+		expect(target.claim).toHaveBeenCalledOnce();
+	});
+
+	it('без жизненного цикла воркера кэширует и чистит всё так же', async () => {
+		const target = harness(false);
+		target.caches.set('training-shell-41', new Map());
+		const install = extendable();
+		target.fire('install', install.event);
+		await install.done();
+		const activate = extendable();
+		target.fire('activate', activate.event);
+		await activate.done();
+		expect(target.caches.keys().toArray()).toEqual(['training-shell-42']);
+		expect(target.skipWaiting).not.toHaveBeenCalled();
 	});
 
 	it('страницу берёт из сети и запоминает, без сети отдаёт запомненную', async () => {

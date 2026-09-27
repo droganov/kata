@@ -49,3 +49,20 @@ it('Вход идёт после домашнего экрана, а не до �
 	await fireEvent.click(screen.getByRole('button', { name: 'Продолжить в браузере' }));
 	expect(screen.getByRole('heading', { name: 'Вход' })).toBeInTheDocument();
 });
+
+it('новая версия приложения взяла управление: страница перезагружается на неё', () => {
+	const listeners = new Map<string, () => void>();
+	const container = {
+		addEventListener: (type: string, listener: () => void) => {
+			listeners.set(type, listener);
+		},
+		controller: {},
+		getRegistration: () => Promise.resolve(undefined)
+	};
+	const reload = vi.spyOn(location, 'reload').mockReturnValue();
+	Object.defineProperty(navigator, 'serviceWorker', { configurable: true, value: container });
+	render(Layout, { children, data: { hasExpiredSession: false } });
+	listeners.get('controllerchange')?.();
+	expect(reload).toHaveBeenCalledOnce();
+	Reflect.deleteProperty(navigator, 'serviceWorker');
+});

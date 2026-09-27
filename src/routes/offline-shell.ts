@@ -1,5 +1,6 @@
 export interface ShellAssets {
-	readonly assets: readonly string[];
+	readonly build: readonly string[];
+	readonly files: readonly string[];
 	readonly version: string;
 }
 
@@ -35,6 +36,11 @@ interface FetchEventLike extends Event {
 	readonly respondWith: (response: Promise<Response>) => void;
 }
 
+interface WorkerLifecycle {
+	readonly clients: { readonly claim: () => Promise<void> };
+	readonly skipWaiting: () => Promise<void>;
+}
+
 const SHELL_PATH = '/';
 const AUTH_SESSION_PATH = '/auth/session';
 export const NETWORK_DEADLINE_MS = 5000;
@@ -52,11 +58,16 @@ const ACTIVATE_EVENT = 'activate';
 const FETCH_EVENT = 'fetch';
 const WAIT_UNTIL = 'waitUntil';
 const RESPOND_WITH = 'respondWith';
+const SKIP_WAITING = 'skipWaiting';
+const CLIENTS = 'clients';
 const REQUEST = 'request';
 const NO_ANSWER = 'Сеть не ответила в срок';
 
 const isExtendableEvent = (event: Event): event is ExtendableEventLike =>
 	Reflect.has(event, WAIT_UNTIL);
+
+const hasLifecycle = <Scope extends object>(scope: Scope): scope is Scope & WorkerLifecycle =>
+	Reflect.has(scope, SKIP_WAITING) && Reflect.has(scope, CLIENTS);
 
 const isFetchEvent = (event: Event): event is FetchEventLike =>
 	Reflect.has(event, RESPOND_WITH) && Reflect.get(event, REQUEST) instanceof Request;
@@ -85,14 +96,20 @@ const withinDeadline = async (response: Promise<Response>): Promise<Response> =>
 	}
 };
 
-export const serveOffline = (worker: ShellWorker, { assets, version }: ShellAssets): void => {
+export const serveOffline = (worker: ShellWorker, { build, files, version }: ShellAssets): void => {
 	const shellCache = SHELL_CACHE + version;
 	const dataCache = DATA_CACHE + version;
-	const precached = new Set(assets);
+	const immutable = new Set(build);
+	const staticFiles = new Set(files);
 
 	const precache = async (): Promise<void> => {
 		const cache = await worker.caches.open(shellCache);
-		await cache.addAll([...assets, SHELL_PATH]);
+		await cache.addAll([...build, ...files, SHELL_PATH]);
+		if (hasLifecycle(worker)) await worker.skipWaiting();
+	};
+	const takeOver = async (): Promise<void> => {
+		await dropStale();
+		if (hasLifecycle(worker)) await worker.clients.claim();
 	};
 	const dropStale = async (): Promise<void> => {
 		const names = await worker.caches.keys();
@@ -154,7 +171,8 @@ export const serveOffline = (worker: ShellWorker, { assets, version }: ShellAsse
 		if (url.origin !== worker.location.origin) return;
 		if (request.method !== GET_METHOD)
 			return url.pathname === AUTH_SESSION_PATH ? forgettingData(request) : undefined;
-		if (precached.has(url.pathname)) return cacheFirst(request);
+		if (immutable.has(url.pathname)) return cacheFirst(request);
+		if (staticFiles.has(url.pathname)) return networkFirst(request, shellCache, url.pathname);
 		if (request.mode === NAVIGATE_MODE)
 			return networkFirst(request, shellCache, url.pathname, SHELL_PATH);
 		return url.pathname.endsWith(DATA_SUFFIX) ? loadData(request, url) : undefined;
@@ -164,7 +182,7 @@ export const serveOffline = (worker: ShellWorker, { assets, version }: ShellAsse
 		if (isExtendableEvent(event)) event.waitUntil(precache());
 	});
 	worker.addEventListener(ACTIVATE_EVENT, (event) => {
-		if (isExtendableEvent(event)) event.waitUntil(dropStale());
+		if (isExtendableEvent(event)) event.waitUntil(takeOver());
 	});
 	worker.addEventListener(FETCH_EVENT, (event) => {
 		if (!isFetchEvent(event)) return;
