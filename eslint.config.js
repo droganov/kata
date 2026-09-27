@@ -34,7 +34,7 @@ const TEST_NAME_PATTERN = /\.test\.[cm]?[jt]sx?$/;
 const CONFIG_FILES = ['*.config.{js,ts}', 'eslint.config.js'];
 const SVELTEKIT_EXPORT_NAMES = '^(ssr|csr|prerender|trailingSlash|load|actions|entries|config)$';
 
-const CAPSULES = ['program', 'exercise', 'catalog', 'session', 'storyboard', 'table'];
+const CAPSULES = ['account', 'program', 'exercise', 'catalog', 'session', 'storyboard', 'table'];
 const LAYERS = ['domain', 'application', 'infrastructure', 'interface'];
 const SHARED_KERNEL_MAX_FILES = 8;
 const group = (names) => `(${names.join('|')})`;
@@ -213,6 +213,22 @@ const noMagicStrings = {
 };
 
 const DOMAIN_PUBLIC_API = {
+	account: [
+		'AuthSession',
+		'Credential',
+		'EmailCode',
+		'HANDLE_BYTES',
+		'InvalidEmailError',
+		'InvalidNicknameError',
+		'NewCredential',
+		'Person',
+		'emailOf',
+		'expiryOf',
+		'isCodeUsable',
+		'isLive',
+		'newestFirst',
+		'nicknameOf'
+	],
 	catalog: [
 		'Bank',
 		'BankSlug',

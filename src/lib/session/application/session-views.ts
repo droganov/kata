@@ -25,7 +25,6 @@ const TARGET_ROLES: Readonly<Record<string, string>> = {
 };
 
 export interface ProgramCardView {
-	readonly account: string;
 	readonly id: string;
 	readonly title: string;
 }
@@ -85,7 +84,6 @@ interface TargetRoleView {
 }
 
 export const programCardOf = (program: Program): ProgramCardView => ({
-	account: program.account,
 	id: program.id,
 	title: program.title
 });

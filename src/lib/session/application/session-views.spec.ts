@@ -210,7 +210,6 @@ describe('sessionViewOf', () => {
 describe('programCardOf', () => {
 	it('показывает Программу идентификатором и названием', () => {
 		expect(programCardOf(PROGRAM)).toEqual({
-			account: 'person-1',
 			id: 'program-1',
 			title: 'Закрепления и добор'
 		});

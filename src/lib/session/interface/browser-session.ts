@@ -34,10 +34,11 @@ export const closeExpiredBrowserSessions = (): Promise<readonly string[]> =>
 	closeExpiredSessions(browserStore(), new Date());
 
 export const startBrowserSession = async (
+	account: string,
 	program: ProgramCardView,
 	fetcher: Fetch
 ): Promise<BrowserSession> => {
-	const started = await startSession(browserStore(), program, (history) =>
+	const started = await startSession(browserStore(), account, (history) =>
 		fetchSessionView(fetcher, program.id, history)
 	);
 	const isHistoryWarningDue =
@@ -68,8 +69,9 @@ export const redrawBrowserSession = (
 	);
 
 export const activeBrowserSessions = (
+	account: string,
 	programs: readonly ProgramCardView[]
-): Promise<readonly ActiveSession[]> => activeSessionsOf(browserStore(), programs);
+): Promise<readonly ActiveSession[]> => activeSessionsOf(browserStore(), account, programs);
 
 export const cancelBrowserSession = (account: string): Promise<void> =>
 	browserStore().closeSession(account);

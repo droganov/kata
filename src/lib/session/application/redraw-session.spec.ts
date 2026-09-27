@@ -147,13 +147,22 @@ describe('activeSessionsOf', () => {
 		const opened = await store.openSession(ACCOUNT, SESSION_VIEW);
 		await store.openSession('person-b', SESSION_VIEW);
 		const programs = [
-			{ account: ACCOUNT, id: 'program-1', title: 'Закрепления и добор' },
-			{ account: ACCOUNT, id: 'program-2', title: 'Другая' }
+			{ id: 'program-1', title: 'Закрепления и добор' },
+			{ id: 'program-2', title: 'Другая' }
 		];
-		expect(await activeSessionsOf(store, programs)).toEqual([opened]);
+		expect(await activeSessionsOf(store, ACCOUNT, programs)).toEqual([opened]);
 		expect(isSessionRedrawable(opened)).toBe(true);
 		const marked = await store.markExercise(ACCOUNT, { ord: 1, status: 'skipped' });
-		expect(await activeSessionsOf(store, programs)).toEqual([marked]);
+		expect(await activeSessionsOf(store, ACCOUNT, programs)).toEqual([marked]);
 		expect(isSessionRedrawable(marked)).toBe(false);
+	});
+
+	it('без Активного занятия Аккаунта или вне его Программ ничего не отдаёт', async () => {
+		const store = storeOf();
+		expect(await activeSessionsOf(store, ACCOUNT, [])).toEqual([]);
+		await store.openSession(ACCOUNT, SESSION_VIEW);
+		expect(
+			await activeSessionsOf(store, ACCOUNT, [{ id: 'program-2', title: 'Другая' }])
+		).toEqual([]);
 	});
 });

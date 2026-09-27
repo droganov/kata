@@ -218,8 +218,9 @@ export const GATEWAYS = {
 	programs: { readPrograms: () => [PROGRAM] }
 };
 
+export const ACCOUNT = 'person-a';
+
 export const PROGRAM_CARD: ProgramCardView = {
-	account: 'person-a',
 	id: 'program-1',
 	title: 'Закрепления и добор'
 };

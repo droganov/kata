@@ -1,12 +1,12 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
+import { SIGNED_IN, signedInLayout } from '../../../test/account-fixtures.ts';
 import { memoryStorage } from '../../../test/memory-storage.ts';
 import { PROGRAM_CARD, serveSessionView } from '../../../test/session-fixtures.ts';
 import { SESSION_VIEW } from '../../../test/store-contract.ts';
 import { load } from './+page.ts';
 
-const parent = (): Promise<{ readonly hasExpiredSession: boolean }> =>
-	Promise.resolve({ hasExpiredSession: false });
+const parent = signedInLayout;
 
 const urlOf = (search: string): URL => new URL(`http://localhost/programs/program-1${search}`);
 
@@ -23,7 +23,7 @@ describe('load /programs/[program] в браузере', () => {
 			parent,
 			url: urlOf('')
 		});
-		expect(started.session.view).toEqual(SESSION_VIEW);
+		expect(started).toMatchObject({ session: { view: SESSION_VIEW }, signedIn: SIGNED_IN });
 	});
 
 	it('открывает Позицию и Блок из адреса', async () => {
@@ -34,7 +34,7 @@ describe('load /programs/[program] в браузере', () => {
 			parent,
 			url: urlOf('?item=3&block=block-strength')
 		});
-		expect([screen.current, screen.openedBlock]).toEqual([3, 'block-strength']);
+		expect(screen).toMatchObject({ current: 3, openedBlock: 'block-strength' });
 	});
 
 	it('уводит в Программу Активного занятия, когда оно начато в другой', async () => {
@@ -55,6 +55,19 @@ describe('load /programs/[program] в браузере', () => {
 		).rejects.toMatchObject({ location: '/programs/program-1', status: 307 });
 	});
 
+	it('без Сеанса Занятие не открывает', async () => {
+		vi.stubGlobal('sessionStorage', memoryStorage());
+		const fetch = vi.fn(serveSessionView);
+		const page = await load({
+			data: { program: PROGRAM_CARD },
+			fetch,
+			parent: () => Promise.resolve({ hasExpiredSession: false, signedIn: undefined }),
+			url: urlOf('')
+		});
+		expect(page).toEqual({ signedIn: undefined });
+		expect(fetch).not.toHaveBeenCalled();
+	});
+
 	it('открывает Занятие только после того, как раскладка финализировала истёкшее', async () => {
 		vi.stubGlobal('sessionStorage', memoryStorage());
 		const order: string[] = [];
@@ -66,7 +79,7 @@ describe('load /programs/[program] в браузере', () => {
 			},
 			parent: () => {
 				order.push('раскладка');
-				return Promise.resolve({ hasExpiredSession: false });
+				return signedInLayout();
 			},
 			url: urlOf('')
 		});

@@ -4,7 +4,12 @@ import { afterEach, expect, it, vi } from 'vitest';
 
 import type { Store } from '../lib/session/application/store.ts';
 
+import {
+	requestBrowserEmailCode,
+	signInBrowser
+} from '../lib/account/interface/browser-account.ts';
 import { createBrowserStore } from '../lib/session/infrastructure/browser-store.ts';
+import { serveNoContent } from '../test/account-fixtures.ts';
 import { memoryStorage } from '../test/memory-storage.ts';
 import { SESSION_VIEW } from '../test/store-contract.ts';
 import { load, ssr } from './+layout.ts';
@@ -14,6 +19,8 @@ const ACCOUNT = 'person-a';
 const WINDOW_DAYS = 21;
 const MINUTE_MS = 60_000;
 const EXPIRY_MINUTES = 120;
+
+const SIGNED_OUT = { authSession: null };
 
 const minutesAgo = (minutes: number): Date => new Date(Date.now() - minutes * MINUTE_MS);
 
@@ -42,7 +49,10 @@ it('при открытии приложения финализирует ист
 	vi.stubGlobal('sessionStorage', memoryStorage());
 	vi.stubGlobal('indexedDB', new IDBFactory());
 	await openedAt(minutesAgo(EXPIRY_MINUTES + 1));
-	expect(await load()).toEqual({ hasExpiredSession: true });
+	expect(await load({ data: SIGNED_OUT })).toEqual({
+		hasExpiredSession: true,
+		signedIn: undefined
+	});
 	expect(await storedNow().activeSession(ACCOUNT)).toBeUndefined();
 	const performed = await storedNow().recentExercises(ACCOUNT, WINDOW_DAYS);
 	expect(performed.map((entry) => entry.exercise)).toEqual(['ex-neck-roll']);
@@ -52,8 +62,28 @@ it('при открытии приложения не трогает Занят�
 	vi.stubGlobal('sessionStorage', memoryStorage());
 	vi.stubGlobal('indexedDB', new IDBFactory());
 	await openedAt(minutesAgo(EXPIRY_MINUTES - 1));
-	expect(await load()).toEqual({ hasExpiredSession: false });
+	expect(await load({ data: SIGNED_OUT })).toEqual({
+		hasExpiredSession: false,
+		signedIn: undefined
+	});
 	expect(await storedNow().activeSession(ACCOUNT)).toBeDefined();
+});
+
+it('без Сеанса в куке вошедшего нет', async () => {
+	vi.stubGlobal('sessionStorage', memoryStorage());
+	vi.stubGlobal('indexedDB', new IDBFactory());
+	expect(await load({ data: SIGNED_OUT })).toMatchObject({ signedIn: undefined });
+});
+
+it('по Сеансу из куки узнаёт Аккаунт и держит вход между запусками', async () => {
+	vi.stubGlobal('sessionStorage', memoryStorage());
+	vi.stubGlobal('indexedDB', new IDBFactory());
+	const person = await requestBrowserEmailCode('Sergei', 'sergei@example.com');
+	const session = await signInBrowser(person, '000000', serveNoContent);
+	vi.stubGlobal('sessionStorage', memoryStorage());
+	const data = { authSession: session?.id ?? null };
+	const layout = await load({ data });
+	expect(layout.signedIn?.account.nickname).toBe('Sergei');
 });
 
 it('иконки объявлены в разметке до запуска скриптов, и Safari и прочим есть что взять', () => {

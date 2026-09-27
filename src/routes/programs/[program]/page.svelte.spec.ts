@@ -7,6 +7,7 @@ import type { ActiveSession, SessionMark, Store } from '../../../lib/session/app
 
 import { createBrowserStore } from '../../../lib/session/infrastructure/browser-store.ts';
 import { sessionScreenOf } from '../../../lib/session/interface/session-screen.ts';
+import { SIGNED_IN } from '../../../test/account-fixtures.ts';
 import Page from './+page.svelte';
 
 vi.mock('$app/navigation', () => ({ goto: vi.fn() }));
@@ -112,7 +113,10 @@ const openedWith = async (...marks: readonly SessionMark[]): Promise<ActiveSessi
 
 const renderAt = (session: ActiveSession, address = '', isHistoryWarningDue = false): void => {
 	render(Page, {
-		data: sessionScreenOf({ isHistoryWarningDue, session }, new URLSearchParams(address))
+		data: {
+			...sessionScreenOf({ isHistoryWarningDue, session }, new URLSearchParams(address)),
+			signedIn: SIGNED_IN
+		}
 	});
 };
 

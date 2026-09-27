@@ -2,7 +2,7 @@ import { IDBFactory } from 'fake-indexeddb';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { memoryStorage } from '../../../test/memory-storage.ts';
-import { PROGRAM_CARD, serveSessionView } from '../../../test/session-fixtures.ts';
+import { ACCOUNT, PROGRAM_CARD, serveSessionView } from '../../../test/session-fixtures.ts';
 import { SESSION_VIEW } from '../../../test/store-contract.ts';
 import {
 	markBrowserSession,
@@ -20,8 +20,8 @@ describe('startBrowserSession', () => {
 	it('держит Активное занятие в хранилище вкладки и возвращает к нему без сети', async () => {
 		vi.stubGlobal('sessionStorage', memoryStorage());
 		vi.stubGlobal('indexedDB', new IDBFactory());
-		const first = await startBrowserSession(PROGRAM_CARD, serveSessionView);
-		const again = await startBrowserSession(PROGRAM_CARD, () =>
+		const first = await startBrowserSession(ACCOUNT, PROGRAM_CARD, serveSessionView);
+		const again = await startBrowserSession(ACCOUNT, PROGRAM_CARD, () =>
 			Promise.reject(new Error('сеть недоступна'))
 		);
 		expect(again.session.view).toEqual(first.session.view);
@@ -31,9 +31,9 @@ describe('startBrowserSession', () => {
 	it('ставит Отметку в Активное занятие, и она переживает перезагрузку страницы', async () => {
 		vi.stubGlobal('sessionStorage', memoryStorage());
 		vi.stubGlobal('indexedDB', new IDBFactory());
-		await startBrowserSession(PROGRAM_CARD, serveSessionView);
-		const marked = await markBrowserSession(PROGRAM_CARD.account, { ord: 2, status: 'done' });
-		const reloaded = await startBrowserSession(PROGRAM_CARD, serveSessionView);
+		await startBrowserSession(ACCOUNT, PROGRAM_CARD, serveSessionView);
+		const marked = await markBrowserSession(ACCOUNT, { ord: 2, status: 'done' });
+		const reloaded = await startBrowserSession(ACCOUNT, PROGRAM_CARD, serveSessionView);
 		expect(marked.session.marks).toEqual([{ ord: 2, status: 'done' }]);
 		expect(reloaded.session.marks).toEqual([{ ord: 2, status: 'done' }]);
 	});
@@ -43,7 +43,7 @@ describe('startBrowserSession', () => {
 		vi.stubGlobal('sessionStorage', storage);
 		vi.stubGlobal('indexedDB', new IDBFactory());
 		const stale = {
-			account: PROGRAM_CARD.account,
+			account: ACCOUNT,
 			marks: [],
 			openedAt: '2026-09-14T08:00:00.000Z',
 			view: {
@@ -71,15 +71,15 @@ describe('startBrowserSession', () => {
 				title: 'Закрепления и добор'
 			}
 		};
-		storage.setItem(`training:active-session:${PROGRAM_CARD.account}`, JSON.stringify(stale));
-		const started = await startBrowserSession(PROGRAM_CARD, serveSessionView);
+		storage.setItem(`training:active-session:${ACCOUNT}`, JSON.stringify(stale));
+		const started = await startBrowserSession(ACCOUNT, PROGRAM_CARD, serveSessionView);
 		expect(started.session.view).toEqual(SESSION_VIEW);
 	});
 
 	it('без IndexedDB предупреждает о потере Истории один раз за вкладку', async () => {
 		vi.stubGlobal('sessionStorage', memoryStorage());
-		const first = await startBrowserSession(PROGRAM_CARD, serveSessionView);
-		const again = await startBrowserSession(PROGRAM_CARD, serveSessionView);
+		const first = await startBrowserSession(ACCOUNT, PROGRAM_CARD, serveSessionView);
+		const again = await startBrowserSession(ACCOUNT, PROGRAM_CARD, serveSessionView);
 		expect([first.isHistoryWarningDue, again.isHistoryWarningDue]).toEqual([true, false]);
 	});
 });
@@ -92,7 +92,7 @@ describe('пересборка в браузере', () => {
 	it('пересобирает Позицию через сервер и хранит замену в Активном занятии', async () => {
 		vi.stubGlobal('sessionStorage', memoryStorage());
 		vi.stubGlobal('indexedDB', new IDBFactory());
-		const { session } = await startBrowserSession(PROGRAM_CARD, serveSessionView);
+		const { session } = await startBrowserSession(ACCOUNT, PROGRAM_CARD, serveSessionView);
 		const replacement = { ...SESSION_VIEW.blocks[1]!.items[1]!, exercise: 'ex-fly' };
 		const asked: string[] = [];
 		const redrawn = await redrawBrowserSessionItem(
@@ -112,14 +112,14 @@ describe('пересборка в браузере', () => {
 		);
 		expect(asked).toEqual(['/programs/program-1/session/redraw']);
 		expect(redrawn.isRedrawn).toBe(true);
-		const reloaded = await startBrowserSession(PROGRAM_CARD, serveSessionView);
+		const reloaded = await startBrowserSession(ACCOUNT, PROGRAM_CARD, serveSessionView);
 		expect(reloaded.session.view.blocks[1]?.items[1]).toEqual({ ...replacement, drawNo: 2 });
 	});
 
 	it('пересобирает всё Занятие через сервер', async () => {
 		vi.stubGlobal('sessionStorage', memoryStorage());
 		vi.stubGlobal('indexedDB', new IDBFactory());
-		const { session } = await startBrowserSession(PROGRAM_CARD, serveSessionView);
+		const { session } = await startBrowserSession(ACCOUNT, PROGRAM_CARD, serveSessionView);
 		const redrawn = await redrawBrowserSession(session, () =>
 			Promise.resolve(Response.json({ ...SESSION_VIEW, seed: 8 }))
 		);

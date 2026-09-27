@@ -1,0 +1,65 @@
+import type { AccountStore, AuthSession, Person } from '../application/account-store.ts';
+import type { SignedIn } from '../application/sign-in.ts';
+import type { Fetch } from '../infrastructure/auth-endpoint.ts';
+
+import { confirmAndSignIn, requestEmailCode, signedInOf } from '../application/sign-in.ts';
+import { forgetAuthSession, rememberAuthSession } from '../infrastructure/auth-endpoint.ts';
+import { createIdbAccountStore } from '../infrastructure/idb-account-store.ts';
+import { createStubAuthenticator } from '../infrastructure/stub-authenticator.ts';
+import { deviceLabelOf } from './device-label.ts';
+
+export type { AuthSession, Person } from '../application/account-store.ts';
+export { SIGNED_OUT } from '../application/sign-in.ts';
+export type { SignedIn, SignedOut } from '../application/sign-in.ts';
+export type { Fetch } from '../infrastructure/auth-endpoint.ts';
+
+const UNDEFINED_KIND = 'undefined';
+
+export const signedInBrowserAccount = (authSession: null | string): Promise<SignedIn | undefined> =>
+	signedInOf(browserAccountStore(), authSession);
+
+export const browserAccount = (account: string): Promise<Person | undefined> =>
+	browserAccountStore().account(account);
+
+export const requestBrowserEmailCode = (nickname: string, email: string): Promise<Person> =>
+	requestEmailCode(browserAccountStore(), nickname, email);
+
+export const signInBrowser = async (
+	account: Person,
+	code: string,
+	fetcher: Fetch
+): Promise<AuthSession | undefined> => {
+	const authSession = await confirmAndSignIn(
+		browserAccountStore(),
+		createStubAuthenticator(randomBytes),
+		account,
+		code,
+		deviceLabelOf(navigator.userAgent)
+	);
+	if (authSession !== undefined) await rememberAuthSession(fetcher, authSession.id);
+	return authSession;
+};
+
+export const browserAuthSessions = (account: string): Promise<readonly AuthSession[]> =>
+	browserAccountStore().sessionsOf(account);
+
+export const revokeBrowserAuthSession = async (
+	signedIn: SignedIn,
+	authSession: string,
+	fetcher: Fetch
+): Promise<void> => {
+	await browserAccountStore().revokeSession(authSession);
+	if (authSession === signedIn.authSession.id) await forgetAuthSession(fetcher);
+};
+
+export const revokeOtherBrowserAuthSessions = (signedIn: SignedIn): Promise<void> =>
+	browserAccountStore().revokeOtherSessions(signedIn.account.id, signedIn.authSession.id);
+
+const browserAccountStore = (): AccountStore =>
+	createIdbAccountStore({
+		indexedDB: typeof indexedDB === UNDEFINED_KIND ? undefined : indexedDB,
+		now: () => new Date(),
+		randomBytes
+	});
+
+const randomBytes = (length: number): Uint8Array => crypto.getRandomValues(new Uint8Array(length));

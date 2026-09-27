@@ -39,14 +39,13 @@ export const isSessionRedrawable = (session: ActiveSession): boolean => session.
 
 export const activeSessionsOf = async (
 	store: Store,
+	account: string,
 	programs: readonly ProgramCardView[]
 ): Promise<readonly ActiveSession[]> => {
-	const active = await store.activeSessions();
-	return active.filter((session) =>
-		programs.some(
-			(program) => program.account === session.account && program.id === session.view.program
-		)
-	);
+	const active = await store.activeSession(account);
+	return active !== undefined && programs.some((program) => program.id === active.view.program)
+		? [active]
+		: [];
 };
 
 const sessionItemRefsOf = (view: SessionView): readonly SessionItemRef[] =>

@@ -11,8 +11,8 @@ describe('listPrograms', () => {
 			programs: { readPrograms: () => [PROGRAM, other] }
 		});
 		expect(cards).toEqual([
-			{ account: 'person-1', id: 'program-0', title: 'Анатомия' },
-			{ account: 'person-1', id: 'program-1', title: 'Закрепления и добор' }
+			{ id: 'program-0', title: 'Анатомия' },
+			{ id: 'program-1', title: 'Закрепления и добор' }
 		]);
 	});
 });
