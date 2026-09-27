@@ -22,7 +22,7 @@ describe('GET /manifest', () => {
 
 	it('отдаёт манифест приложения', async () => {
 		const manifest = await manifestOf('https://training.example/manifest');
-		expect(manifest.name).toBe('Training');
+		expect(manifest.name).toBe('Kato.one');
 	});
 
 	it('берёт домен из переменной окружения, а не из адреса запроса', async () => {

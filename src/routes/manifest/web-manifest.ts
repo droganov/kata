@@ -21,7 +21,7 @@ interface WebManifestIcon {
 	readonly type: string;
 }
 
-const APP_NAME = 'Training';
+const APP_NAME = 'Kato.one';
 const START_PATH = '/?source=pwa';
 const SCOPE_PATH = '/';
 const DISPLAY_MODE: DisplayMode = 'standalone';

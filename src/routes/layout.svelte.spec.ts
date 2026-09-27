@@ -44,7 +44,7 @@ it('сообщает, что Занятие закрылось само', () => 
 it('Вход идёт после домашнего экрана, а не до него', async () => {
 	browser.isInstalled = false;
 	render(Layout, { children, data: { hasExpiredSession: false } });
-	expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Training');
+	expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Kato.one');
 	expect(screen.queryByRole('heading', { name: 'Вход' })).not.toBeInTheDocument();
 	await fireEvent.click(screen.getByRole('button', { name: 'Продолжить в браузере' }));
 	expect(screen.getByRole('heading', { name: 'Вход' })).toBeInTheDocument();

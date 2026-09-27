@@ -32,7 +32,7 @@ const continueInBrowser = (): Promise<boolean> =>
 describe('домашний экран, где поставить можно', () => {
 	it('идёт первым: Вход не показан, пока человек не выбрал', () => {
 		renderFor(fakeBrowser(ANDROID_CHROME));
-		expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Training');
+		expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Kato.one');
 		expect(screen.queryByRole('heading', { name: 'Вход' })).not.toBeInTheDocument();
 	});
 
@@ -40,13 +40,13 @@ describe('домашний экран, где поставить можно', ()
 		const browser = fakeBrowser(MAC_CHROME);
 		renderFor(browser);
 		expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-			'Поставьте Training на компьютер'
+			'Поставьте Kato.one на компьютер'
 		);
 		expect(screen.getByRole('button', { name: 'Готовим установку…' })).toBeDisabled();
 		const event = installPromptEvent('accepted');
 		browser.fire(event);
 		flushSync();
-		await fireEvent.click(screen.getByRole('button', { name: 'Установить Training' }));
+		await fireEvent.click(screen.getByRole('button', { name: 'Установить Kato.one' }));
 		expect(event.prompted).toBe(true);
 		expect(await screen.findByRole('heading', { name: 'Вход' })).toBeInTheDocument();
 	});
@@ -54,7 +54,7 @@ describe('домашний экран, где поставить можно', ()
 	it('на iPhone показывает шаги «Поделиться, На экран «Домой»» с изображением кнопки', () => {
 		renderFor(iphone());
 		expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-			'Поставьте Training на экран «Домой»'
+			'Поставьте Kato.one на экран «Домой»'
 		);
 		expect(screen.getByRole('img', { name: 'кнопка «Поделиться»' })).toBeInTheDocument();
 		expect(screen.getByText('Нажмите три точки меню «Ещё»')).toBeInTheDocument();
@@ -85,7 +85,7 @@ describe('домашний экран, где поставить нельзя', 
 		expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
 			'В этом браузере поставить нельзя'
 		);
-		expect(screen.queryByText(/Поставьте Training/)).toBeNull();
+		expect(screen.queryByText(/Поставьте Kato.one/)).toBeNull();
 		expect(screen.getByText(/откройте его в Safari/)).toBeInTheDocument();
 		await fireEvent.click(screen.getByRole('button', { name: 'Скопировать адрес' }));
 		expect(writeText).toHaveBeenCalledWith(`${location.origin}/`);

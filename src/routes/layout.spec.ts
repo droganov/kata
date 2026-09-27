@@ -108,3 +108,8 @@ it('иконки объявлены в разметке до запуска ск
 		true
 	]);
 });
+
+it('на домашнем экране iPhone приложение зовётся по домену: Safari берёт имя из разметки', () => {
+	expect(APP_HTML).toContain('<meta name="apple-mobile-web-app-title" content="Kato.one" />');
+	expect(APP_HTML).toContain('<title>Kato.one</title>');
+});

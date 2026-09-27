@@ -15,7 +15,7 @@
 {#if install.instruction.kind === PROMPT}
 	{#if install.canPrompt}
 		<button class="btn btn-block btn-lg btn-primary" onclick={install.prompt} type="button"
-			>Установить Training</button
+			>Установить Kato.one</button
 		>
 		<p class="text-center text-sm opacity-70">
 			Бесплатно, одним нажатием, без магазина приложений.
