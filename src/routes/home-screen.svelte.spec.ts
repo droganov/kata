@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/svelte';
+import { fireEvent, render, screen, within } from '@testing-library/svelte';
 import { createRawSnippet, flushSync } from 'svelte';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -51,12 +51,16 @@ describe('домашний экран, где поставить можно', ()
 		expect(await screen.findByRole('heading', { name: 'Вход' })).toBeInTheDocument();
 	});
 
-	it('на iPhone показывает шаги «Поделиться, На экран «Домой»» с изображением кнопки', () => {
+	it('на iPhone показывает шаги списком, значок «Поделиться» стоит в тексте шага, а не кнопкой', () => {
 		renderFor(iphone());
 		expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
 			'Поставьте Kato.one на экран «Домой»'
 		);
-		expect(screen.getByRole('img', { name: 'кнопка «Поделиться»' })).toBeInTheDocument();
+		const steps = screen.getByRole('list', { name: 'Как поставить' });
+		expect(within(steps).getAllByRole('listitem').length).toBeGreaterThan(1);
+		expect(within(steps).queryByRole('button')).not.toBeInTheDocument();
+		const icon = within(steps).getByRole('img', { name: 'значок «Поделиться»' });
+		expect(icon.closest('li')).toHaveTextContent('Нажмите «Поделиться»');
 		expect(screen.getByText('Нажмите три точки меню «Ещё»')).toBeInTheDocument();
 	});
 

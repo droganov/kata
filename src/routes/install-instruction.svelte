@@ -29,18 +29,12 @@
 		</p>
 	{/if}
 {:else}
-	<ol class="space-y-3">
-		{#each steps as step, index (step.text)}
-			<li class="flex items-center gap-4 rounded-box bg-base-200 p-4">
-				<span
-					class="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-primary-content"
-					>{index + 1}</span
-				>
-				<span class="grow">{step.text}</span>
-				{#if step.icon === SHARE}
-					<svg
-						class="size-7 shrink-0 text-primary"
-						aria-label="кнопка «Поделиться»"
+	<ol class="list-decimal space-y-1.5 pl-6 marker:opacity-60" aria-label="Как поставить">
+		{#each steps as step (step.text)}
+			<li>
+				{step.text}{#if step.icon === SHARE}<svg
+						class="ml-1 inline size-[1.15em] align-[-0.2em]"
+						aria-label="значок «Поделиться»"
 						fill="none"
 						role="img"
 						stroke="currentColor"
@@ -51,8 +45,7 @@
 					>
 						<path d="M12 15V3M8 7l4-4 4 4" />
 						<path d="M8 11H6v10h12V11h-2" />
-					</svg>
-				{/if}
+					</svg>{/if}
 			</li>
 		{/each}
 	</ol>

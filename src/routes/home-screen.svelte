@@ -29,7 +29,7 @@
 <svelte:window onfocus={forgetCopy} />
 
 {#if install.isShown}
-	<main class="mx-auto flex min-h-dvh max-w-md flex-col justify-center gap-8 p-6">
+	<main class="mx-auto flex min-h-dvh max-w-md flex-col justify-center gap-6 p-6">
 		<header class="flex flex-col items-center gap-4 text-center">
 			<img class="size-24 rounded-3xl shadow-lg" alt="" src="/icons/icon-192.png" />
 			<h1 class="text-4xl font-bold">Kato.one</h1>
@@ -45,7 +45,7 @@
 					{#if isDesktop}Поставьте Kato.one на компьютер{:else}Поставьте Kato.one на экран
 						«Домой»{/if}
 				</h2>
-				<ul class="space-y-2">
+				<ul class="space-y-1 text-sm opacity-70">
 					<li>
 						{#if isDesktop}✓ Открывается в своём окне, из Dock или с панели задач{:else}✓
 							Открывается одним касанием, на весь экран, без адресной строки{/if}
