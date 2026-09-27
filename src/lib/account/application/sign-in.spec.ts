@@ -18,7 +18,10 @@ const storeOn = (indexedDB: IDBFactory | undefined): AccountStore =>
 
 const newStore = (): AccountStore => storeOn(new IDBFactory());
 
-const authenticator = { createKey: () => Promise.resolve(NEW_KEY) };
+const authenticator = {
+	confirmKey: () => Promise.resolve(undefined),
+	createKey: () => Promise.resolve(NEW_KEY)
+};
 
 describe('запрос кода подтверждения', () => {
 	it('заводит Аккаунт по никнейму и почте и выпускает ему код', async () => {

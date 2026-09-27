@@ -1,6 +1,11 @@
 import type { SignedIn } from '../lib/account/application/sign-in.ts';
 import type { LayoutData } from '../routes/+layout.ts';
 
+import {
+	requestBrowserEmailCode,
+	signedInBrowserAccount,
+	signInBrowser
+} from '../lib/account/interface/browser-account.ts';
 import { ACCOUNT } from './session-fixtures.ts';
 
 export const SIGNED_IN: SignedIn = {
@@ -28,3 +33,11 @@ export const signedInLayout = (): Promise<LayoutData> =>
 
 export const serveNoContent = (): Promise<Response> =>
 	Promise.resolve(new Response(null, { status: 204 }));
+
+export const signedInBrowserAs = async (nickname: string, email: string): Promise<SignedIn> => {
+	const person = await requestBrowserEmailCode(nickname, email);
+	const authSession = await signInBrowser(person, '000000', serveNoContent);
+	const signedIn = await signedInBrowserAccount(authSession?.id ?? null);
+	if (signedIn === undefined) throw new Error('вход не состоялся');
+	return signedIn;
+};

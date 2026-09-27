@@ -1,9 +1,11 @@
 import type { AuthSession } from '../domain/auth-session.ts';
 import type { Credential, NewCredential } from '../domain/credential.ts';
+import type { DeviceAccount } from '../domain/device-account.ts';
 import type { Person } from '../domain/person.ts';
 
 export type { AuthSession } from '../domain/auth-session.ts';
 export type { Credential, NewCredential } from '../domain/credential.ts';
+export type { DeviceAccount } from '../domain/device-account.ts';
 export type { Person } from '../domain/person.ts';
 
 const ACCOUNTS_UNAVAILABLE = 'Устройство не хранит Аккаунты';
@@ -21,8 +23,10 @@ export interface AccountStore {
 	attachKey: (account: string, key: NewCredential) => Promise<Credential>;
 	authSession: (session: string) => Promise<AuthSession | undefined>;
 	confirmEmail: (account: string, code: string) => Promise<boolean>;
+	forgetAccount: (account: string) => Promise<void>;
 	issueEmailCode: (account: string) => Promise<void>;
 	keysOf: (account: string) => Promise<readonly Credential[]>;
+	knownAccounts: () => Promise<readonly DeviceAccount[]>;
 	registerAccount: (nickname: string, email: string) => Promise<Person>;
 	revokeOtherSessions: (account: string, keep: string) => Promise<void>;
 	revokeSession: (session: string) => Promise<void>;

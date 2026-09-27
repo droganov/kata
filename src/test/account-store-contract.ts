@@ -234,5 +234,81 @@ export const describeAccountStoreContract = (
 			expect(await store.sessionsOf(person.id)).toEqual([current]);
 			expect(await store.sessionsOf(other.id)).toEqual([foreign]);
 		});
+
+		it('без входов не знает ни одного Аккаунта устройства', async () => {
+			const store = createStore(() => SIGNED_UP_AT);
+			await store.registerAccount('Sergei', EMAIL);
+			expect(await store.knownAccounts()).toEqual([]);
+		});
+
+		it('вписывает каждого, кто входил на устройстве, последний вход первым', async () => {
+			let now = SIGNED_UP_AT;
+			const store = createStore(() => now);
+			const person = await store.registerAccount('Sergei', EMAIL);
+			const other = await store.registerAccount('Anna', OTHER_EMAIL);
+			const key = await store.attachKey(person.id, NEW_KEY);
+			const otherKey = await store.attachKey(other.id, { ...NEW_KEY, credentialId: 'babe' });
+			await store.signIn(person.id, key.id, DEVICE);
+			now = minutesAfterSignUp(1);
+			await store.signIn(other.id, otherKey.id, DEVICE);
+			now = minutesAfterSignUp(2);
+			await store.signIn(person.id, key.id, DEVICE);
+			expect(await store.knownAccounts()).toEqual([
+				{
+					account: person.id,
+					key: key.id,
+					nickname: 'Sergei',
+					signedInAt: minutesAfterSignUp(2).toISOString()
+				},
+				{
+					account: other.id,
+					key: otherKey.id,
+					nickname: 'Anna',
+					signedInAt: minutesAfterSignUp(1).toISOString()
+				}
+			]);
+		});
+
+		it('убирает запись из списка устройства, Аккаунт, ключи и Сеансы остаются', async () => {
+			const store = createStore(() => SIGNED_UP_AT);
+			const person = await store.registerAccount('Sergei', EMAIL);
+			const key = await store.attachKey(person.id, NEW_KEY);
+			const session = await store.signIn(person.id, key.id, DEVICE);
+			await store.forgetAccount(person.id);
+			await store.forgetAccount(person.id);
+			await store.forgetAccount(UNKNOWN);
+			expect(await store.knownAccounts()).toEqual([]);
+			expect(await store.account(person.id)).toEqual(person);
+			expect(await store.keysOf(person.id)).toHaveLength(1);
+			expect(await store.authSession(session.id)).toEqual(session);
+		});
+
+		it('после повторного входа возвращает убранную запись', async () => {
+			let now = SIGNED_UP_AT;
+			const store = createStore(() => now);
+			const person = await store.registerAccount('Sergei', EMAIL);
+			const key = await store.attachKey(person.id, NEW_KEY);
+			await store.signIn(person.id, key.id, DEVICE);
+			await store.forgetAccount(person.id);
+			now = minutesAfterSignUp(5);
+			await store.signIn(person.id, key.id, DEVICE);
+			expect(await store.knownAccounts()).toEqual([
+				{
+					account: person.id,
+					key: key.id,
+					nickname: 'Sergei',
+					signedInAt: now.toISOString()
+				}
+			]);
+		});
+
+		it('чужим ключом в список устройства не вписывает', async () => {
+			const store = createStore(() => SIGNED_UP_AT);
+			const person = await store.registerAccount('Sergei', EMAIL);
+			const other = await store.registerAccount('Anna', OTHER_EMAIL);
+			const key = await store.attachKey(other.id, NEW_KEY);
+			await expect(store.signIn(person.id, key.id, DEVICE)).rejects.toThrow(UnknownKeyError);
+			expect(await store.knownAccounts()).toEqual([]);
+		});
 	});
 };

@@ -9,6 +9,7 @@ const INTERNAL_TRANSPORT = 'internal';
 export const createStubAuthenticator = (
 	randomBytes: (length: number) => Uint8Array
 ): Authenticator => ({
+	confirmKey: ([key]) => Promise.resolve(key),
 	createKey: () =>
 		Promise.resolve({
 			backedUp: true,

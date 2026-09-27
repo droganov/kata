@@ -1,4 +1,10 @@
-import type { AccountStore, AuthSession, NewCredential, Person } from './account-store.ts';
+import type {
+	AccountStore,
+	AuthSession,
+	Credential,
+	NewCredential,
+	Person
+} from './account-store.ts';
 
 import { isLive } from '../domain/auth-session.ts';
 import { emailOf, nicknameOf } from '../domain/person.ts';
@@ -7,6 +13,7 @@ import { AccountsUnavailableError } from './account-store.ts';
 export { InvalidEmailError } from '../domain/person.ts';
 
 export interface Authenticator {
+	confirmKey: (keys: readonly Credential[]) => Promise<Credential | undefined>;
 	createKey: (account: Person) => Promise<NewCredential>;
 }
 

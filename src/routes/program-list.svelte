@@ -9,11 +9,11 @@
 		isSessionRedrawable,
 		redrawBrowserSession
 	} from '../lib/session/interface/browser-session.ts';
+	import AccountMenu from './account-menu.svelte';
 
 	let { data }: { data: ProgramList } = $props();
 
 	const PROGRAM_PATH = '/programs/';
-	const ACCOUNT_PATH = '/account';
 
 	const sessionOf = (program: string): ActiveSession | undefined =>
 		data.sessions.find((session) => session.view.program === program);
@@ -34,7 +34,7 @@
 <main class="mx-auto max-w-xl space-y-4 p-4">
 	<header class="flex items-center justify-between gap-3">
 		<h1 class="text-2xl font-bold">Программы</h1>
-		<a class="btn btn-ghost btn-sm" href={ACCOUNT_PATH}>{data.signedIn.account.nickname}</a>
+		<AccountMenu accounts={data.accounts} signedIn={data.signedIn} />
 	</header>
 	<ul class="space-y-3">
 		{#each data.programs as program (program.id)}

@@ -4,11 +4,14 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
 	browserAccount,
 	browserAuthSessions,
+	forgetBrowserAccount,
+	otherBrowserAccounts,
 	requestBrowserEmailCode,
 	revokeBrowserAuthSession,
 	revokeOtherBrowserAuthSessions,
 	signedInBrowserAccount,
-	signInBrowser
+	signInBrowser,
+	switchBrowserAccount
 } from './browser-account.ts';
 
 const NO_CONTENT = 204;
@@ -17,8 +20,8 @@ const IPHONE =
 
 const serveCookie = vi.fn(() => Promise.resolve(new Response(null, { status: NO_CONTENT })));
 
-const signedInWith = async (email = 'sergei@example.com'): Promise<string> => {
-	const person = await requestBrowserEmailCode('Sergei', email);
+const signedInWith = async (email = 'sergei@example.com', nickname = 'Sergei'): Promise<string> => {
+	const person = await requestBrowserEmailCode(nickname, email);
 	const session = await signInBrowser(person, '000000', serveCookie);
 	return session!.id;
 };
@@ -85,6 +88,30 @@ describe('Вход в браузере', () => {
 		await revokeOtherBrowserAuthSessions(signedIn!);
 		const sessions = await browserAuthSessions(signedIn!.account.id);
 		expect(sessions.map((session) => session.id)).toEqual([current]);
+	});
+
+	it('переключается на другой Аккаунт устройства и просит сервер поставить его куку', async () => {
+		await signedInWith('anna@example.com', 'Anna');
+		const current = await signedInBrowserAccount(await signedInWith());
+		const [anna] = await otherBrowserAccounts(current!);
+		serveCookie.mockClear();
+		const switched = await switchBrowserAccount(current!, anna!, serveCookie);
+		expect(await signedInBrowserAccount(switched!.id)).toMatchObject({
+			account: { nickname: 'Anna' }
+		});
+		expect(await signedInBrowserAccount(current!.authSession.id)).toBeUndefined();
+		expect(serveCookie).toHaveBeenCalledWith(
+			'/auth/session',
+			expect.objectContaining({ body: JSON.stringify({ authSession: switched!.id }) })
+		);
+	});
+
+	it('убирает Аккаунт из списка устройства', async () => {
+		await signedInWith('anna@example.com', 'Anna');
+		const current = await signedInBrowserAccount(await signedInWith());
+		const [anna] = await otherBrowserAccounts(current!);
+		await forgetBrowserAccount(anna!.account);
+		expect(await otherBrowserAccounts(current!)).toEqual([]);
 	});
 
 	it('без IndexedDB вошедшим не считает', async () => {

@@ -216,6 +216,7 @@ const DOMAIN_PUBLIC_API = {
 	account: [
 		'AuthSession',
 		'Credential',
+		'DeviceAccount',
 		'EmailCode',
 		'HANDLE_BYTES',
 		'InvalidEmailError',
@@ -226,6 +227,7 @@ const DOMAIN_PUBLIC_API = {
 		'expiryOf',
 		'isCodeUsable',
 		'isLive',
+		'lastSignedInFirst',
 		'newestFirst',
 		'nicknameOf'
 	],

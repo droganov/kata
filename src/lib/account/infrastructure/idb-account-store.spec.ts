@@ -11,7 +11,8 @@ import { AccountsUnavailableError } from '../application/account-store.ts';
 import { createIdbAccountStore } from './idb-account-store.ts';
 
 const STORED_DATABASE = 'training-account';
-const NEWER_VERSION = 2;
+const FIRST_VERSION = 1;
+const NEWER_VERSION = 3;
 const EMAIL = 'sergei@example.com';
 
 const randomBytes = (length: number): Uint8Array => crypto.getRandomValues(new Uint8Array(length));
@@ -37,6 +38,40 @@ const newerDatabaseFactory = async (): Promise<IDBFactory> => {
 		request.addEventListener('success', () => {
 			request.result.close();
 			resolve();
+		});
+	});
+	return factory;
+};
+
+const STORED_PERSON = {
+	createdAt: '2026-09-27T08:00:00.000Z',
+	email: EMAIL,
+	emailVerifiedAt: '2026-09-27T08:01:00.000Z',
+	handle: 'ab'.repeat(64),
+	id: '01a0e029-5400-7000-8000-000000000009',
+	nickname: 'Sergei'
+};
+
+const firstVersionFactory = async (): Promise<IDBFactory> => {
+	const factory = new IDBFactory();
+	await new Promise<void>((resolve) => {
+		const request = factory.open(STORED_DATABASE, FIRST_VERSION);
+		request.addEventListener('upgradeneeded', () => {
+			request.result
+				.createObjectStore('person', { keyPath: 'id' })
+				.createIndex('email', 'email', { unique: true });
+			for (const table of ['email_code', 'credential', 'auth_session'])
+				request.result
+					.createObjectStore(table, { keyPath: 'id' })
+					.createIndex('account', 'account');
+		});
+		request.addEventListener('success', () => {
+			const transaction = request.result.transaction('person', 'readwrite');
+			transaction.objectStore('person').add(STORED_PERSON);
+			transaction.addEventListener('complete', () => {
+				request.result.close();
+				resolve();
+			});
 		});
 	});
 	return factory;
@@ -87,6 +122,12 @@ describe('Хранилище Аккаунтов при отказе устрой
 			throw new DOMException('Место на устройстве закончилось', 'QuotaExceededError');
 		});
 		await expect(store.issueEmailCode(person.id)).rejects.toThrow(AccountsUnavailableError);
+	});
+
+	it('поднимает базу первой версии, Аккаунты остаются, список устройства пуст', async () => {
+		const store = storeOn(await firstVersionFactory());
+		expect(await store.account(STORED_PERSON.id)).toEqual(STORED_PERSON);
+		expect(await store.knownAccounts()).toEqual([]);
 	});
 
 	it('уступает базу новой версии приложения', async () => {

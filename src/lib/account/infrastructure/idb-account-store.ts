@@ -2,6 +2,7 @@ import type {
 	AccountStore,
 	AuthSession,
 	Credential,
+	DeviceAccount,
 	NewCredential,
 	Person
 } from '../application/account-store.ts';
@@ -15,17 +16,27 @@ import {
 	UnknownKeyError
 } from '../application/account-store.ts';
 import { isLive, newestFirst } from '../domain/auth-session.ts';
+import { lastSignedInFirst } from '../domain/device-account.ts';
 import { expiryOf, isCodeUsable } from '../domain/email-code.ts';
 import { HANDLE_BYTES } from '../domain/person.ts';
-import { isAuthSession, isCredential, isEmailCode, isPerson } from './account-records.ts';
+import {
+	isAuthSession,
+	isCredential,
+	isDeviceAccount,
+	isEmailCode,
+	isPerson
+} from './account-records.ts';
 
 const DATABASE_NAME = 'training-account';
-const DATABASE_VERSION = 1;
+const DATABASE_VERSION = 2;
+const EMPTY_VERSION = 0;
 const PERSON = 'person';
 const EMAIL_CODE = 'email_code';
 const CREDENTIAL = 'credential';
 const AUTH_SESSION = 'auth_session';
+const DEVICE_ACCOUNT = 'device_account';
 const ID_KEY = 'id';
+const ACCOUNT_KEY = 'account';
 const EMAIL_INDEX = 'email';
 const ACCOUNT_INDEX = 'account';
 const READ_ONLY = 'readonly';
@@ -49,7 +60,12 @@ export interface AccountStoreDeps {
 
 type Outcome<Value> = () => Value;
 
-type Table = typeof AUTH_SESSION | typeof CREDENTIAL | typeof EMAIL_CODE | typeof PERSON;
+type Table =
+	| typeof AUTH_SESSION
+	| typeof CREDENTIAL
+	| typeof DEVICE_ACCOUNT
+	| typeof EMAIL_CODE
+	| typeof PERSON;
 
 type Work<Value> = (transaction: IDBTransaction) => Outcome<Value>;
 
@@ -120,7 +136,8 @@ export const createIdbAccountStore = (deps: AccountStoreDeps): AccountStore => {
 			lastSeenAt: now,
 			revokedAt: null
 		};
-		if (!(await run([CREDENTIAL, AUTH_SESSION], READ_WRITE, addWithOwnKey(session))))
+		const tables = [PERSON, CREDENTIAL, AUTH_SESSION, DEVICE_ACCOUNT] as const;
+		if (!(await run(tables, READ_WRITE, addWithOwnKey(session))))
 			throw new UnknownKeyError(key);
 		return session;
 	};
@@ -139,9 +156,20 @@ export const createIdbAccountStore = (deps: AccountStoreDeps): AccountStore => {
 		authSession: (session) => readOne(AUTH_SESSION, isAuthSession, byId(session)),
 		confirmEmail: (account) =>
 			run([PERSON, EMAIL_CODE], READ_WRITE, confirmUsableCode(account, deps.now())),
+		forgetAccount: async (account) => {
+			await run([DEVICE_ACCOUNT], READ_WRITE, deleteRow(DEVICE_ACCOUNT, account));
+		},
 		issueEmailCode,
 		keysOf: (account) =>
 			run([CREDENTIAL], READ_ONLY, readRows(CREDENTIAL, isCredential, byAccount(account))),
+		knownAccounts: async () =>
+			lastSignedInFirst(
+				await run(
+					[DEVICE_ACCOUNT],
+					READ_ONLY,
+					readRows(DEVICE_ACCOUNT, isDeviceAccount, everyRow)
+				)
+			),
 		registerAccount,
 		revokeOtherSessions: async (account, keep) => {
 			await run(
@@ -172,6 +200,15 @@ const byId =
 	(id: string) =>
 	(records: IDBObjectStore): IDBRequest =>
 		records.get(id);
+
+const everyRow = (records: IDBObjectStore): IDBRequest => records.getAll();
+
+const deleteRow =
+	(table: Table, id: string): Work<undefined> =>
+	(transaction) => {
+		const request = transaction.objectStore(table).delete(id);
+		return () => request.result;
+	};
 
 const readRows =
 	<Row>(
@@ -217,9 +254,25 @@ const addWithOwnKey =
 			if (!isOwn) return;
 			keys.put({ ...credential, lastUsedAt: session.createdAt });
 			transaction.objectStore(AUTH_SESSION).add(session);
+			rememberOnDevice(transaction, session);
 		});
 		return () => isOwn;
 	};
+
+const rememberOnDevice = (transaction: IDBTransaction, session: AuthSession): void => {
+	const found = transaction.objectStore(PERSON).get(session.account);
+	found.addEventListener(SUCCESS_EVENT, () => {
+		for (const person of rowsIn(found, isPerson)) {
+			const known: DeviceAccount = {
+				account: person.id,
+				key: session.key,
+				nickname: person.nickname,
+				signedInAt: session.createdAt
+			};
+			transaction.objectStore(DEVICE_ACCOUNT).put(known);
+		}
+	});
+};
 
 const confirmUsableCode =
 	(account: string, now: Date): Work<boolean> =>
@@ -284,8 +337,8 @@ const openDatabase = async (factory: IDBFactory | undefined): Promise<IDBDatabas
 const openRequest = (factory: IDBFactory): Promise<IDBDatabase> =>
 	new Promise((resolve, reject) => {
 		const request = factory.open(DATABASE_NAME, DATABASE_VERSION);
-		request.addEventListener(UPGRADE_EVENT, () => {
-			createTables(request.result);
+		request.addEventListener(UPGRADE_EVENT, (event) => {
+			createTables(request.result, event.oldVersion);
 		});
 		request.addEventListener(SUCCESS_EVENT, () => {
 			resolve(closingOnVersionChange(request.result));
@@ -302,7 +355,12 @@ const closingOnVersionChange = (database: IDBDatabase): IDBDatabase => {
 	return database;
 };
 
-const createTables = (database: IDBDatabase): void => {
+const createTables = (database: IDBDatabase, oldVersion: number): void => {
+	if (oldVersion === EMPTY_VERSION) createAccountTables(database);
+	database.createObjectStore(DEVICE_ACCOUNT, { keyPath: ACCOUNT_KEY });
+};
+
+const createAccountTables = (database: IDBDatabase): void => {
 	database
 		.createObjectStore(PERSON, { keyPath: ID_KEY })
 		.createIndex(EMAIL_INDEX, EMAIL_INDEX, { unique: true });

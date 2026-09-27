@@ -1,4 +1,9 @@
-import type { AuthSession, Credential, Person } from '../application/account-store.ts';
+import type {
+	AuthSession,
+	Credential,
+	DeviceAccount,
+	Person
+} from '../application/account-store.ts';
 import type { EmailCode } from '../domain/email-code.ts';
 
 const OBJECT_KIND = 'object';
@@ -9,6 +14,7 @@ const PERSON_FIELDS = ['createdAt', 'email', 'handle', 'id', 'nickname'];
 const CREDENTIAL_FIELDS = ['account', 'createdAt', 'credentialId', 'id', 'publicKey'];
 const AUTH_SESSION_FIELDS = ['account', 'createdAt', 'deviceLabel', 'id', 'key', 'lastSeenAt'];
 const EMAIL_CODE_FIELDS = ['account', 'codeHash', 'expiresAt', 'id'];
+const DEVICE_ACCOUNT_FIELDS = ['account', 'key', 'nickname', 'signedInAt'];
 
 type StoredRecord = Readonly<Record<string, unknown>>;
 
@@ -26,6 +32,9 @@ export const isCredential = (value: unknown): value is Credential =>
 
 export const isAuthSession = (value: unknown): value is AuthSession =>
 	hasStrings(value, AUTH_SESSION_FIELDS) && isRecord(value) && isMoment(value.revokedAt);
+
+export const isDeviceAccount = (value: unknown): value is DeviceAccount =>
+	hasStrings(value, DEVICE_ACCOUNT_FIELDS);
 
 export const isEmailCode = (value: unknown): value is EmailCode =>
 	hasStrings(value, EMAIL_CODE_FIELDS) && isRecord(value) && isMoment(value.usedAt);
