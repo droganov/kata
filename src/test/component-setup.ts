@@ -3,6 +3,7 @@ import { cleanup } from '@testing-library/svelte';
 import { afterEach, vi } from 'vitest';
 
 import '../routes/layout.css';
+import { connectionStub, resetConnectionStub } from './connection-stub.ts';
 
 const CLIPBOARD = 'clipboard';
 const EMPTY_TEXT = '';
@@ -18,7 +19,13 @@ Object.defineProperty(navigator, CLIPBOARD, {
 	writable: true
 });
 
+vi.mock(import('../routes/connection.svelte.ts'), async (original) => ({
+	...(await original()),
+	browserConnection: connectionStub
+}));
+
 afterEach(() => {
 	cleanup();
 	vi.restoreAllMocks();
+	resetConnectionStub();
 });

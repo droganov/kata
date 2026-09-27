@@ -7,7 +7,10 @@ import type { Fetch } from '../../../lib/session/interface/browser-session.ts';
 import type { SessionScreen } from '../../../lib/session/interface/session-screen.ts';
 
 import { SIGNED_OUT } from '../../../lib/account/interface/browser-account.ts';
-import { startBrowserSession } from '../../../lib/session/interface/browser-session.ts';
+import {
+	SESSION_DEPENDENCY,
+	startBrowserSession
+} from '../../../lib/session/interface/browser-session.ts';
 import { sessionScreenOf } from '../../../lib/session/interface/session-screen.ts';
 
 export interface SessionPage extends SessionScreen {
@@ -19,15 +22,18 @@ const TEMPORARY_REDIRECT = 307;
 
 export const load = async ({
 	data,
+	depends,
 	fetch,
 	parent,
 	url
 }: {
 	readonly data: { readonly program: ProgramCardView };
+	readonly depends: (...dependencies: `${string}:${string}`[]) => void;
 	readonly fetch: Fetch;
 	readonly parent: () => Promise<LayoutData>;
 	readonly url: URL;
 }): Promise<SessionPage | SignedOut> => {
+	depends(SESSION_DEPENDENCY);
 	const { signedIn } = await parent();
 	if (signedIn === undefined) return SIGNED_OUT;
 	const started = await startBrowserSession(signedIn.account.id, data.program, fetch);

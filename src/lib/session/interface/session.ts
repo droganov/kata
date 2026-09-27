@@ -9,8 +9,8 @@ import { BUNDLED_TABLES } from '../infrastructure/bundled-tables.ts';
 import { cryptoSeed } from '../infrastructure/crypto-seed.ts';
 import { createTableGateways } from '../infrastructure/table-gateways.ts';
 
-export { NOTHING_TO_REDRAW } from '../infrastructure/session-endpoint.ts';
-export { historyOf, redrawOf } from '../infrastructure/session-records.ts';
+export { MARKS_DELIVERED, NOTHING_TO_REDRAW } from '../infrastructure/session-endpoint.ts';
+export { historyOf, redrawOf, sentMarksOf } from '../infrastructure/session-records.ts';
 
 export interface SessionUseCases {
 	assembleSession: (programId: string, history: readonly Performed[]) => SessionView;

@@ -8,6 +8,7 @@ import type { ActiveSession, SessionMark, Store } from '../../../lib/session/app
 import { createBrowserStore } from '../../../lib/session/infrastructure/browser-store.ts';
 import { sessionScreenOf } from '../../../lib/session/interface/session-screen.ts';
 import { SIGNED_IN } from '../../../test/account-fixtures.ts';
+import { connectionStub, goOffline } from '../../../test/connection-stub.ts';
 import Page from './+page.svelte';
 
 vi.mock('$app/navigation', () => ({ goto: vi.fn() }));
@@ -233,7 +234,7 @@ describe('экран прохождения Занятия', () => {
 		renderAt(await openedWith());
 		await fireEvent.click(screen.getByRole('button', { name: 'Выполнено' }));
 		expect(await storedMarks()).toEqual([{ ord: 1, status: 'done' }]);
-		expect(goto).toHaveBeenCalledWith('?item=2', { invalidateAll: true });
+		expect(goto).toHaveBeenCalledWith('?item=2', { invalidate: ['training:session'] });
 	});
 
 	it('Отметка «пропущено» ведёт к следующему Упражнению через границу Блока', async () => {
@@ -243,7 +244,7 @@ describe('экран прохождения Занятия', () => {
 			{ ord: 1, status: 'done' },
 			{ ord: 2, status: 'skipped' }
 		]);
-		expect(goto).toHaveBeenCalledWith('?item=3', { invalidateAll: true });
+		expect(goto).toHaveBeenCalledWith('?item=3', { invalidate: ['training:session'] });
 	});
 
 	it('открывает Позицию из адреса с её Отметкой и меняет Отметку', async () => {
@@ -252,7 +253,7 @@ describe('экран прохождения Занятия', () => {
 		expect(screen.getByText('выполнено', { selector: '.badge' })).toBeInTheDocument();
 		await fireEvent.click(screen.getByRole('button', { name: 'Пропущено' }));
 		expect(await storedMarks()).toEqual([{ ord: 1, status: 'skipped' }]);
-		expect(goto).toHaveBeenCalledWith('?item=2', { invalidateAll: true });
+		expect(goto).toHaveBeenCalledWith('?item=2', { invalidate: ['training:session'] });
 	});
 
 	it('стрелки ведут адресом к соседним Позициям через границы Блоков', async () => {
@@ -302,7 +303,7 @@ describe('экран прохождения Занятия', () => {
 		await fireEvent.click(screen.getByRole('button', { name: 'Заменить' }));
 		await fireEvent.click(screen.getByRole('button', { name: /Другое Упражнение/v }));
 		await vi.waitFor(() => {
-			expect(goto).toHaveBeenCalledWith('?item=3', { invalidateAll: true });
+			expect(goto).toHaveBeenCalledWith('?item=3', { invalidate: ['training:session'] });
 		});
 		expect(await asked[0]!.json()).toMatchObject({ redraw: { level: 'exercise', ord: 3 } });
 		const active = await store().activeSession(ACCOUNT);
@@ -352,5 +353,44 @@ describe('экран прохождения Занятия', () => {
 	it('один раз предупреждает, что История не сохраняется', async () => {
 		renderAt(await openedWith(), '', true);
 		expect(screen.getByRole('alert')).toHaveTextContent('История не сохраняется');
+	});
+});
+
+describe('экран прохождения без связи', () => {
+	it('на связи индикатора нет, связь проверяется по Аккаунту Занятия', async () => {
+		renderAt(await openedWith());
+		expect(connectionStub.sync).toHaveBeenCalledWith(ACCOUNT);
+		expect(screen.queryByText('Нет связи')).not.toBeInTheDocument();
+	});
+
+	it('постоянно говорит, что Отметки сохраняются, и считает неотправленные', async () => {
+		goOffline(3);
+		renderAt(await openedWith());
+		const status = screen.getByRole('status');
+		expect(status).toHaveTextContent('Нет связи');
+		expect(status).toHaveTextContent('Отметки сохраняются на устройстве');
+		expect(within(status).getByText('не отправлено 3')).toBeInTheDocument();
+	});
+
+	it('без неотправленных счётчик не показывает', async () => {
+		goOffline(0);
+		renderAt(await openedWith());
+		expect(screen.getByRole('status')).not.toHaveTextContent('не отправлено');
+	});
+
+	it('Отметка без связи сохраняется, ведёт дальше без сервера и будит отправку', async () => {
+		goOffline(1);
+		renderAt(await openedWith());
+		connectionStub.sync.mockClear();
+		await fireEvent.click(screen.getByRole('button', { name: 'Выполнено' }));
+		expect(await storedMarks()).toEqual([{ ord: 1, status: 'done' }]);
+		expect(connectionStub.sync).toHaveBeenCalledWith(ACCOUNT);
+		expect(goto).toHaveBeenCalledWith('?item=2', { invalidate: ['training:session'] });
+	});
+
+	it('без связи замену не предлагает', async () => {
+		goOffline();
+		renderAt(await openedWith(), '?item=3');
+		expect(screen.queryByRole('button', { name: 'Заменить' })).not.toBeInTheDocument();
 	});
 });

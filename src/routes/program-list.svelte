@@ -3,6 +3,7 @@
 
 	import type { ActiveSession } from '../lib/session/application/store.ts';
 	import type { ProgramList } from './+page.ts';
+	import type { Connection } from './connection.svelte.ts';
 
 	import {
 		cancelBrowserSession,
@@ -10,8 +11,10 @@
 		redrawBrowserSession
 	} from '../lib/session/interface/browser-session.ts';
 	import AccountMenu from './account-menu.svelte';
+	import { browserConnection } from './connection.svelte.ts';
 
-	let { data }: { data: ProgramList } = $props();
+	let { connection = browserConnection, data }: { connection?: Connection; data: ProgramList } =
+		$props();
 
 	const PROGRAM_PATH = '/programs/';
 
@@ -23,6 +26,12 @@
 		await cancelBrowserSession(session.account);
 		await invalidateAll();
 	};
+	const account = $derived(data.signedIn.account.id);
+
+	$effect(() => {
+		void connection.sync(account);
+	});
+
 	const redraw = async (session: ActiveSession): Promise<void> => {
 		await redrawBrowserSession(session, fetch);
 		await goto(PROGRAM_PATH + session.view.program, { invalidateAll: true });
@@ -36,13 +45,20 @@
 		<h1 class="text-2xl font-bold">Программы</h1>
 		<AccountMenu accounts={data.accounts} signedIn={data.signedIn} />
 	</header>
+	{#if connection.isOffline}
+		<p class="alert" role="status">
+			Нет связи. Начать Занятие нельзя: его собирает сервер. Начатое Занятие продолжается.
+		</p>
+	{/if}
 	<ul class="space-y-3">
 		{#each data.programs as program (program.id)}
 			{@const session = sessionOf(program.id)}
 			<li class="card bg-base-200">
 				<div class="card-body gap-3 p-4">
 					<h2 class="card-title text-lg">{program.title}</h2>
-					{#if session === undefined}
+					{#if session === undefined && connection.isOffline}
+						<button class="btn btn-block" disabled type="button">Начать Занятие</button>
+					{:else if session === undefined}
 						<a class="btn btn-block btn-neutral" href="{PROGRAM_PATH}{program.id}"
 							>Начать Занятие</a
 						>
@@ -54,7 +70,7 @@
 							<a class="btn btn-neutral" href="{PROGRAM_PATH}{program.id}"
 								>Продолжить</a
 							>
-							{#if isSessionRedrawable(session)}
+							{#if isSessionRedrawable(session) && !connection.isOffline}
 								<button
 									class="btn btn-outline"
 									onclick={() => redraw(session)}

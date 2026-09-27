@@ -1,7 +1,9 @@
 import type { Redrawn, SessionItemView, SessionView } from '../application/session-views.ts';
 import type { ActiveSession, Performed, Rejected } from '../application/store.ts';
+import type { UnsentMark } from '../application/unsent-marks.ts';
 import type { Redraw, RedrawOptions, SessionItemRef } from '../domain/redraw.ts';
 
+import { MARK_STATUS } from '../application/store.ts';
 import { isRedrawLevel } from '../domain/redraw.ts';
 
 const OBJECT_KIND = 'object';
@@ -13,6 +15,8 @@ const EQUIPMENT_FIELDS = ['name', 'role'];
 const TARGET_FIELDS = ['names', 'role'];
 const STEP_FIELDS = ['id', 'title'];
 const ORACLE_FIELDS = ['id', 'predicate'];
+const UNSENT_MARK_FIELDS = ['exercise', 'markedAt', 'program'];
+const MARK_STATUSES: readonly unknown[] = Object.values(MARK_STATUS);
 
 type StoredRecord = Readonly<Record<string, unknown>>;
 
@@ -21,6 +25,12 @@ export const activeSessionOf = (text: null | string): ActiveSession | undefined 
 	const parsed = parsedOf(text);
 	return isActiveSession(parsed) ? parsed : undefined;
 };
+
+export const unsentMarksOf = (text: null | string): readonly UnsentMark[] =>
+	(text === null ? undefined : listOf(parsedOf(text), isUnsentMark)) ?? [];
+
+export const sentMarksOf = (body: unknown): readonly UnsentMark[] | undefined =>
+	isRecord(body) ? listOf(body.marks, isUnsentMark) : undefined;
 
 export const historyOf = (body: unknown): readonly Performed[] =>
 	isRecord(body) ? performedOf(body.history) : [];
@@ -87,6 +97,14 @@ const hasStrings = (value: unknown, fields: readonly string[]): boolean =>
 const isListOf = (value: unknown, isEntry: (entry: unknown) => boolean): boolean =>
 	Array.isArray(value) && value.every((entry) => isEntry(entry));
 
+const listOf = <Entry>(
+	value: unknown,
+	isEntry: (entry: unknown) => entry is Entry
+): readonly Entry[] | undefined =>
+	Array.isArray(value) && value.every((entry) => isEntry(entry))
+		? value.filter((entry) => isEntry(entry))
+		: undefined;
+
 const isString = (value: unknown): boolean => typeof value === STRING_KIND;
 
 const isActiveSession = (value: unknown): value is ActiveSession =>
@@ -97,6 +115,13 @@ const isActiveSession = (value: unknown): value is ActiveSession =>
 	typeof value.openedAt === STRING_KIND &&
 	isRejected(value.rejected) &&
 	isSessionView(value.view);
+
+const isUnsentMark = (value: unknown): value is UnsentMark =>
+	hasStrings(value, UNSENT_MARK_FIELDS) &&
+	isRecord(value) &&
+	typeof value.ord === NUMBER_KIND &&
+	typeof value.seed === NUMBER_KIND &&
+	MARK_STATUSES.includes(value.status);
 
 const isPerformed = (value: unknown): value is Performed =>
 	isRecord(value) && typeof value.doneAt === STRING_KIND && typeof value.exercise === STRING_KIND;

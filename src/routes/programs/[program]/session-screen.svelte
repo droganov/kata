@@ -6,13 +6,15 @@
 		SessionMark
 	} from '../../../lib/session/interface/browser-session.ts';
 	import type { SessionScreen } from '../../../lib/session/interface/session-screen.ts';
+	import type { Connection } from '../../connection.svelte.ts';
 
 	import { nextAfterMark, placeOf } from '../../../lib/session/application/session-place.ts';
 	import { MARK_STATUS } from '../../../lib/session/application/store.ts';
 	import {
 		markBrowserSession,
 		REDRAW_LEVEL,
-		redrawBrowserSessionItem
+		redrawBrowserSessionItem,
+		SESSION_DEPENDENCY
 	} from '../../../lib/session/interface/browser-session.ts';
 	import {
 		closeDisclosure,
@@ -20,8 +22,11 @@
 		openDisclosure,
 		sessionItemAddress
 	} from '../../../lib/session/interface/session-screen.ts';
+	import { browserConnection } from '../../connection.svelte.ts';
+	import OfflineNotice from '../../offline-notice.svelte';
 
-	let { data }: { data: SessionScreen } = $props();
+	let { connection = browserConnection, data }: { connection?: Connection; data: SessionScreen } =
+		$props();
 
 	const EQUIPMENT_DISCLOSURE = 'equipment';
 	const PROGRAM_LIST_PATH = '/';
@@ -35,6 +40,12 @@
 	} as const;
 
 	const session = $derived(data.session);
+	const account = $derived(data.session.account);
+
+	$effect(() => {
+		void connection.sync(account);
+	});
+
 	let unredrawable = $state<number | undefined>();
 	let replacingAt = $state<number | undefined>();
 	const place = $derived(data.current === undefined ? undefined : placeOf(session, data.current));
@@ -46,17 +57,19 @@
 
 	const mark = async (ord: number, status: SessionMark['status']): Promise<void> => {
 		const marked = await markBrowserSession(session.account, { ord, status });
+		void connection.sync(session.account);
 		if (marked.isFinalized) await goto(PROGRAM_PATH + session.view.program + FINISHED_PATH);
 		else
 			await goto(sessionItemAddress(nextAfterMark(marked.session, ord)), {
-				invalidateAll: true
+				invalidate: [SESSION_DEPENDENCY]
 			});
 	};
 	const redraw = async (ord: number, level: RedrawLevel): Promise<void> => {
 		unredrawable = undefined;
 		replacingAt = undefined;
 		const redrawn = await redrawBrowserSessionItem(session, level, ord, fetch);
-		if (redrawn.isRedrawn) await goto(sessionItemAddress(ord), { invalidateAll: true });
+		if (redrawn.isRedrawn)
+			await goto(sessionItemAddress(ord), { invalidate: [SESSION_DEPENDENCY] });
 		else unredrawable = ord;
 	};
 	const toggleAddress = (ord: number, block: string): string =>
@@ -168,6 +181,7 @@
 					</li>
 				{/each}
 			</ol>
+			<OfflineNotice {connection} />
 			{#if shownBlock !== undefined}
 				<ol
 					class="max-h-[50dvh] divide-y divide-base-300 overflow-y-auto rounded-box bg-base-200 px-3 text-sm"
@@ -209,7 +223,7 @@
 			<h1 class="text-4xl leading-tight font-bold">{item.name}</h1>
 			<div class="flex items-center justify-between gap-3">
 				<p class="text-2xl font-semibold tabular-nums opacity-80">{item.dose}</p>
-				{#if place.mark === undefined && (item.isExerciseRedrawable || item.isTargetRedrawable)}
+				{#if place.mark === undefined && !connection.isOffline && (item.isExerciseRedrawable || item.isTargetRedrawable)}
 					<div class="relative">
 						<button
 							class="btn gap-1.5 btn-ghost btn-sm"

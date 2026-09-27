@@ -9,6 +9,7 @@ import {
 	REDRAW_LEVEL,
 	redrawBrowserSession,
 	redrawBrowserSessionItem,
+	sendBrowserMarks,
 	startBrowserSession
 } from './browser-session.ts';
 
@@ -124,5 +125,30 @@ describe('пересборка в браузере', () => {
 			Promise.resolve(Response.json({ ...SESSION_VIEW, seed: 8 }))
 		);
 		expect(redrawn.view.seed).toBe(8);
+	});
+});
+
+describe('sendBrowserMarks', () => {
+	afterEach(() => {
+		vi.unstubAllGlobals();
+	});
+
+	it('Отметки без связи копятся во вкладке и уходят, когда связь вернулась', async () => {
+		vi.stubGlobal('sessionStorage', memoryStorage());
+		vi.stubGlobal('indexedDB', new IDBFactory());
+		await startBrowserSession(ACCOUNT, PROGRAM_CARD, serveSessionView);
+		await markBrowserSession(ACCOUNT, { ord: 1, status: 'done' });
+		await markBrowserSession(ACCOUNT, { ord: 2, status: 'skipped' });
+		const offline = await sendBrowserMarks(ACCOUNT, () =>
+			Promise.reject(new TypeError('Failed to fetch'))
+		);
+		expect(offline).toEqual({ isReachable: false, unsent: 2 });
+		const posted: unknown[] = [];
+		const online = await sendBrowserMarks(ACCOUNT, (_input, init) => {
+			if (typeof init?.body === 'string') posted.push(JSON.parse(init.body));
+			return Promise.resolve(new Response(null, { status: 204 }));
+		});
+		expect(online).toEqual({ isReachable: true, unsent: 0 });
+		expect(posted).toMatchObject([{ marks: [{ ord: 1 }, { ord: 2 }] }]);
 	});
 });

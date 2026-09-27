@@ -21,6 +21,7 @@ const MINUTE_MS = 60_000;
 const EXPIRY_MINUTES = 120;
 
 const SIGNED_OUT = { authSession: null };
+const depends = (): void => undefined;
 
 const minutesAgo = (minutes: number): Date => new Date(Date.now() - minutes * MINUTE_MS);
 
@@ -49,7 +50,7 @@ it('при открытии приложения финализирует ист
 	vi.stubGlobal('sessionStorage', memoryStorage());
 	vi.stubGlobal('indexedDB', new IDBFactory());
 	await openedAt(minutesAgo(EXPIRY_MINUTES + 1));
-	expect(await load({ data: SIGNED_OUT })).toEqual({
+	expect(await load({ data: SIGNED_OUT, depends })).toEqual({
 		hasExpiredSession: true,
 		signedIn: undefined
 	});
@@ -62,17 +63,25 @@ it('при открытии приложения не трогает Занят�
 	vi.stubGlobal('sessionStorage', memoryStorage());
 	vi.stubGlobal('indexedDB', new IDBFactory());
 	await openedAt(minutesAgo(EXPIRY_MINUTES - 1));
-	expect(await load({ data: SIGNED_OUT })).toEqual({
+	expect(await load({ data: SIGNED_OUT, depends })).toEqual({
 		hasExpiredSession: false,
 		signedIn: undefined
 	});
 	expect(await storedNow().activeSession(ACCOUNT)).toBeDefined();
 });
 
+it('зависит от Занятия: после Отметки истечение проверяется снова без обращения к серверу', async () => {
+	vi.stubGlobal('sessionStorage', memoryStorage());
+	vi.stubGlobal('indexedDB', new IDBFactory());
+	const declared = vi.fn();
+	await load({ data: SIGNED_OUT, depends: declared });
+	expect(declared).toHaveBeenCalledWith('training:session');
+});
+
 it('без Сеанса в куке вошедшего нет', async () => {
 	vi.stubGlobal('sessionStorage', memoryStorage());
 	vi.stubGlobal('indexedDB', new IDBFactory());
-	expect(await load({ data: SIGNED_OUT })).toMatchObject({ signedIn: undefined });
+	expect(await load({ data: SIGNED_OUT, depends })).toMatchObject({ signedIn: undefined });
 });
 
 it('по Сеансу из куки узнаёт Аккаунт и держит вход между запусками', async () => {
@@ -82,7 +91,7 @@ it('по Сеансу из куки узнаёт Аккаунт и держит 
 	const session = await signInBrowser(person, '000000', serveNoContent);
 	vi.stubGlobal('sessionStorage', memoryStorage());
 	const data = { authSession: session?.id ?? null };
-	const layout = await load({ data });
+	const layout = await load({ data, depends });
 	expect(layout.signedIn?.account.nickname).toBe('Sergei');
 });
 

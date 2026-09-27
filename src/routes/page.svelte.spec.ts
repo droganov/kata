@@ -11,6 +11,7 @@ import {
 } from '../lib/account/interface/browser-account.ts';
 import { createBrowserStore } from '../lib/session/infrastructure/browser-store.ts';
 import { serveNoContent, SIGNED_IN, signedInBrowserAs } from '../test/account-fixtures.ts';
+import { connectionStub, goOffline } from '../test/connection-stub.ts';
 import { SESSION_VIEW } from '../test/store-contract.ts';
 import Page from './+page.svelte';
 
@@ -174,5 +175,38 @@ describe('меню по аватару', () => {
 			expect(invalidateAll).toHaveBeenCalled();
 		});
 		expect(await signedInBrowserAccount(sergei.authSession.id)).toBeUndefined();
+	});
+});
+
+describe('список Программ без связи', () => {
+	it('проверяет связь запросом по Аккаунту вошедшего, пока связь есть, молчит', () => {
+		render(Page, {
+			data: { accounts: [], programs: PROGRAMS, sessions: [], signedIn: SIGNED_IN }
+		});
+		expect(connectionStub.sync).toHaveBeenCalledWith(SIGNED_IN.account.id);
+		expect(screen.queryByRole('status')).not.toBeInTheDocument();
+	});
+
+	it('постоянно говорит, что начать Занятие нельзя, и не даёт начать', () => {
+		goOffline();
+		render(Page, {
+			data: { accounts: [], programs: PROGRAMS, sessions: [], signedIn: SIGNED_IN }
+		});
+		expect(screen.getByRole('status')).toHaveTextContent('Нет связи. Начать Занятие нельзя');
+		expect(screen.queryByRole('link', { name: 'Начать Занятие' })).not.toBeInTheDocument();
+		expect(screen.getAllByRole('button', { name: 'Начать Занятие' })[0]).toBeDisabled();
+	});
+
+	it('начатое Занятие продолжается, а пересобрать его без связи нельзя', async () => {
+		goOffline();
+		const session = await store.openSession(ACCOUNT, SESSION_VIEW);
+		render(Page, {
+			data: { accounts: [], programs: PROGRAMS, sessions: [session], signedIn: SIGNED_IN }
+		});
+		expect(screen.getByRole('link', { name: 'Продолжить' })).toHaveAttribute(
+			'href',
+			'/programs/program-1'
+		);
+		expect(screen.queryByRole('button', { name: 'Пересобрать' })).not.toBeInTheDocument();
 	});
 });

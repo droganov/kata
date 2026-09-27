@@ -1,4 +1,7 @@
 import type { ActiveSession, SessionMark, Store } from './store.ts';
+import type { UnsentMarks } from './unsent-marks.ts';
+
+import { unsentMarkOf } from './unsent-marks.ts';
 
 const EXPIRY_MS = 7_200_000;
 
@@ -18,10 +21,12 @@ export const closeExpiredSessions = async (store: Store, now: Date): Promise<rea
 
 export const markSessionItem = async (
 	store: Store,
+	unsentMarks: UnsentMarks,
 	account: string,
 	mark: SessionMark
 ): Promise<MarkedSession> => {
 	const session = await store.markExercise(account, mark);
+	unsentMarks.keep(account, unsentMarkOf(session, mark));
 	const isFinalized = isEveryItemMarked(session);
 	if (isFinalized) await store.closeSession(account);
 	return { isFinalized, session };
